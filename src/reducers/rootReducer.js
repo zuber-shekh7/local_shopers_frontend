@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { userLoginReducer } from "./userReducers";
+import { userLoginReducer, userSignupReducer } from "./userReducers";
 
 const initialState = {
   userLogin: {
@@ -7,10 +7,14 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("userInfo", null))
       : null,
   },
+  userSignup: {
+    success: null,
+  },
 };
 
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
+  userSignup: userSignupReducer,
 });
 
 export { initialState };

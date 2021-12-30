@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormContainer from "../../components/shared/FormContainer";
 import {
   Row,
@@ -10,20 +10,77 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { userSignup } from "../../actions/userActions";
+import Message from "../../components/shared/Message";
+import Loader from "../../components/shared/Loader";
 
-const SignupPage = () => {
+const SignupPage = ({ history }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { success, error, loading } = useSelector((state) => state.userSignup);
+
+  useEffect(() => {
+    setMessage("");
+  }, []);
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/auth/profile");
+    }
+  }, [userInfo, history]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMessage("");
+    if (
+      !email &&
+      !password &&
+      !confirmPassword &&
+      !mobile &&
+      !firstName &&
+      !lastName
+    ) {
+      setMessage("Please correctly enter all required fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords must match.");
+      return;
+    }
+
+    dispatch(userSignup({ email, password, firstName, lastName, mobile }));
+
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setMessage("");
+    setMobile("");
+    setFirstName("");
+    setLastName("");
+  };
   return (
     <main className="mt-4">
       <h1 className="text-center">Sign Up</h1>
       <FormContainer>
-        <Form>
+        {loading && <Loader />}
+        {error && <Message variant="danger">{error}</Message>}
+        {message && <Message variant="info">{message}</Message>}
+        {success && (
+          <Message variant="success">
+            {"Account Created Successfully. Login Now using your Email."}
+          </Message>
+        )}
+        <Form onSubmit={handleSubmit}>
           <FormGroup className="mb-3">
             <Row>
               <Col sm={12} md={6}>
@@ -52,6 +109,8 @@ const SignupPage = () => {
             <FormLabel>Email</FormLabel>
             <FormControl
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="stevejobs@example.com"
               required
             />
