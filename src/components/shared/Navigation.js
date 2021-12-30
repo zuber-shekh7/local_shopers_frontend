@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const Navigation = () => {
   return (
-    <Navbar className="py-4 shadow sticky" bg="light" expand="lg">
+    <Navbar className="py-4 shadow sticky-top" bg="light" expand="lg">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>Local Shoppers</Navbar.Brand>
