@@ -6,7 +6,7 @@ const UserProtectedRoute = ({ children, ...rest }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
 
   if (!userInfo) {
-    return <Redirect to="/auth/login" />;
+    return <Redirect to="/users/login" />;
   }
 
   return <Route {...rest}>{children}</Route>;

@@ -34,7 +34,7 @@ const SignupPage = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/auth/profile");
+      history.push("/users/profile");
     }
   }, [userInfo, history]);
 
@@ -151,7 +151,7 @@ const SignupPage = ({ history }) => {
           <Row>
             <Col className="text-center">
               <span className="text-lead">Already have an account? </span>
-              <Link to="/auth/login">Log In</Link>
+              <Link to="/users/login">Log In</Link>
             </Col>
           </Row>
         </Form>

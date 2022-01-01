@@ -6,8 +6,8 @@ import AboutUsPage from "./pages/core/AboutUsPage";
 import NotFoundPage from "./pages/core/NotFoundPage";
 import Navigation from "./components/shared/Navigation";
 import Footer from "./components/shared/Footer";
-import LoginPage from "./pages/auth/LoginPage";
-import SignupPage from "./pages/auth/SignupPage";
+import LoginPage from "./pages/users/LoginPage";
+import SignupPage from "./pages/users/SignupPage";
 import UserProfilePage from "./pages/users/UserProfilePage";
 import UserProtectedRoute from "./components/routes/UserProtectedRoute";
 
@@ -22,10 +22,10 @@ const App = () => {
           <Route path="/about" component={AboutUsPage} exact />
 
           {/* auth */}
-          <Route path="/auth/login" component={LoginPage} exact />
-          <Route path="/auth/signup" component={SignupPage} exact />
+          <Route path="/users/login" component={LoginPage} exact />
+          <Route path="/users/signup" component={SignupPage} exact />
           <UserProtectedRoute
-            path="/auth/profile"
+            path="/users/profile"
             component={UserProfilePage}
             exact
           />

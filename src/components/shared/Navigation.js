@@ -27,7 +27,7 @@ const Navigation = () => {
             </LinkContainer>
             {userInfo ? (
               <>
-                <LinkContainer to="/auth/profile">
+                <LinkContainer to="/users/profile">
                   <Nav.Link>Your Account</Nav.Link>
                 </LinkContainer>
 
@@ -35,10 +35,10 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <LinkContainer to="/auth/login">
+                <LinkContainer to="/users/login">
                   <Nav.Link>Log In</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/auth/signup">
+                <LinkContainer to="/users/signup">
                   <Nav.Link>Sign Up</Nav.Link>
                 </LinkContainer>
               </>

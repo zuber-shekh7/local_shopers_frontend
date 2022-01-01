@@ -9,7 +9,7 @@ const UserProfilePage = ({ history }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/auth/login");
+      history.push("/users/login");
     }
   }, [userInfo, history]);
 
