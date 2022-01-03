@@ -14,6 +14,7 @@ import UserProtectedRoute from "./components/routes/UserProtectedRoute";
 import SellerLoginPage from "./pages/sellers/LoginPage";
 import SellerSignupPage from "./pages/sellers/SignupPage";
 import AdminLoginPage from "./pages/admin/LoginPage";
+import SellerDashboardPage from "./pages/sellers/DashboardPage";
 
 const App = () => {
   return (
@@ -38,6 +39,11 @@ const App = () => {
           <Route path="/sellers/" component={SellerHomePage} exact />
           <Route path="/sellers/login" component={SellerLoginPage} exact />
           <Route path="/sellers/signup" component={SellerSignupPage} exact />
+          <Route
+            path="/sellers/dashboard"
+            component={SellerDashboardPage}
+            exact
+          />
 
           {/* admin */}
           <Route path="/admin/login" component={AdminLoginPage} exact />

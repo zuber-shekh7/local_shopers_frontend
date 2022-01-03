@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { sellerLoginReducer } from "./sellerReducers";
 import { userLoginReducer, userSignupReducer } from "./userReducers";
 
 const initialState = {
@@ -10,11 +11,17 @@ const initialState = {
   userSignup: {
     success: null,
   },
+  sellerLogin: {
+    sellerInfo: localStorage.getItem("sellerInfo")
+      ? JSON.parse(localStorage.getItem("sellerInfo", null))
+      : null,
+  },
 };
 
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userSignup: userSignupReducer,
+  sellerLogin: sellerLoginReducer,
 });
 
 export { initialState };
