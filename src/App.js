@@ -13,6 +13,7 @@ import SellerHomePage from "./pages/sellers/HomePage";
 import UserProtectedRoute from "./components/routes/UserProtectedRoute";
 import SellerLoginPage from "./pages/sellers/LoginPage";
 import SellerSignupPage from "./pages/sellers/SignupPage";
+import AdminLoginPage from "./pages/admin/LoginPage";
 
 const App = () => {
   return (
@@ -37,6 +38,9 @@ const App = () => {
           <Route path="/sellers/" component={SellerHomePage} exact />
           <Route path="/sellers/login" component={SellerLoginPage} exact />
           <Route path="/sellers/signup" component={SellerSignupPage} exact />
+
+          {/* admin */}
+          <Route path="/admin/login" component={AdminLoginPage} exact />
 
           {/* 404 */}
           <Route path="*" component={NotFoundPage} />
