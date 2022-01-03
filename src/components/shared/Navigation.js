@@ -35,6 +35,9 @@ const Navigation = () => {
               </>
             ) : (
               <>
+                <LinkContainer to="/sellers">
+                  <Nav.Link>Sell Online</Nav.Link>
+                </LinkContainer>
                 <LinkContainer to="/users/login">
                   <Nav.Link>Log In</Nav.Link>
                 </LinkContainer>

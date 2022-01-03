@@ -9,6 +9,7 @@ import Footer from "./components/shared/Footer";
 import LoginPage from "./pages/users/LoginPage";
 import SignupPage from "./pages/users/SignupPage";
 import UserProfilePage from "./pages/users/UserProfilePage";
+import SellerHomePage from "./pages/sellers/SellerHomePage";
 import UserProtectedRoute from "./components/routes/UserProtectedRoute";
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
           <Route path="/" component={HomePage} exact />
           <Route path="/about" component={AboutUsPage} exact />
 
-          {/* auth */}
+          {/* users */}
           <Route path="/users/login" component={LoginPage} exact />
           <Route path="/users/signup" component={SignupPage} exact />
           <UserProtectedRoute
@@ -29,6 +30,9 @@ const App = () => {
             component={UserProfilePage}
             exact
           />
+
+          {/* sellers */}
+          <Route path="/sellers/" component={SellerHomePage} exact />
 
           {/* 404 */}
           <Route path="*" component={NotFoundPage} />
