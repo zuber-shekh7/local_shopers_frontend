@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormContainer from "../../components/shared/FormContainer";
 import {
   Row,
@@ -12,12 +12,24 @@ import {
 import { Link } from "react-router-dom";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { sellerLogin } from "../../actions/sellerActions";
 
 const SellerLoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loading, error } = {};
+  const { loading, sellerInfo, error } = useSelector(
+    (state) => state.sellerLogin
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (sellerInfo) {
+      history.push("/sellers/dashboard");
+    }
+  }, [sellerInfo, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +37,8 @@ const SellerLoginPage = ({ history }) => {
     if (!email && !password) {
       return;
     }
+
+    dispatch(sellerLogin(email, password));
 
     setEmail("");
     setPassword("");
