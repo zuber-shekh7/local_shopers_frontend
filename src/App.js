@@ -9,8 +9,10 @@ import Footer from "./components/shared/Footer";
 import LoginPage from "./pages/users/LoginPage";
 import SignupPage from "./pages/users/SignupPage";
 import UserProfilePage from "./pages/users/UserProfilePage";
-import SellerHomePage from "./pages/sellers/SellerHomePage";
+import SellerHomePage from "./pages/sellers/HomePage";
 import UserProtectedRoute from "./components/routes/UserProtectedRoute";
+import SellerLoginPage from "./pages/sellers/LoginPage";
+import SellerSignupPage from "./pages/sellers/SignupPage";
 
 const App = () => {
   return (
@@ -33,6 +35,8 @@ const App = () => {
 
           {/* sellers */}
           <Route path="/sellers/" component={SellerHomePage} exact />
+          <Route path="/sellers/login" component={SellerLoginPage} exact />
+          <Route path="/sellers/signup" component={SellerSignupPage} exact />
 
           {/* 404 */}
           <Route path="*" component={NotFoundPage} />
