@@ -23,7 +23,7 @@ const Navigation = () => {
     if (userInfo) {
       return (
         <>
-          <LinkContainer to="/users/profile">
+          <LinkContainer to="/users/account">
             <Nav.Link>Your Account</Nav.Link>
           </LinkContainer>
 

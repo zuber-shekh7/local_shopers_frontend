@@ -25,7 +25,7 @@ const LoginPage = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/users/profile");
+      history.push("/users/account");
     }
   }, [userInfo, history]);
 

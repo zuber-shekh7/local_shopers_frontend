@@ -1,55 +1,57 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Container, Row, Col } from "react-bootstrap";
+import LinkCard from "../../components/shared/LinkCard";
 
-import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails } from "../../actions/userActions";
-import { Container, Row, Col, ListGroup, Image } from "react-bootstrap";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
-
-const UserProfilePage = ({ history }) => {
-  const dispatch = useDispatch();
-
+const UserDashboardPage = ({ history }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
-
-  const { loading, user, error } = useSelector((state) => state.userDetails);
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/users/login");
-    } else {
-      dispatch(getUserDetails());
     }
-  }, [userInfo, history, dispatch]);
+  }, [userInfo, history]);
 
   return (
     <main className="mt-4">
       <Container>
-        {error && <Message variant="danger">{error}</Message>}
-        {loading && <Loader />}
-        {user && (
+        {userInfo && (
           <Row>
-            <Col md={8}>
-              <h1>Welcome {user.firstName}</h1>
-            </Col>
-            <Col md={4}>
-              <section className="text-center">
-                <Image
-                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80"
-                  alt={user.firstName}
-                  fluid
-                  thumbnail
-                  width="200"
-                  height="150"
-                />
-              </section>
-              <section>
-                <hr />
-                <ListGroup className="mt-4">
-                  <ListGroup.Item>First Name: {user.firstName}</ListGroup.Item>
-                  <ListGroup.Item>Last Name: {user.lastName}</ListGroup.Item>
-                  <ListGroup.Item>Email: {user.email}</ListGroup.Item>
-                  <ListGroup.Item>Mobile: {user.mobile}</ListGroup.Item>
-                </ListGroup>
+            <Col md={8} className="mx-auto">
+              <h1>Your Account</h1>
+              <section className="mt-3">
+                <Row>
+                  <Col md={6}>
+                    <LinkCard
+                      title="Your Orders"
+                      text="Track or buy things again"
+                      link="/users/orders"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <LinkCard
+                      title="Your Profile"
+                      text="Edit name, email or mobile number"
+                      link="/users/profile"
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <LinkCard
+                      title="Your Addresses"
+                      text="Edit addresses for orders"
+                      link="/users/addresses"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <LinkCard
+                      title="Your Wishlist"
+                      text="Explore wishlist or buy things"
+                      link="/users/wishlist"
+                    />
+                  </Col>
+                </Row>
               </section>
             </Col>
           </Row>
@@ -59,4 +61,4 @@ const UserProfilePage = ({ history }) => {
   );
 };
 
-export default UserProfilePage;
+export default UserDashboardPage;
