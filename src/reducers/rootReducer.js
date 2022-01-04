@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import { sellerDetailsReducer, sellerLoginReducer } from "./sellerReducers";
-import { userLoginReducer, userSignupReducer } from "./userReducers";
+import {
+  userDetailsReducer,
+  userLoginReducer,
+  userSignupReducer,
+} from "./userReducers";
 
 const initialState = {
   userLogin: {
@@ -17,6 +21,7 @@ const initialState = {
       : null,
   },
   sellerDetails: { seller: null },
+  userDetails: { user: null },
 };
 
 const rootReducer = combineReducers({
@@ -24,6 +29,7 @@ const rootReducer = combineReducers({
   userSignup: userSignupReducer,
   sellerLogin: sellerLoginReducer,
   sellerDetails: sellerDetailsReducer,
+  userDetails: userDetailsReducer,
 });
 
 export { initialState };

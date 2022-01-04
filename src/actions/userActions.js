@@ -9,6 +9,9 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAIL,
+  USER_PROFILE_DETAILS_REQUEST,
+  USER_PROFILE_DETAILS_SUCCESS,
+  USER_PROFILE_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 const userLogin = (email, password) => async (dispatch) => {
@@ -52,4 +55,23 @@ const userLogout = () => (dispatch) => {
   }
 };
 
-export { userLogin, userSignup, userLogout };
+const getUserDetails = () => async (dispatch) => {
+  try {
+    dispatch({ type: USER_PROFILE_DETAILS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+
+    const { data } = await userAPI.get("/profile", {
+      headers: { Authorization: token },
+    });
+
+    const { user } = data;
+
+    dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: user });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: USER_PROFILE_DETAILS_FAIL, payload: error });
+  }
+};
+
+export { userLogin, userSignup, userLogout, getUserDetails };
