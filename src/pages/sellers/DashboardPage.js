@@ -16,7 +16,7 @@ const SellerDashboardPage = ({ history }) => {
 
   useEffect(() => {
     if (!sellerInfo) {
-      history.push("sellers/login");
+      history.push("/sellers/login");
     } else {
       dispatch(getSellerDetails());
     }

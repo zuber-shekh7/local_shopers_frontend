@@ -2,6 +2,9 @@ import {
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
+  SELLER_LOGOUT_FAIL,
+  SELLER_LOGOUT_REQUEST,
+  SELLER_LOGOUT_SUCCESS,
   SELLER_PROFILE_DETAILS_FAIL,
   SELLER_PROFILE_DETAILS_REQUEST,
   SELLER_PROFILE_DETAILS_SUCCESS,
@@ -14,6 +17,12 @@ const sellerLoginReducer = (state = {}, action) => {
     case SELLER_LOGIN_SUCCESS:
       return { ...state, loading: false, sellerInfo: action.payload };
     case SELLER_LOGIN_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case SELLER_LOGOUT_REQUEST:
+      return { ...state, loading: true };
+    case SELLER_LOGOUT_SUCCESS:
+      return { ...state, sellerInfo: null, loading: false };
+    case SELLER_LOGOUT_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -32,4 +41,5 @@ const sellerDetailsReducer = (state = {}, action) => {
       return state;
   }
 };
+
 export { sellerLoginReducer, sellerDetailsReducer };

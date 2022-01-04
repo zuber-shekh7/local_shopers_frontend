@@ -3,6 +3,9 @@ import {
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
+  SELLER_LOGOUT_FAIL,
+  SELLER_LOGOUT_REQUEST,
+  SELLER_LOGOUT_SUCCESS,
   SELLER_PROFILE_DETAILS_FAIL,
   SELLER_PROFILE_DETAILS_REQUEST,
   SELLER_PROFILE_DETAILS_SUCCESS,
@@ -20,6 +23,19 @@ const sellerLogin = (email, password) => async (dispatch) => {
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: SELLER_LOGIN_FAIL, payload: error });
+  }
+};
+
+const sellerLogout = () => (dispatch) => {
+  try {
+    dispatch({ type: SELLER_LOGOUT_REQUEST });
+
+    localStorage.clear();
+
+    dispatch({ type: SELLER_LOGOUT_SUCCESS });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: SELLER_LOGOUT_FAIL, payload: error });
   }
 };
 
@@ -42,4 +58,4 @@ const getSellerDetails = () => async (dispatch) => {
   }
 };
 
-export { sellerLogin, getSellerDetails };
+export { sellerLogin, getSellerDetails, sellerLogout };

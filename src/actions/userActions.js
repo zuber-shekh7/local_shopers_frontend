@@ -46,7 +46,7 @@ const userLogout = () => (dispatch) => {
   try {
     dispatch({ type: USER_LOGOUT_REQUEST });
 
-    localStorage.removeItem("userInfo");
+    localStorage.clear();
 
     dispatch({ type: USER_LOGOUT_SUCCESS });
   } catch (err) {
