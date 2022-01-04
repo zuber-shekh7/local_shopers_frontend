@@ -15,6 +15,7 @@ import SellerLoginPage from "./pages/sellers/LoginPage";
 import SellerSignupPage from "./pages/sellers/SignupPage";
 import AdminLoginPage from "./pages/admin/LoginPage";
 import SellerDashboardPage from "./pages/sellers/DashboardPage";
+import UserProfilePage from "./pages/users/ProfilePage";
 
 const App = () => {
   return (
@@ -32,6 +33,11 @@ const App = () => {
           <UserProtectedRoute
             path="/users/account"
             component={UserDashboardPage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/users/profile"
+            component={UserProfilePage}
             exact
           />
 
