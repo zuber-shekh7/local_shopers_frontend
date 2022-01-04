@@ -8,7 +8,7 @@ import Navigation from "./components/shared/Navigation";
 import Footer from "./components/shared/Footer";
 import LoginPage from "./pages/users/LoginPage";
 import SignupPage from "./pages/users/SignupPage";
-import UserProfilePage from "./pages/users/UserProfilePage";
+import UserProfilePage from "./pages/users/DashboardPage";
 import SellerHomePage from "./pages/sellers/HomePage";
 import UserProtectedRoute from "./components/routes/UserProtectedRoute";
 import SellerLoginPage from "./pages/sellers/LoginPage";
