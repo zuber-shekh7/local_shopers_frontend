@@ -14,7 +14,6 @@ const UserProfilePage = () => {
     if (!user) {
       dispatch(getUserDetails());
     }
-    console.log("user effect");
   }, [user, dispatch]);
 
   return (
