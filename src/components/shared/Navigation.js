@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
+import { adminLogout } from "../../actions/adminActions";
 import { sellerLogout } from "../../actions/sellerActions";
 import { userLogout } from "../../actions/userActions";
 
@@ -10,6 +11,7 @@ const Navigation = () => {
 
   const { userInfo } = useSelector((state) => state.userLogin);
   const { sellerInfo } = useSelector((state) => state.sellerLogin);
+  const { adminInfo } = useSelector((state) => state.adminLogin);
 
   const handleUserLogout = () => {
     dispatch(userLogout());
@@ -17,6 +19,10 @@ const Navigation = () => {
 
   const handleSellerLogout = () => {
     dispatch(sellerLogout());
+  };
+
+  const handleAdminLogout = () => {
+    dispatch(adminLogout());
   };
 
   const renderNavigationLinks = () => {
@@ -38,6 +44,16 @@ const Navigation = () => {
           </LinkContainer>
 
           <Nav.Link onClick={handleSellerLogout}>Log Out</Nav.Link>
+        </>
+      );
+    } else if (adminInfo) {
+      return (
+        <>
+          <LinkContainer to="/admin/account">
+            <Nav.Link>Your Account</Nav.Link>
+          </LinkContainer>
+
+          <Nav.Link onClick={handleAdminLogout}>Log Out</Nav.Link>
         </>
       );
     } else {

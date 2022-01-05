@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { adminLoginReducer } from "./adminReducers";
 import { sellerDetailsReducer, sellerLoginReducer } from "./sellerReducers";
 import {
   updateUserProfileReducer,
@@ -24,6 +25,11 @@ const initialState = {
   sellerDetails: { seller: null },
   userDetails: { user: null },
   updateUserProfile: { success: null },
+  adminLogin: {
+    adminInfo: localStorage.getItem("adminInfo")
+      ? JSON.parse(localStorage.getItem("adminInfo", null))
+      : null,
+  },
 };
 
 const rootReducer = combineReducers({
@@ -33,6 +39,7 @@ const rootReducer = combineReducers({
   sellerDetails: sellerDetailsReducer,
   userDetails: userDetailsReducer,
   updateUserProfile: updateUserProfileReducer,
+  adminLogin: adminLoginReducer,
 });
 
 export { initialState };

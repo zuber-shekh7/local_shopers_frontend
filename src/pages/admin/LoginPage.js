@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormContainer from "../../components/shared/FormContainer";
 import {
   Form,
@@ -7,14 +7,26 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
+import { adminLogin } from "../../actions/adminActions";
 
 const AdminLoginPage = ({ history }) => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loading, error } = {};
+  const { loading, error, adminInfo } = useSelector(
+    (state) => state.adminLogin
+  );
+
+  useEffect(() => {
+    if (adminInfo) {
+      history.push("/admin/account");
+    }
+  }, [adminInfo, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,13 +35,15 @@ const AdminLoginPage = ({ history }) => {
       return;
     }
 
+    dispatch(adminLogin(email, password));
+
     setEmail("");
     setPassword("");
   };
 
   return (
     <main className="mt-4">
-      <h1 className="text-center">Log In</h1>
+      <h1 className="text-center">Admin Log In</h1>
       <FormContainer>
         {loading && <Loader />}
         {error && <Message variant="danger">{error}</Message>}

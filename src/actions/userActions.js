@@ -51,8 +51,6 @@ const userLogout = () => (dispatch) => {
 
     localStorage.clear();
 
-    console.log("clearing user profile details");
-
     dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: null });
 
     dispatch({ type: USER_LOGOUT_SUCCESS });
