@@ -32,7 +32,7 @@ const UserDashboardPage = ({ history }) => {
                     <LinkCard
                       title="Your Profile"
                       text="Edit name, email or mobile number"
-                      link="/users/profile"
+                      link="/users/profile/"
                     />
                   </Col>
                 </Row>

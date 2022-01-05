@@ -4,6 +4,7 @@ import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
 import { getUserDetails } from "../../actions/userActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import { LinkContainer } from "react-router-bootstrap";
 
 const UserProfilePage = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,9 @@ const UserProfilePage = () => {
                         <strong>First Name</strong>: {user.firstName}
                       </Col>
                       <Col md={2}>
-                        <Button>Edit</Button>
+                        <LinkContainer to="/users/profile/edit">
+                          <Button>Edit</Button>
+                        </LinkContainer>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -43,7 +46,9 @@ const UserProfilePage = () => {
                         <strong>Last Name</strong>: {user.lastName}
                       </Col>
                       <Col md={2}>
-                        <Button>Edit</Button>
+                        <LinkContainer to="/users/profile/edit">
+                          <Button>Edit</Button>
+                        </LinkContainer>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -53,7 +58,9 @@ const UserProfilePage = () => {
                         <strong>Email</strong>: {user.email}
                       </Col>
                       <Col md={2}>
-                        <Button>Edit</Button>
+                        <LinkContainer to="/users/profile/edit">
+                          <Button>Edit</Button>
+                        </LinkContainer>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -63,7 +70,9 @@ const UserProfilePage = () => {
                         <strong>Mobile Number</strong>: {user.mobile}
                       </Col>
                       <Col md={2}>
-                        <Button>Edit</Button>
+                        <LinkContainer to="/users/profile/edit">
+                          <Button>Edit</Button>
+                        </LinkContainer>
                       </Col>
                     </Row>
                   </ListGroup.Item>

@@ -16,6 +16,7 @@ import SellerSignupPage from "./pages/sellers/SignupPage";
 import AdminLoginPage from "./pages/admin/LoginPage";
 import SellerDashboardPage from "./pages/sellers/DashboardPage";
 import UserProfilePage from "./pages/users/ProfilePage";
+import EditUserProfilePage from "./pages/users/EditProfilePage";
 
 const App = () => {
   return (
@@ -38,6 +39,11 @@ const App = () => {
           <UserProtectedRoute
             path="/users/profile"
             component={UserProfilePage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/users/profile/edit"
+            component={EditUserProfilePage}
             exact
           />
 

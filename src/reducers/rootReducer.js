@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { sellerDetailsReducer, sellerLoginReducer } from "./sellerReducers";
 import {
+  updateUserProfileReducer,
   userDetailsReducer,
   userLoginReducer,
   userSignupReducer,
@@ -22,6 +23,7 @@ const initialState = {
   },
   sellerDetails: { seller: null },
   userDetails: { user: null },
+  updateUserProfile: { success: null },
 };
 
 const rootReducer = combineReducers({
@@ -30,6 +32,7 @@ const rootReducer = combineReducers({
   sellerLogin: sellerLoginReducer,
   sellerDetails: sellerDetailsReducer,
   userDetails: userDetailsReducer,
+  updateUserProfile: updateUserProfileReducer,
 });
 
 export { initialState };

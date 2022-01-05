@@ -12,6 +12,9 @@ import {
   USER_PROFILE_DETAILS_REQUEST,
   USER_PROFILE_DETAILS_SUCCESS,
   USER_PROFILE_DETAILS_FAIL,
+  UPDATE_USER_PROFILE_REQUEST,
+  UPDATE_USER_PROFILE_SUCCESS,
+  UPDATE_USER_PROFILE_FAIL,
 } from "../constants/userConstants";
 
 const userLogin = (email, password) => async (dispatch) => {
@@ -48,6 +51,10 @@ const userLogout = () => (dispatch) => {
 
     localStorage.clear();
 
+    console.log("clearing user profile details");
+
+    dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: null });
+
     dispatch({ type: USER_LOGOUT_SUCCESS });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
@@ -74,4 +81,29 @@ const getUserDetails = () => async (dispatch) => {
   }
 };
 
-export { userLogin, userSignup, userLogout, getUserDetails };
+const updateUserProfile =
+  (email, mobile, firstName, lastName) => async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_USER_PROFILE_REQUEST });
+
+      const { token } = JSON.parse(localStorage.getItem("userInfo"));
+
+      const { data } = await userAPI.put(
+        "/profile",
+        { email, mobile, firstName, lastName },
+        {
+          headers: { Authorization: token },
+        }
+      );
+
+      dispatch({ type: UPDATE_USER_PROFILE_SUCCESS, payload: data });
+
+      dispatch({ type: USER_PROFILE_DETAILS_REQUEST });
+
+      dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: null });
+    } catch (err) {
+      const error = err.response ? err.response.data.message : err.message;
+      dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error });
+    }
+  };
+export { userLogin, userSignup, userLogout, getUserDetails, updateUserProfile };

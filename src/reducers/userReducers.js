@@ -1,4 +1,7 @@
 import {
+  UPDATE_USER_PROFILE_FAIL,
+  UPDATE_USER_PROFILE_REQUEST,
+  UPDATE_USER_PROFILE_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -63,4 +66,27 @@ const userDetailsReducer = (state = {}, action) => {
   }
 };
 
-export { userLoginReducer, userSignupReducer, userDetailsReducer };
+const updateUserProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_USER_PROFILE_REQUEST:
+      return { ...state, loading: true };
+    case UPDATE_USER_PROFILE_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case UPDATE_USER_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export {
+  userLoginReducer,
+  userSignupReducer,
+  userDetailsReducer,
+  updateUserProfileReducer,
+};
