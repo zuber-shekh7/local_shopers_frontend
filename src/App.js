@@ -19,6 +19,7 @@ import UserProfilePage from "./pages/users/ProfilePage";
 import EditUserProfilePage from "./pages/users/EditProfilePage";
 import AdminDashboardPage from "./pages/admin/DashboardPage";
 import SellerProtectedRoute from "./components/routes/SellerProtectedRoute";
+import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
 
 const App = () => {
   return (
@@ -61,7 +62,11 @@ const App = () => {
 
           {/* admin */}
           <Route path="/admin/login" component={AdminLoginPage} exact />
-          <Route path="/admin/account" component={AdminDashboardPage} exact />
+          <AdminProtectedRoute
+            path="/admin/account"
+            component={AdminDashboardPage}
+            exact
+          />
 
           {/* 404 */}
           <Route path="*" component={NotFoundPage} />
