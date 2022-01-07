@@ -1,4 +1,10 @@
 import {
+  BUSINESS_DETAILS_FAIL,
+  BUSINESS_DETAILS_REQUEST,
+  BUSINESS_DETAILS_SUCCESS,
+  CREATE_BUSINESS_FAIL,
+  CREATE_BUSINESS_REQUEST,
+  CREATE_BUSINESS_SUCCESS,
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
@@ -42,4 +48,35 @@ const sellerDetailsReducer = (state = {}, action) => {
   }
 };
 
-export { sellerLoginReducer, sellerDetailsReducer };
+const createBusinessReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_BUSINESS_REQUEST:
+      return { ...state, loading: true };
+    case CREATE_BUSINESS_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case CREATE_BUSINESS_FAIL:
+      return { ...state, loading: false, success: false };
+    default:
+      return state;
+  }
+};
+
+const businessDetailsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUSINESS_DETAILS_REQUEST:
+      return { ...state, loading: true };
+    case BUSINESS_DETAILS_SUCCESS:
+      return { ...state, loading: false, business: action.payload };
+    case BUSINESS_DETAILS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export {
+  sellerLoginReducer,
+  sellerDetailsReducer,
+  createBusinessReducer,
+  businessDetailsReducer,
+};

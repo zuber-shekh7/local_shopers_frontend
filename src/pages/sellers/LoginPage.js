@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { sellerLogin } from "../../actions/sellerActions";
+import { getSellerDetails, sellerLogin } from "../../actions/sellerActions";
 
 const SellerLoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -40,6 +40,7 @@ const SellerLoginPage = ({ history }) => {
 
     dispatch(sellerLogin(email, password));
 
+    dispatch(getSellerDetails());
     setEmail("");
     setPassword("");
   };

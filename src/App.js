@@ -20,6 +20,8 @@ import EditUserProfilePage from "./pages/users/EditProfilePage";
 import AdminDashboardPage from "./pages/admin/DashboardPage";
 import SellerProtectedRoute from "./components/routes/SellerProtectedRoute";
 import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
+import CreateBusinessPage from "./pages/sellers/CreateBusinessPage";
+import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
 
 const App = () => {
   return (
@@ -57,6 +59,16 @@ const App = () => {
           <SellerProtectedRoute
             path="/sellers/dashboard"
             component={SellerDashboardPage}
+            exact
+          />
+          <SellerProtectedRoute
+            path="/sellers/business/new"
+            component={CreateBusinessPage}
+            exact
+          />
+          <SellerProtectedRoute
+            path="/sellers/business"
+            component={BusinessDetailPage}
             exact
           />
 

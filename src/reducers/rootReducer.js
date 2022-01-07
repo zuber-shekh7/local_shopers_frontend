@@ -1,6 +1,11 @@
 import { combineReducers } from "redux";
 import { adminLoginReducer } from "./adminReducers";
-import { sellerDetailsReducer, sellerLoginReducer } from "./sellerReducers";
+import {
+  businessDetailsReducer,
+  createBusinessReducer,
+  sellerDetailsReducer,
+  sellerLoginReducer,
+} from "./sellerReducers";
 import {
   updateUserProfileReducer,
   userDetailsReducer,
@@ -30,6 +35,8 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("adminInfo", null))
       : null,
   },
+  createBusiness: { success: null },
+  businessDetails: { business: null },
 };
 
 const rootReducer = combineReducers({
@@ -40,6 +47,8 @@ const rootReducer = combineReducers({
   userDetails: userDetailsReducer,
   updateUserProfile: updateUserProfileReducer,
   adminLogin: adminLoginReducer,
+  createBusiness: createBusinessReducer,
+  businessDetails: businessDetailsReducer,
 });
 
 export { initialState };
