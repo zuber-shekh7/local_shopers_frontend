@@ -15,6 +15,9 @@ import {
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_FAIL,
+  USER_LOGIN_WITH_GOOGLE_SUCCESS,
+  USER_LOGIN_WITH_GOOGLE_FAIL,
+  USER_LOGIN_WITH_GOOGLE_REQUEST,
 } from "../constants/userConstants";
 
 const userLogin = (email, password) => async (dispatch) => {
@@ -104,4 +107,27 @@ const updateUserProfile =
       dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error });
     }
   };
-export { userLogin, userSignup, userLogout, getUserDetails, updateUserProfile };
+
+const userLoginWithGoogle = (token) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_LOGIN_WITH_GOOGLE_REQUEST });
+
+    const { data } = await userAPI.post("/login/google", { token });
+
+    localStorage.setItem("userInfo", JSON.stringify(data));
+
+    dispatch({ type: USER_LOGIN_WITH_GOOGLE_SUCCESS, payload: data });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: USER_LOGIN_WITH_GOOGLE_FAIL, payload: error });
+  }
+};
+
+export {
+  userLogin,
+  userSignup,
+  userLogout,
+  getUserDetails,
+  updateUserProfile,
+  userLoginWithGoogle,
+};

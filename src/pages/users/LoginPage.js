@@ -11,9 +11,11 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { userLogin } from "../../actions/userActions";
+import { GoogleLogin } from "react-google-login";
+import { userLogin, userLoginWithGoogle } from "../../actions/userActions";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
+import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
 
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -40,6 +42,11 @@ const LoginPage = ({ history }) => {
 
     setEmail("");
     setPassword("");
+  };
+
+  const responseGoogle = async (response) => {
+    const token = response.tokenId;
+    dispatch(userLoginWithGoogle(token));
   };
 
   return (
@@ -72,6 +79,16 @@ const LoginPage = ({ history }) => {
           <Button className="w-100 mb-3" type="submit">
             Log In
           </Button>
+
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+            buttonText="Contine with Google"
+            render={GoogleAuthButton}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+
           <Row>
             <Col className="text-center">
               <span className="text-lead">Don't have an account? </span>
