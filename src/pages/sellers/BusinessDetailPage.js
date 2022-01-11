@@ -2,19 +2,28 @@ import React, { useEffect } from "react";
 
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getBusinessDetails } from "../../actions/sellerActions";
+import {
+  getBusinessDetails,
+  getSellerDetails,
+} from "../../actions/sellerActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
 const BusinessDetailPage = ({ history }) => {
   const dispatch = useDispatch();
 
+  const { seller } = useSelector((state) => state.sellerDetails);
+
   const { business, loading, error } = useSelector(
     (state) => state.businessDetails
   );
 
   useEffect(() => {
-    dispatch(getBusinessDetails());
+    if (!seller.business) {
+      history.push("/sellers/dashboard");
+    } else {
+      dispatch(getBusinessDetails());
+    }
   }, []);
 
   return (

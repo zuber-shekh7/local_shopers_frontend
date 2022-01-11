@@ -48,14 +48,16 @@ const sellerLogout = () => (dispatch) => {
 const getSellerDetails = () => async (dispatch) => {
   try {
     dispatch({ type: SELLER_PROFILE_DETAILS_REQUEST });
-
+    console.log("inside get seller details");
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
     const { data } = await sellerAPI.get("/profile", {
       headers: { Authorization: token },
     });
-
+    console.log(data);
     const { seller } = data;
+
+    localStorage.setItem("seller", JSON.stringify(seller));
 
     dispatch({ type: SELLER_PROFILE_DETAILS_SUCCESS, payload: seller });
   } catch (err) {
@@ -79,10 +81,6 @@ const createBusines = (name, description) => async (dispatch) => {
     );
 
     dispatch({ type: CREATE_BUSINESS_SUCCESS, payload: data });
-
-    dispatch({ type: SELLER_PROFILE_DETAILS_REQUEST });
-
-    dispatch({ type: SELLER_PROFILE_DETAILS_SUCCESS, payload: null });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: CREATE_BUSINESS_FAIL, payload: error });
@@ -93,9 +91,10 @@ const getBusinessDetails = () => async (dispatch) => {
   try {
     dispatch({ type: BUSINESS_DETAILS_REQUEST });
 
-    const { token, seller } = JSON.parse(localStorage.getItem("sellerInfo"));
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+    const seller = JSON.parse(localStorage.getItem("seller"));
 
-    const { data } = await sellerAPI.get(`/business/${seller.business}`, {
+    const { data } = await sellerAPI.get(`/business/${seller.business._id}`, {
       headers: { Authorization: token },
     });
 

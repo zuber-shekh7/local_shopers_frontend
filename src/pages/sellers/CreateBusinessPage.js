@@ -27,12 +27,10 @@ const CreateBusinessPage = ({ history }) => {
   const { seller } = useSelector((state) => state.sellerDetails);
 
   useEffect(() => {
-    if (!seller && !seller.business) {
-      history.push("/sellers/dashboard");
-    } else {
-      dispatch(getSellerDetails());
+    if (seller && seller.business) {
+      history.push("/sellers/business");
     }
-  }, [seller, dispatch, history]);
+  }, [seller, history, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,13 +38,10 @@ const CreateBusinessPage = ({ history }) => {
     if (!name && !description) {
       return;
     }
-
+    console.log("before dispatch");
     dispatch(createBusines(name, description));
-
-    if (success) {
-      history.push("/sellers/dashboard");
-    }
-
+    console.log("after dispatch");
+    dispatch(getSellerDetails());
     setName("");
     setDescription("");
   };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { getUserDetails, updateUserProfile } from "../../actions/userActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
@@ -16,9 +17,11 @@ const EditUserProfilePage = ({ history }) => {
 
   const { user } = useSelector((state) => state.userDetails);
 
-  const { loading, error, success } = useSelector(
-    (state) => state.updateUserProfile
-  );
+  const {
+    loading,
+    error,
+    user: updatedUser,
+  } = useSelector((state) => state.updateUserProfile);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,12 +38,9 @@ const EditUserProfilePage = ({ history }) => {
 
     dispatch(updateUserProfile(email, mobile, firstName, lastName));
 
-    if (success) {
-      history.push("/users/profile");
-    }
-
     setMessage("");
   };
+
   useEffect(() => {
     if (!user) {
       dispatch(getUserDetails());
@@ -51,6 +51,10 @@ const EditUserProfilePage = ({ history }) => {
       setMobile(user.mobile);
     }
   }, [user, dispatch]);
+
+  if (updatedUser) {
+    return <Redirect to="/users/profile" />;
+  }
 
   return (
     <main className="mt-4">

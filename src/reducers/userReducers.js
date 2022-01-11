@@ -80,12 +80,11 @@ const updateUserProfileReducer = (state = {}, action) => {
     case UPDATE_USER_PROFILE_REQUEST:
       return { ...state, loading: true };
     case UPDATE_USER_PROFILE_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return { ...state, loading: false, user: action.payload };
     case UPDATE_USER_PROFILE_FAIL:
       return {
         ...state,
         loading: false,
-        success: false,
         error: action.payload,
       };
     default:

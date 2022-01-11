@@ -102,6 +102,8 @@ const updateUserProfile =
       dispatch({ type: USER_PROFILE_DETAILS_REQUEST });
 
       dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: null });
+
+      dispatch({ type: UPDATE_USER_PROFILE_SUCCESS, payload: null });
     } catch (err) {
       const error = err.response ? err.response.data.message : err.message;
       dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error });

@@ -27,9 +27,13 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("sellerInfo", null))
       : null,
   },
-  sellerDetails: { seller: null },
+  sellerDetails: {
+    seller: localStorage.getItem("seller")
+      ? JSON.parse(localStorage.getItem("seller", null))
+      : null,
+  },
   userDetails: { user: null },
-  updateUserProfile: { success: null },
+  updateUserProfile: { user: null },
   adminLogin: {
     adminInfo: localStorage.getItem("adminInfo")
       ? JSON.parse(localStorage.getItem("adminInfo", null))
