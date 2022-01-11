@@ -15,7 +15,7 @@ const adminLogin = (email, password) => async (dispatch) => {
     const { data } = await adminAPI.post("/login", { email, password });
 
     localStorage.setItem("adminInfo", JSON.stringify(data));
-    console.log(data);
+
     dispatch({ type: ADMIN_LOGIN_SUCCESS, payload: data });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;

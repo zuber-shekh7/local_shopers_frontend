@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { createBusines, getSellerDetails } from "../../actions/sellerActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
@@ -38,13 +39,17 @@ const CreateBusinessPage = ({ history }) => {
     if (!name && !description) {
       return;
     }
-    console.log("before dispatch");
+
     dispatch(createBusines(name, description));
-    console.log("after dispatch");
+
     dispatch(getSellerDetails());
-    setName("");
+
     setDescription("");
   };
+
+  if (success) {
+    return <Redirect to="/sellers/business" />;
+  }
 
   return (
     <main className="mt-4">
@@ -72,6 +77,15 @@ const CreateBusinessPage = ({ history }) => {
               placeholder="The Best online store ever"
               required
             />
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FormLabel>Category</FormLabel>
+            <Form.Select aria-label="Default select example">
+              <option disabled>Select Business Category</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </Form.Select>
           </FormGroup>
           <Button className="w-100 mb-3" type="submit">
             Create
