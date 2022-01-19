@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getBusinessDetails,
@@ -30,13 +30,45 @@ const BusinessDetailPage = ({ history }) => {
     <main className="mt-4">
       <Container>
         <Row>
-          <Col md={6} className="mx-auto">
+          <Col md={6} className="mx-auto mb-3">
             {loading && <Loader />}
             {error && <Message variant="danger">{error}</Message>}
             {business && (
-              <Card>
-                <h1>{business.name}</h1>
-              </Card>
+              <>
+                <Image
+                  src="https://images.unsplash.com/photo-1534723452862-4c874018d66d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                  alt={business.name}
+                  fluid
+                  rounded
+                />
+                <h1 className="text-center my-3">{business.name}</h1>
+                <ListGroup>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Business Name</Col>
+                      <Col className="text-end">{business.name}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Description</Col>
+                      <Col className="text-end">{business.description}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Business Category</Col>
+                      <Col className="text-end">{business.category}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Last Modified</Col>
+                      <Col className="text-end">{business.updatedAt}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                </ListGroup>
+              </>
             )}
           </Col>
         </Row>

@@ -40,9 +40,9 @@ const SellerDashboardPage = ({ history }) => {
                         </Col>
                         <Col md={6}>
                           <LinkCard
-                            title="Your Profile"
+                            title="Manage Business"
                             text="Edit name, email or mobile number"
-                            link="/sellers/profile/"
+                            link="/sellers/business/"
                           />
                         </Col>
                       </Row>
