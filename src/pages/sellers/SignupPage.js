@@ -9,9 +9,11 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
+import { sellerSignup } from "../../actions/sellerActions";
 
 const SellerSignupPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -22,11 +24,16 @@ const SellerSignupPage = ({ history }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const { success, error, loading } = {};
+  const { sellerInfo } = useSelector((state) => state.sellerLogin);
+  const { error, loading } = useSelector((state) => state.userSignup);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setMessage("");
-  }, []);
+    if (sellerInfo) {
+      history.push("/sellers/dashboard");
+    }
+  }, [sellerInfo, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,6 +56,8 @@ const SellerSignupPage = ({ history }) => {
       return;
     }
 
+    dispatch(sellerSignup(email, password, firstName, lastName, mobile));
+
     setEmail("");
     setPassword("");
     setConfirmPassword("");
@@ -64,11 +73,7 @@ const SellerSignupPage = ({ history }) => {
         {loading && <Loader />}
         {error && <Message variant="danger">{error}</Message>}
         {message && <Message variant="info">{message}</Message>}
-        {success && (
-          <Message variant="success">
-            {"Account Created Successfully. Login Now using your Email."}
-          </Message>
-        )}
+
         <Form onSubmit={handleSubmit}>
           <FormGroup className="mb-3">
             <Row>

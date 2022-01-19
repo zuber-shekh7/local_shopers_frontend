@@ -14,6 +14,9 @@ import {
   SELLER_PROFILE_DETAILS_FAIL,
   SELLER_PROFILE_DETAILS_REQUEST,
   SELLER_PROFILE_DETAILS_SUCCESS,
+  SELLER_SIGNUP_FAIL,
+  SELLER_SIGNUP_REQUEST,
+  SELLER_SIGNUP_SUCCESS,
 } from "../constants/selllerConstants";
 
 const sellerLoginReducer = (state = {}, action) => {
@@ -29,6 +32,19 @@ const sellerLoginReducer = (state = {}, action) => {
     case SELLER_LOGOUT_SUCCESS:
       return { ...state, sellerInfo: null, loading: false };
     case SELLER_LOGOUT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const sellerSignupReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SELLER_SIGNUP_REQUEST:
+      return { ...state, loading: true };
+    case SELLER_SIGNUP_SUCCESS:
+      return { ...state, loading: false, sellerInfo: action.payload };
+    case SELLER_SIGNUP_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -76,6 +92,7 @@ const businessDetailsReducer = (state = {}, action) => {
 
 export {
   sellerLoginReducer,
+  sellerSignupReducer,
   sellerDetailsReducer,
   createBusinessReducer,
   businessDetailsReducer,

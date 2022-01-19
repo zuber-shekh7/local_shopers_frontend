@@ -15,6 +15,9 @@ import {
   SELLER_PROFILE_DETAILS_FAIL,
   SELLER_PROFILE_DETAILS_REQUEST,
   SELLER_PROFILE_DETAILS_SUCCESS,
+  SELLER_SIGNUP_FAIL,
+  SELLER_SIGNUP_REQUEST,
+  SELLER_SIGNUP_SUCCESS,
 } from "../constants/selllerConstants";
 
 const sellerLogin = (email, password) => async (dispatch) => {
@@ -32,6 +35,30 @@ const sellerLogin = (email, password) => async (dispatch) => {
   }
 };
 
+const sellerSignup =
+  (email, password, firstName, lastName, mobile) => async (dispatch) => {
+    try {
+      dispatch({ type: SELLER_SIGNUP_REQUEST });
+
+      const { data } = await sellerAPI.post("/signup", {
+        email,
+        password,
+        firstName,
+        lastName,
+        mobile,
+      });
+
+      localStorage.setItem("sellerInfo", JSON.stringify(data));
+
+      dispatch(sellerLogin(email, password));
+
+      dispatch({ type: SELLER_SIGNUP_SUCCESS, payload: data });
+    } catch (err) {
+      const error = err.response ? err.response.data.message : err.message;
+      dispatch({ type: SELLER_SIGNUP_FAIL, payload: error });
+    }
+  };
+
 const sellerLogout = () => (dispatch) => {
   try {
     dispatch({ type: SELLER_LOGOUT_REQUEST });
@@ -48,13 +75,13 @@ const sellerLogout = () => (dispatch) => {
 const getSellerDetails = () => async (dispatch) => {
   try {
     dispatch({ type: SELLER_PROFILE_DETAILS_REQUEST });
-    console.log("inside get seller details");
+
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
     const { data } = await sellerAPI.get("/profile", {
       headers: { Authorization: token },
     });
-    console.log(data);
+
     const { seller } = data;
 
     localStorage.setItem("seller", JSON.stringify(seller));
@@ -109,6 +136,7 @@ const getBusinessDetails = () => async (dispatch) => {
 
 export {
   sellerLogin,
+  sellerSignup,
   getSellerDetails,
   sellerLogout,
   createBusines,
