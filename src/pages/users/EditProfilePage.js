@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { getUserDetails, updateUserProfile } from "../../actions/userActions";
+import GoBackButton from "../../components/shared/GoBackButton";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
@@ -58,6 +59,7 @@ const EditUserProfilePage = ({ history }) => {
 
   return (
     <main className="mt-4">
+      <GoBackButton onGoBackClick={() => history.goBack()} />
       <Container>
         <Row>
           <Col md={6} className="mx-auto">

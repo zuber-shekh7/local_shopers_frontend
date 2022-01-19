@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userSignup } from "../../actions/userActions";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
+import GoBackButton from "../../components/shared/GoBackButton";
 
 const SignupPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -70,6 +71,7 @@ const SignupPage = ({ history }) => {
   };
   return (
     <main className="mt-4">
+      <GoBackButton onGoBackClick={() => history.goBack()} />
       <h1 className="text-center">Sign Up</h1>
       <FormContainer>
         {loading && <Loader />}

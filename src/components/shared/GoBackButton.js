@@ -1,18 +1,18 @@
 import React from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
-const GoBackButton = () => {
+const GoBackButton = (props) => {
   const onClickHandler = () => {
     props.onGoBackClick();
   };
   return (
-    <div>
+    <Container>
       <Row>
         <Col>
           <Button onClick={onClickHandler}>Go Back</Button>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 };
 

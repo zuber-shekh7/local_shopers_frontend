@@ -16,6 +16,7 @@ import { userLogin, userLoginWithGoogle } from "../../actions/userActions";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
 import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
+import GoBackButton from "../../components/shared/GoBackButton";
 
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -51,6 +52,7 @@ const LoginPage = ({ history }) => {
 
   return (
     <main className="mt-4">
+      <GoBackButton onGoBackClick={() => history.goBack()} />
       <h1 className="text-center">Log In</h1>
       <FormContainer>
         {loading && <Loader />}

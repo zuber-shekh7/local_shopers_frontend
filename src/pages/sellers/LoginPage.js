@@ -14,6 +14,7 @@ import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getSellerDetails, sellerLogin } from "../../actions/sellerActions";
+import GoBackButton from "../../components/shared/GoBackButton";
 
 const SellerLoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -47,6 +48,7 @@ const SellerLoginPage = ({ history }) => {
 
   return (
     <main className="mt-4">
+      <GoBackButton onGoBackClick={() => history.goBack()} />
       <h1 className="text-center">Seller Log In</h1>
       <FormContainer>
         {loading && <Loader />}
