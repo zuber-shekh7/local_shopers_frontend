@@ -13,7 +13,13 @@ import { Link } from "react-router-dom";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getSellerDetails, sellerLogin } from "../../actions/sellerActions";
+import {
+  getSellerDetails,
+  sellerLogin,
+  sellerLoginWithGoogle,
+} from "../../actions/sellerActions";
+import GoogleLogin from "react-google-login";
+import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
 
 const SellerLoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -43,6 +49,11 @@ const SellerLoginPage = ({ history }) => {
     dispatch(getSellerDetails());
     setEmail("");
     setPassword("");
+  };
+
+  const responseGoogle = async (response) => {
+    const token = response.tokenId;
+    dispatch(sellerLoginWithGoogle(token));
   };
 
   return (
@@ -75,6 +86,16 @@ const SellerLoginPage = ({ history }) => {
           <Button className="w-100 mb-3" type="submit">
             Log In
           </Button>
+
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+            buttonText="Contine with Google"
+            render={GoogleAuthButton}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+
           <Row>
             <Col className="text-center">
               <span className="text-lead">Don't have seller account? </span>

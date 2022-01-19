@@ -13,7 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
-import { sellerSignup } from "../../actions/sellerActions";
+import {
+  sellerSignup,
+  sellerLoginWithGoogle,
+} from "../../actions/sellerActions";
+import GoogleLogin from "react-google-login";
+import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
 
 const SellerSignupPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -25,7 +30,7 @@ const SellerSignupPage = ({ history }) => {
   const [message, setMessage] = useState("");
 
   const { sellerInfo } = useSelector((state) => state.sellerLogin);
-  const { error, loading } = useSelector((state) => state.userSignup);
+  const { error, loading } = useSelector((state) => state.sellerSignup);
 
   const dispatch = useDispatch();
 
@@ -66,6 +71,12 @@ const SellerSignupPage = ({ history }) => {
     setFirstName("");
     setLastName("");
   };
+
+  const responseGoogle = async (response) => {
+    const token = response.tokenId;
+    dispatch(sellerLoginWithGoogle(token));
+  };
+
   return (
     <main className="mt-4">
       <h1 className="text-center">Seller Sign Up</h1>
@@ -142,6 +153,16 @@ const SellerSignupPage = ({ history }) => {
           <Button className="w-100 mb-3" type="submit">
             Sign Up
           </Button>
+
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+            buttonText="Contine with Google"
+            render={GoogleAuthButton}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+
           <Row>
             <Col className="text-center">
               <span className="text-lead">Already have seller account? </span>

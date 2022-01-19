@@ -5,6 +5,7 @@ import {
   createBusinessReducer,
   sellerDetailsReducer,
   sellerLoginReducer,
+  sellerSignupReducer,
 } from "./sellerReducers";
 import {
   updateUserProfileReducer,
@@ -27,6 +28,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("sellerInfo", null))
       : null,
   },
+  sellerSignup: {},
   sellerDetails: {
     seller: localStorage.getItem("seller")
       ? JSON.parse(localStorage.getItem("seller", null))
@@ -47,6 +49,7 @@ const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userSignup: userSignupReducer,
   sellerLogin: sellerLoginReducer,
+  sellerSignup: sellerSignupReducer,
   sellerDetails: sellerDetailsReducer,
   userDetails: userDetailsReducer,
   updateUserProfile: updateUserProfileReducer,

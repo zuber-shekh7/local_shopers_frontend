@@ -8,6 +8,9 @@ import {
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
+  SELLER_LOGIN_WITH_GOOGLE_FAIL,
+  SELLER_LOGIN_WITH_GOOGLE_REQUEST,
+  SELLER_LOGIN_WITH_GOOGLE_SUCCESS,
   SELLER_LOGOUT_FAIL,
   SELLER_LOGOUT_REQUEST,
   SELLER_LOGOUT_SUCCESS,
@@ -26,6 +29,12 @@ const sellerLoginReducer = (state = {}, action) => {
     case SELLER_LOGIN_SUCCESS:
       return { ...state, loading: false, sellerInfo: action.payload };
     case SELLER_LOGIN_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case SELLER_LOGIN_WITH_GOOGLE_REQUEST:
+      return { loading: true };
+    case SELLER_LOGIN_WITH_GOOGLE_SUCCESS:
+      return { ...state, loading: false, sellerInfo: action.payload };
+    case SELLER_LOGIN_WITH_GOOGLE_FAIL:
       return { ...state, loading: false, error: action.payload };
     case SELLER_LOGOUT_REQUEST:
       return { ...state, loading: true };

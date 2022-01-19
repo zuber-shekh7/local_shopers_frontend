@@ -9,6 +9,9 @@ import {
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
+  SELLER_LOGIN_WITH_GOOGLE_FAIL,
+  SELLER_LOGIN_WITH_GOOGLE_REQUEST,
+  SELLER_LOGIN_WITH_GOOGLE_SUCCESS,
   SELLER_LOGOUT_FAIL,
   SELLER_LOGOUT_REQUEST,
   SELLER_LOGOUT_SUCCESS,
@@ -134,9 +137,25 @@ const getBusinessDetails = () => async (dispatch) => {
   }
 };
 
+const sellerLoginWithGoogle = (token) => async (dispatch) => {
+  try {
+    dispatch({ type: SELLER_LOGIN_WITH_GOOGLE_REQUEST });
+
+    const { data } = await sellerAPI.post("/login/google", { token });
+
+    localStorage.setItem("sellerInfo", JSON.stringify(data));
+
+    dispatch({ type: SELLER_LOGIN_WITH_GOOGLE_SUCCESS, payload: data });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: SELLER_LOGIN_WITH_GOOGLE_FAIL, payload: error });
+  }
+};
+
 export {
   sellerLogin,
   sellerSignup,
+  sellerLoginWithGoogle,
   getSellerDetails,
   sellerLogout,
   createBusines,
