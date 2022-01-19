@@ -10,10 +10,12 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
-import { userSignup } from "../../actions/userActions";
+import { userSignup, userLoginWithGoogle } from "../../actions/userActions";
 import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
+import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
 
 const SignupPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -68,6 +70,12 @@ const SignupPage = ({ history }) => {
     setFirstName("");
     setLastName("");
   };
+
+  const responseGoogle = async (response) => {
+    const token = response.tokenId;
+    dispatch(userLoginWithGoogle(token));
+  };
+
   return (
     <main className="mt-4">
       <h1 className="text-center">Sign Up</h1>
@@ -144,6 +152,16 @@ const SignupPage = ({ history }) => {
           <Button className="w-100 mb-3" type="submit">
             Sign Up
           </Button>
+
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+            buttonText="Contine with Google"
+            render={GoogleAuthButton}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+
           <Row>
             <Col className="text-center">
               <span className="text-lead">Already have an account? </span>
