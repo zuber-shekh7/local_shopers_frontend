@@ -41,6 +41,8 @@ const userSignup = (user) => async (dispatch) => {
 
     const { data } = await userAPI.post("/signup", { ...user });
 
+    dispatch(userLogin(user.email, user.password));
+
     dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;

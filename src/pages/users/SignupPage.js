@@ -26,7 +26,7 @@ const SignupPage = ({ history }) => {
 
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
-  const { success, error, loading } = useSelector((state) => state.userSignup);
+  const { error, loading } = useSelector((state) => state.userSignup);
 
   useEffect(() => {
     setMessage("");
@@ -75,11 +75,7 @@ const SignupPage = ({ history }) => {
         {loading && <Loader />}
         {error && <Message variant="danger">{error}</Message>}
         {message && <Message variant="info">{message}</Message>}
-        {success && (
-          <Message variant="success">
-            {"Account Created Successfully. Login Now using your Email."}
-          </Message>
-        )}
+
         <Form onSubmit={handleSubmit}>
           <FormGroup className="mb-3">
             <Row>
