@@ -14,18 +14,30 @@ import { createBusines, getSellerDetails } from "../../actions/sellerActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import fetchBusinessCategories from "../../utils/fetchBusinessCategories";
 
 const CreateBusinessPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
 
   const { error, loading, success } = useSelector(
     (state) => state.createBusiness
   );
 
   const { seller } = useSelector((state) => state.sellerDetails);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { categories } = await fetchBusinessCategories();
+      setCategories(categories);
+      setCategory(categories[0]._id);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (seller && seller.business) {
@@ -40,7 +52,7 @@ const CreateBusinessPage = ({ history }) => {
       return;
     }
 
-    dispatch(createBusines(name, description));
+    dispatch(createBusines(name, description, category));
 
     dispatch(getSellerDetails());
 
@@ -80,11 +92,22 @@ const CreateBusinessPage = ({ history }) => {
           </FormGroup>
           <FormGroup className="mb-3">
             <FormLabel>Category</FormLabel>
-            <Form.Select aria-label="Default select example">
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
               <option disabled>Select Business Category</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              {categories &&
+                categories.length > 0 &&
+                categories.map((category) => {
+                  return (
+                    <option key={category._id} value={category._id}>
+                      {category.name}
+                    </option>
+                  );
+                })}
             </Form.Select>
           </FormGroup>
           <Button className="w-100 mb-3" type="submit">

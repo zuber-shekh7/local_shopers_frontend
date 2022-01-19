@@ -66,7 +66,7 @@ const getSellerDetails = () => async (dispatch) => {
   }
 };
 
-const createBusines = (name, description) => async (dispatch) => {
+const createBusines = (name, description, category) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_BUSINESS_REQUEST });
 
@@ -74,7 +74,7 @@ const createBusines = (name, description) => async (dispatch) => {
 
     const { data } = await sellerAPI.post(
       "/business/new",
-      { name, description },
+      { name, description, business_category_id: category },
       {
         headers: { Authorization: token },
       }
