@@ -25,6 +25,7 @@ import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
 import CategoryListPage from "./pages/categories/CategoryListPage";
 import CategoryDetailPage from "./pages/categories/CategoryDetailPage";
 import AddCategoryPage from "./pages/categories/AddCategoryPage";
+import EditCategoryPage from "./pages/categories/EditCategoryPage";
 
 const App = () => {
   return (
@@ -83,6 +84,11 @@ const App = () => {
           <SellerProtectedRoute
             path="/sellers/manage/categories/new"
             component={AddCategoryPage}
+            exact
+          />
+          <SellerProtectedRoute
+            path="/sellers/manage/categories/:category_id/edit"
+            component={EditCategoryPage}
             exact
           />
           <SellerProtectedRoute

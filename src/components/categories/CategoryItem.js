@@ -18,7 +18,7 @@ const CategoryItem = ({ category }) => {
             <Card.Title as="h3">{category.name}</Card.Title>
           </Col>
           <Col className="my-auto" md={2}>
-            <LinkContainer to={`categories/${category._id}`}>
+            <LinkContainer to={`/sellers/manage/categories/${category._id}`}>
               <Button>Explore</Button>
             </LinkContainer>
           </Col>

@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import { getCategory } from "../../actions/categoryActions";
 import ProductList from "../../components/products/ProductList";
 import Loader from "../../components/shared/Loader";
@@ -50,6 +51,22 @@ const CategoryDetailPage = ({ match }) => {
                     {category.products && (
                       <ProductList products={category.products} />
                     )}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="mx-auto">
+                    <LinkContainer
+                      to={`/sellers/manage/categories/${category._id}/edit`}
+                    >
+                      <Button className="w-100">Edit</Button>
+                    </LinkContainer>
+                  </Col>
+                  <Col className="mx-auto">
+                    <LinkContainer to="/sellers/manage/categories/edit">
+                      <Button variant="danger" className="w-100">
+                        Delete
+                      </Button>
+                    </LinkContainer>
                   </Col>
                 </Row>
               </section>
