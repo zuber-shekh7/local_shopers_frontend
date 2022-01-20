@@ -64,6 +64,7 @@ const EditCategoryPage = ({ history, match }) => {
           <Col md={8} className="mx-auto">
             <section>
               <h2 className="text-center my-3">Edit Category</h2>
+
               <FormContainer>
                 {loading && <Loader />}
                 {error && <Message variant="danger">{error}</Message>}

@@ -1,25 +1,39 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { getCategory } from "../../actions/categoryActions";
+import { Redirect } from "react-router-dom";
+import { deleteCategory, getCategory } from "../../actions/categoryActions";
 import ProductList from "../../components/products/ProductList";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import ModalForm from "../../components/shared/ModalForm";
 
 const CategoryDetailPage = ({ match }) => {
+  const [modalShow, setModalShow] = useState(false);
+
   const { category_id } = match.params;
 
   const dispatch = useDispatch();
 
-  const { error, loading, category } = useSelector(
-    (state) => state.getCategoryDetails
+  const { category } = useSelector((state) => state.getCategoryDetails);
+
+  const { error, loading, success } = useSelector(
+    (state) => state.deleteCategory
   );
 
   useEffect(() => {
     dispatch(getCategory(category_id));
   }, []);
+
+  const onDelete = (id) => {
+    dispatch(deleteCategory(id));
+    setModalShow(false);
+  };
+  console.log(success);
+  if (success) {
+    return <Redirect to="/sellers/manage/categories" />;
+  }
 
   return (
     <main>
@@ -30,6 +44,14 @@ const CategoryDetailPage = ({ match }) => {
             {error && <Message>{error}</Message>}
             {category && (
               <section className="my-3">
+                <ModalForm
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                  title={"Are you sure?"}
+                  subject={`Do you really want to delete ${category.name} ???`}
+                  message={"Once you delete you won't be able to access it."}
+                  onAccept={() => onDelete(category._id)}
+                />
                 <Row>
                   <Col className="text-center">
                     <Image
@@ -62,11 +84,13 @@ const CategoryDetailPage = ({ match }) => {
                     </LinkContainer>
                   </Col>
                   <Col className="mx-auto">
-                    <LinkContainer to="/sellers/manage/categories/edit">
-                      <Button variant="danger" className="w-100">
-                        Delete
-                      </Button>
-                    </LinkContainer>
+                    <Button
+                      variant="danger"
+                      className="w-100"
+                      onClick={() => setModalShow(true)}
+                    >
+                      Delete
+                    </Button>
                   </Col>
                 </Row>
               </section>

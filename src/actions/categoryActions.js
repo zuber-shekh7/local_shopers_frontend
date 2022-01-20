@@ -12,6 +12,9 @@ import {
   FETCH_CATEGORY_DETAILS_FAIL,
   FETCH_CATEGORY_DETAILS_REQUEST,
   FETCH_CATEGORY_DETAILS_SUCCESS,
+  DELETE_CATEGORY_REQUEST,
+  DELETE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_FAIL,
 } from "../constants/categoryConstants";
 
 const getCategories = () => async (dispatch) => {
@@ -85,8 +88,8 @@ const editCategory = (name, category_id) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_CATEGORY_REQUEST });
 
-    const { token, seller } = JSON.parse(localStorage.getItem("sellerInfo"));
-    console.log(token);
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
     const { data } = await backendAPI.put(
       "/business/categories",
       { name, category_id },
@@ -107,4 +110,31 @@ const editCategory = (name, category_id) => async (dispatch) => {
   }
 };
 
-export { getCategories, getCategory, createCategory, editCategory };
+const deleteCategory = (category_id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_CATEGORY_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+    await backendAPI.delete(`/business/categories/${category_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: true });
+
+    dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: DELETE_CATEGORY_FAIL, payload: error });
+  }
+};
+
+export {
+  getCategories,
+  getCategory,
+  createCategory,
+  editCategory,
+  deleteCategory,
+};

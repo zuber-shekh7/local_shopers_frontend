@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { adminLoginReducer } from "./adminReducers";
 import {
   createCategoryReducer,
+  deleteCategoryReducer,
   editCategoryReducer,
   getCategoriesReducer,
   getCategoryDetailsReducer,
@@ -53,6 +54,7 @@ const initialState = {
   getCategoryDetails: { category: null },
   createCategory: { category: null },
   editCategory: { category: null },
+  deleteCategory: { sucesss: null },
 };
 
 const rootReducer = combineReducers({
@@ -70,6 +72,7 @@ const rootReducer = combineReducers({
   getCategoryDetails: getCategoryDetailsReducer,
   createCategory: createCategoryReducer,
   editCategory: editCategoryReducer,
+  deleteCategory: deleteCategoryReducer,
 });
 
 export { initialState };
