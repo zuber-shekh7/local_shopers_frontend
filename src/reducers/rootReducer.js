@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { adminLoginReducer } from "./adminReducers";
+import { getCategoriesReducer } from "./categoryReducers";
 import {
   businessDetailsReducer,
   createBusinessReducer,
@@ -43,6 +44,7 @@ const initialState = {
   },
   createBusiness: { success: null },
   businessDetails: { business: null },
+  getCategories: { categories: null },
 };
 
 const rootReducer = combineReducers({
@@ -56,6 +58,7 @@ const rootReducer = combineReducers({
   adminLogin: adminLoginReducer,
   createBusiness: createBusinessReducer,
   businessDetails: businessDetailsReducer,
+  getCategories: getCategoriesReducer,
 });
 
 export { initialState };

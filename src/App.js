@@ -22,6 +22,7 @@ import SellerProtectedRoute from "./components/routes/SellerProtectedRoute";
 import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
 import CreateBusinessPage from "./pages/sellers/CreateBusinessPage";
 import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
+import CategoryListPage from "./pages/categories/CategoryListPage";
 
 const App = () => {
   return (
@@ -69,6 +70,12 @@ const App = () => {
           <SellerProtectedRoute
             path="/sellers/business"
             component={BusinessDetailPage}
+            exact
+          />
+
+          <SellerProtectedRoute
+            path="/sellers/manage/categories"
+            component={CategoryListPage}
             exact
           />
 

@@ -51,7 +51,7 @@ const SellerDashboardPage = ({ history }) => {
                           <LinkCard
                             title="Manage Categories"
                             text="Edit addresses for orders"
-                            link="/sellers/categories"
+                            link="/sellers/manage/categories"
                           />
                         </Col>
                         <Col md={6}>
