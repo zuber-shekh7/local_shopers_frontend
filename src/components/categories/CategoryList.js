@@ -18,7 +18,7 @@ const CategoryList = ({ categories }) => {
   return (
     <section className="my-3">
       {categories.map((category) => {
-        return <CategoryItem category={category} />;
+        return <CategoryItem key={category._id} category={category} />;
       })}
     </section>
   );

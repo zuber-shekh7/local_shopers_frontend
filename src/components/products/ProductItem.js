@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Card, Image, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const CategoryItem = ({ category }) => {
+const ProductItem = ({ product }) => {
   return (
     <Card className="my-3">
       <Card.Body>
@@ -15,11 +15,11 @@ const CategoryItem = ({ category }) => {
             />
           </Col>
           <Col className="my-auto">
-            <Card.Title as="h3">{category.name}</Card.Title>
+            <Card.Title as="h3">{product.name}</Card.Title>
           </Col>
           <Col className="my-auto" md={2}>
-            <LinkContainer to={`categories/${category._id}`}>
-              <Button>Explore</Button>
+            <LinkContainer to={`/sellers/manage/products/${product._id}`}>
+              <Button>View more</Button>
             </LinkContainer>
           </Col>
         </Row>
@@ -28,4 +28,4 @@ const CategoryItem = ({ category }) => {
   );
 };
 
-export default CategoryItem;
+export default ProductItem;

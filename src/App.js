@@ -23,6 +23,7 @@ import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
 import CreateBusinessPage from "./pages/sellers/CreateBusinessPage";
 import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
 import CategoryListPage from "./pages/categories/CategoryListPage";
+import CategoryDetailPage from "./pages/categories/CategoryDetailPage";
 
 const App = () => {
   return (
@@ -77,6 +78,10 @@ const App = () => {
             path="/sellers/manage/categories"
             component={CategoryListPage}
             exact
+          />
+          <SellerProtectedRoute
+            path="/sellers/manage/categories/:category_id"
+            component={CategoryDetailPage}
           />
 
           {/* admin */}

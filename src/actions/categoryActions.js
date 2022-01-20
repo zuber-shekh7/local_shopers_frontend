@@ -3,6 +3,9 @@ import {
   FETCH_CATEGORIES_FAIL,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORY_DETAILS_FAIL,
+  FETCH_CATEGORY_DETAILS_REQUEST,
+  FETCH_CATEGORY_DETAILS_SUCCESS,
 } from "../constants/categoryConstants";
 
 const getCategories = () => async (dispatch) => {
@@ -27,4 +30,24 @@ const getCategories = () => async (dispatch) => {
   }
 };
 
-export { getCategories };
+const getCategory = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_CATEGORY_DETAILS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+    const { data } = await backendAPI.get(`/business/categories/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    const { category } = data;
+
+    dispatch({ type: FETCH_CATEGORY_DETAILS_SUCCESS, payload: category });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: FETCH_CATEGORY_DETAILS_FAIL, payload: error });
+  }
+};
+
+export { getCategories, getCategory };
