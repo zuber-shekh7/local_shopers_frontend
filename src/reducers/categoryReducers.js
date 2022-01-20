@@ -1,4 +1,7 @@
 import {
+  CREATE_CATEGORY_FAIL,
+  CREATE_CATEGORY_REQUEST,
+  CREATE_CATEGORY_SUCCESS,
   FETCH_CATEGORIES_FAIL,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
@@ -41,4 +44,24 @@ const getCategoryDetailsReducer = (state = {}, action) => {
   }
 };
 
-export { getCategoriesReducer, getCategoryDetailsReducer };
+const createCategoryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_CATEGORY_REQUEST:
+      return { loading: true };
+    case CREATE_CATEGORY_SUCCESS:
+      return { ...state, loading: false, category: action.payload };
+    case CREATE_CATEGORY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+export {
+  getCategoriesReducer,
+  getCategoryDetailsReducer,
+  createCategoryReducer,
+};

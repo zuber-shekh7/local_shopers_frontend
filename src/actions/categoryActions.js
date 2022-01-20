@@ -1,5 +1,8 @@
 import backendAPI from "../apis/backendAPI";
 import {
+  CREATE_CATEGORY_FAIL,
+  CREATE_CATEGORY_REQUEST,
+  CREATE_CATEGORY_SUCCESS,
   FETCH_CATEGORIES_FAIL,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
@@ -50,4 +53,28 @@ const getCategory = (id) => async (dispatch) => {
   }
 };
 
-export { getCategories, getCategory };
+const createCategory = (name) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_CATEGORY_REQUEST });
+
+    const { token, seller } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+    const { data } = await backendAPI.post(
+      "/business/categories/new",
+      { name, business_id: seller.business },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    const { category } = data;
+
+    dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: category });
+    dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: CREATE_CATEGORY_FAIL, payload: error });
+  }
+};
+export { getCategories, getCategory, createCategory };
