@@ -9,6 +9,7 @@ import {
 } from "./categoryReducers";
 import {
   createProductReducer,
+  deleteProductReducer,
   editProductReducer,
   getProductReducer,
 } from "./productReducers";
@@ -63,6 +64,7 @@ const initialState = {
   createProduct: { product: null },
   getProduct: { product: null },
   editProduct: { product: null },
+  deleteProduct: { success: null },
 };
 
 const rootReducer = combineReducers({
@@ -84,6 +86,7 @@ const rootReducer = combineReducers({
   createProduct: createProductReducer,
   getProduct: getProductReducer,
   editProduct: editProductReducer,
+  deleteProduct: deleteProductReducer,
 });
 
 export { initialState };

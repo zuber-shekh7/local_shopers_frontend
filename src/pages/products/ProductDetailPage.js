@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { Container, Row, Col, Button, Image, ListGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { getProduct } from "../../actions/productActions";
+import { Redirect } from "react-router-dom";
+import { deleteProduct, getProduct } from "../../actions/productActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 import ModalForm from "../../components/shared/ModalForm";
@@ -14,7 +15,14 @@ const ProductDetailPage = ({ match }) => {
 
   const { product_id } = match.params;
 
-  const { error, loading, product } = useSelector((state) => state.getProduct);
+  const {
+    error: productError,
+    loading: productLoading,
+    product,
+  } = useSelector((state) => state.getProduct);
+  const { error, loading, success } = useSelector(
+    (state) => state.deleteProduct
+  );
 
   const dispatch = useDispatch();
 
@@ -22,15 +30,22 @@ const ProductDetailPage = ({ match }) => {
     dispatch(getProduct(product_id));
   }, []);
 
-  const onDelete = () => {};
+  const onDelete = (id) => {
+    dispatch(deleteProduct(id));
+    setModalShow(false);
+  };
+
+  if (success) {
+    return <Redirect to="/sellers/manage/categories/" />;
+  }
 
   return (
     <main>
       <Container>
         <Row>
           <Col className="mx-auto" md={8}>
-            {loading && <Loader />}
-            {error && <Message>{error}</Message>}
+            {(loading || productLoading) && <Loader />}
+            {(error || productError) && <Message>{error}</Message>}
             {product && (
               <section className="my-3">
                 <ModalForm
