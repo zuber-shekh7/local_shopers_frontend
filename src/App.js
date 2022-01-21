@@ -27,6 +27,7 @@ import CategoryDetailPage from "./pages/categories/CategoryDetailPage";
 import AddCategoryPage from "./pages/categories/AddCategoryPage";
 import EditCategoryPage from "./pages/categories/EditCategoryPage";
 import AddProductPage from "./pages/products/AddProductPage";
+import ProductDetailPage from "./pages/products/ProductDetailPage";
 
 const App = () => {
   return (
@@ -100,6 +101,10 @@ const App = () => {
           <SellerProtectedRoute
             path="/sellers/manage/categories/:category_id"
             component={CategoryDetailPage}
+          />
+          <SellerProtectedRoute
+            path="/sellers/manage/products/:product_id"
+            component={ProductDetailPage}
           />
 
           {/* admin */}

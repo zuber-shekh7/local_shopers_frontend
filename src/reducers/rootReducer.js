@@ -7,7 +7,7 @@ import {
   getCategoriesReducer,
   getCategoryDetailsReducer,
 } from "./categoryReducers";
-import { createProductReducer } from "./productReducers";
+import { createProductReducer, getProductReducer } from "./productReducers";
 import {
   businessDetailsReducer,
   createBusinessReducer,
@@ -57,6 +57,7 @@ const initialState = {
   editCategory: { category: null },
   deleteCategory: { success: null },
   createProduct: { product: null },
+  getProduct: { product: null },
 };
 
 const rootReducer = combineReducers({
@@ -76,6 +77,7 @@ const rootReducer = combineReducers({
   editCategory: editCategoryReducer,
   deleteCategory: deleteCategoryReducer,
   createProduct: createProductReducer,
+  getProduct: getProductReducer,
 });
 
 export { initialState };

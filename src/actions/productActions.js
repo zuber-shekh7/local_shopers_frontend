@@ -3,6 +3,9 @@ import {
   CREATE_PRODUCT_FAIL,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_REQUEST,
+  FETCH_PRODUCT_DETAILS_REQUEST,
+  FETCH_PRODUCT_DETAILS_SUCCESS,
+  FETCH_PRODUCT_DETAILS_FAIL,
 } from "../constants/productConstants";
 
 const createProduct =
@@ -31,4 +34,24 @@ const createProduct =
     }
   };
 
-export { createProduct };
+const getProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_PRODUCT_DETAILS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+    const { data } = await backendAPI.get(`/business/products/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    const { product } = data;
+
+    dispatch({ type: FETCH_PRODUCT_DETAILS_SUCCESS, payload: product });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: FETCH_PRODUCT_DETAILS_FAIL, payload: error });
+  }
+};
+
+export { createProduct, getProduct };

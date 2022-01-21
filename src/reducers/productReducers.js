@@ -2,6 +2,9 @@ import {
   CREATE_PRODUCT_FAIL,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
+  FETCH_PRODUCT_DETAILS_FAIL,
+  FETCH_PRODUCT_DETAILS_REQUEST,
+  FETCH_PRODUCT_DETAILS_SUCCESS,
 } from "../constants/productConstants";
 
 const createProductReducer = (state = {}, action) => {
@@ -21,4 +24,21 @@ const createProductReducer = (state = {}, action) => {
   }
 };
 
-export { createProductReducer };
+const getProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FETCH_PRODUCT_DETAILS_REQUEST:
+      return { loading: true };
+    case FETCH_PRODUCT_DETAILS_SUCCESS:
+      return { ...state, loading: false, product: action.payload };
+    case FETCH_PRODUCT_DETAILS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export { createProductReducer, getProductReducer };
