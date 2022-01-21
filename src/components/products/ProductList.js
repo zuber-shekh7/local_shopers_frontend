@@ -3,14 +3,11 @@ import { Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import ProductItem from "./ProductItem";
 
-const ProductList = ({ products }) => {
+const ProductList = ({ category, products }) => {
   if (products.length === 0) {
     return (
       <section className="text-center">
-        <h2 className="text-muted my-3">No products added Yet</h2>
-        <LinkContainer to="categories/new">
-          <Button>Add new product</Button>
-        </LinkContainer>
+        <h2 className="text-muted my-4">No products added yet</h2>
       </section>
     );
   }

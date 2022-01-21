@@ -30,7 +30,7 @@ const CategoryDetailPage = ({ match }) => {
     dispatch(deleteCategory(id));
     setModalShow(false);
   };
-  console.log(success);
+
   if (success) {
     return <Redirect to="/sellers/manage/categories" />;
   }
@@ -69,9 +69,20 @@ const CategoryDetailPage = ({ match }) => {
                 </Row>
                 <Row>
                   <Col>
-                    <h3>Products</h3>
+                    <section className="d-flex justify-content-between">
+                      <h3>Products</h3>
+                      <LinkContainer
+                        to={`/sellers/manage/categories/${category._id}/products/new`}
+                      >
+                        <Button>Add product</Button>
+                      </LinkContainer>
+                    </section>
+
                     {category.products && (
-                      <ProductList products={category.products} />
+                      <ProductList
+                        category={category._id}
+                        products={category.products}
+                      />
                     )}
                   </Col>
                 </Row>
