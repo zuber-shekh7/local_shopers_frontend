@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { adminLoginReducer } from "./adminReducers";
+import { editBusinessReducer } from "./businessReducers";
 import {
   createCategoryReducer,
   deleteCategoryReducer,
@@ -65,6 +66,7 @@ const initialState = {
   getProduct: { product: null },
   editProduct: { product: null },
   deleteProduct: { success: null },
+  editBusiness: { business: null },
 };
 
 const rootReducer = combineReducers({
@@ -87,6 +89,7 @@ const rootReducer = combineReducers({
   getProduct: getProductReducer,
   editProduct: editProductReducer,
   deleteProduct: deleteProductReducer,
+  editBusiness: editBusinessReducer,
 });
 
 export { initialState };

@@ -29,6 +29,7 @@ import EditCategoryPage from "./pages/categories/EditCategoryPage";
 import AddProductPage from "./pages/products/AddProductPage";
 import ProductDetailPage from "./pages/products/ProductDetailPage";
 import EditProductPage from "./pages/products/EditProductPage";
+import EditBusinessPage from "./pages/business/EditBusinessPage";
 
 const App = () => {
   return (
@@ -77,6 +78,11 @@ const App = () => {
             path="/sellers/business"
             component={BusinessDetailPage}
             exact
+          />
+
+          <SellerProtectedRoute
+            path="/sellers/manage/business/:business_id/edit"
+            component={EditBusinessPage}
           />
 
           <SellerProtectedRoute
