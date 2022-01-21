@@ -3,7 +3,25 @@ import {
   EDIT_BUSINESS_FAIL,
   EDIT_BUSINESS_REQUEST,
   EDIT_BUSINESS_SUCCESS,
+  GET_BUSINESS_FAIL,
+  GET_BUSINESS_REQUEST,
+  GET_BUSINESS_SUCCESS,
 } from "../constants/businessConstants";
+
+const getBusiness = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_BUSINESS_REQUEST });
+
+    const { data } = await backendAPI.get(`/business/${id}`);
+
+    const { business } = data;
+
+    dispatch({ type: GET_BUSINESS_SUCCESS, payload: business });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: GET_BUSINESS_FAIL, payload: error });
+  }
+};
 
 const editBusiness =
   (name, description, category_id, business_id) => async (dispatch) => {
@@ -32,4 +50,4 @@ const editBusiness =
     }
   };
 
-export { editBusiness };
+export { getBusiness, editBusiness };

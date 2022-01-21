@@ -30,6 +30,7 @@ import AddProductPage from "./pages/products/AddProductPage";
 import ProductDetailPage from "./pages/products/ProductDetailPage";
 import EditProductPage from "./pages/products/EditProductPage";
 import EditBusinessPage from "./pages/business/EditBusinessPage";
+import BusinessPage from "./pages/business/BusinessPage";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
           {/* core */}
           <Route path="/" component={HomePage} exact />
           <Route path="/about" component={AboutUsPage} exact />
+          <Route path="/business/:business_id" component={BusinessPage} />
 
           {/* users */}
           <Route path="/users/login" component={LoginPage} exact />
