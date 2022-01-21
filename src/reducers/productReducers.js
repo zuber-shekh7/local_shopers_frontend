@@ -2,6 +2,9 @@ import {
   CREATE_PRODUCT_FAIL,
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
+  EDIT_PRODUCT_FAIL,
+  EDIT_PRODUCT_REQUEST,
+  EDIT_PRODUCT_SUCCESS,
   FETCH_PRODUCT_DETAILS_FAIL,
   FETCH_PRODUCT_DETAILS_REQUEST,
   FETCH_PRODUCT_DETAILS_SUCCESS,
@@ -41,4 +44,21 @@ const getProductReducer = (state = {}, action) => {
   }
 };
 
-export { createProductReducer, getProductReducer };
+const editProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_PRODUCT_REQUEST:
+      return { loading: true };
+    case EDIT_PRODUCT_SUCCESS:
+      return { ...state, loading: false, product: action.payload };
+    case EDIT_PRODUCT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export { createProductReducer, getProductReducer, editProductReducer };

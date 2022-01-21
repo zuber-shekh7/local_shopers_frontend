@@ -6,6 +6,9 @@ import {
   FETCH_PRODUCT_DETAILS_REQUEST,
   FETCH_PRODUCT_DETAILS_SUCCESS,
   FETCH_PRODUCT_DETAILS_FAIL,
+  EDIT_PRODUCT_REQUEST,
+  EDIT_PRODUCT_SUCCESS,
+  EDIT_PRODUCT_FAIL,
 } from "../constants/productConstants";
 
 const createProduct =
@@ -54,4 +57,31 @@ const getProduct = (id) => async (dispatch) => {
   }
 };
 
-export { createProduct, getProduct };
+const editProduct =
+  (name, description, price, quantity, product_id) => async (dispatch) => {
+    try {
+      dispatch({ type: EDIT_PRODUCT_REQUEST });
+
+      const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+      const { data } = await backendAPI.put(
+        `/business/products/${product_id}/edit`,
+        { name, description, price, quantity },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      const { product } = data;
+
+      dispatch({ type: EDIT_PRODUCT_SUCCESS, payload: product });
+
+      dispatch({ type: EDIT_PRODUCT_SUCCESS, payload: null });
+    } catch (err) {
+      const error = err.response ? err.response.data.message : err.message;
+      dispatch({ type: EDIT_PRODUCT_FAIL, payload: error });
+    }
+  };
+
+export { createProduct, getProduct, editProduct };
