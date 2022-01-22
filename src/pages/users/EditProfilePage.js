@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { getUserDetails, updateUserProfile } from "../../actions/userActions";
+import { getUser, updateUser } from "../../actions/userActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
@@ -15,13 +15,13 @@ const EditUserProfilePage = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.userDetails);
+  const { user } = useSelector((state) => state.getUser);
 
   const {
     loading,
     error,
     user: updatedUser,
-  } = useSelector((state) => state.updateUserProfile);
+  } = useSelector((state) => state.updateUser);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,14 +36,14 @@ const EditUserProfilePage = ({ history }) => {
       return;
     }
 
-    dispatch(updateUserProfile(email, mobile, firstName, lastName));
+    dispatch(updateUser(email, mobile, firstName, lastName, user._id));
 
     setMessage("");
   };
 
   useEffect(() => {
     if (!user) {
-      dispatch(getUserDetails());
+      dispatch(getUser());
     } else {
       setFirstName(user.firstName);
       setLastName(user.lastName);

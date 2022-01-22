@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
-import { getUserDetails } from "../../actions/userActions";
+import { getUser } from "../../actions/userActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 import { LinkContainer } from "react-router-bootstrap";
@@ -9,13 +9,11 @@ import { LinkContainer } from "react-router-bootstrap";
 const UserProfilePage = () => {
   const dispatch = useDispatch();
 
-  const { loading, error, user } = useSelector((state) => state.userDetails);
+  const { loading, error, user } = useSelector((state) => state.getUser);
 
   useEffect(() => {
-    if (!user) {
-      dispatch(getUserDetails());
-    }
-  }, [user, dispatch]);
+    dispatch(getUser());
+  }, []);
 
   return (
     <main>

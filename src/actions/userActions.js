@@ -9,15 +9,15 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAIL,
-  USER_PROFILE_DETAILS_REQUEST,
-  USER_PROFILE_DETAILS_SUCCESS,
-  USER_PROFILE_DETAILS_FAIL,
-  UPDATE_USER_PROFILE_REQUEST,
-  UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_FAIL,
   USER_LOGIN_WITH_GOOGLE_SUCCESS,
   USER_LOGIN_WITH_GOOGLE_FAIL,
   USER_LOGIN_WITH_GOOGLE_REQUEST,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
 } from "../constants/userConstants";
 
 const userLogin = (email, password) => async (dispatch) => {
@@ -56,8 +56,6 @@ const userLogout = () => (dispatch) => {
 
     localStorage.clear();
 
-    dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: null });
-
     dispatch({ type: USER_LOGOUT_SUCCESS });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
@@ -65,50 +63,48 @@ const userLogout = () => (dispatch) => {
   }
 };
 
-const getUserDetails = () => async (dispatch) => {
+const getUser = () => async (dispatch) => {
   try {
-    dispatch({ type: USER_PROFILE_DETAILS_REQUEST });
+    dispatch({ type: GET_USER_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+    const { token, user: userInfo } = JSON.parse(
+      localStorage.getItem("userInfo")
+    );
 
-    const { data } = await userAPI.get("/profile", {
+    const { data } = await userAPI.get(`/${userInfo._id}`, {
       headers: { Authorization: token },
     });
 
     const { user } = data;
 
-    dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: user });
+    dispatch({ type: GET_USER_SUCCESS, payload: user });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: USER_PROFILE_DETAILS_FAIL, payload: error });
+    dispatch({ type: GET_USER_FAIL, payload: error });
   }
 };
 
-const updateUserProfile =
-  (email, mobile, firstName, lastName) => async (dispatch) => {
+const updateUser =
+  (email, mobile, firstName, lastName, user_id) => async (dispatch) => {
     try {
-      dispatch({ type: UPDATE_USER_PROFILE_REQUEST });
+      dispatch({ type: UPDATE_USER_REQUEST });
 
       const { token } = JSON.parse(localStorage.getItem("userInfo"));
 
       const { data } = await userAPI.put(
-        "/profile",
+        `/${user_id}`,
         { email, mobile, firstName, lastName },
         {
           headers: { Authorization: token },
         }
       );
 
-      dispatch({ type: UPDATE_USER_PROFILE_SUCCESS, payload: data });
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: data });
 
-      dispatch({ type: USER_PROFILE_DETAILS_REQUEST });
-
-      dispatch({ type: USER_PROFILE_DETAILS_SUCCESS, payload: null });
-
-      dispatch({ type: UPDATE_USER_PROFILE_SUCCESS, payload: null });
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: null });
     } catch (err) {
       const error = err.response ? err.response.data.message : err.message;
-      dispatch({ type: UPDATE_USER_PROFILE_FAIL, payload: error });
+      dispatch({ type: UPDATE_USER_FAIL, payload: error });
     }
   };
 
@@ -131,7 +127,7 @@ export {
   userLogin,
   userSignup,
   userLogout,
-  getUserDetails,
-  updateUserProfile,
+  getUser,
+  updateUser,
   userLoginWithGoogle,
 };
