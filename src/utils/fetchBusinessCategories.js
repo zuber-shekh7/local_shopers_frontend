@@ -1,9 +1,9 @@
-import businessAPI from "../apis/businessAPI";
+import backendAPI from "../apis/backendAPI";
 
 const fetchBusinessCategories = async () => {
   try {
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
-    const { data } = await businessAPI.get("/business-categories", {
+    const { data } = await backendAPI.get("/business-categories", {
       headers: { Authorization: token },
     });
     return data;
