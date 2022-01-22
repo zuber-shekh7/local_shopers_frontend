@@ -10,7 +10,8 @@ import {
 
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { createBusines, getSellerDetails } from "../../actions/sellerActions";
+import { createBusiness } from "../../actions/businessActions";
+import { getSeller } from "../../actions/sellerActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
@@ -28,7 +29,7 @@ const CreateBusinessPage = ({ history }) => {
     (state) => state.createBusiness
   );
 
-  const { seller } = useSelector((state) => state.sellerDetails);
+  const { seller } = useSelector((state) => state.getSeller);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,9 +53,9 @@ const CreateBusinessPage = ({ history }) => {
       return;
     }
 
-    dispatch(createBusines(name, description, category));
+    dispatch(createBusiness(name, description, category));
 
-    dispatch(getSellerDetails());
+    dispatch(getSeller());
 
     setDescription("");
   };

@@ -14,7 +14,7 @@ import Message from "../../components/shared/Message";
 import Loader from "../../components/shared/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getSellerDetails,
+  getSeller,
   sellerLogin,
   sellerLoginWithGoogle,
 } from "../../actions/sellerActions";
@@ -46,7 +46,7 @@ const SellerLoginPage = ({ history }) => {
 
     dispatch(sellerLogin(email, password));
 
-    dispatch(getSellerDetails());
+    dispatch(getSeller());
     setEmail("");
     setPassword("");
   };

@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import LinkCard from "../../components/shared/LinkCard";
 import { LinkContainer } from "react-router-bootstrap";
-import { getSellerDetails } from "../../actions/sellerActions";
+import { getSeller } from "../../actions/sellerActions";
 
 const SellerDashboardPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const { sellerInfo } = useSelector((state) => state.sellerLogin);
-  const { seller } = useSelector((state) => state.sellerDetails);
+  const { seller } = useSelector((state) => state.getSeller);
 
   useEffect(() => {
     if (!sellerInfo) {
       history.push("/sellers/login");
     } else {
-      dispatch(getSellerDetails());
+      dispatch(getSeller());
     }
   }, [sellerInfo, dispatch, history]);
 

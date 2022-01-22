@@ -1,11 +1,5 @@
 import sellerAPI from "../apis/sellerAPI";
 import {
-  BUSINESS_DETAILS_FAIL,
-  BUSINESS_DETAILS_REQUEST,
-  BUSINESS_DETAILS_SUCCESS,
-  CREATE_BUSINESS_FAIL,
-  CREATE_BUSINESS_REQUEST,
-  CREATE_BUSINESS_SUCCESS,
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
@@ -15,9 +9,9 @@ import {
   SELLER_LOGOUT_FAIL,
   SELLER_LOGOUT_REQUEST,
   SELLER_LOGOUT_SUCCESS,
-  SELLER_PROFILE_DETAILS_FAIL,
-  SELLER_PROFILE_DETAILS_REQUEST,
-  SELLER_PROFILE_DETAILS_SUCCESS,
+  GET_SELLER_REQUEST,
+  GET_SELLER_SUCCESS,
+  GET_SELLER_FAIL,
   SELLER_SIGNUP_FAIL,
   SELLER_SIGNUP_REQUEST,
   SELLER_SIGNUP_SUCCESS,
@@ -75,13 +69,15 @@ const sellerLogout = () => (dispatch) => {
   }
 };
 
-const getSellerDetails = () => async (dispatch) => {
+const getSeller = () => async (dispatch) => {
   try {
-    dispatch({ type: SELLER_PROFILE_DETAILS_REQUEST });
+    dispatch({ type: GET_SELLER_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+    const { token, seller: sellerInfo } = JSON.parse(
+      localStorage.getItem("sellerInfo")
+    );
 
-    const { data } = await sellerAPI.get("/profile", {
+    const { data } = await sellerAPI.get(`${sellerInfo._id}`, {
       headers: { Authorization: token },
     });
 
@@ -89,51 +85,10 @@ const getSellerDetails = () => async (dispatch) => {
 
     localStorage.setItem("seller", JSON.stringify(seller));
 
-    dispatch({ type: SELLER_PROFILE_DETAILS_SUCCESS, payload: seller });
+    dispatch({ type: GET_SELLER_SUCCESS, payload: seller });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: SELLER_PROFILE_DETAILS_FAIL, payload: error });
-  }
-};
-
-const createBusines = (name, description, category) => async (dispatch) => {
-  try {
-    dispatch({ type: CREATE_BUSINESS_REQUEST });
-
-    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
-
-    const { data } = await sellerAPI.post(
-      "/business/new",
-      { name, description, business_category_id: category },
-      {
-        headers: { Authorization: token },
-      }
-    );
-
-    dispatch({ type: CREATE_BUSINESS_SUCCESS, payload: data });
-  } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: CREATE_BUSINESS_FAIL, payload: error });
-  }
-};
-
-const getBusinessDetails = () => async (dispatch) => {
-  try {
-    dispatch({ type: BUSINESS_DETAILS_REQUEST });
-
-    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
-    const seller = JSON.parse(localStorage.getItem("seller"));
-
-    const { data } = await sellerAPI.get(`/business/${seller.business._id}`, {
-      headers: { Authorization: token },
-    });
-
-    const { business } = data;
-
-    dispatch({ type: BUSINESS_DETAILS_SUCCESS, payload: business });
-  } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: BUSINESS_DETAILS_FAIL, payload: error });
+    dispatch({ type: GET_SELLER_FAIL, payload: error });
   }
 };
 
@@ -156,8 +111,6 @@ export {
   sellerLogin,
   sellerSignup,
   sellerLoginWithGoogle,
-  getSellerDetails,
+  getSeller,
   sellerLogout,
-  createBusines,
-  getBusinessDetails,
 };

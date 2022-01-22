@@ -3,27 +3,24 @@ import React, { useEffect } from "react";
 import { Container, Row, Col, ListGroup, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import {
-  getBusinessDetails,
-  getSellerDetails,
-} from "../../actions/sellerActions";
+import { getBusiness } from "../../actions/businessActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
 const BusinessDetailPage = ({ history }) => {
   const dispatch = useDispatch();
 
-  const { seller } = useSelector((state) => state.sellerDetails);
+  const { seller } = useSelector((state) => state.getSeller);
 
   const { business, loading, error } = useSelector(
-    (state) => state.businessDetails
+    (state) => state.getBusiness
   );
 
   useEffect(() => {
     if (!seller.business) {
       history.push("/sellers/dashboard");
     } else {
-      dispatch(getBusinessDetails());
+      dispatch(getBusiness(seller.business._id));
     }
   }, []);
 
@@ -65,7 +62,9 @@ const BusinessDetailPage = ({ history }) => {
                       <ListGroup.Item>
                         <Row>
                           <Col>Business Category</Col>
-                          <Col className="text-end">{business.category}</Col>
+                          <Col className="text-end">
+                            {business.category.name}
+                          </Col>
                         </Row>
                       </ListGroup.Item>
                       <ListGroup.Item>

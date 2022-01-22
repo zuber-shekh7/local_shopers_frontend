@@ -1,5 +1,8 @@
 import backendAPI from "../apis/backendAPI";
 import {
+  CREATE_BUSINESS_REQUEST,
+  CREATE_BUSINESS_SUCCESS,
+  CREATE_BUSINESS_FAIL,
   EDIT_BUSINESS_FAIL,
   EDIT_BUSINESS_REQUEST,
   EDIT_BUSINESS_SUCCESS,
@@ -7,6 +10,27 @@ import {
   GET_BUSINESS_REQUEST,
   GET_BUSINESS_SUCCESS,
 } from "../constants/businessConstants";
+
+const createBusiness = (name, description, category) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_BUSINESS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+    const { data } = await backendAPI.post(
+      "/business/new",
+      { name, description, business_category_id: category },
+      {
+        headers: { Authorization: token },
+      }
+    );
+
+    dispatch({ type: CREATE_BUSINESS_SUCCESS, payload: data });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: CREATE_BUSINESS_FAIL, payload: error });
+  }
+};
 
 const getBusiness = (id) => async (dispatch) => {
   try {
@@ -31,7 +55,7 @@ const editBusiness =
       const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
       const { data } = await backendAPI.put(
-        `/business/${business_id}/edit`,
+        `/business/${business_id}`,
         { name, description, category_id },
         {
           headers: {
@@ -50,4 +74,4 @@ const editBusiness =
     }
   };
 
-export { getBusiness, editBusiness };
+export { createBusiness, getBusiness, editBusiness };

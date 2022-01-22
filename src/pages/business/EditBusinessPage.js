@@ -10,8 +10,7 @@ import {
 
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { editBusiness } from "../../actions/businessActions";
-import { getBusinessDetails } from "../../actions/sellerActions";
+import { editBusiness, getBusiness } from "../../actions/businessActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
@@ -25,11 +24,11 @@ const EditBusinessPage = ({ history }) => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
-  const { loading, error, success } = {};
+  const { loading, error, business } = useSelector(
+    (state) => state.getBusiness
+  );
 
-  const { business } = useSelector((state) => state.businessDetails);
-
-  const { business: updatedBusiness } = useSelector(
+  const { success, business: updatedBusiness } = useSelector(
     (state) => state.editBusiness
   );
 
@@ -47,7 +46,7 @@ const EditBusinessPage = ({ history }) => {
       setDescription(business.description);
       setCategory(business.category);
     } else {
-      dispatch(getBusinessDetails());
+      dispatch(getBusiness());
     }
   }, []);
 

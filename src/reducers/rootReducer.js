@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
 import { adminLoginReducer } from "./adminReducers";
-import { editBusinessReducer, getBusinessReducer } from "./businessReducers";
+import {
+  createBusinessReducer,
+  editBusinessReducer,
+  getBusinessReducer,
+} from "./businessReducers";
 import {
   createCategoryReducer,
   deleteCategoryReducer,
@@ -15,9 +19,7 @@ import {
   getProductReducer,
 } from "./productReducers";
 import {
-  businessDetailsReducer,
-  createBusinessReducer,
-  sellerDetailsReducer,
+  getSellerReducer,
   sellerLoginReducer,
   sellerSignupReducer,
 } from "./sellerReducers";
@@ -43,7 +45,7 @@ const initialState = {
       : null,
   },
   sellerSignup: {},
-  sellerDetails: {
+  getSeller: {
     seller: localStorage.getItem("seller")
       ? JSON.parse(localStorage.getItem("seller", null))
       : null,
@@ -55,8 +57,6 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("adminInfo", null))
       : null,
   },
-  createBusiness: { success: null },
-  businessDetails: { business: null },
   getCategories: { categories: null },
   getCategoryDetails: { category: null },
   createCategory: { category: null },
@@ -66,6 +66,7 @@ const initialState = {
   getProduct: { product: null },
   editProduct: { product: null },
   deleteProduct: { success: null },
+  createBusiness: { success: null },
   getBusiness: { business: null },
   editBusiness: { business: null },
 };
@@ -75,12 +76,10 @@ const rootReducer = combineReducers({
   userSignup: userSignupReducer,
   sellerLogin: sellerLoginReducer,
   sellerSignup: sellerSignupReducer,
-  sellerDetails: sellerDetailsReducer,
+  getSeller: getSellerReducer,
   userDetails: userDetailsReducer,
   updateUserProfile: updateUserProfileReducer,
   adminLogin: adminLoginReducer,
-  createBusiness: createBusinessReducer,
-  businessDetails: businessDetailsReducer,
   getCategories: getCategoriesReducer,
   getCategoryDetails: getCategoryDetailsReducer,
   createCategory: createCategoryReducer,
@@ -90,6 +89,7 @@ const rootReducer = combineReducers({
   getProduct: getProductReducer,
   editProduct: editProductReducer,
   deleteProduct: deleteProductReducer,
+  createBusiness: createBusinessReducer,
   getBusiness: getBusinessReducer,
   editBusiness: editBusinessReducer,
 });

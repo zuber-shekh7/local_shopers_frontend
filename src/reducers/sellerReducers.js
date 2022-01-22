@@ -1,10 +1,4 @@
 import {
-  BUSINESS_DETAILS_FAIL,
-  BUSINESS_DETAILS_REQUEST,
-  BUSINESS_DETAILS_SUCCESS,
-  CREATE_BUSINESS_FAIL,
-  CREATE_BUSINESS_REQUEST,
-  CREATE_BUSINESS_SUCCESS,
   SELLER_LOGIN_FAIL,
   SELLER_LOGIN_REQUEST,
   SELLER_LOGIN_SUCCESS,
@@ -14,9 +8,9 @@ import {
   SELLER_LOGOUT_FAIL,
   SELLER_LOGOUT_REQUEST,
   SELLER_LOGOUT_SUCCESS,
-  SELLER_PROFILE_DETAILS_FAIL,
-  SELLER_PROFILE_DETAILS_REQUEST,
-  SELLER_PROFILE_DETAILS_SUCCESS,
+  GET_SELLER_REQUEST,
+  GET_SELLER_SUCCESS,
+  GET_SELLER_FAIL,
   SELLER_SIGNUP_FAIL,
   SELLER_SIGNUP_REQUEST,
   SELLER_SIGNUP_SUCCESS,
@@ -60,49 +54,17 @@ const sellerSignupReducer = (state = {}, action) => {
   }
 };
 
-const sellerDetailsReducer = (state = {}, action) => {
+const getSellerReducer = (state = {}, action) => {
   switch (action.type) {
-    case SELLER_PROFILE_DETAILS_REQUEST:
+    case GET_SELLER_REQUEST:
       return { ...state, loading: true };
-    case SELLER_PROFILE_DETAILS_SUCCESS:
+    case GET_SELLER_SUCCESS:
       return { ...state, loading: false, seller: action.payload };
-    case SELLER_PROFILE_DETAILS_FAIL:
+    case GET_SELLER_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
 
-const createBusinessReducer = (state = {}, action) => {
-  switch (action.type) {
-    case CREATE_BUSINESS_REQUEST:
-      return { ...state, loading: true };
-    case CREATE_BUSINESS_SUCCESS:
-      return { ...state, loading: false, success: true };
-    case CREATE_BUSINESS_FAIL:
-      return { ...state, loading: false, success: false };
-    default:
-      return state;
-  }
-};
-
-const businessDetailsReducer = (state = {}, action) => {
-  switch (action.type) {
-    case BUSINESS_DETAILS_REQUEST:
-      return { ...state, loading: true };
-    case BUSINESS_DETAILS_SUCCESS:
-      return { ...state, loading: false, business: action.payload };
-    case BUSINESS_DETAILS_FAIL:
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export {
-  sellerLoginReducer,
-  sellerSignupReducer,
-  sellerDetailsReducer,
-  createBusinessReducer,
-  businessDetailsReducer,
-};
+export { sellerLoginReducer, sellerSignupReducer, getSellerReducer };
