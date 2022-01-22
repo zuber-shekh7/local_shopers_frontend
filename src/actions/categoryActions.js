@@ -23,7 +23,7 @@ const getCategories = () => async (dispatch) => {
 
     const { token, seller } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-    const { data } = await backendAPI.get("/business/categories", {
+    const { data } = await backendAPI.get("/categories", {
       params: { business_id: seller.business },
       headers: {
         Authorization: token,
@@ -45,7 +45,7 @@ const getCategory = (id) => async (dispatch) => {
 
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-    const { data } = await backendAPI.get(`/business/categories/${id}`, {
+    const { data } = await backendAPI.get(`/categories/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -66,7 +66,7 @@ const createCategory = (name) => async (dispatch) => {
     const { token, seller } = JSON.parse(localStorage.getItem("sellerInfo"));
 
     const { data } = await backendAPI.post(
-      "/business/categories/new",
+      "/categories/new",
       { name, business_id: seller.business },
       {
         headers: {
@@ -91,8 +91,8 @@ const editCategory = (name, category_id) => async (dispatch) => {
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
     const { data } = await backendAPI.put(
-      "/business/categories",
-      { name, category_id },
+      `/categories/${category_id}`,
+      { name },
       {
         headers: {
           Authorization: token,
@@ -116,7 +116,7 @@ const deleteCategory = (category_id) => async (dispatch) => {
 
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-    await backendAPI.delete(`/business/categories/${category_id}`, {
+    await backendAPI.delete(`/categories/${category_id}`, {
       headers: {
         Authorization: token,
       },
