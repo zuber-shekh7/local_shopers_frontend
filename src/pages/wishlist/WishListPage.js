@@ -35,7 +35,6 @@ const WishListPage = () => {
 
   const handleRemoveFromList = (wish_list_id, product_id) => {
     dispatch(removeFromWishList(wish_list_id, product_id));
-    dispatch(getWishList(user._id));
   };
 
   return (
