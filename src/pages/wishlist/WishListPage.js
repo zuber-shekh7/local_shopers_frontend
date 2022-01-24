@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { getWishList } from "../../actions/wishListActions";
+import { getWishList, removeFromWishList } from "../../actions/wishListActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
@@ -19,6 +19,11 @@ const WishListPage = () => {
   const { loading, error, wishList } = useSelector(
     (state) => state.getWishList
   );
+
+  const { removeLoading, removeError, success } = useSelector(
+    (state) => state.removeFromWishList
+  );
+
   const { userInfo } = useSelector((state) => state.userLogin);
   const { user } = userInfo;
 
@@ -26,10 +31,11 @@ const WishListPage = () => {
 
   useEffect(() => {
     dispatch(getWishList(user._id));
-  }, []);
+  }, [success]);
 
-  const handleRemoveFromList = async (wish_list_id, product_id) => {
-    console.log(wish_list_id, product_id);
+  const handleRemoveFromList = (wish_list_id, product_id) => {
+    dispatch(removeFromWishList(wish_list_id, product_id));
+    dispatch(getWishList(user._id));
   };
 
   return (
@@ -40,9 +46,12 @@ const WishListPage = () => {
             <section>
               <h2>Your Wishlist</h2>
               <hr />
-              {loading && <Loader />}
-              {error && <Message variant="danger">{error}</Message>}
-              {wishList && wishList.products.length > 0 ? (
+              {removeLoading || (loading && <Loader />)}
+              {removeError ||
+                (error && (
+                  <Message variant="danger">{removeError || error}</Message>
+                ))}
+              {wishList && wishList.products && wishList.products.length > 0 ? (
                 <ListGroup>
                   {wishList.products.map((product) => {
                     return (
