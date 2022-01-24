@@ -40,15 +40,20 @@ const EditAddressPage = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(getAddress(address_id));
-    setFullName(address.fullName);
-    setMobileNumber(address.mobileNumber);
-    setPincode(address.pincode);
-    setCity(address.city);
-    setState(address.state);
-    setLandmark(address.landmark);
-    setFlatNo(address.flatNo);
-    setStreet(address.street);
   }, []);
+
+  useEffect(() => {
+    if (address) {
+      setFullName(address.fullName);
+      setMobileNumber(address.mobileNumber);
+      setPincode(address.pincode);
+      setCity(address.city);
+      setState(address.state);
+      setLandmark(address.landmark);
+      setFlatNo(address.flatNo);
+      setStreet(address.street);
+    }
+  }, [address]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
