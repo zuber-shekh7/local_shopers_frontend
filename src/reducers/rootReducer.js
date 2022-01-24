@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { getAddressesReducer } from "./addressReducers";
 import { adminLoginReducer } from "./adminReducers";
 import {
   createBusinessReducer,
@@ -75,6 +76,7 @@ const initialState = {
   editBusiness: { business: null },
   getWishList: { wishList: null },
   removeFromWishList: { success: null },
+  getAddresses: { addresses: null },
 };
 
 const rootReducer = combineReducers({
@@ -100,6 +102,7 @@ const rootReducer = combineReducers({
   editBusiness: editBusinessReducer,
   getWishList: getWishListReducer,
   removeFromWishList: removeFromWishListReducer,
+  getAddresses: getAddressesReducer,
 });
 
 export { initialState };
