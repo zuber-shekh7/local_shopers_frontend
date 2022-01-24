@@ -55,7 +55,11 @@ const AddressesPage = () => {
                               <p>Phone Number: {address.mobileNumber}</p>
                             </Card.Body>
                             <Card.Footer className="d-flex justify-content-between">
-                              <Button className="w-100 me-2">Edit</Button>
+                              <LinkContainer
+                                to={`/users/addresses/${address._id}/edit`}
+                              >
+                                <Button className="w-100 me-2">Edit</Button>
+                              </LinkContainer>
                               <Button variant="danger" className="w-100">
                                 Delete
                               </Button>
