@@ -31,6 +31,7 @@ import ProductDetailPage from "./pages/products/ProductDetailPage";
 import EditProductPage from "./pages/products/EditProductPage";
 import EditBusinessPage from "./pages/business/EditBusinessPage";
 import BusinessPage from "./pages/business/BusinessPage";
+import WishListPage from "./pages/wishlist/WishListPage";
 
 const App = () => {
   return (
@@ -59,6 +60,11 @@ const App = () => {
           <UserProtectedRoute
             path="/users/profile/edit"
             component={EditUserProfilePage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/users/wishlist"
+            component={WishListPage}
             exact
           />
 

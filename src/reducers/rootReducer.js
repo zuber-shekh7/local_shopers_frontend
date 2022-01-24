@@ -29,6 +29,7 @@ import {
   userLoginReducer,
   userSignupReducer,
 } from "./userReducers";
+import { getWishListReducer } from "./wishListReducers";
 
 const initialState = {
   userLogin: {
@@ -69,6 +70,7 @@ const initialState = {
   createBusiness: { success: null },
   getBusiness: { business: null },
   editBusiness: { business: null },
+  getWishList: { wishList: null },
 };
 
 const rootReducer = combineReducers({
@@ -92,6 +94,7 @@ const rootReducer = combineReducers({
   createBusiness: createBusinessReducer,
   getBusiness: getBusinessReducer,
   editBusiness: editBusinessReducer,
+  getWishList: getWishListReducer,
 });
 
 export { initialState };
