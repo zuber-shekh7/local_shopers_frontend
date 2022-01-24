@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
   createAddressReducer,
+  deleteAddressReducer,
   editAddressReducer,
   getAddressesReducer,
   getAddressReducer,
@@ -85,6 +86,7 @@ const initialState = {
   getAddress: { address: null },
   createAddress: { address: null },
   editAddress: { address: null },
+  deleteAddress: { success: null },
 };
 
 const rootReducer = combineReducers({
@@ -114,6 +116,7 @@ const rootReducer = combineReducers({
   getAddress: getAddressReducer,
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
+  deleteAddress: deleteAddressReducer,
 });
 
 export { initialState };

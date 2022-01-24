@@ -56,13 +56,10 @@ const AddressesPage = () => {
                             </Card.Body>
                             <Card.Footer className="d-flex justify-content-between">
                               <LinkContainer
-                                to={`/users/addresses/${address._id}/edit`}
+                                to={`/users/addresses/${address._id}`}
                               >
-                                <Button className="w-100 me-2">Edit</Button>
+                                <Button className="w-100 me-2">View</Button>
                               </LinkContainer>
-                              <Button variant="danger" className="w-100">
-                                Delete
-                              </Button>
                             </Card.Footer>
                           </Card>
                         </Col>

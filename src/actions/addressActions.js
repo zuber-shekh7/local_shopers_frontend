@@ -3,6 +3,9 @@ import {
   CREATE_ADDRESS_FAIL,
   CREATE_ADDRESS_REQUEST,
   CREATE_ADDRESS_SUCCESS,
+  DELETE_ADDRESS_FAIL,
+  DELETE_ADDRESS_REQUEST,
+  DELETE_ADDRESS_SUCCESS,
   EDIT_ADDRESS_FAIL,
   EDIT_ADDRESS_REQUEST,
   EDIT_ADDRESS_SUCCESS,
@@ -147,4 +150,24 @@ const editAddress =
     }
   };
 
-export { getAddresses, createAddress, getAddress, editAddress };
+const deleteAddress = (address_id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_ADDRESS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+
+    await backendAPI.delete(`/addresses/${address_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    dispatch({ type: DELETE_ADDRESS_SUCCESS, payload: true });
+    dispatch({ type: DELETE_ADDRESS_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: DELETE_ADDRESS_FAIL, payload: error });
+  }
+};
+
+export { getAddresses, createAddress, getAddress, editAddress, deleteAddress };

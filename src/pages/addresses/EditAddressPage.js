@@ -15,7 +15,6 @@ import { editAddress, getAddress } from "../../actions/addressActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
-import { GET_ADDRESS_SUCCESS } from "../../constants/addressConstants";
 
 const EditAddressPage = ({ match, history }) => {
   const [fullName, setFullName] = useState("");
@@ -86,7 +85,7 @@ const EditAddressPage = ({ match, history }) => {
   };
 
   if (updatedAddress) {
-    return <Redirect to="/users/addresses" />;
+    return <Redirect to={`/users/addresses/${address_id}`} />;
   }
 
   return (
