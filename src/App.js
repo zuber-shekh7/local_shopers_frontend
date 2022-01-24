@@ -33,6 +33,7 @@ import EditBusinessPage from "./pages/business/EditBusinessPage";
 import BusinessPage from "./pages/business/BusinessPage";
 import WishListPage from "./pages/wishlist/WishListPage";
 import AddressesPage from "./pages/addresses/AddressesPage";
+import AddAddressPage from "./pages/addresses/AddAddressPage";
 
 const App = () => {
   return (
@@ -71,6 +72,11 @@ const App = () => {
           <UserProtectedRoute
             path="/users/addresses"
             component={AddressesPage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/users/addresses/new"
+            component={AddAddressPage}
             exact
           />
 

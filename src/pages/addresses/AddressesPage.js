@@ -40,8 +40,8 @@ const AddressesPage = () => {
                   <>
                     {addresses.map((address) => {
                       return (
-                        <Col md={4} className="mb-3">
-                          <Card key={address._id}>
+                        <Col key={address._id} md={4} className="mb-3">
+                          <Card>
                             <Card.Body>
                               <Card.Title>{address.fullName}</Card.Title>
                               <p>
