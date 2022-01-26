@@ -36,6 +36,12 @@ import AddressesPage from "./pages/addresses/AddressesPage";
 import AddAddressPage from "./pages/addresses/AddAddressPage";
 import EditAddressPage from "./pages/addresses/EditAddressPage";
 import AddressPage from "./pages/addresses/AddressPage";
+import ManageCategoryAdminPage from "./pages/admin/ManageCategoryAdminPage";
+import ManageProductAdminPage from "./pages/admin/ManageProductAdminPage";
+import ManageSellerAdminPage from "./pages/admin/ManageSellerAdminPage";
+import ManageUsersAdminPage from "./pages/admin/ManageUsersAdminPage";
+import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
+import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
 
 const App = () => {
   return (
@@ -153,6 +159,36 @@ const App = () => {
           <AdminProtectedRoute
             path="/admin/account"
             component={AdminDashboardPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/category"
+            component={ManageCategoryAdminPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/categories/:category_id"
+            component={ManageProductAdminPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/sellers"
+            component={ManageSellerAdminPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/users"
+            component={ManageUsersAdminPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/admin"
+            component={ManageAdminListPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/business/category"
+            component={ManageBusinessCategoryPage}
             exact
           />
 

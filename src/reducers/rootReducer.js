@@ -6,7 +6,15 @@ import {
   getAddressesReducer,
   getAddressReducer,
 } from "./addressReducers";
-import { adminLoginReducer } from "./adminReducers";
+import {
+  adminLoginReducer,
+  adminManageCategoryStatisticsReducer,
+  adminManageProductStatisticsReducer,
+  adminGetSellerListReducer,
+  adminGetUsersListReducer,
+  adminGetAdminListReducer,
+  adminGetBusinessCategoryListReducer,
+} from "./adminReducers";
 import {
   createBusinessReducer,
   editBusinessReducer,
@@ -87,6 +95,12 @@ const initialState = {
   createAddress: { address: null },
   editAddress: { address: null },
   deleteAddress: { success: null },
+  getManageCategory: { categoryDetails: null },
+  getAdminProductList: { productList: null },
+  getSellerDetails: { sellersList: null },
+  getUsersDetails: { usersList: null },
+  getAdminList: { adminList: null },
+  getBusinessCategoryList: { businessCategoryList: null },
 };
 
 const rootReducer = combineReducers({
@@ -117,6 +131,12 @@ const rootReducer = combineReducers({
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
+  getManageCategory: adminManageCategoryStatisticsReducer,
+  getAdminProductList: adminManageProductStatisticsReducer,
+  getSellerDetails: adminGetSellerListReducer,
+  getUsersDetails: adminGetUsersListReducer,
+  getAdminList: adminGetAdminListReducer,
+  getBusinessCategoryList: adminGetBusinessCategoryListReducer,
 });
 
 export { initialState };
