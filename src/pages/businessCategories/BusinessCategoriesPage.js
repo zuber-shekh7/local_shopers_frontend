@@ -22,7 +22,12 @@ const BusinessCategoriesPage = () => {
         <Row>
           <Col md={8} className="mx-auto">
             <section>
-              <h2>Manage Categories</h2>
+              <section className="d-flex justify-content-between">
+                <h3>Manage Categories</h3>
+                <LinkContainer to={`/admin/manage/categories/new`}>
+                  <Button>Add new category</Button>
+                </LinkContainer>
+              </section>
               <hr />
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}

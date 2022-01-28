@@ -1,5 +1,8 @@
 import backendAPI from "../apis/backendAPI";
 import {
+  CREATE_BUSINESS_CATEGORY_FAIL,
+  CREATE_BUSINESS_CATEGORY_REQUEST,
+  CREATE_BUSINESS_CATEGORY_SUCCESS,
   GET_BUSINESS_CATEGORIES_FAIL,
   GET_BUSINESS_CATEGORIES_REQUEST,
   GET_BUSINESS_CATEGORIES_SUCCESS,
@@ -27,6 +30,30 @@ const getBusinessCategories = () => async (dispatch) => {
   }
 };
 
+const createBusinessCategory = (name, description) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_BUSINESS_CATEGORY_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("adminInfo"));
+
+    const { data } = await backendAPI.post(
+      `/business-categories/`,
+      { name, description },
+      {
+        headers: { Authorization: token },
+      }
+    );
+
+    const { category } = data;
+
+    dispatch({ type: CREATE_BUSINESS_CATEGORY_SUCCESS, payload: category });
+    dispatch({ type: CREATE_BUSINESS_CATEGORY_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: CREATE_BUSINESS_CATEGORY_FAIL, payload: error });
+  }
+};
+
 const getBusinessCategory = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_BUSINESS_CATEGORY_REQUEST });
@@ -45,4 +72,5 @@ const getBusinessCategory = (id) => async (dispatch) => {
     dispatch({ type: GET_BUSINESS_CATEGORY_FAIL, payload: error });
   }
 };
-export { getBusinessCategories, getBusinessCategory };
+
+export { getBusinessCategories, createBusinessCategory, getBusinessCategory };

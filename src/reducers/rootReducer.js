@@ -8,6 +8,7 @@ import {
 } from "./addressReducers";
 import { adminLoginReducer } from "./adminReducers";
 import {
+  createBusinessCategoryReducer,
   getBusinessCategoriesReducer,
   getBusinessCategoryReducer,
 } from "./businessCategoryReducers";
@@ -92,6 +93,7 @@ const initialState = {
   editAddress: { address: null },
   deleteAddress: { success: null },
   getBusinessCategories: { businessCategories: null },
+  createBusinessCategory: { businessCategory: null },
   getBusinessCategory: { businessCategory: null },
 };
 
@@ -124,6 +126,7 @@ const rootReducer = combineReducers({
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
   getBusinessCategories: getBusinessCategoriesReducer,
+  createBusinessCategory: createBusinessCategoryReducer,
   getBusinessCategory: getBusinessCategoryReducer,
 });
 
