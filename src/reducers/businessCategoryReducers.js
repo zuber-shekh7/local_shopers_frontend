@@ -8,6 +8,9 @@ import {
   GET_BUSINESS_CATEGORY_FAIL,
   GET_BUSINESS_CATEGORY_REQUEST,
   GET_BUSINESS_CATEGORY_SUCCESS,
+  EDIT_BUSINESS_CATEGORY_REQUEST,
+  EDIT_BUSINESS_CATEGORY_SUCCESS,
+  EDIT_BUSINESS_CATEGORY_FAIL,
 } from "../constants/businessCategoryConstants";
 
 const getBusinessCategoriesReducer = (state = {}, action) => {
@@ -61,8 +64,26 @@ const getBusinessCategoryReducer = (state = {}, action) => {
   }
 };
 
+const editBusinessCategoryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_BUSINESS_CATEGORY_REQUEST:
+      return { loading: true };
+    case EDIT_BUSINESS_CATEGORY_SUCCESS:
+      return { ...state, loading: false, businessCategory: action.payload };
+    case EDIT_BUSINESS_CATEGORY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 export {
   getBusinessCategoriesReducer,
   createBusinessCategoryReducer,
   getBusinessCategoryReducer,
+  editBusinessCategoryReducer,
 };

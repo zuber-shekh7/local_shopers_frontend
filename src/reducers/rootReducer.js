@@ -9,6 +9,7 @@ import {
 import { adminLoginReducer } from "./adminReducers";
 import {
   createBusinessCategoryReducer,
+  editBusinessCategoryReducer,
   getBusinessCategoriesReducer,
   getBusinessCategoryReducer,
 } from "./businessCategoryReducers";
@@ -95,6 +96,7 @@ const initialState = {
   getBusinessCategories: { businessCategories: null },
   createBusinessCategory: { businessCategory: null },
   getBusinessCategory: { businessCategory: null },
+  editBusinessCategory: { businessCategory: null },
 };
 
 const rootReducer = combineReducers({
@@ -128,6 +130,7 @@ const rootReducer = combineReducers({
   getBusinessCategories: getBusinessCategoriesReducer,
   createBusinessCategory: createBusinessCategoryReducer,
   getBusinessCategory: getBusinessCategoryReducer,
+  editBusinessCategory: editBusinessCategoryReducer,
 });
 
 export { initialState };

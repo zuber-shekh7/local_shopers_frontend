@@ -3,6 +3,9 @@ import {
   CREATE_BUSINESS_CATEGORY_FAIL,
   CREATE_BUSINESS_CATEGORY_REQUEST,
   CREATE_BUSINESS_CATEGORY_SUCCESS,
+  EDIT_BUSINESS_CATEGORY_FAIL,
+  EDIT_BUSINESS_CATEGORY_REQUEST,
+  EDIT_BUSINESS_CATEGORY_SUCCESS,
   GET_BUSINESS_CATEGORIES_FAIL,
   GET_BUSINESS_CATEGORIES_REQUEST,
   GET_BUSINESS_CATEGORIES_SUCCESS,
@@ -73,4 +76,33 @@ const getBusinessCategory = (id) => async (dispatch) => {
   }
 };
 
-export { getBusinessCategories, createBusinessCategory, getBusinessCategory };
+const editBusinessCategory = (name, description, id) => async (dispatch) => {
+  try {
+    dispatch({ type: EDIT_BUSINESS_CATEGORY_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("adminInfo"));
+
+    const { data } = await backendAPI.put(
+      `/business-categories/${id}`,
+      { name, description },
+      {
+        headers: { Authorization: token },
+      }
+    );
+
+    const { category } = data;
+
+    dispatch({ type: EDIT_BUSINESS_CATEGORY_SUCCESS, payload: category });
+    dispatch({ type: EDIT_BUSINESS_CATEGORY_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: EDIT_BUSINESS_CATEGORY_FAIL, payload: error });
+  }
+};
+
+export {
+  getBusinessCategories,
+  createBusinessCategory,
+  getBusinessCategory,
+  editBusinessCategory,
+};

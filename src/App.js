@@ -38,7 +38,7 @@ import EditAddressPage from "./pages/addresses/EditAddressPage";
 import AddressPage from "./pages/addresses/AddressPage";
 import BusinessCategoriesPage from "./pages/businessCategories/BusinessCategoriesPage";
 import BusinessCategoryPage from "./pages/businessCategories/BusinessCategoryPage";
-import EditBusinessCategoryPage from "./pages/businessCategories/BusinessCategoryPage";
+import EditBusinessCategoryPage from "./pages/businessCategories/EditBusinessCategoryPage";
 import AddBusinessCategoryPage from "./pages/businessCategories/AddBusinessCategoryPage";
 
 const App = () => {
@@ -175,8 +175,9 @@ const App = () => {
             exact
           />
           <AdminProtectedRoute
-            path="/admin/manage/categories/:category_id"
+            path="/admin/manage/categories/:category_id/"
             component={BusinessCategoryPage}
+            exact
           />
 
           {/* 404 */}
