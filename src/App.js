@@ -36,6 +36,7 @@ import AddressesPage from "./pages/addresses/AddressesPage";
 import AddAddressPage from "./pages/addresses/AddAddressPage";
 import EditAddressPage from "./pages/addresses/EditAddressPage";
 import AddressPage from "./pages/addresses/AddressPage";
+import BusinessCategoriesPage from "./pages/businessCategories/BusinessCategoriesPage";
 
 const App = () => {
   return (
@@ -153,6 +154,11 @@ const App = () => {
           <AdminProtectedRoute
             path="/admin/account"
             component={AdminDashboardPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/manage/categories"
+            component={BusinessCategoriesPage}
             exact
           />
 
