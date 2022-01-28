@@ -3,6 +3,9 @@ import {
   CREATE_BUSINESS_CATEGORY_FAIL,
   CREATE_BUSINESS_CATEGORY_REQUEST,
   CREATE_BUSINESS_CATEGORY_SUCCESS,
+  DELETE_BUSINESS_CATEGORY_FAIL,
+  DELETE_BUSINESS_CATEGORY_REQUEST,
+  DELETE_BUSINESS_CATEGORY_SUCCESS,
   EDIT_BUSINESS_CATEGORY_FAIL,
   EDIT_BUSINESS_CATEGORY_REQUEST,
   EDIT_BUSINESS_CATEGORY_SUCCESS,
@@ -100,9 +103,28 @@ const editBusinessCategory = (name, description, id) => async (dispatch) => {
   }
 };
 
+const deleteBusinessCategory = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_BUSINESS_CATEGORY_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("adminInfo"));
+
+    await backendAPI.delete(`/business-categories/${id}`, {
+      headers: { Authorization: token },
+    });
+
+    dispatch({ type: DELETE_BUSINESS_CATEGORY_SUCCESS, payload: true });
+    dispatch({ type: DELETE_BUSINESS_CATEGORY_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: DELETE_BUSINESS_CATEGORY_FAIL, payload: error });
+  }
+};
+
 export {
   getBusinessCategories,
   createBusinessCategory,
   getBusinessCategory,
   editBusinessCategory,
+  deleteBusinessCategory,
 };

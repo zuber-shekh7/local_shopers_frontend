@@ -1,18 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, ListGroup, Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
+import { Redirect } from "react-router-dom";
 import {
-  getBusinessCategories,
+  deleteBusinessCategory,
   getBusinessCategory,
 } from "../../actions/businessCategoryActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import ModalForm from "../../components/shared/ModalForm";
 
 const BusinessCategoryPage = ({ match }) => {
+  const [modalShow, setModalShow] = useState(false);
+
   const { loading, businessCategory, error } = useSelector(
     (state) => state.getBusinessCategory
   );
+
+  const { success } = useSelector((state) => state.deleteBusinessCategory);
 
   const id = match.params.category_id;
 
@@ -20,6 +26,15 @@ const BusinessCategoryPage = ({ match }) => {
   useEffect(() => {
     dispatch(getBusinessCategory(id));
   }, []);
+
+  const onDelete = (id) => {
+    dispatch(deleteBusinessCategory(id));
+    setModalShow(false);
+  };
+
+  if (success) {
+    return <Redirect to={`/admin/manage/categories/`} />;
+  }
 
   return (
     <main className="mt-4">
@@ -31,6 +46,14 @@ const BusinessCategoryPage = ({ match }) => {
               {error && <Message variant="danger">{error}</Message>}
               {businessCategory && (
                 <>
+                  <ModalForm
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    title={"Are you sure?"}
+                    subject={`Do you really want to delete ${businessCategory.name} ???`}
+                    message={"Once you delete you won't be able to access it."}
+                    onAccept={() => onDelete(businessCategory._id)}
+                  />
                   <h2>{businessCategory.name}</h2>
                   <Table striped bordered hover>
                     <tbody>
@@ -62,7 +85,12 @@ const BusinessCategoryPage = ({ match }) => {
                     <LinkContainer
                       to={`/admin/manage/categories/${businessCategory._id}/delete`}
                     >
-                      <Button variant="danger">Delete</Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => setModalShow(true)}
+                      >
+                        Delete
+                      </Button>
                     </LinkContainer>
                   </section>
                 </>

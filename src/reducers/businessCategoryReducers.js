@@ -11,6 +11,9 @@ import {
   EDIT_BUSINESS_CATEGORY_REQUEST,
   EDIT_BUSINESS_CATEGORY_SUCCESS,
   EDIT_BUSINESS_CATEGORY_FAIL,
+  DELETE_BUSINESS_CATEGORY_REQUEST,
+  DELETE_BUSINESS_CATEGORY_SUCCESS,
+  DELETE_BUSINESS_CATEGORY_FAIL,
 } from "../constants/businessCategoryConstants";
 
 const getBusinessCategoriesReducer = (state = {}, action) => {
@@ -81,9 +84,27 @@ const editBusinessCategoryReducer = (state = {}, action) => {
   }
 };
 
+const deleteBusinessCategoryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BUSINESS_CATEGORY_REQUEST:
+      return { loading: true };
+    case DELETE_BUSINESS_CATEGORY_SUCCESS:
+      return { ...state, loading: false, success: action.payload };
+    case DELETE_BUSINESS_CATEGORY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 export {
   getBusinessCategoriesReducer,
   createBusinessCategoryReducer,
   getBusinessCategoryReducer,
   editBusinessCategoryReducer,
+  deleteBusinessCategoryReducer,
 };

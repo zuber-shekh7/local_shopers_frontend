@@ -172,12 +172,10 @@ const App = () => {
           <AdminProtectedRoute
             path="/admin/manage/categories/:category_id/edit"
             component={EditBusinessCategoryPage}
-            exact
           />
           <AdminProtectedRoute
             path="/admin/manage/categories/:category_id/"
             component={BusinessCategoryPage}
-            exact
           />
 
           {/* 404 */}
