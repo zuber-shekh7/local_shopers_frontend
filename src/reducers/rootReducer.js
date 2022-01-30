@@ -14,6 +14,7 @@ import {
   adminGetUsersListReducer,
   adminGetAdminListReducer,
   adminGetBusinessCategoryListReducer,
+  adminCummulativeStatisticsReducer,
 } from "./adminReducers";
 import {
   createBusinessReducer,
@@ -95,6 +96,7 @@ const initialState = {
   createAddress: { address: null },
   editAddress: { address: null },
   deleteAddress: { success: null },
+  getCummulativeStats: { stats: null },
   getManageCategory: { categoryDetails: null },
   getAdminProductList: { productList: null },
   getSellerDetails: { sellersList: null },
@@ -131,6 +133,7 @@ const rootReducer = combineReducers({
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
+  getCummulativeStats: adminCummulativeStatisticsReducer,
   getManageCategory: adminManageCategoryStatisticsReducer,
   getAdminProductList: adminManageProductStatisticsReducer,
   getSellerDetails: adminGetSellerListReducer,

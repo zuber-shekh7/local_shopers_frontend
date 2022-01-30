@@ -23,6 +23,9 @@ import {
   ADMIN_MANAGE_BUSINESS_CATEGORY_LIST_REQUEST,
   ADMIN_MANAGE_BUSINESS_CATEGORY_LIST_SUCCESS,
   ADMIN_MANAGE_BUSINESS_CATEGORY_LIST_FAIL,
+  ADMIN_CUMMULATIVE_STATS_REQUEST,
+  ADMIN_CUMMULATIVE_STATS_FAIL,
+  ADMIN_CUMMULATIVE_STATS_SUCCESS,
 } from "../constants/adminConstants";
 
 const adminLoginReducer = (state = {}, action) => {
@@ -38,6 +41,19 @@ const adminLoginReducer = (state = {}, action) => {
     case ADMIN_LOGOUT_SUCCESS:
       return { ...state, loading: false, adminInfo: null };
     case ADMIN_LOGOUT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const adminCummulativeStatisticsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_CUMMULATIVE_STATS_REQUEST:
+      return { ...state, loading: true };
+    case ADMIN_CUMMULATIVE_STATS_SUCCESS:
+      return { ...state, loading: false, stats: action.payload };
+    case ADMIN_CUMMULATIVE_STATS_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -130,4 +146,5 @@ export {
   adminGetUsersListReducer,
   adminGetAdminListReducer,
   adminGetBusinessCategoryListReducer,
+  adminCummulativeStatisticsReducer,
 };
