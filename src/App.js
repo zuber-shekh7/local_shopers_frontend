@@ -22,8 +22,8 @@ import SellerProtectedRoute from "./components/routes/SellerProtectedRoute";
 import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
 import CreateBusinessPage from "./pages/sellers/CreateBusinessPage";
 import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
-import CategoryListPage from "./pages/categories/CategoryListPage";
-import CategoryDetailPage from "./pages/categories/CategoryDetailPage";
+import CategoriesPage from "./pages/categories/CategoriesPage";
+import CategoryPage from "./pages/categories/CategoryPage";
 import AddCategoryPage from "./pages/categories/AddCategoryPage";
 import EditCategoryPage from "./pages/categories/EditCategoryPage";
 import AddProductPage from "./pages/products/AddProductPage";
@@ -121,7 +121,7 @@ const App = () => {
 
           <SellerProtectedRoute
             path="/sellers/manage/categories"
-            component={CategoryListPage}
+            component={CategoriesPage}
             exact
           />
           <SellerProtectedRoute
@@ -141,7 +141,7 @@ const App = () => {
           />
           <SellerProtectedRoute
             path="/sellers/manage/categories/:category_id"
-            component={CategoryDetailPage}
+            component={CategoryPage}
           />
           <SellerProtectedRoute
             path="/sellers/manage/products/:product_id/edit"

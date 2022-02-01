@@ -9,7 +9,7 @@ import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 import ModalForm from "../../components/shared/ModalForm";
 
-const CategoryDetailPage = ({ match }) => {
+const CategoryPage = ({ match }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const { category_id } = match.params;
@@ -113,4 +113,4 @@ const CategoryDetailPage = ({ match }) => {
   );
 };
 
-export default CategoryDetailPage;
+export default CategoryPage;
