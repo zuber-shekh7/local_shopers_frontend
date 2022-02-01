@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { getCummulativeStats } from "../../actions/adminActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import AdminRenderLineChart from "./AdminRenderLineChart";
 
 const AdminDashboardPage = ({ history }) => {
   const { adminInfo } = useSelector((state) => state.adminLogin);
