@@ -10,7 +10,7 @@ import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 import ModalForm from "../../components/shared/ModalForm";
 
-const ProductDetailPage = ({ match }) => {
+const ProductPage = ({ match }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const { product_id } = match.params;
@@ -134,4 +134,4 @@ const ProductDetailPage = ({ match }) => {
   );
 };
 
-export default ProductDetailPage;
+export default ProductPage;

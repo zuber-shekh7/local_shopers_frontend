@@ -27,7 +27,7 @@ import CategoryPage from "./pages/categories/CategoryPage";
 import AddCategoryPage from "./pages/categories/AddCategoryPage";
 import EditCategoryPage from "./pages/categories/EditCategoryPage";
 import AddProductPage from "./pages/products/AddProductPage";
-import ProductDetailPage from "./pages/products/ProductDetailPage";
+import ProductPage from "./pages/products/ProductPage";
 import EditProductPage from "./pages/products/EditProductPage";
 import EditBusinessPage from "./pages/business/EditBusinessPage";
 import BusinessPage from "./pages/business/BusinessPage";
@@ -149,7 +149,7 @@ const App = () => {
           />
           <SellerProtectedRoute
             path="/sellers/manage/products/:product_id"
-            component={ProductDetailPage}
+            component={ProductPage}
           />
 
           {/* admin */}
