@@ -22,12 +22,12 @@ import SellerProtectedRoute from "./components/routes/SellerProtectedRoute";
 import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
 import CreateBusinessPage from "./pages/sellers/CreateBusinessPage";
 import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
-import CategoryListPage from "./pages/categories/CategoryListPage";
-import CategoryDetailPage from "./pages/categories/CategoryDetailPage";
+import CategoriesPage from "./pages/categories/CategoriesPage";
+import CategoryPage from "./pages/categories/CategoryPage";
 import AddCategoryPage from "./pages/categories/AddCategoryPage";
 import EditCategoryPage from "./pages/categories/EditCategoryPage";
 import AddProductPage from "./pages/products/AddProductPage";
-import ProductDetailPage from "./pages/products/ProductDetailPage";
+import ProductPage from "./pages/products/ProductPage";
 import EditProductPage from "./pages/products/EditProductPage";
 import EditBusinessPage from "./pages/business/EditBusinessPage";
 import BusinessPage from "./pages/business/BusinessPage";
@@ -36,12 +36,20 @@ import AddressesPage from "./pages/addresses/AddressesPage";
 import AddAddressPage from "./pages/addresses/AddAddressPage";
 import EditAddressPage from "./pages/addresses/EditAddressPage";
 import AddressPage from "./pages/addresses/AddressPage";
+
+import BusinessCategoriesPage from "./pages/businessCategories/BusinessCategoriesPage";
+import BusinessCategoryPage from "./pages/businessCategories/BusinessCategoryPage";
+import EditBusinessCategoryPage from "./pages/businessCategories/EditBusinessCategoryPage";
+import AddBusinessCategoryPage from "./pages/businessCategories/AddBusinessCategoryPage";
+
+{/* resolve conflicts */}
 import ManageCategoryAdminPage from "./pages/admin/ManageCategoryAdminPage";
 import ManageProductAdminPage from "./pages/admin/ManageProductAdminPage";
 import ManageSellerAdminPage from "./pages/admin/ManageSellerAdminPage";
 import ManageUsersAdminPage from "./pages/admin/ManageUsersAdminPage";
 import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
 import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
+
 
 const App = () => {
   return (
@@ -123,7 +131,7 @@ const App = () => {
 
           <SellerProtectedRoute
             path="/sellers/manage/categories"
-            component={CategoryListPage}
+            component={CategoriesPage}
             exact
           />
           <SellerProtectedRoute
@@ -143,7 +151,7 @@ const App = () => {
           />
           <SellerProtectedRoute
             path="/sellers/manage/categories/:category_id"
-            component={CategoryDetailPage}
+            component={CategoryPage}
           />
           <SellerProtectedRoute
             path="/sellers/manage/products/:product_id/edit"
@@ -151,7 +159,7 @@ const App = () => {
           />
           <SellerProtectedRoute
             path="/sellers/manage/products/:product_id"
-            component={ProductDetailPage}
+            component={ProductPage}
           />
 
           {/* admin */}
@@ -161,7 +169,6 @@ const App = () => {
             component={AdminDashboardPage}
             exact
           />
-          <AdminProtectedRoute
             path="/admin/category"
             component={ManageCategoryAdminPage}
             exact
@@ -190,6 +197,7 @@ const App = () => {
             path="/admin/business/category"
             component={ManageBusinessCategoryPage}
             exact
+
           />
 
           {/* 404 */}

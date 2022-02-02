@@ -8,7 +8,7 @@ import CategoryList from "../../components/categories/CategoryList";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
-const CategoryListPage = () => {
+const CategoriesPage = () => {
   const dispatch = useDispatch();
 
   const { categories, error, loading } = useSelector(
@@ -44,4 +44,4 @@ const CategoryListPage = () => {
   );
 };
 
-export default CategoryListPage;
+export default CategoriesPage;
