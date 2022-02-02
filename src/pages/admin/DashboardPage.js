@@ -31,6 +31,11 @@ const AdminDashboardPage = ({ history }) => {
                 </LinkContainer>
               </ListGroup.Item>
               <ListGroup.Item>
+                <LinkContainer to="/admin/business/category">
+                  <Nav.Link>Manage Business Categories</Nav.Link>
+                </LinkContainer>
+              </ListGroup.Item>
+              <ListGroup.Item>
                 <LinkContainer to="/admin/account">
                   <Nav.Link>Manage Orders</Nav.Link>
                 </LinkContainer>
@@ -41,17 +46,17 @@ const AdminDashboardPage = ({ history }) => {
                 </LinkContainer>
               </ListGroup.Item>
               <ListGroup.Item>
-                <LinkContainer to="/admin/account/sellers">
+                <LinkContainer to="/admin/sellers">
                   <Nav.Link>Manage Sellers</Nav.Link>
                 </LinkContainer>
               </ListGroup.Item>
               <ListGroup.Item>
-                <LinkContainer to="/admin/account">
+                <LinkContainer to="/admin/users">
                   <Nav.Link>Manage Users</Nav.Link>
                 </LinkContainer>
               </ListGroup.Item>
               <ListGroup.Item>
-                <LinkContainer to="/admin/account">
+                <LinkContainer to="/admin/admin">
                   <Nav.Link>Manage Admin</Nav.Link>
                 </LinkContainer>
               </ListGroup.Item>
