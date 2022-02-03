@@ -44,13 +44,7 @@ const getProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_PRODUCT_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
-
-    const { data } = await backendAPI.get(`/products/${id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await backendAPI.get(`/products/${id}`);
     const { product } = data;
 
     dispatch({ type: GET_PRODUCT_SUCCESS, payload: product });

@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import { getCategory } from "../../../actions/categoryActions";
 import ProductList from "../../../components/products/ProductList";
+
 import Loader from "../../../components/shared/Loader";
 import Message from "../../../components/shared/Message";
 
@@ -49,11 +51,44 @@ const UserCategoryPage = ({ match }) => {
                       <h3>Products</h3>
                     </section>
 
-                    {category.products && (
-                      <ProductList
-                        category={category._id}
-                        products={category.products}
-                      />
+                    {category.products && category.products.length > 0 ? (
+                      <section className="my-3">
+                        {category.products.map((product) => {
+                          return (
+                            <Card key={product._id} className="my-3">
+                              <Card.Body>
+                                <Row>
+                                  <Col md={3}>
+                                    <Image
+                                      rounded
+                                      fluid
+                                      src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
+                                    />
+                                  </Col>
+                                  <Col className="my-auto">
+                                    <Card.Title as="h3">
+                                      {product.name}
+                                    </Card.Title>
+                                  </Col>
+                                  <Col className="my-auto" md={2}>
+                                    <LinkContainer
+                                      to={`/business/products/${product._id}`}
+                                    >
+                                      <Button>View more</Button>
+                                    </LinkContainer>
+                                  </Col>
+                                </Row>
+                              </Card.Body>
+                            </Card>
+                          );
+                        })}
+                      </section>
+                    ) : (
+                      <section className="text-center">
+                        <h2 className="text-muted my-4">
+                          No products available
+                        </h2>
+                      </section>
                     )}
                   </Col>
                 </Row>

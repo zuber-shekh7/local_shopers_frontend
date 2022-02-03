@@ -49,6 +49,7 @@ import ManageUsersAdminPage from "./pages/admin/ManageUsersAdminPage";
 import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
 import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
 import UserCategoryPage from "./pages/categories/users/CategoryPage";
+import UserProductPage from "./pages/products/users/ProductPage";
 
 const App = () => {
   return (
@@ -62,6 +63,10 @@ const App = () => {
           <Route
             path="/business/:business_id/categories/:category_id"
             component={UserCategoryPage}
+          />
+          <Route
+            path="/business/products/:product_id"
+            component={UserProductPage}
           />
           <Route path="/business/:business_id" component={BusinessPage} />
           {/* users */}
