@@ -36,10 +36,20 @@ import AddressesPage from "./pages/addresses/AddressesPage";
 import AddAddressPage from "./pages/addresses/AddAddressPage";
 import EditAddressPage from "./pages/addresses/EditAddressPage";
 import AddressPage from "./pages/addresses/AddressPage";
+
 import BusinessCategoriesPage from "./pages/businessCategories/BusinessCategoriesPage";
 import BusinessCategoryPage from "./pages/businessCategories/BusinessCategoryPage";
 import EditBusinessCategoryPage from "./pages/businessCategories/EditBusinessCategoryPage";
 import AddBusinessCategoryPage from "./pages/businessCategories/AddBusinessCategoryPage";
+
+{/* resolve conflicts */}
+import ManageCategoryAdminPage from "./pages/admin/ManageCategoryAdminPage";
+import ManageProductAdminPage from "./pages/admin/ManageProductAdminPage";
+import ManageSellerAdminPage from "./pages/admin/ManageSellerAdminPage";
+import ManageUsersAdminPage from "./pages/admin/ManageUsersAdminPage";
+import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
+import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
+
 
 const App = () => {
   return (
@@ -159,23 +169,35 @@ const App = () => {
             component={AdminDashboardPage}
             exact
           />
-          <AdminProtectedRoute
-            path="/admin/manage/categories"
-            component={BusinessCategoriesPage}
+            path="/admin/category"
+            component={ManageCategoryAdminPage}
             exact
           />
           <AdminProtectedRoute
-            path="/admin/manage/categories/new"
-            component={AddBusinessCategoryPage}
+            path="/admin/categories/:category_id"
+            component={ManageProductAdminPage}
             exact
           />
           <AdminProtectedRoute
-            path="/admin/manage/categories/:category_id/edit"
-            component={EditBusinessCategoryPage}
+            path="/admin/sellers"
+            component={ManageSellerAdminPage}
+            exact
           />
           <AdminProtectedRoute
-            path="/admin/manage/categories/:category_id/"
-            component={BusinessCategoryPage}
+            path="/admin/users"
+            component={ManageUsersAdminPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/admin"
+            component={ManageAdminListPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/admin/business/category"
+            component={ManageBusinessCategoryPage}
+            exact
+
           />
 
           {/* 404 */}

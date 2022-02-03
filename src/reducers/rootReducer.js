@@ -6,7 +6,16 @@ import {
   getAddressesReducer,
   getAddressReducer,
 } from "./addressReducers";
-import { adminLoginReducer } from "./adminReducers";
+import {
+  adminLoginReducer,
+  adminManageCategoryStatisticsReducer,
+  adminManageProductStatisticsReducer,
+  adminGetSellerListReducer,
+  adminGetUsersListReducer,
+  adminGetAdminListReducer,
+  adminGetBusinessCategoryListReducer,
+  adminCummulativeStatisticsReducer,
+} from "./adminReducers";
 import {
   createBusinessCategoryReducer,
   deleteBusinessCategoryReducer,
@@ -99,6 +108,13 @@ const initialState = {
   getBusinessCategory: { businessCategory: null },
   editBusinessCategory: { businessCategory: null },
   deleteBusinessCategory: { success: null },
+  getCummulativeStats: { stats: null },
+  getManageCategory: { categoryDetails: null },
+  getAdminProductList: { productList: null },
+  getSellerDetails: { sellersList: null },
+  getUsersDetails: { usersList: null },
+  getAdminList: { adminList: null },
+  getBusinessCategoryList: { businessCategoryList: null },
 };
 
 const rootReducer = combineReducers({
@@ -129,11 +145,24 @@ const rootReducer = combineReducers({
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
+  
   getBusinessCategories: getBusinessCategoriesReducer,
   createBusinessCategory: createBusinessCategoryReducer,
   getBusinessCategory: getBusinessCategoryReducer,
   editBusinessCategory: editBusinessCategoryReducer,
   deleteBusinessCategory: deleteBusinessCategoryReducer,
+  
+
+  getCummulativeStats: adminCummulativeStatisticsReducer,
+  getManageCategory: adminManageCategoryStatisticsReducer,
+  getAdminProductList: adminManageProductStatisticsReducer,
+  getSellerDetails: adminGetSellerListReducer,
+  getUsersDetails: adminGetUsersListReducer,
+  getAdminList: adminGetAdminListReducer,
+  getBusinessCategoryList: adminGetBusinessCategoryListReducer,
+
+  
+
 });
 
 export { initialState };
