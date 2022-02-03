@@ -11,27 +11,33 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { getWishList, removeFromWishList } from "../../actions/wishListActions";
+import {
+  addToWishList,
+  getWishList,
+  removeFromWishList,
+} from "../../actions/wishListActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
-const WishListPage = () => {
-  const { loading, error, wishList } = useSelector(
-    (state) => state.getWishList
-  );
-
-  const { removeLoading, removeError, success } = useSelector(
-    (state) => state.removeFromWishList
-  );
+const WishListPage = ({ match }) => {
+  const { loading, error, wishList } = useSelector((state) => state.wishList);
 
   const { userInfo } = useSelector((state) => state.userLogin);
   const { user } = userInfo;
+
+  const { product_id } = match.params;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWishList(user._id));
-  }, [success]);
+  }, []);
+
+  useEffect(() => {
+    if (product_id && wishList) {
+      dispatch(addToWishList(wishList._id, product_id));
+    }
+  }, [product_id]);
 
   const handleRemoveFromList = (wish_list_id, product_id) => {
     dispatch(removeFromWishList(wish_list_id, product_id));
@@ -45,11 +51,8 @@ const WishListPage = () => {
             <section>
               <h2>Your Wishlist</h2>
               <hr />
-              {removeLoading || (loading && <Loader />)}
-              {removeError ||
-                (error && (
-                  <Message variant="danger">{removeError || error}</Message>
-                ))}
+              {loading && <Loader />}
+              {error && <Message variant="danger">{error}</Message>}
               {wishList && wishList.products && wishList.products.length > 0 ? (
                 <ListGroup>
                   {wishList.products.map((product) => {
@@ -69,7 +72,7 @@ const WishListPage = () => {
                             </Col>
                             <Col className="my-auto" md={2}>
                               <LinkContainer
-                                to={`/sellers/manage/products/${product._id}`}
+                                to={`/business/products/${product._id}`}
                               >
                                 <Button className="w-100">View more</Button>
                               </LinkContainer>

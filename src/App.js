@@ -90,7 +90,7 @@ const App = () => {
             exact
           />
           <UserProtectedRoute
-            path="/users/wishlist"
+            path="/users/wishlist/:product_id?"
             component={WishListPage}
             exact
           />

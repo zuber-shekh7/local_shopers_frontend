@@ -32,6 +32,10 @@ const UserProductPage = ({ match, history }) => {
     history.push(`/users/cart/${product_id}?quantity=${quantity}`);
   };
 
+  const addToWishListHandler = (id) => {
+    history.push(`/users/wishlist/${id}`);
+  };
+
   return (
     <main>
       <Container>
@@ -86,7 +90,11 @@ const UserProductPage = ({ match, history }) => {
 
                     <ListGroup>
                       <ListGroup.Item>
-                        <Button className="w-100" variant="warning">
+                        <Button
+                          onClick={() => addToWishListHandler(product._id)}
+                          className="w-100"
+                          variant="warning"
+                        >
                           Add to Wishlist
                         </Button>
                       </ListGroup.Item>
