@@ -43,13 +43,9 @@ const getCategory = (id) => async (dispatch) => {
   try {
     dispatch({ type: FETCH_CATEGORY_DETAILS_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+    // const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-    const { data } = await backendAPI.get(`/categories/${id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await backendAPI.get(`/categories/${id}`, {});
     const { category } = data;
 
     dispatch({ type: FETCH_CATEGORY_DETAILS_SUCCESS, payload: category });

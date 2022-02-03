@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
 
-import { Container, Row, Col, ListGroup, Image, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Button,
+  Card,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { getBusiness } from "../../actions/businessActions";
@@ -76,7 +84,48 @@ const BusinessPage = ({ match }) => {
                       <h2 className="text-start">Categories</h2>
                       <hr />
                     </section>{" "}
-                    <CategoryList categories={business.categories} />
+                    {business.categories && business.categories.length > 0 ? (
+                      <section className="my-3">
+                        {business.categories.map((category) => {
+                          return (
+                            <Card key={category._id} className="my-3">
+                              <Card.Body>
+                                <Row>
+                                  <Col md={3}>
+                                    <Image
+                                      rounded
+                                      fluid
+                                      src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
+                                    />
+                                  </Col>
+                                  <Col className="my-auto">
+                                    <Card.Title as="h3">
+                                      {category.name}
+                                    </Card.Title>
+                                  </Col>
+                                  <Col className="my-auto" md={2}>
+                                    <LinkContainer
+                                      to={`/business/${business._id}/categories/${category._id}`}
+                                    >
+                                      <Button>Explore</Button>
+                                    </LinkContainer>
+                                  </Col>
+                                </Row>
+                              </Card.Body>
+                            </Card>
+                          );
+                        })}
+                      </section>
+                    ) : (
+                      <section className="text-center">
+                        <h2 className="text-muted my-3">
+                          No Categories added Yet
+                        </h2>
+                        <LinkContainer to="categories/new">
+                          <Button>Add new category</Button>
+                        </LinkContainer>
+                      </section>
+                    )}
                   </Col>
                 </Row>
               </section>

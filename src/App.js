@@ -42,14 +42,13 @@ import BusinessCategoryPage from "./pages/businessCategories/BusinessCategoryPag
 import EditBusinessCategoryPage from "./pages/businessCategories/EditBusinessCategoryPage";
 import AddBusinessCategoryPage from "./pages/businessCategories/AddBusinessCategoryPage";
 
-{/* resolve conflicts */}
 import ManageCategoryAdminPage from "./pages/admin/ManageCategoryAdminPage";
 import ManageProductAdminPage from "./pages/admin/ManageProductAdminPage";
 import ManageSellerAdminPage from "./pages/admin/ManageSellerAdminPage";
 import ManageUsersAdminPage from "./pages/admin/ManageUsersAdminPage";
 import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
 import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
-
+import UserCategoryPage from "./pages/categories/users/CategoryPage";
 
 const App = () => {
   return (
@@ -60,8 +59,11 @@ const App = () => {
           {/* core */}
           <Route path="/" component={HomePage} exact />
           <Route path="/about" component={AboutUsPage} exact />
+          <Route
+            path="/business/:business_id/categories/:category_id"
+            component={UserCategoryPage}
+          />
           <Route path="/business/:business_id" component={BusinessPage} />
-
           {/* users */}
           <Route path="/users/login" component={LoginPage} exact />
           <Route path="/users/signup" component={SignupPage} exact />
@@ -103,7 +105,6 @@ const App = () => {
             path="/users/addresses/:address_id"
             component={AddressPage}
           />
-
           {/* sellers */}
           <Route path="/sellers/" component={SellerHomePage} exact />
           <Route path="/sellers/login" component={SellerLoginPage} exact />
@@ -123,12 +124,10 @@ const App = () => {
             component={BusinessDetailPage}
             exact
           />
-
           <SellerProtectedRoute
             path="/sellers/manage/business/:business_id/edit"
             component={EditBusinessPage}
           />
-
           <SellerProtectedRoute
             path="/sellers/manage/categories"
             component={CategoriesPage}
@@ -161,7 +160,6 @@ const App = () => {
             path="/sellers/manage/products/:product_id"
             component={ProductPage}
           />
-
           {/* admin */}
           <Route path="/admin/login" component={AdminLoginPage} exact />
           <AdminProtectedRoute
@@ -169,10 +167,8 @@ const App = () => {
             component={AdminDashboardPage}
             exact
           />
-            path="/admin/category"
-            component={ManageCategoryAdminPage}
-            exact
-          />
+          path="/admin/category" component={ManageCategoryAdminPage}
+          exact />
           <AdminProtectedRoute
             path="/admin/categories/:category_id"
             component={ManageProductAdminPage}
@@ -197,9 +193,7 @@ const App = () => {
             path="/admin/business/category"
             component={ManageBusinessCategoryPage}
             exact
-
           />
-
           {/* 404 */}
           <Route path="*" component={NotFoundPage} />
         </Switch>
