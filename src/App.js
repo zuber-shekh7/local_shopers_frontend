@@ -50,6 +50,7 @@ import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
 import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
 import UserCategoryPage from "./pages/categories/users/CategoryPage";
 import UserProductPage from "./pages/products/users/ProductPage";
+import CartPage from "./pages/cart/CartPage";
 
 const App = () => {
   return (
@@ -60,6 +61,7 @@ const App = () => {
           {/* core */}
           <Route path="/" component={HomePage} exact />
           <Route path="/about" component={AboutUsPage} exact />
+          <Route path="/users/cart/:product_id?" component={CartPage} />
           <Route
             path="/business/:business_id/categories/:category_id"
             component={UserCategoryPage}
@@ -172,8 +174,11 @@ const App = () => {
             component={AdminDashboardPage}
             exact
           />
-          path="/admin/category" component={ManageCategoryAdminPage}
-          exact />
+          <Route
+            path="/admin/category"
+            component={ManageCategoryAdminPage}
+            exact
+          />
           <AdminProtectedRoute
             path="/admin/categories/:category_id"
             component={ManageProductAdminPage}

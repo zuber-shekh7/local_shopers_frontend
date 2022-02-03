@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-import { Container, Row, Col, Button, Image, ListGroup } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Image,
+  ListGroup,
+  FormControl,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
 import { getProduct } from "../../../actions/productActions";
 import Loader from "../../../components/shared/Loader";
 import Message from "../../../components/shared/Message";
 
 const UserProductPage = ({ match, history }) => {
+  const [quantity, setQuantity] = useState(1);
+
   const { product_id } = match.params;
 
   const { loading, product, error } = useSelector((state) => state.getProduct);
@@ -18,6 +27,10 @@ const UserProductPage = ({ match, history }) => {
   useEffect(() => {
     dispatch(getProduct(product_id));
   }, []);
+
+  const addToCartHandler = () => {
+    history.push(`/users/cart/${product_id}?quantity=${quantity}`);
+  };
 
   return (
     <main>
@@ -46,6 +59,31 @@ const UserProductPage = ({ match, history }) => {
                     <h4>₹ {product.price}/-</h4>
                   </Col>
                   <Col md={4}>
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Price</Col>
+                        <Col>₹ {product.price}/-</Col>
+                      </Row>
+                    </ListGroup.Item>
+                    {product.quantity > 0 && (
+                      <ListGroup.Item>
+                        <Row>
+                          <Col>Quantity</Col>
+                          <Col>
+                            <FormControl
+                              as="select"
+                              value={quantity}
+                              onChange={(e) => setQuantity(e.target.value)}
+                            >
+                              {[...Array(product.quantity).keys()].map((i) => {
+                                return <option value={i + 1}>{i + 1}</option>;
+                              })}
+                            </FormControl>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    )}
+
                     <ListGroup>
                       <ListGroup.Item>
                         <Button className="w-100" variant="warning">
@@ -54,7 +92,9 @@ const UserProductPage = ({ match, history }) => {
                       </ListGroup.Item>
                       <ListGroup.Item>
                         {product.quantity > 0 ? (
-                          <Button className="w-100">Add to Cart</Button>
+                          <Button onClick={addToCartHandler} className="w-100">
+                            Add to Cart
+                          </Button>
                         ) : (
                           <Button variant="danger" className="w-100">
                             Out of Stock

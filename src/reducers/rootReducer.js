@@ -28,6 +28,7 @@ import {
   editBusinessReducer,
   getBusinessReducer,
 } from "./businessReducers";
+import { cartReducer } from "./cartReducers";
 import {
   createCategoryReducer,
   deleteCategoryReducer,
@@ -115,6 +116,11 @@ const initialState = {
   getUsersDetails: { usersList: null },
   getAdminList: { adminList: null },
   getBusinessCategoryList: { businessCategoryList: null },
+  cart: {
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems", []))
+      : [],
+  },
 };
 
 const rootReducer = combineReducers({
@@ -145,14 +151,11 @@ const rootReducer = combineReducers({
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
-  
   getBusinessCategories: getBusinessCategoriesReducer,
   createBusinessCategory: createBusinessCategoryReducer,
   getBusinessCategory: getBusinessCategoryReducer,
   editBusinessCategory: editBusinessCategoryReducer,
   deleteBusinessCategory: deleteBusinessCategoryReducer,
-  
-
   getCummulativeStats: adminCummulativeStatisticsReducer,
   getManageCategory: adminManageCategoryStatisticsReducer,
   getAdminProductList: adminManageProductStatisticsReducer,
@@ -160,9 +163,7 @@ const rootReducer = combineReducers({
   getUsersDetails: adminGetUsersListReducer,
   getAdminList: adminGetAdminListReducer,
   getBusinessCategoryList: adminGetBusinessCategoryListReducer,
-
-  
-
+  cart: cartReducer,
 });
 
 export { initialState };
