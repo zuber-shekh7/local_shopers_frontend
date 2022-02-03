@@ -3,7 +3,6 @@ import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const AdminSellerItem = ({ seller }) => {
-  console.log(seller);
   return (
     <Row className="m-5 border-bottom">
       <Col>

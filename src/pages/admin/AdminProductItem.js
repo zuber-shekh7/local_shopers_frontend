@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const AdminProductItems = ({ product }) => {
   const deleteProduct = () => {};
-  console.log("products", product);
+
   return (
     <tr>
       <td>

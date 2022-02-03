@@ -3,11 +3,6 @@ import { LineChart, Line, ResponsiveContainer, PieChart, Pie } from "recharts";
 
 const AdminRenderLineChart = () => {
   var dataList = [];
-  console.log("Cagrt porps");
-  //   data.map((value, key) => {
-  //     dataList.push({ name: key, value });
-  //   });
-  //   console.log("Reviced data ;ist", dataList);
 
   return (
     <ResponsiveContainer>

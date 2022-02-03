@@ -61,7 +61,7 @@ const getCummulativeStats = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_CUMMULATIVE_STATS_REQUEST, loading: true });
     const { data } = await adminAPI.post("/get");
-    console.log(data);
+
     dispatch({
       type: ADMIN_CUMMULATIVE_STATS_SUCCESS,
       loading: false,
@@ -81,7 +81,7 @@ const getManageCategory = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_CATEGORIES_REQUEST, loading: true });
     const { data } = await adminAPI.post("/getcategories");
-    console.log(data);
+
     dispatch({
       type: ADMIN_MANAGE_CATEGORIES_SUCCESS,
       loading: false,
@@ -98,11 +98,10 @@ const getManageCategory = () => async (dispatch) => {
 };
 
 const getAdminProductList = (categoryId) => async (dispatch) => {
-  console.log(categoryId);
   try {
     dispatch({ type: ADMIN_MANAGE_PRODUCT_REQUEST });
     const { data } = await adminAPI.post("/getProducts", { categoryId });
-    console.log(data);
+
     dispatch({ type: ADMIN_MANAGE_PRODUCT_SUCCESS, payload: data });
   } catch (err) {
     const error = err.message ? err.message : err.response.data.message;
@@ -114,7 +113,7 @@ const getSellerDetails = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_SELLER_LIST_REQUEST });
     const { data } = await adminAPI.post("/getseller");
-    console.log("data", data);
+
     dispatch({ type: ADMIN_MANAGE_SELLER_LIST_SUCCESS, payload: data });
   } catch (err) {
     const error = err.message ? err.message : err.response.data.message;
@@ -126,7 +125,7 @@ const getUsersDetails = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_USERS_LIST_REQUEST });
     const { data } = await adminAPI.post("/getusers");
-    console.log("data", data);
+
     dispatch({
       type: ADMIN_MANAGE_USERS_LIST_SUCCESS,
       loading: false,
@@ -146,7 +145,7 @@ const getAdminList = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_ADMIN_LIST_REQUEST });
     const { data } = await adminAPI.post("/getadmins");
-    console.log(data);
+
     dispatch({ type: ADMIN_MANAGE_ADMIN_LIST_SUCCESS, payload: data });
   } catch (err) {
     const error = err.message ? err.message : err.response.data.message;
@@ -158,7 +157,7 @@ const getBusinessCategoryList = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_BUSINESS_CATEGORY_LIST_REQUEST });
     const { data } = await adminAPI.post("/getbusinesscategory");
-    console.log(data);
+
     dispatch({
       type: ADMIN_MANAGE_BUSINESS_CATEGORY_LIST_SUCCESS,
       payload: data,

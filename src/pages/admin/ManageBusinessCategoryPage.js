@@ -8,12 +8,13 @@ import Message from "../../components/shared/Message";
 
 const ManageBusinessCategoryPage = () => {
   const dispatch = useDispatch();
+
   const { error, loading, businessCategoryList } = useSelector(
     (state) => state.getBusinessCategoryList
   );
+
   useEffect(() => {
     dispatch(getBusinessCategoryList());
-    console.log("cbwj", businessCategoryList);
   }, []);
 
   return (

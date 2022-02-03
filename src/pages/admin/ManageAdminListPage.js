@@ -11,7 +11,6 @@ const ManageAdminListPage = () => {
   );
   useEffect(() => {
     dispatch(getAdminList());
-    console.log("cbwj", adminList);
   }, []);
 
   return (

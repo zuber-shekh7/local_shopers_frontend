@@ -18,7 +18,7 @@ const AdminDashboardPage = ({ history }) => {
   useEffect(() => {
     dispatch(getCummulativeStats());
   }, []);
-  console.log(stats);
+
   return (
     <main>
       <Container fluid>
