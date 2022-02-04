@@ -28,7 +28,7 @@ const PaymentMethodPage = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
-    history.push("/checkout/place-order");
+    history.push("/checkout/order-summary");
   };
 
   return (
