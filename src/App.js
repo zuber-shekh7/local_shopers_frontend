@@ -52,6 +52,7 @@ import UserCategoryPage from "./pages/categories/users/CategoryPage";
 import UserProductPage from "./pages/products/users/ProductPage";
 import CartPage from "./pages/cart/CartPage";
 import ShippingPage from "./pages/checkout/ShippingPage";
+import PaymentMethodPage from "./pages/checkout/PaymentMethodPage";
 
 const App = () => {
   return (
@@ -88,6 +89,11 @@ const App = () => {
           <UserProtectedRoute
             path="/checkout/shipping"
             component={ShippingPage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/checkout/payment"
+            component={PaymentMethodPage}
             exact
           />
           <UserProtectedRoute

@@ -2,6 +2,7 @@ import backendAPI from "../apis/backendAPI";
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  SAVE_PAYMENT_METHOD,
   SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants";
 
@@ -43,4 +44,15 @@ const saveShippingAddress = (address) => async (dispatch, getState) => {
   localStorage.setItem("shippingAddress", address);
 };
 
-export { addToCart, removeFromCart, saveShippingAddress };
+const savePaymentMethod = (paymentMethod) => async (dispatch, getState) => {
+  dispatch({
+    type: SAVE_PAYMENT_METHOD,
+    payload: {
+      paymentMethod,
+    },
+  });
+
+  localStorage.setItem("paymentMethod", paymentMethod);
+};
+
+export { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod };
