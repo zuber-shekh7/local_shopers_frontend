@@ -51,6 +51,7 @@ import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage
 import UserCategoryPage from "./pages/categories/users/CategoryPage";
 import UserProductPage from "./pages/products/users/ProductPage";
 import CartPage from "./pages/cart/CartPage";
+import ShippingPage from "./pages/checkout/ShippingPage";
 
 const App = () => {
   return (
@@ -82,6 +83,11 @@ const App = () => {
           <UserProtectedRoute
             path="/users/profile"
             component={UserProfilePage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/checkout/shipping"
+            component={ShippingPage}
             exact
           />
           <UserProtectedRoute

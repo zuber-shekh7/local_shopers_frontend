@@ -1,5 +1,9 @@
 import backendAPI from "../apis/backendAPI";
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants/cartConstants";
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  SAVE_SHIPPING_ADDRESS,
+} from "../constants/cartConstants";
 
 const addToCart = (id, quantity) => async (dispatch, getState) => {
   const { data } = await backendAPI.get(`/products/${id}`);
@@ -28,4 +32,15 @@ const removeFromCart = (id) => async (dispatch, getState) => {
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-export { addToCart, removeFromCart };
+const saveShippingAddress = (address) => async (dispatch, getState) => {
+  dispatch({
+    type: SAVE_SHIPPING_ADDRESS,
+    payload: {
+      address: JSON.parse(address),
+    },
+  });
+
+  localStorage.setItem("shippingAddress", address);
+};
+
+export { addToCart, removeFromCart, saveShippingAddress };

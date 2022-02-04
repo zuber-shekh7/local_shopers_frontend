@@ -32,7 +32,7 @@ const CartPage = ({ match, location, history }) => {
   };
 
   const checkoutHandler = () => {
-    console.log("checkout");
+    history.push("/checkout/shipping");
   };
 
   return (
