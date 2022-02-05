@@ -36,7 +36,7 @@ import {
   getCategoriesReducer,
   getCategoryDetailsReducer,
 } from "./categoryReducers";
-import { createOrderReducer } from "./orderReducers";
+import { createOrderReducer, getUserOrderReducer } from "./orderReducers";
 import {
   createProductReducer,
   deleteProductReducer,
@@ -128,6 +128,7 @@ const initialState = {
       : null,
   },
   createOrder: { order: null },
+  getUserOrder: { order: null },
 };
 
 const rootReducer = combineReducers({
@@ -171,6 +172,7 @@ const rootReducer = combineReducers({
   getBusinessCategoryList: adminGetBusinessCategoryListReducer,
   cart: cartReducer,
   createOrder: createOrderReducer,
+  getUserOrder: getUserOrderReducer,
 });
 
 export { initialState };

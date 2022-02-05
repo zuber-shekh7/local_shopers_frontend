@@ -54,6 +54,8 @@ import CartPage from "./pages/cart/CartPage";
 import ShippingPage from "./pages/checkout/ShippingPage";
 import PaymentMethodPage from "./pages/checkout/PaymentMethodPage";
 import OrderSummaryPage from "./pages/checkout/OrderSummaryPage";
+import UserOrdersPage from "./pages/orders/UserOrdersPage";
+import UserOrderPage from "./pages/orders/UserOrderPage";
 
 const App = () => {
   return (
@@ -129,6 +131,16 @@ const App = () => {
           <UserProtectedRoute
             path="/users/addresses/:address_id"
             component={AddressPage}
+          />
+          {/* orders */}
+          <UserProtectedRoute
+            path="/users/orders/"
+            component={UserOrdersPage}
+            exact
+          />
+          <UserProtectedRoute
+            path="/users/orders/:order_id"
+            component={UserOrderPage}
           />
           {/* sellers */}
           <Route path="/sellers/" component={SellerHomePage} exact />
