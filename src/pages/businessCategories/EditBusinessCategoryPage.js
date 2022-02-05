@@ -10,6 +10,7 @@ import {
   Container,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
 import {
   editBusinessCategory,
@@ -68,7 +69,7 @@ const EditBusinessCategoryPage = ({ match, history }) => {
   if (updatedBusinessCategory) {
     return (
       <Redirect
-        to={`/admin/manage/categories/${updatedBusinessCategory._id}`}
+        to={`/manage/business-categories/${updatedBusinessCategory._id}`}
       />
     );
   }
@@ -110,6 +111,13 @@ const EditBusinessCategoryPage = ({ match, history }) => {
                   <Button className="w-100 mb-3" type="submit">
                     Save
                   </Button>
+                  <LinkContainer
+                    to={`/manage/business-categories/${category_id}`}
+                  >
+                    <Button variant="danger" className="w-100 mb-3">
+                      Cancel
+                    </Button>
+                  </LinkContainer>
                 </Form>
               </FormContainer>
             </section>

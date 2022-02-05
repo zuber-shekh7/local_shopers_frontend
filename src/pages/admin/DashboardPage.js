@@ -31,7 +31,7 @@ const AdminDashboardPage = ({ history }) => {
                 </LinkContainer>
               </ListGroup.Item>
               <ListGroup.Item>
-                <LinkContainer to="/admin/business/category">
+                <LinkContainer to="/manage/business-categories">
                   <Nav.Link>Manage Business Categories</Nav.Link>
                 </LinkContainer>
               </ListGroup.Item>

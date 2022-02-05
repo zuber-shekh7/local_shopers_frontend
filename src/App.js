@@ -47,7 +47,6 @@ import ManageProductAdminPage from "./pages/admin/ManageProductAdminPage";
 import ManageSellerAdminPage from "./pages/admin/ManageSellerAdminPage";
 import ManageUsersAdminPage from "./pages/admin/ManageUsersAdminPage";
 import ManageAdminListPage from "./pages/admin/ManageAdminListPage";
-import ManageBusinessCategoryPage from "./pages/admin/ManageBusinessCategoryPage";
 import UserCategoryPage from "./pages/categories/users/CategoryPage";
 import UserProductPage from "./pages/products/users/ProductPage";
 import CartPage from "./pages/cart/CartPage";
@@ -241,9 +240,22 @@ const App = () => {
             exact
           />
           <AdminProtectedRoute
-            path="/admin/business/category"
-            component={ManageBusinessCategoryPage}
+            path="/manage/business-categories"
+            component={BusinessCategoriesPage}
             exact
+          />
+          <AdminProtectedRoute
+            path="/manage/business-categories/new"
+            component={AddBusinessCategoryPage}
+            exact
+          />
+          <AdminProtectedRoute
+            path="/manage/business-categories/:category_id/edit"
+            component={EditBusinessCategoryPage}
+          />
+          <AdminProtectedRoute
+            path="/manage/business-categories/:category_id"
+            component={BusinessCategoryPage}
           />
           {/* 404 */}
           <Route path="*" component={NotFoundPage} />

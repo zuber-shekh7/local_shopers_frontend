@@ -33,7 +33,7 @@ const BusinessCategoryPage = ({ match }) => {
   };
 
   if (success) {
-    return <Redirect to={`/admin/manage/categories/`} />;
+    return <Redirect to={`/manage/business-categories/`} />;
   }
 
   return (
@@ -54,6 +54,9 @@ const BusinessCategoryPage = ({ match }) => {
                     message={"Once you delete you won't be able to access it."}
                     onAccept={() => onDelete(businessCategory._id)}
                   />
+                  <LinkContainer to="/manage/business-categories">
+                    <Button className="mb-3">Back</Button>
+                  </LinkContainer>
                   <h2>{businessCategory.name}</h2>
                   <Table striped bordered hover>
                     <tbody>
@@ -78,12 +81,12 @@ const BusinessCategoryPage = ({ match }) => {
                   <section className="d-flex justify-content-center">
                     <LinkContainer
                       className="me-2"
-                      to={`/admin/manage/categories/${businessCategory._id}/edit`}
+                      to={`/manage/business-categories/${businessCategory._id}/edit`}
                     >
                       <Button>Edit</Button>
                     </LinkContainer>
                     <LinkContainer
-                      to={`/admin/manage/categories/${businessCategory._id}/delete`}
+                      to={`/manage/business-categories/${businessCategory._id}/delete`}
                     >
                       <Button
                         variant="danger"

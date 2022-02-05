@@ -24,7 +24,7 @@ const BusinessCategoriesPage = () => {
             <section>
               <section className="d-flex justify-content-between">
                 <h3>Manage Categories</h3>
-                <LinkContainer to={`/admin/manage/categories/new`}>
+                <LinkContainer to={`/manage/business-categories/new`}>
                   <Button>Add new category</Button>
                 </LinkContainer>
               </section>
@@ -38,7 +38,7 @@ const BusinessCategoriesPage = () => {
                       <th>#</th>
                       <th>Name</th>
                       <th>Description</th>
-                      <th></th>
+                      <th>View</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,23 +52,9 @@ const BusinessCategoriesPage = () => {
                             <LinkContainer
                               size="sm"
                               className="me-2"
-                              to={`/admin/manage/categories/${category._id}`}
+                              to={`/manage/business-categories/${category._id}`}
                             >
-                              <Button>View</Button>
-                            </LinkContainer>
-                            <LinkContainer
-                              size="sm"
-                              className="me-2"
-                              to={`/admin/manage/categories/${category._id}/edit`}
-                            >
-                              <Button variant="success">Edit</Button>
-                            </LinkContainer>
-                            <LinkContainer
-                              size="sm"
-                              className="me-2"
-                              to={`/admin/manage/categories/${category._id}/delete`}
-                            >
-                              <Button variant="danger">Delete</Button>
+                              <Button className="w-100">View</Button>
                             </LinkContainer>
                           </td>
                         </tr>
