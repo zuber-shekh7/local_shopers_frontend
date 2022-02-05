@@ -42,6 +42,7 @@ import {
   getSellerOrdersReducer,
   getUserOrderReducer,
   getUserOrdersReducer,
+  updateOrderStatusReducer,
 } from "./orderReducers";
 import {
   createProductReducer,
@@ -138,6 +139,7 @@ const initialState = {
   getUserOrders: { orders: null },
   getSellerOrders: { orders: null },
   getSellerOrder: { order: null },
+  updateOrderStatus: { order: null },
 };
 
 const rootReducer = combineReducers({
@@ -185,6 +187,7 @@ const rootReducer = combineReducers({
   getUserOrders: getUserOrdersReducer,
   getSellerOrders: getSellerOrdersReducer,
   getSellerOrder: getSellerOrderReducer,
+  updateOrderStatus: updateOrderStatusReducer,
 });
 
 export { initialState };

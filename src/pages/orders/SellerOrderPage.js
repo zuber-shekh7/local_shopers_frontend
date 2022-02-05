@@ -1,27 +1,54 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col, Button, ListGroup, Image } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  ListGroup,
+  Image,
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import {
-  getSellerOrder,
-  getSellerOrders,
-  getUserOrder,
-} from "../../actions/orderActions";
+import { getSellerOrder, updateOrderStatus } from "../../actions/orderActions";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import orderStatus from "../../utils/OrderStatus.js";
 
 const SellerOrderPage = ({ match }) => {
-  useEffect(() => {
-    dispatch(getSellerOrder(order_id));
-  }, []);
+  const [status, setStatus] = useState("");
+
+  const {
+    loading: updateLoading,
+    order: success,
+    error: updateError,
+  } = useSelector((state) => state.updateOrderStatus);
 
   const { loading, order, error } = useSelector(
     (state) => state.getSellerOrder
   );
 
+  useEffect(() => {
+    dispatch(getSellerOrder(order_id));
+  }, [success]);
+
+  useEffect(() => {
+    if (order) {
+      setStatus(order.status);
+    }
+  }, [order]);
+
   const { order_id } = match.params;
 
   const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateOrderStatus(order_id, status));
+  };
 
   return (
     <main className="mt-4">
@@ -33,8 +60,11 @@ const SellerOrderPage = ({ match }) => {
                 <Button className="mb-3">Back</Button>
               </LinkContainer>
 
-              {loading && <Loader />}
-              {error && <Message variant="danger">{error}</Message>}
+              {loading || (updateLoading && <Loader />)}
+              {error ||
+                (updateError && (
+                  <Message variant="danger">{error || updateError}</Message>
+                ))}
               {order && (
                 <section>
                   <p className="lead text-uppercase">
@@ -87,10 +117,35 @@ const SellerOrderPage = ({ match }) => {
                       </ListGroup>
                     )}
                   </section>
-                  <section>
+                  <section className="m">
                     <h4>Status</h4>
                     <hr />
-                    <p className="lead">{order.status}</p>
+                    <Form onSubmit={handleSubmit}>
+                      <FormGroup className="mb-3">
+                        <FormLabel>
+                          Current Status: <strong>{order.status}</strong>
+                        </FormLabel>
+                        <FormControl
+                          as="select"
+                          defaultValue={status}
+                          onChange={(e) => setStatus(e.target.value)}
+                          required
+                        >
+                          {orderStatus.map((status, index) => {
+                            return (
+                              <option key={index} value={status}>
+                                {status}
+                              </option>
+                            );
+                          })}
+                        </FormControl>
+                      </FormGroup>
+                      <FormGroup className="mb-3">
+                        <Button type="submit" className="w-100">
+                          Update
+                        </Button>
+                      </FormGroup>
+                    </Form>
                   </section>
                 </section>
               )}

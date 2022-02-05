@@ -14,6 +14,9 @@ import {
   GET_USER_ORDER_FAIL,
   GET_USER_ORDER_REQUEST,
   GET_USER_ORDER_SUCCESS,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAIL,
 } from "../constants/orderConstants";
 
 const createOrderReducer = (state = {}, action) => {
@@ -81,10 +84,23 @@ const getSellerOrderReducer = (state = {}, action) => {
   }
 };
 
+const updateOrderStatusReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_ORDER_STATUS_REQUEST:
+      return { ...state, loading: true };
+    case UPDATE_ORDER_STATUS_SUCCESS:
+      return { ...state, loading: false, order: action.payload };
+    case UPDATE_ORDER_STATUS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 export {
   createOrderReducer,
   getUserOrdersReducer,
   getUserOrderReducer,
   getSellerOrdersReducer,
   getSellerOrderReducer,
+  updateOrderStatusReducer,
 };

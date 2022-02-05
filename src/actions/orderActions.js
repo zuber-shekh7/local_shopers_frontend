@@ -15,6 +15,9 @@ import {
   GET_SELLER_ORDER_REQUEST,
   GET_SELLER_ORDER_SUCCESS,
   GET_SELLER_ORDER_FAIL,
+  UPDATE_ORDER_STATUS_REQUEST,
+  UPDATE_ORDER_STATUS_SUCCESS,
+  UPDATE_ORDER_STATUS_FAIL,
 } from "../constants/orderConstants";
 
 const createOrder = (orderData) => async (dispatch) => {
@@ -127,10 +130,36 @@ const getSellerOrder = (id) => async (dispatch) => {
   }
 };
 
+const updateOrderStatus = (id, status) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+
+    const { data } = await backendAPI.put(
+      `/orders/${id}`,
+      { status },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    const { order } = data;
+
+    dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload: order });
+    dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: UPDATE_ORDER_STATUS_FAIL, payload: error });
+  }
+};
 export {
   createOrder,
   getUserOrders,
   getUserOrder,
   getSellerOrders,
   getSellerOrder,
+  updateOrderStatus,
 };
