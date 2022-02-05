@@ -66,11 +66,14 @@ const CartPage = ({ match, location, history }) => {
                                 value={item.qty}
                                 onChange={(e) => {
                                   dispatch(
-                                    addToCart(item._id, Number(e.target.value))
+                                    addToCart(
+                                      item.product._id,
+                                      Number(e.target.value)
+                                    )
                                   );
                                 }}
                               >
-                                {[...Array(item.quantity).keys()].map(
+                                {[...Array(item.product.quantity).keys()].map(
                                   (i, index) => {
                                     return (
                                       <option key={index} value={i + 1}>
