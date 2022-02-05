@@ -5,6 +5,9 @@ import {
   GET_SELLER_ORDERS_FAIL,
   GET_SELLER_ORDERS_REQUEST,
   GET_SELLER_ORDERS_SUCCESS,
+  GET_SELLER_ORDER_FAIL,
+  GET_SELLER_ORDER_REQUEST,
+  GET_SELLER_ORDER_SUCCESS,
   GET_USER_ORDERS_FAIL,
   GET_USER_ORDERS_REQUEST,
   GET_USER_ORDERS_SUCCESS,
@@ -65,9 +68,23 @@ const getSellerOrdersReducer = (state = {}, action) => {
   }
 };
 
+const getSellerOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SELLER_ORDER_REQUEST:
+      return { ...state, loading: true };
+    case GET_SELLER_ORDER_SUCCESS:
+      return { ...state, loading: false, order: action.payload };
+    case GET_SELLER_ORDER_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export {
   createOrderReducer,
   getUserOrdersReducer,
   getUserOrderReducer,
   getSellerOrdersReducer,
+  getSellerOrderReducer,
 };

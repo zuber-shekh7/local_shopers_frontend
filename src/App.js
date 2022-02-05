@@ -57,6 +57,7 @@ import OrderSummaryPage from "./pages/checkout/OrderSummaryPage";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
 import SellerOrdersPage from "./pages/orders/SellerOrdersPage";
+import SellerOrderPage from "./pages/orders/SellerOrderPage";
 
 const App = () => {
   return (
@@ -202,6 +203,10 @@ const App = () => {
             path="/manage/orders/"
             component={SellerOrdersPage}
             exact
+          />
+          <SellerProtectedRoute
+            path="/manage/orders/:order_id"
+            component={SellerOrderPage}
           />
           {/* admin */}
           <Route path="/admin/login" component={AdminLoginPage} exact />
