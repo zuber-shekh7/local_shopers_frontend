@@ -1,12 +1,19 @@
 import React, { useEffect } from "react";
 import { Container, Row, Col, Button, ListGroup, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { createOrder } from "../../actions/orderActions";
+import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
 const OrderSummaryPage = ({ history }) => {
-  const { cartItems, shippingAddress, paymentMethod } = useSelector(
+  const { cartItems, shippingAddress, paymentMethod, business } = useSelector(
     (state) => state.cart
   );
+
+  const {
+    userInfo: { user },
+  } = useSelector((state) => state.userLogin);
+  const { loading, order, error } = useSelector((state) => state.createOrder);
 
   useEffect(() => {
     if (!paymentMethod) {
@@ -14,21 +21,43 @@ const OrderSummaryPage = ({ history }) => {
     }
   }, [paymentMethod]);
 
+  useEffect(() => {
+    if (order) {
+      history.push(`/orders/${order._id}`);
+    }
+  }, [order, history]);
+
   const subTotal = Number(
     cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
   const tax = 100;
   const shippingCharges = 100;
-  const total = Number(subTotal + tax + shippingCharges).toFixed(2);
+  const totalPrice = Number(subTotal + tax + shippingCharges).toFixed(2);
+
+  const dispatch = useDispatch();
 
   const handlePlaceOrder = () => {
-    history.push("/checkout/place-order");
+    dispatch(
+      createOrder({
+        user_id: user._id,
+        business_id: business,
+        orderItems: cartItems,
+        paymentMethod,
+        shippingAddress,
+        totalPrice,
+        tax,
+        shippingCharges,
+      })
+    );
   };
+
   return (
     <main className="mt-4">
       <Container>
         <Row>
           <Col md={8} className="mx-auto">
+            {loading && <Loader />}
+            {error && <Message variant="danger">{error}</Message>}
             <Row>
               <Col md={8}>
                 <h2>Order summary</h2>
@@ -112,7 +141,7 @@ const OrderSummaryPage = ({ history }) => {
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <h4 className="text-center">₹ {total}/-</h4>
+                    <h4 className="text-center">₹ {totalPrice}/-</h4>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <Button

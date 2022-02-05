@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { savePaymentMethod } from "../../actions/cartActions";
 
 const PaymentMethodPage = ({ history }) => {
-  const [paymentMethod, setPaymentMethod] = useState("UPI");
+  const [paymentMethod, setPaymentMethod] = useState("COD");
 
   const { shippingAddress } = useSelector((state) => state.cart);
 
@@ -42,11 +42,21 @@ const PaymentMethodPage = ({ history }) => {
               <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <input
+                    id="cod"
+                    type="radio"
+                    name="payment"
+                    value="COD"
+                    checked
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  />{" "}
+                  <FormLabel htmlFor="cod">COD (Cash on Delivery)</FormLabel>
+                </FormGroup>
+                <FormGroup>
+                  <input
                     id="upi"
                     type="radio"
                     name="payment"
                     value="UPI"
-                    checked
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   />{" "}
                   <FormLabel htmlFor="upi">UPI</FormLabel>

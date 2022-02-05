@@ -12,6 +12,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { getBusiness } from "../../actions/businessActions";
+import { saveBusiness } from "../../actions/cartActions";
 import CategoryList from "../../components/categories/CategoryList";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
@@ -27,6 +28,7 @@ const BusinessPage = ({ match }) => {
 
   useEffect(() => {
     dispatch(getBusiness(business_id));
+    dispatch(saveBusiness(business_id));
   }, []);
 
   return (

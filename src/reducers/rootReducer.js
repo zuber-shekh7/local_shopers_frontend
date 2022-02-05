@@ -36,6 +36,7 @@ import {
   getCategoriesReducer,
   getCategoryDetailsReducer,
 } from "./categoryReducers";
+import { createOrderReducer } from "./orderReducers";
 import {
   createProductReducer,
   deleteProductReducer,
@@ -122,7 +123,11 @@ const initialState = {
     paymentMethod: localStorage.getItem("paymentMethod")
       ? localStorage.getItem("paymentMethod")
       : null,
+    business: localStorage.getItem("business")
+      ? localStorage.getItem("business")
+      : null,
   },
+  createOrder: { order: null },
 };
 
 const rootReducer = combineReducers({
@@ -165,6 +170,7 @@ const rootReducer = combineReducers({
   getAdminList: adminGetAdminListReducer,
   getBusinessCategoryList: adminGetBusinessCategoryListReducer,
   cart: cartReducer,
+  createOrder: createOrderReducer,
 });
 
 export { initialState };

@@ -55,4 +55,20 @@ const savePaymentMethod = (paymentMethod) => async (dispatch, getState) => {
   localStorage.setItem("paymentMethod", paymentMethod);
 };
 
-export { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod };
+const saveBusiness = (business) => async (dispatch) => {
+  dispatch({
+    type: SAVE_PAYMENT_METHOD,
+    payload: {
+      business,
+    },
+  });
+
+  localStorage.setItem("business", business);
+};
+export {
+  addToCart,
+  removeFromCart,
+  saveShippingAddress,
+  savePaymentMethod,
+  saveBusiness,
+};
