@@ -6,6 +6,9 @@ import {
   GET_USER_ORDER_REQUEST,
   GET_USER_ORDER_SUCCESS,
   GET_USER_ORDER_FAIL,
+  GET_USER_ORDERS_REQUEST,
+  GET_USER_ORDERS_SUCCESS,
+  GET_USER_ORDERS_FAIL,
 } from "../constants/orderConstants";
 
 const createOrder = (orderData) => async (dispatch) => {
@@ -32,6 +35,28 @@ const createOrder = (orderData) => async (dispatch) => {
   }
 };
 
+const getUserOrders = (user_id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_USER_ORDERS_REQUEST });
+
+    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+
+    const { data } = await backendAPI.get(`/orders/`, {
+      headers: {
+        Authorization: token,
+      },
+      params: { user_id },
+    });
+
+    const { orders } = data;
+
+    dispatch({ type: GET_USER_ORDERS_SUCCESS, payload: orders });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: GET_USER_ORDERS_FAIL, payload: error });
+  }
+};
+
 const getUserOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_ORDER_REQUEST });
@@ -53,4 +78,4 @@ const getUserOrder = (id) => async (dispatch) => {
   }
 };
 
-export { createOrder, getUserOrder };
+export { createOrder, getUserOrders, getUserOrder };

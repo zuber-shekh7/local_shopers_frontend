@@ -23,7 +23,7 @@ const OrderSummaryPage = ({ history }) => {
 
   useEffect(() => {
     if (order) {
-      history.push(`/orders/${order._id}`);
+      history.push(`/users/orders/${order._id}`);
     }
   }, [order, history]);
 

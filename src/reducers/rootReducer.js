@@ -36,7 +36,11 @@ import {
   getCategoriesReducer,
   getCategoryDetailsReducer,
 } from "./categoryReducers";
-import { createOrderReducer, getUserOrderReducer } from "./orderReducers";
+import {
+  createOrderReducer,
+  getUserOrderReducer,
+  getUserOrdersReducer,
+} from "./orderReducers";
 import {
   createProductReducer,
   deleteProductReducer,
@@ -129,6 +133,7 @@ const initialState = {
   },
   createOrder: { order: null },
   getUserOrder: { order: null },
+  getUserOrders: { orders: null },
 };
 
 const rootReducer = combineReducers({
@@ -173,6 +178,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   createOrder: createOrderReducer,
   getUserOrder: getUserOrderReducer,
+  getUserOrders: getUserOrdersReducer,
 });
 
 export { initialState };
