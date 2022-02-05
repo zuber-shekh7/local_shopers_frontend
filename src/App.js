@@ -56,6 +56,7 @@ import PaymentMethodPage from "./pages/checkout/PaymentMethodPage";
 import OrderSummaryPage from "./pages/checkout/OrderSummaryPage";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
+import SellerOrdersPage from "./pages/orders/SellerOrdersPage";
 
 const App = () => {
   return (
@@ -196,6 +197,11 @@ const App = () => {
           <SellerProtectedRoute
             path="/sellers/manage/products/:product_id"
             component={ProductPage}
+          />
+          <SellerProtectedRoute
+            path="/manage/orders/"
+            component={SellerOrdersPage}
+            exact
           />
           {/* admin */}
           <Route path="/admin/login" component={AdminLoginPage} exact />

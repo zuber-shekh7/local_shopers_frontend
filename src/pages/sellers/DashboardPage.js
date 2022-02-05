@@ -35,7 +35,7 @@ const SellerDashboardPage = ({ history }) => {
                           <LinkCard
                             title="Manage Orders"
                             text="Track or buy things again"
-                            link="/sellers/orders"
+                            link="/manage/orders"
                           />
                         </Col>
                         <Col md={6}>

@@ -38,6 +38,7 @@ import {
 } from "./categoryReducers";
 import {
   createOrderReducer,
+  getSellerOrdersReducer,
   getUserOrderReducer,
   getUserOrdersReducer,
 } from "./orderReducers";
@@ -134,6 +135,7 @@ const initialState = {
   createOrder: { order: null },
   getUserOrder: { order: null },
   getUserOrders: { orders: null },
+  getSellerOrders: { orders: null },
 };
 
 const rootReducer = combineReducers({
@@ -179,6 +181,7 @@ const rootReducer = combineReducers({
   createOrder: createOrderReducer,
   getUserOrder: getUserOrderReducer,
   getUserOrders: getUserOrdersReducer,
+  getSellerOrders: getSellerOrdersReducer,
 });
 
 export { initialState };

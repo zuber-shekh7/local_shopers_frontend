@@ -2,6 +2,9 @@ import {
   CREATE_ORDER_FAIL,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
+  GET_SELLER_ORDERS_FAIL,
+  GET_SELLER_ORDERS_REQUEST,
+  GET_SELLER_ORDERS_SUCCESS,
   GET_USER_ORDERS_FAIL,
   GET_USER_ORDERS_REQUEST,
   GET_USER_ORDERS_SUCCESS,
@@ -49,4 +52,22 @@ const getUserOrderReducer = (state = {}, action) => {
   }
 };
 
-export { createOrderReducer, getUserOrdersReducer, getUserOrderReducer };
+const getSellerOrdersReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SELLER_ORDERS_REQUEST:
+      return { ...state, loading: true };
+    case GET_SELLER_ORDERS_SUCCESS:
+      return { ...state, loading: false, orders: action.payload };
+    case GET_SELLER_ORDERS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export {
+  createOrderReducer,
+  getUserOrdersReducer,
+  getUserOrderReducer,
+  getSellerOrdersReducer,
+};
