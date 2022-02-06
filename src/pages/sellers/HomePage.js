@@ -9,7 +9,7 @@ const SellerHomePage = () => {
         <Row>
           <Col md={8} className="mx-auto">
             <section className="text-center py-5">
-              <h1>Start your online business now</h1>
+              <h1 className="display-4">Start your online business now</h1>
               <p className="lead">Create your online store within 10 minutes</p>
               <LinkContainer to="/sellers/login">
                 <Button size="lg">Login as Seller</Button>
@@ -21,7 +21,9 @@ const SellerHomePage = () => {
           <hr />
           <Col md={8} className="mx-auto">
             <section className="text-center">
-              <h2>Sell Products in different categories</h2>
+              <h2 className="display-5">
+                Sell Products in different categories
+              </h2>
               <Row className="pt-4">
                 <Col md={4}>
                   <Card>
