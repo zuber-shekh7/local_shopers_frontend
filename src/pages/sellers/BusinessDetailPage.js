@@ -1,6 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
-import { Container, Row, Col, ListGroup, Image, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Button,
+  FormControl,
+} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { getBusiness } from "../../actions/businessActions";
@@ -8,7 +16,10 @@ import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
 const BusinessDetailPage = ({ history }) => {
+  const [copied, setCopied] = useState(false);
+
   const dispatch = useDispatch();
+  const storeLink = useRef();
 
   const { seller } = useSelector((state) => state.getSeller);
 
@@ -23,6 +34,21 @@ const BusinessDetailPage = ({ history }) => {
       dispatch(getBusiness(seller.business._id));
     }
   }, []);
+
+  let onlineStoreLink = window.location.origin;
+
+  if (seller.business) {
+    onlineStoreLink = `${window.location.origin}/business/${seller.business._id}`;
+  }
+
+  const copyToClipboard = () => {
+    setCopied(true);
+    storeLink.current.select();
+    document.execCommand("copy");
+    setInterval(() => {
+      setCopied(false);
+    }, 5000);
+  };
 
   return (
     <main className="mt-4">
@@ -83,6 +109,15 @@ const BusinessDetailPage = ({ history }) => {
                     <Button className="w-100">Edit</Button>
                   </LinkContainer>
                 </section>
+                <FormControl
+                  type="text"
+                  placeholder="Your online store link"
+                  defaultValue={onlineStoreLink}
+                  ref={storeLink}
+                ></FormControl>
+                <Button onClick={copyToClipboard} className="w-100 my-3 ">
+                  {copied ? "Copied!" : "Copy online store link"}
+                </Button>
               </section>
             )}
           </Col>
