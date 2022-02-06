@@ -23,6 +23,7 @@ import Message from "../../components/shared/Message";
 const EditBusinessCategoryPage = ({ match, history }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
 
   const { loading, businessCategory, error } = useSelector(
     (state) => state.getBusinessCategory
@@ -58,12 +59,17 @@ const EditBusinessCategoryPage = ({ match, history }) => {
 
     if (
       name === businessCategory.name &&
-      description === businessCategory.description
+      description === businessCategory.description &&
+      !image
     ) {
       return history.goBack();
     }
 
-    dispatch(editBusinessCategory(name, description, category_id));
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("image", image);
+    dispatch(editBusinessCategory(formData, category_id));
   };
 
   if (updatedBusinessCategory) {
@@ -107,6 +113,18 @@ const EditBusinessCategoryPage = ({ match, history }) => {
                       placeholder="Add description here"
                       required
                     />
+                  </FormGroup>
+                  <FormGroup className="mb-3">
+                    <FormLabel>Image</FormLabel>
+                    <FormControl
+                      type="file"
+                      accept="image/jpeg"
+                      placeholder="Upload image"
+                      onChange={(e) => setImage(e.target.files[0])}
+                    />
+                    <a href={businessCategory && businessCategory.image}>
+                      Current Image
+                    </a>
                   </FormGroup>
                   <Button className="w-100 mb-3" type="submit">
                     Save

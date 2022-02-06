@@ -75,7 +75,7 @@ const getBusinessCategory = (id) => async (dispatch) => {
   }
 };
 
-const editBusinessCategory = (name, description, id) => async (dispatch) => {
+const editBusinessCategory = (formData, id) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_BUSINESS_CATEGORY_REQUEST });
 
@@ -83,7 +83,7 @@ const editBusinessCategory = (name, description, id) => async (dispatch) => {
 
     const { data } = await backendAPI.put(
       `/business-categories/${id}`,
-      { name, description },
+      formData,
       {
         headers: { Authorization: token },
       }
