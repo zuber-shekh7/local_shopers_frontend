@@ -17,6 +17,7 @@ import { createBusinessCategory } from "../../actions/businessCategoryActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
 
 const AddBusinessCategoryPage = () => {
   const formData = new FormData();
@@ -50,8 +51,8 @@ const AddBusinessCategoryPage = () => {
   }
 
   return (
-    <main className="mt-4">
-      <Container>
+    <AdminSharedLayout>
+      <main className="mt-4">
         <Row>
           <Col md={8} className="mx-auto">
             <section>
@@ -103,8 +104,8 @@ const AddBusinessCategoryPage = () => {
             </section>
           </Col>
         </Row>
-      </Container>
-    </main>
+      </main>
+    </AdminSharedLayout>
   );
 };
 

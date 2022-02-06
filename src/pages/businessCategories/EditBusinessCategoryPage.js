@@ -16,6 +16,7 @@ import {
   editBusinessCategory,
   getBusinessCategory,
 } from "../../actions/businessCategoryActions";
+import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
@@ -81,8 +82,8 @@ const EditBusinessCategoryPage = ({ match, history }) => {
   }
 
   return (
-    <main className="mt-4">
-      <Container>
+    <AdminSharedLayout>
+      <main className="mt-4">
         <Row>
           <Col md={8} className="mx-auto">
             <section>
@@ -141,8 +142,8 @@ const EditBusinessCategoryPage = ({ match, history }) => {
             </section>
           </Col>
         </Row>
-      </Container>
-    </main>
+      </main>
+    </AdminSharedLayout>
   );
 };
 

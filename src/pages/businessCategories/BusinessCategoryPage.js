@@ -15,6 +15,7 @@ import {
   deleteBusinessCategory,
   getBusinessCategory,
 } from "../../actions/businessCategoryActions";
+import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 import ModalForm from "../../components/shared/ModalForm";
@@ -45,8 +46,8 @@ const BusinessCategoryPage = ({ match }) => {
   }
 
   return (
-    <main className="mt-4">
-      <Container>
+    <AdminSharedLayout>
+      <main className="mt-4">
         <Row>
           <Col md={8} className="mx-auto">
             <section>
@@ -119,8 +120,8 @@ const BusinessCategoryPage = ({ match }) => {
             </section>
           </Col>
         </Row>
-      </Container>
-    </main>
+      </main>
+    </AdminSharedLayout>
   );
 };
 

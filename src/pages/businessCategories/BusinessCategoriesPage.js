@@ -3,6 +3,7 @@ import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { getBusinessCategories } from "../../actions/businessCategoryActions";
+import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
@@ -17,10 +18,10 @@ const BusinessCategoriesPage = () => {
   }, []);
 
   return (
-    <main className="mt-4">
-      <Container>
+    <AdminSharedLayout>
+      <main className="mt-4">
         <Row>
-          <Col md={8} className="mx-auto">
+          <Col md={10} className="mx-auto">
             <section>
               <section className="d-flex justify-content-between">
                 <h3>Manage Categories</h3>
@@ -66,8 +67,8 @@ const BusinessCategoriesPage = () => {
             </section>
           </Col>
         </Row>
-      </Container>
-    </main>
+      </main>
+    </AdminSharedLayout>
   );
 };
 
