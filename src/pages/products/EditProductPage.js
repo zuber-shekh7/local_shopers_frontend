@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import FormData from "form-data";
 import {
   Container,
   Row,
@@ -22,6 +23,7 @@ const EditProductPage = ({ history, match }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [image, setImage] = useState(null);
 
   const { product_id } = match.params;
 
@@ -57,12 +59,20 @@ const EditProductPage = ({ history, match }) => {
       name === product.name &&
       description === product.description &&
       price === product.price &&
-      quantity === product.quantity
+      quantity === product.quantity &&
+      !image
     ) {
       return history.goBack();
     }
 
-    dispatch(editProduct(name, description, price, quantity, product_id));
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("image", image);
+
+    dispatch(editProduct(formData, product_id));
   };
 
   if (updatedProduct) {
@@ -75,14 +85,14 @@ const EditProductPage = ({ history, match }) => {
         <Row>
           <Col md={8} className="mx-auto">
             <section>
-              <h2 className="text-center my-3">Edit Product</h2>
+              <h2 className="text-center my-3">Edit product</h2>
 
               <FormContainer>
                 {loading && <Loader />}
                 {error && <Message variant="danger">{error}</Message>}
                 <Form onSubmit={handleSubmit}>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Name</FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <FormControl
                       type="text"
                       value={name}
@@ -92,7 +102,7 @@ const EditProductPage = ({ history, match }) => {
                     />
                   </FormGroup>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Description</FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl
                       type="text"
                       as="textarea"
@@ -103,7 +113,7 @@ const EditProductPage = ({ history, match }) => {
                     />
                   </FormGroup>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Price</FormLabel>
+                    <FormLabel>Price</FormLabel>
                     <FormControl
                       min={0}
                       type="number"
@@ -114,7 +124,7 @@ const EditProductPage = ({ history, match }) => {
                     />
                   </FormGroup>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Quantity</FormLabel>
+                    <FormLabel>Quantity</FormLabel>
                     <FormControl
                       min={0}
                       type="number"
@@ -124,8 +134,25 @@ const EditProductPage = ({ history, match }) => {
                       required
                     />
                   </FormGroup>
+                  <FormGroup className="mb-3">
+                    <FormLabel>Image</FormLabel>
+                    <FormControl
+                      type="file"
+                      onChange={(e) => setImage(e.target.files[0])}
+                      placeholder="Upload image"
+                      accept="image/jpeg"
+                    />
+                    {product && <a href={product.image}>Current Image</a>}
+                  </FormGroup>
                   <Button className="w-100 mb-3" type="submit">
                     Save
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => history.goBack()}
+                    className="w-100 mb-3"
+                  >
+                    Cancel
                   </Button>
                 </Form>
               </FormContainer>

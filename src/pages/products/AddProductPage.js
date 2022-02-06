@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FormData from "form-data";
 import {
   Container,
   Row,
@@ -16,11 +17,12 @@ import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
-const AddProductPage = ({ match }) => {
+const AddProductPage = ({ match, history }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
+  const [image, setImage] = useState(null);
 
   const { category_id } = match.params;
 
@@ -37,16 +39,19 @@ const AddProductPage = ({ match }) => {
       return;
     }
 
-    dispatch(createProduct(name, description, price, quantity, category_id));
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("image", image);
+    formData.append("category_id", category_id);
 
-    setName("");
-    setDescription("");
-    setPrice("");
-    setQuantity(0);
+    dispatch(createProduct(formData));
   };
 
   if (product) {
-    return <Redirect to={`/sellers/manage/categories/${category_id}`} />;
+    return <Redirect to={`/sellers/manage/products/${product._id}`} />;
   }
 
   return (
@@ -55,7 +60,7 @@ const AddProductPage = ({ match }) => {
         <Row>
           <Col md={8} className="mx-auto">
             <section>
-              <h2 className="text-center my-3">Add new Product</h2>
+              <h2 className="text-center my-3">Add new product</h2>
               <FormContainer>
                 {loading && <Loader />}
                 {error && <Message variant="danger">{error}</Message>}
@@ -71,7 +76,7 @@ const AddProductPage = ({ match }) => {
                     />
                   </FormGroup>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Description</FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl
                       type="text"
                       as="textarea"
@@ -82,7 +87,7 @@ const AddProductPage = ({ match }) => {
                     />
                   </FormGroup>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Price</FormLabel>
+                    <FormLabel>Price</FormLabel>
                     <FormControl
                       min={0}
                       type="number"
@@ -93,7 +98,7 @@ const AddProductPage = ({ match }) => {
                     />
                   </FormGroup>
                   <FormGroup className="mb-3">
-                    <FormLabel>Product Quantity</FormLabel>
+                    <FormLabel>Quantity</FormLabel>
                     <FormControl
                       min={0}
                       type="number"
@@ -103,8 +108,25 @@ const AddProductPage = ({ match }) => {
                       required
                     />
                   </FormGroup>
+                  <FormGroup className="mb-3">
+                    <FormLabel>Image</FormLabel>
+                    <FormControl
+                      type="file"
+                      onChange={(e) => setImage(e.target.files[0])}
+                      placeholder="Upload image"
+                      required
+                      accept="image/jpeg"
+                    />
+                  </FormGroup>
                   <Button className="w-100 mb-3" type="submit">
                     Save
+                  </Button>
+                  <Button
+                    onClick={() => history.goBack()}
+                    className="w-100 mb-3"
+                    variant="danger"
+                  >
+                    Cancel
                   </Button>
                 </Form>
               </FormContainer>

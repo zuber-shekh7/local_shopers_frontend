@@ -10,7 +10,7 @@ import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 import ModalForm from "../../components/shared/ModalForm";
 
-const ProductPage = ({ match }) => {
+const ProductPage = ({ match, history }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const { product_id } = match.params;
@@ -56,13 +56,14 @@ const ProductPage = ({ match }) => {
                   message={"Once you delete you won't be able to access it."}
                   onAccept={() => onDelete(product._id)}
                 />
+
+                <Button onClick={() => history.goBack()} className="mb-3">
+                  Back
+                </Button>
+
                 <Row>
                   <Col className="text-center">
-                    <Image
-                      src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
-                      fluid
-                      rounded
-                    />
+                    <Image src={product.image} fluid rounded />
                   </Col>
                 </Row>
                 <Row>

@@ -14,31 +14,26 @@ import {
   DELETE_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
-const createProduct =
-  (name, description, price, quantity, category_id) => async (dispatch) => {
-    try {
-      dispatch({ type: CREATE_PRODUCT_REQUEST });
+const createProduct = (formData) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_PRODUCT_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-      const { data } = await backendAPI.post(
-        "/products/new",
-        { name, description, price, quantity, category_id },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      const { product } = data;
+    const { data } = await backendAPI.post("/products", formData, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    const { product } = data;
 
-      dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: product });
-      dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: null });
-    } catch (err) {
-      const error = err.response ? err.response.data.message : err.message;
-      dispatch({ type: CREATE_PRODUCT_FAIL, payload: error });
-    }
-  };
+    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: product });
+    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: CREATE_PRODUCT_FAIL, payload: error });
+  }
+};
 
 const getProduct = (id) => async (dispatch) => {
   try {
@@ -54,32 +49,27 @@ const getProduct = (id) => async (dispatch) => {
   }
 };
 
-const editProduct =
-  (name, description, price, quantity, product_id) => async (dispatch) => {
-    try {
-      dispatch({ type: EDIT_PRODUCT_REQUEST });
+const editProduct = (formData, product_id) => async (dispatch) => {
+  try {
+    dispatch({ type: EDIT_PRODUCT_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-      const { data } = await backendAPI.put(
-        `/products/${product_id}`,
-        { name, description, price, quantity },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      const { product } = data;
+    const { data } = await backendAPI.put(`/products/${product_id}`, formData, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    const { product } = data;
 
-      dispatch({ type: EDIT_PRODUCT_SUCCESS, payload: product });
+    dispatch({ type: EDIT_PRODUCT_SUCCESS, payload: product });
 
-      dispatch({ type: EDIT_PRODUCT_SUCCESS, payload: null });
-    } catch (err) {
-      const error = err.response ? err.response.data.message : err.message;
-      dispatch({ type: EDIT_PRODUCT_FAIL, payload: error });
-    }
-  };
+    dispatch({ type: EDIT_PRODUCT_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: EDIT_PRODUCT_FAIL, payload: error });
+  }
+};
 
 const deleteProduct = (id) => async (dispatch) => {
   try {
