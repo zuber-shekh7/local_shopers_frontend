@@ -16,12 +16,6 @@ const AdminSharedLayout = ({ children }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <LinkContainer to="/manage/business-categories">
-                  <Nav.Link>Manage Business Categories</Nav.Link>
-                </LinkContainer>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <LinkContainer to="/admin/category">
                   <Nav.Link>Manage Categories</Nav.Link>
                 </LinkContainer>
               </ListGroup.Item>

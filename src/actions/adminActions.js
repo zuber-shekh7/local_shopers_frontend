@@ -113,8 +113,9 @@ const getSellerDetails = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_SELLER_LIST_REQUEST });
     const { data } = await adminAPI.post("/getseller");
+    const { sellerList } = data;
 
-    dispatch({ type: ADMIN_MANAGE_SELLER_LIST_SUCCESS, payload: data });
+    dispatch({ type: ADMIN_MANAGE_SELLER_LIST_SUCCESS, payload: sellerList });
   } catch (err) {
     const error = err.message ? err.message : err.response.data.message;
     dispatch({ type: ADMIN_MANAGE_SELLER_LIST_FAIL, payload: error });
