@@ -126,11 +126,11 @@ const getUsersDetails = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_USERS_LIST_REQUEST });
     const { data } = await adminAPI.post("/getusers");
-
+    const { usersList: users } = data;
     dispatch({
       type: ADMIN_MANAGE_USERS_LIST_SUCCESS,
       loading: false,
-      payload: data,
+      payload: users,
     });
   } catch (err) {
     const error = err.message ? err.message : err.response.data.message;

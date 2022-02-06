@@ -104,7 +104,7 @@ const adminGetUsersListReducer = (state = {}, action) => {
     case ADMIN_MANAGE_USERS_LIST_REQUEST:
       return { ...state, loading: true };
     case ADMIN_MANAGE_USERS_LIST_SUCCESS:
-      return { ...state, loading: false, usersList: action.payload };
+      return { ...state, loading: false, users: action.payload };
     case ADMIN_MANAGE_USERS_LIST_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
