@@ -11,19 +11,15 @@ import {
   GET_BUSINESS_SUCCESS,
 } from "../constants/businessConstants";
 
-const createBusiness = (name, description, category) => async (dispatch) => {
+const createBusiness = (formData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_BUSINESS_REQUEST });
 
     const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-    const { data } = await backendAPI.post(
-      "/business/new",
-      { name, description, business_category_id: category },
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const { data } = await backendAPI.post("/business/new", formData, {
+      headers: { Authorization: token },
+    });
 
     dispatch({ type: CREATE_BUSINESS_SUCCESS, payload: data });
   } catch (err) {

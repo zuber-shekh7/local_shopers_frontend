@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import FormData from "form-data";
 import {
   Button,
   Form,
@@ -22,6 +22,7 @@ const CreateBusinessPage = ({ history }) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
@@ -53,7 +54,12 @@ const CreateBusinessPage = ({ history }) => {
       return;
     }
 
-    dispatch(createBusiness(name, description, category));
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("image", image);
+    formData.append("business_category_id", category);
+    dispatch(createBusiness(formData));
 
     dispatch(getSeller());
 
@@ -88,6 +94,16 @@ const CreateBusinessPage = ({ history }) => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="The Best online store ever"
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FormLabel>Image</FormLabel>
+            <FormControl
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              placeholder="Upload image"
+              accept="image/jpeg"
               required
             />
           </FormGroup>
