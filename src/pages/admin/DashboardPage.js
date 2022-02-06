@@ -6,7 +6,6 @@ import { getCummulativeStats } from "../../actions/adminActions";
 import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
-import AdminRenderLineChart from "./AdminRenderLineChart";
 
 const AdminDashboardPage = ({ history }) => {
   const { adminInfo } = useSelector((state) => state.adminLogin);
@@ -22,51 +21,60 @@ const AdminDashboardPage = ({ history }) => {
 
   return (
     <AdminSharedLayout>
-      <Row>
-        <Col md={10} className="mx-auto">
-          <section className="mt-3">
-            <h1>Welcome {adminInfo.user.firstName}</h1>
-            <h5 className="text-muted">{adminInfo.user.email}</h5>
-          </section>
-          <section className="mt-5">
-            <h2>Statistics</h2>
-            {loading && <Loader />}
-            {error && <Message variant="dange">{error}</Message>}
-            <Row>
-              <Col>
-                <h5>Total Orders</h5>
-              </Col>
-              <Col>
-                <h5>Total Customers</h5>
-              </Col>
-              <Col>
-                <h5>Total Sellers</h5>
-              </Col>
-              <Col>
-                <h5>Total Products</h5>
-              </Col>
-            </Row>
-            <Row>
+      <main className="mt-4">
+        <Row>
+          <Col md={10} className="mx-auto">
+            <section>
+              <h1>Welcome {adminInfo.user.firstName}</h1>
+              <h5 className="text-muted">{adminInfo.user.email}</h5>
+            </section>
+            <section className="mt-4">
+              <h2>Statistics</h2>
+              <hr />
+              {loading && <Loader />}
+              {error && <Message variant="danger">{error}</Message>}
               {stats && (
-                <>
-                  <Col>
-                    <h5>{stats.totalItems.totalCustomers}</h5>
-                  </Col>
-                  <Col>
-                    <h5>{stats.totalItems.totalCustomers}</h5>
-                  </Col>
-                  <Col>
-                    <h5> {stats.totalItems.totalProducts}</h5>
-                  </Col>
-                  <Col>
-                    <h5>{stats.totalItems.totalSellers}</h5>
-                  </Col>
-                </>
+                <section>
+                  <Row>
+                    <Col>
+                      <section className="text-center">
+                        <h1 className="text-primary">
+                          {stats.totalItems.totalCustomers}
+                        </h1>
+                        <h5>Total Orders</h5>
+                      </section>
+                    </Col>
+                    <Col>
+                      <section className="text-center">
+                        <h1 className="text-success">
+                          {stats.totalItems.totalCustomers}
+                        </h1>
+                        <h5>Total Customers</h5>
+                      </section>
+                    </Col>
+                    <Col>
+                      <section className="text-center">
+                        <h1 className="text-warning">
+                          {stats.totalItems.totalSellers}
+                        </h1>
+                        <h5>Total Sellers</h5>
+                      </section>
+                    </Col>
+                    <Col>
+                      <section className="text-center">
+                        <h1 className="text-info">
+                          {stats.totalItems.totalProducts}
+                        </h1>
+                        <h5>Total Sellers</h5>
+                      </section>
+                    </Col>
+                  </Row>
+                </section>
               )}
-            </Row>
-          </section>
-        </Col>
-      </Row>
+            </section>
+          </Col>
+        </Row>
+      </main>
     </AdminSharedLayout>
   );
 };
