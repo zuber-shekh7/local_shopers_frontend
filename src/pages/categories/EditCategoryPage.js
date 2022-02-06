@@ -16,6 +16,7 @@ import { editCategory, getCategory } from "../../actions/categoryActions";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
+import { LinkContainer } from "react-router-bootstrap";
 
 const EditCategoryPage = ({ history, match }) => {
   const [name, setName] = useState("");
@@ -98,6 +99,13 @@ const EditCategoryPage = ({ history, match }) => {
                   <Button className="w-100 mb-3" type="submit">
                     Save
                   </Button>
+                  <LinkContainer
+                    to={`/sellers/manage/categories/${category_id}`}
+                  >
+                    <Button variant="danger" className="w-100 mb-3">
+                      Cancel
+                    </Button>
+                  </LinkContainer>
                 </Form>
               </FormContainer>
             </section>

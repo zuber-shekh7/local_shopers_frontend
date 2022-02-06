@@ -52,6 +52,9 @@ const CategoryPage = ({ match }) => {
                   message={"Once you delete you won't be able to access it."}
                   onAccept={() => onDelete(category._id)}
                 />
+                <LinkContainer to="/sellers/manage/categories">
+                  <Button className="mb-3">Back</Button>
+                </LinkContainer>
                 <Row>
                   <Col className="text-center">
                     <Image src={category.image} fluid rounded />
