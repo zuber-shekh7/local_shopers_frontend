@@ -43,31 +43,30 @@ const getBusiness = (id) => async (dispatch) => {
   }
 };
 
-const editBusiness =
-  (name, description, category_id, business_id) => async (dispatch) => {
-    try {
-      dispatch({ type: EDIT_BUSINESS_REQUEST });
+const editBusiness = (formData, business_id) => async (dispatch) => {
+  try {
+    dispatch({ type: EDIT_BUSINESS_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
+    const { token } = JSON.parse(localStorage.getItem("sellerInfo"));
 
-      const { data } = await backendAPI.put(
-        `/business/${business_id}`,
-        { name, description, category_id },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      const { business } = data;
+    const { data } = await backendAPI.put(
+      `/business/${business_id}`,
+      formData,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    const { business } = data;
 
-      dispatch({ type: EDIT_BUSINESS_SUCCESS, payload: business });
+    dispatch({ type: EDIT_BUSINESS_SUCCESS, payload: business });
 
-      dispatch({ type: EDIT_BUSINESS_SUCCESS, payload: null });
-    } catch (err) {
-      const error = err.response ? err.response.data.message : err.message;
-      dispatch({ type: EDIT_BUSINESS_FAIL, payload: error });
-    }
-  };
+    dispatch({ type: EDIT_BUSINESS_SUCCESS, payload: null });
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: EDIT_BUSINESS_FAIL, payload: error });
+  }
+};
 
 export { createBusiness, getBusiness, editBusiness };

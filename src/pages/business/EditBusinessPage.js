@@ -21,6 +21,7 @@ const EditBusinessPage = ({ history }) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
 
@@ -28,7 +29,7 @@ const EditBusinessPage = ({ history }) => {
     (state) => state.getBusiness
   );
 
-  const { success, business: updatedBusiness } = useSelector(
+  const { loading: updateLoading, business: updatedBusiness } = useSelector(
     (state) => state.editBusiness
   );
 
@@ -57,15 +58,13 @@ const EditBusinessPage = ({ history }) => {
       return;
     }
 
-    if (
-      name === business.name &&
-      description === business.description &&
-      category === business.category
-    ) {
-      return history.goBack();
-    }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("image", image);
+    formData.append("business_category_id", category);
 
-    dispatch(editBusiness(name, description, category, business._id));
+    dispatch(editBusiness(formData, business._id));
   };
 
   if (updatedBusiness) {
@@ -76,7 +75,7 @@ const EditBusinessPage = ({ history }) => {
     <main className="mt-4">
       <h1 className="text-center">Edit Business</h1>
       <FormContainer>
-        {loading && <Loader />}
+        {(loading || updateLoading) && <Loader />}
         {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={handleSubmit}>
           <FormGroup className="mb-3">
@@ -99,7 +98,16 @@ const EditBusinessPage = ({ history }) => {
               required
             />
           </FormGroup>
-
+          <FormGroup className="mb-3">
+            <FormLabel>Image</FormLabel>
+            <FormControl
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              placeholder="Upload image"
+              accept="image/jpeg"
+            />
+            {business && <a href={business.image}>Current Image</a>}
+          </FormGroup>
           <FormGroup className="mb-3">
             <FormLabel>Category</FormLabel>
             <Form.Select
