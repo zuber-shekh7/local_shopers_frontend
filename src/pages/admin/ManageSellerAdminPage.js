@@ -36,6 +36,8 @@ const ManageSellerAdminPage = () => {
                       <th>Email</th>
                       <th>Mobile</th>
                     </tr>
+                  </thead>
+                  <tbody>
                     {sellerList &&
                       sellerList.length > 0 &&
                       sellerList.map((seller, index) => {
@@ -49,7 +51,7 @@ const ManageSellerAdminPage = () => {
                           </tr>
                         );
                       })}
-                  </thead>
+                  </tbody>
                 </Table>
               </section>
             )}
