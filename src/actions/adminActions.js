@@ -146,8 +146,8 @@ const getAdminList = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MANAGE_ADMIN_LIST_REQUEST });
     const { data } = await adminAPI.post("/getadmins");
-
-    dispatch({ type: ADMIN_MANAGE_ADMIN_LIST_SUCCESS, payload: data });
+    const { usersList: users } = data;
+    dispatch({ type: ADMIN_MANAGE_ADMIN_LIST_SUCCESS, payload: users });
   } catch (err) {
     const error = err.message ? err.message : err.response.data.message;
     dispatch({ type: ADMIN_MANAGE_ADMIN_LIST_FAIL, payload: error });
