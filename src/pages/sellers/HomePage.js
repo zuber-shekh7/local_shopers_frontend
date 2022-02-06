@@ -1,11 +1,20 @@
 import React from "react";
-import { Button, Container, Row, Col, Card } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  FormGroup,
+  FormControl,
+} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const SellerHomePage = () => {
   return (
     <main className="mt-4">
-      <Container>
+      <Container fluid>
         <Row>
           <Col md={8} className="mx-auto">
             <section className="text-center py-5">
@@ -17,12 +26,11 @@ const SellerHomePage = () => {
             </section>
           </Col>
         </Row>
-        <Row className="my-3">
-          <hr />
+        <Row className="my-3 bg-light py-5">
           <Col md={8} className="mx-auto">
             <section className="text-center">
               <h2 className="display-5">
-                Sell Products in different categories
+                Sell products in different categories
               </h2>
               <Row className="pt-4">
                 <Col md={4}>
@@ -48,6 +56,44 @@ const SellerHomePage = () => {
                       <Card.Title>Grocery</Card.Title>
                     </Card.Header>
                   </Card>
+                </Col>
+              </Row>
+            </section>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={8} className="mx-auto">
+            <section className="text-center py-5">
+              <h2 className="text-center display-6 mb-3">
+                Want to connect with us?
+              </h2>
+              <Row>
+                <Col md={6} className="mx-auto">
+                  <Form
+                    onSubmit={() =>
+                      alert(
+                        "Thanks for your interest. We will contact you soon"
+                      )
+                    }
+                  >
+                    <FormGroup className="mb-3">
+                      <FormControl
+                        type="email"
+                        placeholder="youremail@example.com"
+                        required
+                      ></FormControl>
+                    </FormGroup>
+                    <FormGroup className="mb-3">
+                      <FormControl
+                        as="textarea"
+                        placeholder="your message"
+                        required
+                      ></FormControl>
+                    </FormGroup>
+                    <FormGroup className="mb-3">
+                      <Button type="submit">Submit</Button>
+                    </FormGroup>
+                  </Form>
                 </Col>
               </Row>
             </section>
