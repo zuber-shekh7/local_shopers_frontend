@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 
 import { useSelector, useDispatch } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
 import { editBusiness, getBusiness } from "../../actions/businessActions";
 import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
@@ -73,71 +74,74 @@ const EditBusinessPage = ({ history }) => {
   }
 
   return (
-    <AdminSharedLayout>
-      <main className="mt-4">
-        <h1 className="text-center">Edit Business</h1>
-        <FormContainer>
-          {(loading || updateLoading) && <Loader />}
-          {error && <Message variant="danger">{error}</Message>}
-          <Form onSubmit={handleSubmit}>
-            <FormGroup className="mb-3">
-              <FormLabel>Name</FormLabel>
-              <FormControl
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="My Online Store"
-                required
-              />
-            </FormGroup>
-            <FormGroup className="mb-3">
-              <FormLabel>Description</FormLabel>
-              <FormControl
-                as="textarea"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="The Best online store ever"
-                required
-              />
-            </FormGroup>
-            <FormGroup className="mb-3">
-              <FormLabel>Image</FormLabel>
-              <FormControl
-                type="file"
-                onChange={(e) => setImage(e.target.files[0])}
-                placeholder="Upload image"
-                accept="image/jpeg"
-              />
-              {business && <a href={business.image}>Current Image</a>}
-            </FormGroup>
-            <FormGroup className="mb-3">
-              <FormLabel>Category</FormLabel>
-              <Form.Select
-                aria-label="Default select example"
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-              >
-                <option disabled>Select Business Category</option>
+    <main className="mt-4">
+      <h1 className="text-center">Edit Business</h1>
+      <FormContainer>
+        {(loading || updateLoading) && <Loader />}
+        {error && <Message variant="danger">{error}</Message>}
+        <Form onSubmit={handleSubmit}>
+          <FormGroup className="mb-3">
+            <FormLabel>Name</FormLabel>
+            <FormControl
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="My Online Store"
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FormLabel>Description</FormLabel>
+            <FormControl
+              as="textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="The Best online store ever"
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FormLabel>Image</FormLabel>
+            <FormControl
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              placeholder="Upload image"
+              accept="image/jpeg"
+            />
+            {business && <a href={business.image}>Current Image</a>}
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <FormLabel>Category</FormLabel>
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option disabled>Select Business Category</option>
 
-                {categories &&
-                  categories.length > 0 &&
-                  categories.map((category) => {
-                    return (
-                      <option key={category._id} value={category._id}>
-                        {category.name}
-                      </option>
-                    );
-                  })}
-              </Form.Select>
-            </FormGroup>
-            <Button className="w-100 mb-3" type="submit">
-              Save
+              {categories &&
+                categories.length > 0 &&
+                categories.map((category) => {
+                  return (
+                    <option key={category._id} value={category._id}>
+                      {category.name}
+                    </option>
+                  );
+                })}
+            </Form.Select>
+          </FormGroup>
+          <Button className="w-100 mb-3" type="submit">
+            Save
+          </Button>
+          <LinkContainer to="/sellers/business">
+            <Button variant="danger" className="w-100 mb-3">
+              Cancel
             </Button>
-          </Form>
-        </FormContainer>
-      </main>
-    </AdminSharedLayout>
+          </LinkContainer>
+        </Form>
+      </FormContainer>
+    </main>
   );
 };
 
