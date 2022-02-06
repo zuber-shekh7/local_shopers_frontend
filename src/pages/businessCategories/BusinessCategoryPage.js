@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, ListGroup, Button, Table } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Button,
+  Table,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
@@ -67,6 +75,16 @@ const BusinessCategoryPage = ({ match }) => {
                       <tr>
                         <td>Description</td>
                         <td>{businessCategory.description}</td>
+                      </tr>
+                      <tr>
+                        <td>Image</td>
+                        <td>
+                          <Image
+                            fluid
+                            style={{ height: 50 }}
+                            src={businessCategory.image}
+                          />
+                        </td>
                       </tr>
                       <tr>
                         <td>Created at</td>

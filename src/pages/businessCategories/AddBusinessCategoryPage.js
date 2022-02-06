@@ -9,6 +9,7 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
+import FormData from "form-data";
 import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
@@ -18,8 +19,11 @@ import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";
 
 const AddBusinessCategoryPage = () => {
+  const formData = new FormData();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
 
   const { loading, businessCategory, error } = useSelector(
     (state) => state.createBusinessCategory
@@ -33,8 +37,10 @@ const AddBusinessCategoryPage = () => {
     if (!name && !description) {
       return;
     }
-
-    dispatch(createBusinessCategory(name, description));
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("image", image);
+    dispatch(createBusinessCategory(formData));
   };
 
   if (businessCategory) {
@@ -71,6 +77,16 @@ const AddBusinessCategoryPage = () => {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder="Add description here"
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup className="mb-3">
+                    <FormLabel>Image</FormLabel>
+                    <FormControl
+                      type="file"
+                      accept="image/jpeg"
+                      placeholder="Upload image"
+                      onChange={(e) => setImage(e.target.files[0])}
                       required
                     />
                   </FormGroup>

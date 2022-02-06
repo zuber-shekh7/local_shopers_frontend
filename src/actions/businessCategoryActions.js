@@ -36,19 +36,15 @@ const getBusinessCategories = () => async (dispatch) => {
   }
 };
 
-const createBusinessCategory = (name, description) => async (dispatch) => {
+const createBusinessCategory = (formData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_BUSINESS_CATEGORY_REQUEST });
 
     const { token } = JSON.parse(localStorage.getItem("adminInfo"));
 
-    const { data } = await backendAPI.post(
-      `/business-categories/`,
-      { name, description },
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const { data } = await backendAPI.post(`/business-categories/`, formData, {
+      headers: { Authorization: token },
+    });
 
     const { category } = data;
 
