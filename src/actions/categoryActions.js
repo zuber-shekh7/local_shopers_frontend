@@ -75,7 +75,7 @@ const createCategory = (formData) => async (dispatch) => {
   }
 };
 
-const editCategory = (name, category_id) => async (dispatch) => {
+const editCategory = (formData, category_id) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_CATEGORY_REQUEST });
 
@@ -83,7 +83,7 @@ const editCategory = (name, category_id) => async (dispatch) => {
 
     const { data } = await backendAPI.put(
       `/categories/${category_id}`,
-      { name },
+      formData,
       {
         headers: {
           Authorization: token,

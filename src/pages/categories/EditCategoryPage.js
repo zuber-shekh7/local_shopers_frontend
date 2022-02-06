@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import FormData from "form-data";
 import {
   Container,
   Row,
@@ -18,6 +19,7 @@ import Message from "../../components/shared/Message";
 
 const EditCategoryPage = ({ history, match }) => {
   const [name, setName] = useState("");
+  const [image, setImage] = useState(null);
 
   const { category_id } = match.params;
 
@@ -50,11 +52,15 @@ const EditCategoryPage = ({ history, match }) => {
       return;
     }
 
-    if (name === category.name) {
+    if (name === category.name && !image) {
       return history.goBack();
     }
 
-    dispatch(editCategory(name, category._id));
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("image", image);
+
+    dispatch(editCategory(formData, category._id));
   };
 
   return (
@@ -78,6 +84,16 @@ const EditCategoryPage = ({ history, match }) => {
                       placeholder="e.g Apple iPhones"
                       required
                     />
+                  </FormGroup>
+                  <FormGroup className="mb-3">
+                    <FormLabel>Image</FormLabel>
+                    <FormControl
+                      type="file"
+                      onChange={(e) => setImage(e.target.files[0])}
+                      placeholder="Upload image"
+                      accept="image/jpeg"
+                    />
+                    {category && <a href={category.image}>Current Image</a>}
                   </FormGroup>
                   <Button className="w-100 mb-3" type="submit">
                     Save
