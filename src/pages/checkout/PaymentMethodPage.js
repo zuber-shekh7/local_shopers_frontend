@@ -51,7 +51,7 @@ const PaymentMethodPage = ({ history }) => {
                   />{" "}
                   <FormLabel htmlFor="cod">COD (Cash on Delivery)</FormLabel>
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                   <input
                     id="upi"
                     type="radio"
@@ -80,7 +80,7 @@ const PaymentMethodPage = ({ history }) => {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   />{" "}
                   <FormLabel htmlFor="credit">Credit Card</FormLabel>
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup>
                   <Button type="submit" className="w-100">
                     Next

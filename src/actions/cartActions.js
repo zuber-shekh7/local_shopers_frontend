@@ -15,6 +15,7 @@ const addToCart = (id, quantity) => async (dispatch, getState) => {
     type: ADD_TO_CART,
     payload: {
       _id: product._id,
+      image: product.image,
       name: product.name,
       price: product.price,
       qty: quantity,

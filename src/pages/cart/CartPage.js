@@ -55,7 +55,8 @@ const CartPage = ({ match, location, history }) => {
                               <Image
                                 className="rounded"
                                 fluid
-                                src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
+                                src={item.image}
+                                alt={item.name}
                               />
                             </Col>
                             <Col>{item.name}</Col>
