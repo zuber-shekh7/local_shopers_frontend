@@ -1,6 +1,5 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import FormData from "form-data";
 import {
   Container,
   Row,
@@ -20,6 +19,7 @@ import Message from "../../components/shared/Message";
 
 const AddCategoryPage = ({ history }) => {
   const [name, setName] = useState("");
+  const [image, setImage] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -40,9 +40,10 @@ const AddCategoryPage = ({ history }) => {
       return;
     }
 
-    dispatch(createCategory(name));
-
-    setName("");
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("image", image);
+    dispatch(createCategory(formData));
   };
 
   return (
@@ -51,7 +52,7 @@ const AddCategoryPage = ({ history }) => {
         <Row>
           <Col md={8} className="mx-auto">
             <section>
-              <h2 className="text-center my-3">Add new Category</h2>
+              <h2 className="text-center my-3">Add new category</h2>
               <FormContainer>
                 {loading && <Loader />}
                 {error && <Message variant="danger">{error}</Message>}
@@ -63,6 +64,15 @@ const AddCategoryPage = ({ history }) => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g Apple iPhones"
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup className="mb-3">
+                    <FormLabel>Image</FormLabel>
+                    <FormControl
+                      type="file"
+                      onChange={(e) => setImage(e.target.files[0])}
+                      placeholder="Upload Image"
                       required
                     />
                   </FormGroup>

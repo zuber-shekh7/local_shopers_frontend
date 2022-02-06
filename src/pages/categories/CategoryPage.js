@@ -54,11 +54,7 @@ const CategoryPage = ({ match }) => {
                 />
                 <Row>
                   <Col className="text-center">
-                    <Image
-                      src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
-                      fluid
-                      rounded
-                    />
+                    <Image src={category.image} fluid rounded />
                   </Col>
                 </Row>
                 <Row>

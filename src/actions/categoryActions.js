@@ -53,21 +53,18 @@ const getCategory = (id) => async (dispatch) => {
   }
 };
 
-const createCategory = (name) => async (dispatch) => {
+const createCategory = (formData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_CATEGORY_REQUEST });
 
     const { token, seller } = JSON.parse(localStorage.getItem("sellerInfo"));
+    formData.append("business_id", seller.business);
 
-    const { data } = await backendAPI.post(
-      "/categories/new",
-      { name, business_id: seller.business },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const { data } = await backendAPI.post("/categories", formData, {
+      headers: {
+        Authorization: token,
+      },
+    });
     const { category } = data;
 
     dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: category });

@@ -24,15 +24,16 @@ const CategoriesPage = () => {
       <Container>
         <Row>
           <Col className="mx-auto" md={8}>
-            <h1 className="text-center">Manage Categories</h1>
+            <LinkContainer to="/sellers/dashboard">
+              <Button className="mb-3">Back</Button>
+            </LinkContainer>
             <section className="d-flex justify-content-between">
-              <LinkContainer to="/sellers/dashboard">
-                <Button>Back</Button>
-              </LinkContainer>
+              <h2 className="text-start">Manage Categories</h2>
               <LinkContainer to="categories/new">
                 <Button>Add new category</Button>
               </LinkContainer>
             </section>
+            <hr />
             {loading && <Loader />}
             {error && <Message variant="danger">{error}</Message>}
 
