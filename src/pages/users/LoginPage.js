@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { userLogin, userLoginWithGoogle } from "../../actions/userActions";
 import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
+import Message from "../../components/shared/Message";
 
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -40,6 +41,9 @@ const LoginPage = ({ history }) => {
   return (
     <main className="mt-10">
       <h1 className="text-5xl font-bold text-center mb-3">Log In</h1>
+      <div className="my-5">
+        {error && <Message variant="danger">{error}</Message>}
+      </div>
       <section className="flex justify-center">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
