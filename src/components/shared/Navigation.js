@@ -1,7 +1,6 @@
 import React from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 import { adminLogout } from "../../actions/adminActions";
 import { sellerLogout } from "../../actions/sellerActions";
 import { userLogout } from "../../actions/userActions";
@@ -29,71 +28,148 @@ const Navigation = () => {
     if (userInfo) {
       return (
         <>
-          <LinkContainer to="/users/account">
-            <Nav.Link>Your Account</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users/cart">
-            <Nav.Link>Cart</Nav.Link>
-          </LinkContainer>
-          <Nav.Link onClick={handleUserLogout}>Log Out</Nav.Link>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            to="/users/account"
+          >
+            Your Account
+          </Link>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            to="/users/cart"
+          >
+            Cart
+          </Link>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            onClick={handleUserLogout}
+          >
+            Log Out
+          </Link>
         </>
       );
     } else if (sellerInfo) {
       return (
         <>
-          <LinkContainer to="/sellers/dashboard">
-            <Nav.Link>Your Account</Nav.Link>
-          </LinkContainer>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            to="/sellers/dashboard"
+          >
+            Your Account
+          </Link>
 
-          <Nav.Link onClick={handleSellerLogout}>Log Out</Nav.Link>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            onClick={handleSellerLogout}
+          >
+            Log Out
+          </Link>
         </>
       );
     } else if (adminInfo) {
       return (
         <>
-          <LinkContainer to="/admin/account">
-            <Nav.Link>Your Account</Nav.Link>
-          </LinkContainer>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            to="/admin/account"
+          >
+            Your Account
+          </Link>
 
-          <Nav.Link onClick={handleAdminLogout}>Log Out</Nav.Link>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            onClick={handleAdminLogout}
+          >
+            Log Out
+          </Link>
         </>
       );
     } else {
       return (
         <>
-          <LinkContainer to="/sellers">
-            <Nav.Link>Sell Online</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users/login">
-            <Nav.Link>Log In</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users/signup">
-            <Nav.Link>Sign Up</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users/cart">
-            <Nav.Link>Cart</Nav.Link>
-          </LinkContainer>
+          <Link
+            className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
+            to="/users/login"
+          >
+            Log In
+          </Link>
+          <Link
+            className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
+            to="/users/signup"
+          >
+            Sign Up
+          </Link>
+          <Link
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            to="/users/cart"
+          >
+            Cart
+          </Link>
         </>
       );
     }
   };
   return (
-    <Navbar className="py-4 shadow sticky-top" bg="light" expand="lg">
-      <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand>Local Shoppers</Navbar.Brand>
-        </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            {renderNavigationLinks()}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="bg-white shadow-lg">
+      <section className="max-w-7xl mx-auto flex justify-between items-center p-4">
+        {/* logo and brand name */}
+        <div>
+          <Link to="/" className="flex items-center space-x-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              />
+            </svg>
+            <span className="text-2xl font-bold ">Local Shoppers</span>
+          </Link>
+        </div>
+        {/* links */}
+        {/* <div className="hidden lg:flex space-x-2 items-center">
+          <Link
+            to="/"
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+          >
+            Home
+          </Link>
+          <Link
+            to="/about"
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact"
+            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+          >
+            Contact Us
+          </Link>
+          <Link
+            to="/users/login"
+            className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
+          >
+            Log In
+          </Link>
+          <Link
+            to="/users/signup"
+            className="py-2 px-4 bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
+          >
+            Sign Up
+          </Link>
+        </div> */}
+        <div className="hidden lg:flex space-x-2 items-center">
+          {renderNavigationLinks()}
+        </div>
+      </section>
+    </nav>
   );
 };
 
