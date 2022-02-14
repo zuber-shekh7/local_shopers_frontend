@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 import { getAddresses } from "../../actions/addressActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
 
 const AddressesPage = () => {
   const dispatch = useDispatch();
@@ -21,61 +18,50 @@ const AddressesPage = () => {
   }, []);
 
   return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={8} className="mx-auto">
-            <section>
-              <section className="d-flex justify-content-between">
-                <h2>Your Addresses</h2>
-                <LinkContainer to="/users/addresses/new">
-                  <Button>Add new address</Button>
-                </LinkContainer>
-              </section>
-              <hr />
-              {loading && <Loader />}
-              {error && <Message>{error}</Message>}
-              <Row>
-                {addresses && addresses.length && addresses.length > 0 ? (
-                  <>
-                    {addresses.map((address) => {
-                      return (
-                        <Col key={address._id} md={4} className="mb-3">
-                          <Card>
-                            <Card.Body>
-                              <Card.Title>{address.fullName}</Card.Title>
-                              <p>
-                                {address.flatNo} {address.street}
-                                {address.landmark}
-                              </p>
-                              <p>
-                                {address.city}, {address.state},{" "}
-                                {address.pincode}
-                              </p>
-                              <p>Phone Number: {address.mobileNumber}</p>
-                            </Card.Body>
-                            <Card.Footer className="d-flex justify-content-between">
-                              <LinkContainer
-                                to={`/users/addresses/${address._id}`}
-                              >
-                                <Button className="w-100 me-2">View</Button>
-                              </LinkContainer>
-                            </Card.Footer>
-                          </Card>
-                        </Col>
-                      );
-                    })}
-                  </>
-                ) : (
-                  <h3 className="text-center text-muted">
-                    No address available
-                  </h3>
-                )}
-              </Row>
-            </section>
-          </Col>
-        </Row>
-      </Container>
+    <main className="mt-10">
+      <section className="px-10">
+        <div className="flex justify-between mb-5">
+          <h2 className="text-4xl font-bold">Your Addresses</h2>
+          <div className="px-2 py-3 bg-indigo-500 rounded-lg text-white">
+            <Link to="/users/addresses/new">Add new address</Link>
+          </div>
+        </div>
+
+        <div>
+          <div className="grid grid-cols-3 gap-3">
+            {addresses && addresses.length && addresses.length > 0 ? (
+              <>
+                {addresses.map((address) => {
+                  return (
+                    <div
+                      key={address._id}
+                      className="bg-gray-100 rounded-lg px-3 py-4 shadow-lg"
+                    >
+                      <h2 className="text-2xl font-medium">
+                        {address.fullName}
+                      </h2>
+                      <p>
+                        {address.flatNo} {address.street}
+                        {address.landmark}
+                      </p>
+                      <p>
+                        {address.city}, {address.state}, {address.pincode}
+                      </p>
+                      <p>Phone Number: {address.mobileNumber}</p>
+
+                      <div className="inline-block py-2 px-4 bg-indigo-500 rounded-lg text-white mt-3">
+                        <Link to={`/users/addresses/${address._id}`}>View</Link>
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <h3 className="text-center text-muted">No address available</h3>
+            )}
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
