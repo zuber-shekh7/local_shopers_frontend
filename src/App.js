@@ -26,6 +26,7 @@ import PaymentMethodPage from "./pages/checkout/PaymentMethodPage";
 import OrderSummaryPage from "./pages/checkout/OrderSummaryPage";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
+import routes from "./utils/routes";
 
 const App = () => {
   return (
@@ -34,8 +35,8 @@ const App = () => {
         <Navigation />
         <Switch>
           {/* core */}
-          <Route path="/" component={HomePage} exact />
-          <Route path="/about" component={AboutUsPage} exact />
+          <Route path={routes.home} component={HomePage} exact />
+          <Route path={routes.about} component={AboutUsPage} exact />
           <Route path="/users/cart/:product_id?" component={CartPage} />
           <Route
             path="/business/:business_id/categories/:category_id"
@@ -47,8 +48,8 @@ const App = () => {
           />
           <Route path="/business/:business_id" component={BusinessPage} />
           {/* user */}
-          <Route path="/users/login" component={LoginPage} exact />
-          <Route path="/users/signup" component={SignupPage} exact />
+          <Route path={routes.login} component={LoginPage} exact />
+          <Route path={routes.signup} component={SignupPage} exact />
           <UserProtectedRoute
             path="/users/account"
             component={UserDashboardPage}
@@ -113,7 +114,7 @@ const App = () => {
             component={UserOrderPage}
           />
           {/* 404 */}
-          <Route path="*" component={NotFoundPage} />
+          <Route path={routes.notFound} component={NotFoundPage} />
         </Switch>
         <Footer />
       </Router>
