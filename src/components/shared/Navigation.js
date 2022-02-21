@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { adminLogout } from "../../actions/adminActions";
 import { sellerLogout } from "../../actions/sellerActions";
 import { userLogout } from "../../actions/userActions";
+import routes from "../../utils/routes";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -89,13 +90,13 @@ const Navigation = () => {
         <>
           <Link
             className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
-            to="/users/login"
+            to={routes.login}
           >
             Log In
           </Link>
           <Link
             className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
-            to="/users/signup"
+            to={routes.signup}
           >
             Sign Up
           </Link>

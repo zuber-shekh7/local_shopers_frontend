@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
+import routes from "../../utils/routes";
 
 const HomePage = () => {
   return (
@@ -15,13 +16,13 @@ const HomePage = () => {
           </h4>
           <div className="flex space-x-2 justify-center">
             <Link
-              to="/users/login"
+              to={routes.login}
               className="inline-block py-3 px-4 text-xl hover:bg-indigo-400 bg-indigo-500 rounded-lg text-white shadow-lg"
             >
               Log In
             </Link>
             <Link
-              to="/users/signup"
+              to={routes.signup}
               className="inline-block py-3 px-4 text-xl hover:bg-indigo-400 bg-indigo-500 rounded-lg text-white shadow-lg"
             >
               Sign Up

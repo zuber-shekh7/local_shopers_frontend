@@ -5,6 +5,7 @@ import { GoogleLogin } from "react-google-login";
 import { userLogin, userLoginWithGoogle } from "../../actions/userActions";
 import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
 import Message from "../../components/shared/Message";
+import routes from "../../utils/routes";
 
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -88,7 +89,7 @@ const LoginPage = ({ history }) => {
 
           <div className="text-center">
             <span className="text-base">Don't have an account? </span>
-            <Link className="text-indigo-500" to="/users/signup">
+            <Link className="text-indigo-500" to={routes.signup}>
               Sign Up
             </Link>
           </div>

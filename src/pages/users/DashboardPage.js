@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import routes from "../../utils/routes";
 
 const UserDashboardPage = ({ history }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/users/login");
+      history.push(routes.login);
     }
   }, [userInfo, history]);
 

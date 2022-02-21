@@ -4,6 +4,7 @@ import { GoogleLogin } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
 import { userSignup, userLoginWithGoogle } from "../../actions/userActions";
 import GoogleAuthButton from "../../components/shared/GoogleAuthButton";
+import routes from "../../utils/routes";
 
 const SignupPage = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -153,7 +154,7 @@ const SignupPage = ({ history }) => {
 
           <div className="text-center">
             <span className="text-base">Already have an account? </span>
-            <Link className="text-indigo-500" to="/users/login">
+            <Link className="text-indigo-500" to={routes.login}>
               Log In
             </Link>
           </div>
