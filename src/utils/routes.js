@@ -1,7 +1,9 @@
-export default {
+const routes = {
   home: "/",
   about: "/about",
-  login: "/users/login",
-  signup: "/users/signup",
+  login: "/login",
+  signup: "/signup",
   notFound: "*",
 };
+
+export default routes;
