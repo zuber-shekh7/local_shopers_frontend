@@ -7,6 +7,7 @@ const routes = {
   userProfile: "/users/profile",
   editUserProfile: "/users/profile/edit",
   addAddress: "/users/addresses/new",
+  getOrder: "/users/orders/",
 };
 
 export default routes;
