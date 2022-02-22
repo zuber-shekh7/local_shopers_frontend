@@ -10,19 +10,19 @@ import {
 } from "react-icons/hi";
 
 const UserDashboardPage = ({ history }) => {
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!user) {
       history.push(routes.login);
     }
-  }, [userInfo, history]);
+  }, [user, history]);
 
   return (
     <main className="mt-10">
       <section className="max-w-6xl mx-auto px-10">
         <h1 className="text-4xl font-semibold mb-3">Your Account</h1>
-        {userInfo && (
+        {user && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-2">
             <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
               <Link className="flex space-x-2" to="/users/orders">

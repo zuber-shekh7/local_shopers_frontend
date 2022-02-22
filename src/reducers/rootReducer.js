@@ -65,8 +65,11 @@ import { wishListReducer } from "./wishListReducers";
 
 const initialState = {
   userLogin: {
-    userInfo: localStorage.getItem("userInfo")
-      ? JSON.parse(localStorage.getItem("userInfo", null))
+    user: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user", null))
+      : null,
+    token: localStorage.getItem("token")
+      ? JSON.parse(localStorage.getItem("token", null))
       : null,
   },
   userSignup: {

@@ -13,13 +13,13 @@ const LoginPage = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const { loading, userInfo, error } = useSelector((state) => state.userLogin);
+  const { loading, user, error } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
-    if (userInfo) {
+    if (user) {
       history.push("/users/account");
     }
-  }, [userInfo, history]);
+  }, [user, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,9 +29,6 @@ const LoginPage = ({ history }) => {
     }
 
     dispatch(userLogin(email, password));
-
-    setEmail("");
-    setPassword("");
   };
 
   const responseGoogle = async (response) => {

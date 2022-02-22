@@ -19,12 +19,12 @@ import {
   UPDATE_USER_FAIL,
 } from "../constants/userConstants";
 
-const userLoginReducer = (state = { userInfo: null }, action) => {
+const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, userInfo: action.payload };
+      return { ...state, loading: false, user: action.payload };
     case USER_LOGIN_FAIL:
       return { ...state, loading: false, error: action.payload };
     case USER_LOGIN_WITH_GOOGLE_REQUEST:
@@ -36,7 +36,7 @@ const userLoginReducer = (state = { userInfo: null }, action) => {
     case USER_LOGOUT_REQUEST:
       return { ...state, loading: true };
     case USER_LOGOUT_SUCCESS:
-      return { ...state, userInfo: null, loading: false };
+      return { ...state, loading: false, user: action.payload };
     case USER_LOGOUT_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:

@@ -25,10 +25,12 @@ const userLogin = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_REQUEST });
 
     const { data } = await userAPI.post("/login", { email, password });
+    const { token, user } = data;
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", JSON.stringify(token));
 
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: user });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: USER_LOGIN_FAIL, payload: error });
@@ -56,7 +58,7 @@ const userLogout = () => (dispatch) => {
 
     localStorage.clear();
 
-    dispatch({ type: USER_LOGOUT_SUCCESS });
+    dispatch({ type: USER_LOGOUT_SUCCESS, payload: null });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: USER_LOGOUT_FAIL, payload: error });

@@ -4,9 +4,9 @@ import { Redirect, Route } from "react-router-dom";
 import routes from "../../utils/routes";
 
 const UserProtectedRoute = ({ children, ...rest }) => {
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userLogin);
 
-  if (!userInfo) {
+  if (!user) {
     return <Redirect to={routes.login} />;
   }
 
