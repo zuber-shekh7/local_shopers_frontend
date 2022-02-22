@@ -89,7 +89,7 @@ const updateUser =
     try {
       dispatch({ type: UPDATE_USER_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("userInfo"));
+      const token = JSON.parse(localStorage.getItem("token"));
 
       const { data } = await userAPI.put(
         `/${user_id}`,
