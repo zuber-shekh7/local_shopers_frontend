@@ -16,7 +16,7 @@ const SignupPage = ({ history }) => {
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userLogin);
   const { error, loading } = useSelector((state) => state.userSignup);
 
   useEffect(() => {
@@ -24,10 +24,10 @@ const SignupPage = ({ history }) => {
   }, []);
 
   useEffect(() => {
-    if (userInfo) {
+    if (user) {
       history.push("/users/account");
     }
-  }, [userInfo, history]);
+  }, [user, history]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,14 +50,6 @@ const SignupPage = ({ history }) => {
     }
 
     dispatch(userSignup({ email, password, firstName, lastName, mobile }));
-
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setMessage("");
-    setMobile("");
-    setFirstName("");
-    setLastName("");
   };
 
   const responseGoogle = async (response) => {

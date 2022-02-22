@@ -41,11 +41,11 @@ const userSignup = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_SIGNUP_REQUEST });
 
-    const { data } = await userAPI.post("/signup", { ...user });
+    await userAPI.post("/signup", { ...user });
 
     dispatch(userLogin(user.email, user.password));
 
-    dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
+    dispatch({ type: USER_SIGNUP_SUCCESS });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: USER_SIGNUP_FAIL, payload: error });

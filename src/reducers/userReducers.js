@@ -47,15 +47,14 @@ const userLoginReducer = (state = {}, action) => {
 const userSignupReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_SIGNUP_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case USER_SIGNUP_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return { ...state, loading: false };
     case USER_SIGNUP_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
-        success: false,
       };
     default:
       return state;

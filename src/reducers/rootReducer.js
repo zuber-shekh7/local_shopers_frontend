@@ -72,9 +72,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("token", null))
       : null,
   },
-  userSignup: {
-    success: null,
-  },
+  userSignup: {},
   sellerLogin: {
     sellerInfo: localStorage.getItem("sellerInfo")
       ? JSON.parse(localStorage.getItem("sellerInfo", null))
