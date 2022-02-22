@@ -21,7 +21,7 @@ const getAddresses = (user_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_ADDRESSES_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+    const token = JSON.parse(localStorage.getItem("token"));
 
     const { data } = await backendAPI.get(`/addresses/?user_id=${user_id}`, {
       headers: {

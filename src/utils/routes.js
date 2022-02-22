@@ -6,6 +6,7 @@ const routes = {
   notFound: "*",
   userProfile: "/users/profile",
   editUserProfile: "/users/profile/edit",
+  addAddress: "/users/addresses/new",
 };
 
 export default routes;
