@@ -1,3 +1,4 @@
+import backendAPI from "../apis/backendAPI";
 import userAPI from "../apis/userAPI";
 import {
   USER_LOGIN_FAIL,
@@ -69,17 +70,14 @@ const getUser = () => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_REQUEST });
 
-    const { token, user: userInfo } = JSON.parse(
-      localStorage.getItem("userInfo")
-    );
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = JSON.parse(localStorage.getItem("token"));
 
-    const { data } = await userAPI.get(`/${userInfo._id}`, {
+    const { data } = await backendAPI.get(`/users/${user._id}`, {
       headers: { Authorization: token },
     });
 
-    const { user } = data;
-
-    dispatch({ type: GET_USER_SUCCESS, payload: user });
+    dispatch({ type: GET_USER_SUCCESS, payload: data.user });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: GET_USER_FAIL, payload: error });

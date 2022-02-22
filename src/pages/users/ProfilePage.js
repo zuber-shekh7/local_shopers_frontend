@@ -1,95 +1,101 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Row, Col, ListGroup, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { getUser } from "../../actions/userActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
-import { LinkContainer } from "react-router-bootstrap";
+import routes from "../../utils/routes";
 
 const UserProfilePage = () => {
   const dispatch = useDispatch();
 
-  const { loading, error, user } = useSelector((state) => state.getUser);
+  const { loading, user, error } = useSelector((state) => state.getUser);
 
   useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   return (
     <main>
-      <Container>
-        <Row>
-          <Col md={6} className="mx-auto">
-            {loading && <Loader />}
-            {error && <Message variant="danger">{error}</Message>}
-            {user && (
-              <section className="mt-3">
-                <h1 className="mb-3">Your Profile</h1>
-                <ListGroup>
-                  <ListGroup.Item className="py-3">
-                    <Row>
-                      <Col md={10}>
-                        <strong>First Name</strong>: {user.firstName}
-                      </Col>
-                      <Col md={2}>
-                        <LinkContainer to="/users/profile/edit">
-                          <Button>Edit</Button>
-                        </LinkContainer>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item className="py-3">
-                    <Row>
-                      <Col md={10}>
-                        <strong>Last Name</strong>: {user.lastName}
-                      </Col>
-                      <Col md={2}>
-                        <LinkContainer to="/users/profile/edit">
-                          <Button>Edit</Button>
-                        </LinkContainer>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item className="py-3">
-                    <Row>
-                      <Col md={10}>
-                        <strong>Email</strong>: {user.email}
-                      </Col>
-                      <Col md={2}>
-                        <LinkContainer to="/users/profile/edit">
-                          <Button>Edit</Button>
-                        </LinkContainer>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item className="py-3">
-                    <Row>
-                      <Col md={10}>
-                        <strong>Mobile Number</strong>: {user.mobile}
-                      </Col>
-                      <Col md={2}>
-                        <LinkContainer to="/users/profile/edit">
-                          <Button>Edit</Button>
-                        </LinkContainer>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item className="py-3">
-                    <Row>
-                      <Col md={10}>
-                        <strong>Password</strong>: {"********"}
-                      </Col>
-                      <Col md={2}>
-                        <Button>Edit</Button>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                </ListGroup>
-              </section>
-            )}
-          </Col>
-        </Row>
-      </Container>
+      <section className="m-10 max-w-xl mx-auto grid grid-cols-1 px-10">
+        {user && (
+          <div>
+            <h1 className="text-4xl font-semibold mb-4">Your Profile</h1>
+            <div className="bg-gray-50 border-2 border-gray-50 px-10 py-5 rounded-lg shadow-lg">
+              <ul>
+                <li>
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="font-semibold">First Name</h4>
+                      <p className="">{user.firstName}</p>
+                    </div>
+                    <Link
+                      className="bg-indigo-500 text-white py-2 px-3 rounded-lg hover:bg-indigo-400"
+                      to={routes.editUserProfile}
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="font-semibold">Last Name</h4>
+                      <p className="">{user.lastName}</p>
+                    </div>
+                    <Link
+                      className="bg-indigo-500 text-white py-2 px-3 rounded-lg hover:bg-indigo-400"
+                      to={routes.editUserProfile}
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="font-semibold">Email</h4>
+                      <p className="">{user.email}</p>
+                    </div>
+                    <Link
+                      className="bg-indigo-500 text-white py-2 px-3 rounded-lg hover:bg-indigo-400"
+                      to={routes.editUserProfile}
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="font-semibold">Mobile</h4>
+                      <p className="">{user.mobile ? user.mobile : "N/A"}</p>
+                    </div>
+                    <Link
+                      className="bg-indigo-500 text-white py-2 px-3 rounded-lg hover:bg-indigo-400"
+                      to={routes.editUserProfile}
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="font-semibold">Password</h4>
+                      <p className="">***********</p>
+                    </div>
+                    <Link
+                      className="bg-indigo-500 text-white py-2 px-3 rounded-lg hover:bg-indigo-400"
+                      to={routes.editUserProfile}
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </section>
     </main>
   );
 };

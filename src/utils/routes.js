@@ -4,6 +4,7 @@ const routes = {
   login: "/login",
   signup: "/signup",
   notFound: "*",
+  editUserProfile: "/users/profile/edit",
 };
 
 export default routes;
