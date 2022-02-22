@@ -28,9 +28,9 @@ const userLoginReducer = (state = {}, action) => {
     case USER_LOGIN_FAIL:
       return { ...state, loading: false, error: action.payload };
     case USER_LOGIN_WITH_GOOGLE_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case USER_LOGIN_WITH_GOOGLE_SUCCESS:
-      return { ...state, loading: false, userInfo: action.payload };
+      return { ...state, loading: false, user: action.payload };
     case USER_LOGIN_WITH_GOOGLE_FAIL:
       return { ...state, loading: false, error: action.payload };
     case USER_LOGOUT_REQUEST:

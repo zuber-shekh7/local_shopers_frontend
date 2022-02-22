@@ -110,15 +110,19 @@ const updateUser =
     }
   };
 
-const userLoginWithGoogle = (token) => async (dispatch) => {
+const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_WITH_GOOGLE_REQUEST });
 
-    const { data } = await userAPI.post("/login/google", { token });
+    const { data } = await userAPI.post("/login/google", {
+      token: googleAuthToken,
+    });
+    const { token, user } = data;
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", JSON.stringify(token));
 
-    dispatch({ type: USER_LOGIN_WITH_GOOGLE_SUCCESS, payload: data });
+    dispatch({ type: USER_LOGIN_WITH_GOOGLE_SUCCESS, payload: user });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: USER_LOGIN_WITH_GOOGLE_FAIL, payload: error });
