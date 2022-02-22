@@ -1,29 +1,17 @@
 import React from "react";
 import { useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  ListGroup,
-  Card,
-  Image,
-} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 import {
   addToWishList,
   getWishList,
   removeFromWishList,
 } from "../../actions/wishListActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
 
 const WishListPage = ({ match }) => {
-  const { loading, error, wishList } = useSelector((state) => state.wishList);
+  const { loading, wishList, error } = useSelector((state) => state.wishList);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const { user } = userInfo;
+  const { user } = useSelector((state) => state.userLogin);
 
   const { product_id } = match.params;
 
@@ -31,75 +19,65 @@ const WishListPage = ({ match }) => {
 
   useEffect(() => {
     dispatch(getWishList(user._id));
-  }, []);
+  }, [dispatch, user]);
 
   useEffect(() => {
     if (product_id && wishList) {
       dispatch(addToWishList(wishList._id, product_id));
     }
-  }, [product_id]);
+  }, [product_id, wishList, dispatch]);
 
   const handleRemoveFromList = (wish_list_id, product_id) => {
     dispatch(removeFromWishList(wish_list_id, product_id));
   };
 
   return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={8} className="mx-auto">
-            <section>
-              <h2>Your Wishlist</h2>
-              <hr />
-              {loading && <Loader />}
-              {error && <Message variant="danger">{error}</Message>}
-              {wishList && wishList.products && wishList.products.length > 0 ? (
-                <ListGroup>
-                  {wishList.products.map((product) => {
-                    return (
-                      <Card key={product._id} className="my-3">
-                        <Card.Body>
-                          <Row>
-                            <Col md={3}>
-                              <Image rounded fluid src={product.image} />
-                            </Col>
-                            <Col className="my-auto">
-                              <Card.Title as="h3">{product.name}</Card.Title>
-                            </Col>
-                            <Col className="my-auto" md={2}>
-                              <LinkContainer
-                                to={`/business/products/${product._id}`}
-                              >
-                                <Button className="w-100">View more</Button>
-                              </LinkContainer>
+    <main>
+      <section className="m-10 max-w-6xl mx-auto px-10">
+        <h1 className="text-4xl font-semibold mb-4">Your Wish List</h1>
+        <div>
+          {wishList && wishList.products && wishList.products.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {wishList.products.map((product) => {
+                return (
+                  <div
+                    key={product._id}
+                    className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg"
+                  >
+                    <h2 className="text-2xl font-semibold mb-3">
+                      {product.name}
+                    </h2>
+                    <p className="mb-3">{product.description}</p>
+                    <div className="flex space-x-2">
+                      <Link
+                        className="bg-indigo-500 px-3 py-2 text-white rounded-lg"
+                        to={`/business/products/${product._id}`}
+                      >
+                        View More
+                      </Link>
 
-                              <Button
-                                onClick={() =>
-                                  handleRemoveFromList(
-                                    wishList._id,
-                                    product._id
-                                  )
-                                }
-                                variant="danger my-3 w-100"
-                              >
-                                Remove
-                              </Button>
-                            </Col>
-                          </Row>
-                        </Card.Body>
-                      </Card>
-                    );
-                  })}
-                </ListGroup>
-              ) : (
-                <h3 className="text-center text-muted">
-                  No products added to wishlist
-                </h3>
-              )}
-            </section>
-          </Col>
-        </Row>
-      </Container>
+                      <button
+                        className="bg-red-500 px-3 py-2 text-white rounded-lg"
+                        onClick={() =>
+                          handleRemoveFromList(wishList._id, product._id)
+                        }
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <h3 className="text-2xl text-center">
+                No product available in wish list
+              </h3>
+            </div>
+          )}
+        </div>
+      </section>
     </main>
   );
 };
