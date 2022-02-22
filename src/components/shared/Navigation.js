@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { adminLogout } from "../../actions/adminActions";
 import { sellerLogout } from "../../actions/sellerActions";
 import { userLogout } from "../../actions/userActions";
 import routes from "../../utils/routes";
+import { HiOutlineShoppingCart, HiOutlineUserCircle } from "react-icons/hi";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -30,23 +31,25 @@ const Navigation = () => {
       return (
         <>
           <Link
-            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
             to="/users/account"
           >
-            Your Account
+            <HiOutlineUserCircle className="h-6 w-6" />
+            <p>Account</p>
           </Link>
           <Link
-            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+            className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
             to="/users/cart"
           >
-            Cart
+            <HiOutlineShoppingCart className="h-6 w-6" />
+            <p>Cart</p>
           </Link>
-          <Link
-            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+          <button
+            className="py-2 px-3 font-bold text-lg bg-indigo-500 rounded-lg text-white hover:text-indigo-400 transition duration-30"
             onClick={handleUserLogout}
           >
             Log Out
-          </Link>
+          </button>
         </>
       );
     } else if (sellerInfo) {
@@ -115,57 +118,14 @@ const Navigation = () => {
       <section className="max-w-7xl mx-auto flex justify-between items-center p-4">
         {/* logo and brand name */}
         <div>
-          <Link to="/" className="flex items-center space-x-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
+          <Link
+            to={userInfo ? "/users/account" : "/"}
+            className="flex items-center space-x-1"
+          >
+            <HiOutlineShoppingCart className="h-8 w-8" />
             <span className="text-2xl font-bold ">Local Shoppers</span>
           </Link>
         </div>
-        {/* links */}
-        {/* <div className="hidden lg:flex space-x-2 items-center">
-          <Link
-            to="/"
-            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
-          >
-            About
-          </Link>
-          <Link
-            to="/contact"
-            className="py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
-          >
-            Contact Us
-          </Link>
-          <Link
-            to="/users/login"
-            className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
-          >
-            Log In
-          </Link>
-          <Link
-            to="/users/signup"
-            className="py-2 px-4 bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
-          >
-            Sign Up
-          </Link>
-        </div> */}
         <div className="hidden lg:flex space-x-2 items-center">
           {renderNavigationLinks()}
         </div>
