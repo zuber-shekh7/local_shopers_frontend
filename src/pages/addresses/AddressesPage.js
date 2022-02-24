@@ -20,7 +20,7 @@ const AddressesPage = () => {
     <main>
       <section className="m-10 max-w-6xl mx-auto px-10">
         <div className="grid grid-cols-1">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-3">
             <h1 className="text-4xl font-bold mb-4">Your Addresses</h1>
             <Link
               className="bg-indigo-500 text-white rounded-lg px-3 py-2"
@@ -31,7 +31,7 @@ const AddressesPage = () => {
           </div>
 
           {addresses && addresses.length && addresses.length > 0 ? (
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {addresses.map((address) => {
                 return (
                   <div
