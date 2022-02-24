@@ -53,7 +53,7 @@ const createAddress =
     try {
       dispatch({ type: CREATE_ADDRESS_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("userInfo"));
+      const token = JSON.parse(localStorage.getItem("token"));
 
       const { data } = await backendAPI.post(
         `/addresses/`,

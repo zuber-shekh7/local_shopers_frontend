@@ -6,6 +6,7 @@ const routes = {
   notFound: "*",
   userProfile: "/users/profile",
   editUserProfile: "/users/profile/edit",
+  getAddresses: "/users/addresses",
   addAddress: "/users/addresses/new",
   getOrder: "/users/orders/",
 };
