@@ -4,6 +4,7 @@ const routes = {
   login: "/login",
   signup: "/signup",
   notFound: "*",
+  dashboard: "/users/account",
   userProfile: "/users/profile",
   editUserProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
