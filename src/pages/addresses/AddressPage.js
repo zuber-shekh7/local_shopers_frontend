@@ -8,9 +8,10 @@ import {
 import { Link, Redirect } from "react-router-dom";
 import { deleteAddress, getAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
+import Modal from "../../components/shared/Modal";
 
 const AddressPage = ({ match }) => {
-  const [modalShow, setModalShow] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ const AddressPage = ({ match }) => {
 
   const onDelete = (id) => {
     dispatch(deleteAddress(id));
-    setModalShow(false);
+    setOpen(false);
   };
 
   if (success) {
@@ -36,6 +37,14 @@ const AddressPage = ({ match }) => {
       <section className="m-10 px-10 max-w-xl mx-auto">
         {address && (
           <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
+            <Modal
+              show={open}
+              onClick={() => setOpen(false)}
+              onSubmit={() => onDelete(address._id)}
+              title={`Are you sure you want to delete?`}
+              description="Once you delete, you won't be able to access it further"
+              cta="Confirm Delete"
+            />
             <div className="flex-1">
               <div className="flex justify-between">
                 <div>
@@ -57,14 +66,14 @@ const AddressPage = ({ match }) => {
                       <HiOutlinePencil className="h-6 w-6" />
                     </span>
                   </Link>
-                  <Link
+                  <button
                     className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                    to={routes.getAddresses}
+                    onClick={() => setOpen(true)}
                   >
                     <span>
                       <HiOutlineTrash className="h-6 w-6" />
                     </span>
-                  </Link>
+                  </button>
                 </div>
               </div>
 
@@ -90,7 +99,7 @@ const AddressPage = ({ match }) => {
                   </li>
                   <li>
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-semibold">City</h4>
+                      <h4 className="font-semibold">Landmark</h4>
                       <p className="">
                         {address.landmark ? address.landmark : "N/A"}
                       </p>
