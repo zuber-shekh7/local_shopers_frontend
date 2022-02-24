@@ -120,7 +120,7 @@ const editAddress =
     try {
       dispatch({ type: EDIT_ADDRESS_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("userInfo"));
+      const token = JSON.parse(localStorage.getItem("token"));
 
       const { data } = await backendAPI.put(
         `/addresses/${address_id}`,
