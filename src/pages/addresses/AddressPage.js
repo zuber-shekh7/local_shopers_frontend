@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { Redirect } from "react-router-dom";
+import {
+  HiOutlineArrowSmLeft,
+  HiOutlinePencil,
+  HiOutlineTrash,
+} from "react-icons/hi";
+import { Link, Redirect } from "react-router-dom";
 import { deleteAddress, getAddress } from "../../actions/addressActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
-import ModalForm from "../../components/shared/ModalForm";
+import routes from "../../utils/routes";
 
 const AddressPage = ({ match }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { loading, error, address } = useSelector((state) => state.getAddress);
+  const { loading, address, error } = useSelector((state) => state.getAddress);
   const { success } = useSelector((state) => state.deleteAddress);
 
   const { address_id } = match.params;
@@ -31,57 +32,100 @@ const AddressPage = ({ match }) => {
     return <Redirect to="/users/addresses" />;
   }
   return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={8} className="mx-auto">
-            <section>
-              {loading && <Loader />}
-              {error && <Message>{error}</Message>}
+    <main>
+      <section className="m-10 px-10 max-w-xl mx-auto">
+        {address && (
+          <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
+            <div className="flex-1">
+              <div className="flex justify-between">
+                <div>
+                  <Link
+                    className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
+                    to={routes.getAddresses}
+                  >
+                    <span>
+                      <HiOutlineArrowSmLeft className="h-6 w-6" />
+                    </span>
+                  </Link>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Link
+                    className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
+                    to={`${routes.getAddresses}/${address._id}/edit`}
+                  >
+                    <span>
+                      <HiOutlinePencil className="h-6 w-6" />
+                    </span>
+                  </Link>
+                  <Link
+                    className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
+                    to={routes.getAddresses}
+                  >
+                    <span>
+                      <HiOutlineTrash className="h-6 w-6" />
+                    </span>
+                  </Link>
+                </div>
+              </div>
 
-              {address && (
-                <>
-                  <ModalForm
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
-                    title={"Are you sure?"}
-                    subject={`Do you really want to delete ${address.fullName} ???`}
-                    message={"Once you delete you won't be able to access it."}
-                    onAccept={() => onDelete(address._id)}
-                  />
-                  <Card>
-                    <Card.Body>
-                      <Card.Title>{address.fullName}</Card.Title>
-                      <p>
-                        {address.flatNo} {address.street}
-                        {address.landmark}
+              <div>
+                <ul>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Full Name</h4>
+                      <p className="">{address.fullName}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Flat No</h4>
+                      <p className="">{address.flatNo}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Street</h4>
+                      <p className="">{address.street}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">City</h4>
+                      <p className="">
+                        {address.landmark ? address.landmark : "N/A"}
                       </p>
-                      <p>
-                        {address.city}, {address.state}, {address.pincode}
-                      </p>
-                      <p>Phone Number: {address.mobileNumber}</p>
-                    </Card.Body>
-                    <Card.Footer className="d-flex justify-content-between">
-                      <LinkContainer
-                        to={`/users/addresses/${address._id}/edit`}
-                      >
-                        <Button className="w-100 me-2">Edit</Button>
-                      </LinkContainer>
-                      <Button
-                        onClick={() => setModalShow(true)}
-                        variant="danger"
-                        className="w-100"
-                      >
-                        Delete
-                      </Button>
-                    </Card.Footer>
-                  </Card>
-                </>
-              )}
-            </section>
-          </Col>
-        </Row>
-      </Container>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">City</h4>
+                      <p className="">{address.city}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">State</h4>
+                      <p className="">{address.state}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Pincode</h4>
+                      <p className="">{address.pincode}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-semibold">Mobile Number</h4>
+                      <p className="">{address.mobileNumber}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
     </main>
   );
 };
