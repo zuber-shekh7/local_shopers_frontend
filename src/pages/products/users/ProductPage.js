@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../../../actions/productActions";
 import Loader from "../../../components/shared/Loader";
 import Message from "../../../components/shared/Message";
+import routes from "../../../utils/routes";
 
 const UserProductPage = ({ match, history }) => {
   const [quantity, setQuantity] = useState(1);
@@ -29,7 +30,7 @@ const UserProductPage = ({ match, history }) => {
   }, []);
 
   const addToCartHandler = () => {
-    history.push(`/users/cart/${product_id}?quantity=${quantity}`);
+    history.push(`${routes.cart}/${product_id}?quantity=${quantity}`);
   };
 
   const addToWishListHandler = (id) => {

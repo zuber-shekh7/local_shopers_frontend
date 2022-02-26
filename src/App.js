@@ -37,7 +37,7 @@ const App = () => {
           {/* core */}
           <Route path={routes.home} component={HomePage} exact />
           <Route path={routes.about} component={AboutUsPage} exact />
-          <Route path="/users/cart/:product_id?" component={CartPage} />
+          <Route path={`${routes.cart}:product_id?`} component={CartPage} />
           <Route
             path="/business/:business_id/categories/:category_id"
             component={UserCategoryPage}

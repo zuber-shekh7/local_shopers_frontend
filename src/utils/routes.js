@@ -3,6 +3,7 @@ const routes = {
   about: "/about",
   login: "/login",
   signup: "/signup",
+  cart: "/cart",
   notFound: "*",
   dashboard: "/users/account",
   userProfile: "/users/profile",

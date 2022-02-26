@@ -20,8 +20,8 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white border-b-4 border-indigo-500 ">
-      <section className="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <nav className="bg-white border-b-4 border-indigo-500 p-4">
+      <section className="max-w-7xl mx-auto flex justify-between items-center ">
         {/* logo and brand name */}
         <div>
           <Link
@@ -44,10 +44,9 @@ const Navigation = () => {
               </Link>
               <Link
                 className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
-                to="/users/cart"
+                to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
-                <p>Cart</p>
               </Link>
               <button
                 className="py-2 px-3 font-bold text-lg bg-indigo-500 rounded-lg text-white hover:text-indigo-400 transition duration-30"
@@ -80,7 +79,7 @@ const Navigation = () => {
               </Link>
               <Link
                 className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
-                to="/users/cart"
+                to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
               </Link>
