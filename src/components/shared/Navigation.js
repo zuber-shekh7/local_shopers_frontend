@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { HiOutlineShoppingCart, HiOutlineUserCircle } from "react-icons/hi";
+import {
+  HiOutlineShoppingCart,
+  HiOutlineUserCircle,
+  HiOutlineLogin,
+  HiOutlineUserAdd,
+} from "react-icons/hi";
 import { userLogout } from "../../actions/userActions";
 import routes from "../../utils/routes";
 
@@ -15,7 +20,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white border-b-4 border-indigo-500 ">
       <section className="max-w-7xl mx-auto flex justify-between items-center p-4">
         {/* logo and brand name */}
         <div>
@@ -54,23 +59,30 @@ const Navigation = () => {
           ) : (
             <>
               <Link
-                className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
-                to={routes.login}
+                className="flex items-center space-x-1 py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
+                to={routes.home}
               >
-                Log In
+                <span>Home</span>
               </Link>
               <Link
-                className="py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:text-indigo-400 transition duration-300"
+                className="flex items-center space-x-1 py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
+                to={routes.login}
+              >
+                <HiOutlineLogin className="h-6 w-6" />
+                <span>Log In</span>
+              </Link>
+              <Link
+                className="flex items-center space-x-1 py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
                 to={routes.signup}
               >
-                Sign Up
+                <HiOutlineUserAdd className="h-6 w-6" />
+                <span>Register</span>
               </Link>
               <Link
                 className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
                 to="/users/cart"
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
-                <p>Cart</p>
               </Link>
             </>
           )}
