@@ -5,7 +5,7 @@ import {
   HiOutlineShoppingCart,
   HiOutlineUserCircle,
   HiOutlineLogin,
-  HiOutlineUserAdd,
+  HiOutlineHome,
 } from "react-icons/hi";
 import { userLogout } from "../../actions/userActions";
 import routes from "../../utils/routes";
@@ -32,12 +32,12 @@ const Navigation = () => {
             <span className="text-2xl font-bold ">Local Shoppers</span>
           </Link>
         </div>
-        <div className="hidden lg:flex space-x-2 items-center">
+        <div className="hidden lg:flex space-x-3 items-center">
           {user ? (
             <>
               <Link
                 className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
-                to="/users/account"
+                to={routes.dashboard}
               >
                 <HiOutlineUserCircle className="h-6 w-6" />
                 <p>Account</p>
@@ -49,7 +49,7 @@ const Navigation = () => {
                 <HiOutlineShoppingCart className="h-6 w-6" />
               </Link>
               <button
-                className="py-2 px-3 font-bold text-lg bg-indigo-500 rounded-lg text-white hover:text-indigo-400 transition duration-30"
+                className="py-2 px-3 font-bold text-lg bg-indigo-500 rounded-lg text-white hover:bg-indigo-600 transition duration-30"
                 onClick={handleUserLogout}
               >
                 Log Out
@@ -58,23 +58,24 @@ const Navigation = () => {
           ) : (
             <>
               <Link
-                className="flex items-center space-x-1 py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
+                className="flex items-center space-x-1 font-bold text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.home}
               >
+                <HiOutlineHome className="h-6 w-6" />
                 <span>Home</span>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
+                className="flex items-center space-x-1   font-bold text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.login}
               >
                 <HiOutlineLogin className="h-6 w-6" />
-                <span>Log In</span>
+                <span>Login</span>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-2 px-4  bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
+                className="flex items-center space-x-1 py-2 px-4 bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
                 to={routes.signup}
               >
-                <HiOutlineUserAdd className="h-6 w-6" />
+                <HiOutlineUserCircle className="h-6 w-6" />
                 <span>Register</span>
               </Link>
               <Link
