@@ -37,60 +37,61 @@ const LoginPage = ({ history }) => {
   };
 
   return (
-    <main className="mt-10">
-      <h1 className="text-5xl font-bold text-center mb-3">Log In</h1>
-      <div className="my-5">
-        {error && <Message variant="danger">{error}</Message>}
-      </div>
-      <section className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label>Email</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="stevejobs@example.com"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="sshhh!!! Don't tell anyone"
-              required
-            />
-          </div>
-          <button
-            className="w-full mb-3 px-3 py-2 bg-indigo-500 rounded-lg text-white"
-            type="submit"
-          >
+    <main>
+      <section className="flex max-w-lg mx-auto justify-center">
+        <div className="flex-1 bg-gray-50 p-10 m-10 rounded-lg shadow-lg">
+          <h1 className="text-indigo-500 text-5xl font-bold text-center mb-3">
             Log In
-          </button>
+          </h1>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label>Email</label>
+              <input
+                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="stevejobs@example.com"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="sshhh!!! Don't tell anyone"
+                required
+              />
+            </div>
+            <button
+              className="w-full mb-3 px-3 py-2 bg-indigo-500 rounded-lg text-white"
+              type="submit"
+            >
+              Log In
+            </button>
 
-          <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
-            buttonText="Contine with Google"
-            render={GoogleAuthButton}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+              buttonText="Contine with Google"
+              render={GoogleAuthButton}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
 
-          <div className="text-center">
-            <span className="text-base">Don't have an account? </span>
-            <Link className="text-indigo-500" to={routes.signup}>
-              Sign Up
-            </Link>
-          </div>
-        </form>
+            <div className="text-center">
+              <span className="text-base">Don't have an account? </span>
+              <Link className="text-indigo-500" to={routes.signup}>
+                Sign Up
+              </Link>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
   );
