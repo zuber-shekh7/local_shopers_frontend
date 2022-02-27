@@ -58,99 +58,106 @@ const SignupPage = ({ history }) => {
   };
 
   return (
-    <main className="mt-10">
-      <h1 className="text-center text-4xl font-bold mb-3">Sign Up</h1>
-      <section className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label>First Name</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="steve"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label>Last Name</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="jobs"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label>Email</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="stevejobs@example.com"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label>Mobile</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="text"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              placeholder="9876543210"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="sshhh!!! Don't tell anyone"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="confirm password"
-              required
-            />
-          </div>
-          <button
-            className="w-full mb-3 px-3 py-2 bg-indigo-500 rounded-lg text-white"
-            type="submit"
-          >
+    <main>
+      <section className="flex justify-center max-w-lg mx-auto">
+        <div className="flex-1 bg-gray-50 p-10 m-10 rounded-lg shadow-lg">
+          <h1 className="text-indigo-500 text-center text-5xl font-bold mb-3">
             Sign Up
-          </button>
+          </h1>
 
-          <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
-            buttonText="Contine with Google"
-            render={GoogleAuthButton}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3">
+              <div className="mb-3">
+                <label>First Name</label>
+                <input
+                  className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="steve"
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label>Last Name</label>
+                <input
+                  className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="jobs"
+                  required
+                />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label>Email</label>
+              <input
+                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="stevejobs@example.com"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label>Mobile</label>
+              <input
+                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                type="text"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                placeholder="9876543210"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label>Password</label>
+              <input
+                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="sshhh!!! Don't tell anyone"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label>Password</label>
+              <input
+                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="confirm password"
+                required
+              />
+            </div>
+            <button
+              className="w-full mb-3 px-3 py-2 bg-indigo-500 rounded-lg text-white"
+              type="submit"
+            >
+              Sign Up
+            </button>
 
-          <div className="text-center">
-            <span className="text-base">Already have an account? </span>
-            <Link className="text-indigo-500" to={routes.login}>
-              Log In
-            </Link>
-          </div>
-        </form>
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+              buttonText="Contine with Google"
+              render={GoogleAuthButton}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+
+            <div className="text-center">
+              <span className="text-base">Already have an account? </span>
+              <Link className="text-indigo-500" to={routes.login}>
+                Log In
+              </Link>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
   );
