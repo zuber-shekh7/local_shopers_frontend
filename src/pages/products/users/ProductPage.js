@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Image,
-  ListGroup,
-  FormControl,
-} from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../../../actions/productActions";
-import Loader from "../../../components/shared/Loader";
-import Message from "../../../components/shared/Message";
 import routes from "../../../utils/routes";
 
 const UserProductPage = ({ match, history }) => {
@@ -39,86 +27,72 @@ const UserProductPage = ({ match, history }) => {
 
   return (
     <main>
-      <Container>
-        <Row>
-          <Col className="mx-auto" md={8}>
-            {loading && <Loader />}
-            {error && <Message>{error}</Message>}
-            {product && (
-              <section className="my-3">
-                <Button className="my-3" onClick={() => history.goBack()}>
-                  Back
-                </Button>
-                <h2 className="text-start">{product.name}</h2>
-                <Row>
-                  <Col md={4} className="text-center">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fluid
-                      rounded
-                    />
-                  </Col>
-                  <Col md={4}>
-                    <h4>{product.name}</h4>
-                    <p className="lead">{product.description}</p>
-                    <h4>₹ {product.price}/-</h4>
-                  </Col>
-                  <Col md={4}>
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Price</Col>
-                        <Col>₹ {product.price}/-</Col>
-                      </Row>
-                    </ListGroup.Item>
-                    {product.quantity > 0 && (
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Quantity</Col>
-                          <Col>
-                            <FormControl
-                              as="select"
-                              value={quantity}
-                              onChange={(e) => setQuantity(e.target.value)}
-                            >
-                              {[...Array(product.quantity).keys()].map((i) => {
-                                return <option value={i + 1}>{i + 1}</option>;
-                              })}
-                            </FormControl>
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                    )}
+      <section className="m-10 px-10 max-w-6xl mx-auto">
+        {product && (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10">
+            <div className="col-span-6 p-10">
+              <div className="flex justify-center items-center">
+                <img
+                  className="flex-1 h-max w-max  rounded-lg"
+                  src={product.image}
+                  alt={product.name}
+                />
+              </div>
+            </div>
+            <div className="col-span-6 p-10">
+              <div>
+                <h2 className="text-4xl font-semibold mb-3">{product.name}</h2>
+                <h2 className="text-2xl text-indigo-500 mb-3">
+                  ₹ {product.price}/-
+                </h2>
+                <p className="text-lg mb-3">{product.description}</p>
 
-                    <ListGroup>
-                      <ListGroup.Item>
-                        <Button
-                          onClick={() => addToWishListHandler(product._id)}
-                          className="w-100"
-                          variant="warning"
-                        >
-                          Add to Wishlist
-                        </Button>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        {product.quantity > 0 ? (
-                          <Button onClick={addToCartHandler} className="w-100">
-                            Add to Cart
-                          </Button>
-                        ) : (
-                          <Button variant="danger" className="w-100">
-                            Out of Stock
-                          </Button>
-                        )}
-                      </ListGroup.Item>
-                    </ListGroup>
-                  </Col>
-                </Row>
-              </section>
-            )}
-          </Col>
-        </Row>
-      </Container>
+                <div className="mb-3">
+                  {product.quantity > 0 && (
+                    <div>
+                      <select
+                        className="w-full px-3 py-2 rounded-lg"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                      >
+                        {[...Array(product.quantity).keys()].map((i) => {
+                          return (
+                            <option key={i} value={i + 1}>
+                              {i + 1}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  )}
+                  <div className="mb-3">
+                    <button
+                      onClick={() => addToWishListHandler(product._id)}
+                      className="block my-3 px-3 py-2 border text-indigo-500 border-indigo-500 rounded-lg w-full hover:bg-indigo-100"
+                      variant="warning"
+                    >
+                      Add to Wishlist
+                    </button>
+
+                    {product.quantity > 0 ? (
+                      <button
+                        className="px-3 py-2 bg-indigo-500 rounded-lg text-white w-full hover:bg-indigo-600"
+                        onClick={addToCartHandler}
+                      >
+                        Add to Cart
+                      </button>
+                    ) : (
+                      <button className="mt-5 px-3 py-2 bg-indigo-500 rounded-lg text-white w-full">
+                        Out of Stock
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
     </main>
   );
 };
