@@ -5,7 +5,7 @@ import { FiFacebook, FiInstagram, FiYoutube } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <footer className="mt-10 py-10 bg-indigo-500">
+    <footer className="bg-indigo-500">
       <section className="grid grid-cols-1 md:grid-cols-3 gap-x-5 md:justify-items-center">
         <div className="p-10">
           <h2 className="text-white text-4xl font-bold mb-2">Local Shoppers</h2>
