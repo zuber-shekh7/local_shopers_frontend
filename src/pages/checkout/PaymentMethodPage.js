@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  FormGroup,
-  FormControl,
-  FormLabel,
-} from "react-bootstrap";
+
 import { useSelector, useDispatch } from "react-redux";
 import { savePaymentMethod } from "../../actions/cartActions";
 
@@ -32,65 +23,67 @@ const PaymentMethodPage = ({ history }) => {
   };
 
   return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={8} className="mx-auto">
-            <section>
-              <h2>Select payment method</h2>
-              <hr />
-              <Form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <input
-                    id="cod"
-                    type="radio"
-                    name="payment"
-                    value="COD"
-                    checked
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />{" "}
-                  <FormLabel htmlFor="cod">COD (Cash on Delivery)</FormLabel>
-                </FormGroup>
-                {/* <FormGroup>
-                  <input
-                    id="upi"
-                    type="radio"
-                    name="payment"
-                    value="UPI"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />{" "}
-                  <FormLabel htmlFor="upi">UPI</FormLabel>
-                </FormGroup>
-                <FormGroup>
-                  <input
-                    id="debit"
-                    type="radio"
-                    name="payment"
-                    value="DebitCard"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />{" "}
-                  <FormLabel htmlFor="debit">Debit Card</FormLabel>
-                </FormGroup>
-                <FormGroup>
-                  <input
-                    id="credit"
-                    type="radio"
-                    name="payment"
-                    value="CreditCard"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />{" "}
-                  <FormLabel htmlFor="credit">Credit Card</FormLabel>
-                </FormGroup> */}
-                <FormGroup>
-                  <Button type="submit" className="w-100">
-                    Next
-                  </Button>
-                </FormGroup>
-              </Form>
-            </section>
-          </Col>
-        </Row>
-      </Container>
+    <main>
+      <section className="m-10 px-10 max-w-6xl mx-auto">
+        <section>
+          <h2 className="text-4xl font-semibold mb-3">Select payment method</h2>
+          <hr className="mb-3" />
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <input
+                id="cod"
+                type="radio"
+                name="COD"
+                value="COD"
+                checked={paymentMethod === "COD"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />{" "}
+              <label htmlFor="cod">COD (Cash on Delivery)</label>
+            </div>
+            <div className="mb-3">
+              <input
+                id="upi"
+                type="radio"
+                name="UPI"
+                value="UPI"
+                checked={paymentMethod === "UPI"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />{" "}
+              <label htmlFor="upi">UPI</label>
+            </div>
+            <div className="mb-3">
+              <input
+                id="debit"
+                type="radio"
+                name="DebitCard"
+                value="DebitCard"
+                checked={paymentMethod === "DebitCard"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />{" "}
+              <label htmlFor="debit">Debit Card</label>
+            </div>
+            <div className="mb-3">
+              <input
+                id="credit"
+                type="radio"
+                name="CreditCard"
+                value="CreditCard"
+                checked={paymentMethod === "CreditCard"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />{" "}
+              <label htmlFor="credit">Credit Card</label>
+            </div>
+            <div className="mb-3">
+              <button
+                type="submit"
+                className="px-3 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
+              >
+                Next
+              </button>
+            </div>
+          </form>
+        </section>
+      </section>
     </main>
   );
 };
