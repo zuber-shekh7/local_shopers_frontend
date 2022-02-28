@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
 
 const CartPage = ({ match, location, history }) => {
-  console.log(match.params);
   const { product_id } = match.params;
 
   const quantity = location.search ? Number(location.search.split("=")[1]) : 1;

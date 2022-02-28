@@ -24,7 +24,7 @@ const createOrder = (orderData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+    const token = JSON.parse(localStorage.getItem("token"));
 
     const { data } = await backendAPI.post(`/orders/`, orderData, {
       headers: {
@@ -39,6 +39,7 @@ const createOrder = (orderData) => async (dispatch) => {
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: order });
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: null });
   } catch (err) {
+    console.log(err);
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: CREATE_ORDER_FAIL, payload: error });
   }

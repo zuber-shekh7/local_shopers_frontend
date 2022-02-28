@@ -1,25 +1,20 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Button, ListGroup, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { createOrder } from "../../actions/orderActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
 
 const OrderSummaryPage = ({ history }) => {
   const { cartItems, shippingAddress, paymentMethod, business } = useSelector(
     (state) => state.cart
   );
 
-  const {
-    userInfo: { user },
-  } = useSelector((state) => state.userLogin);
+  const { user } = useSelector((state) => state.userLogin);
   const { loading, order, error } = useSelector((state) => state.createOrder);
 
   useEffect(() => {
     if (!paymentMethod) {
       history.push("/checkout/payment");
     }
-  }, [paymentMethod]);
+  }, [paymentMethod, history]);
 
   useEffect(() => {
     if (order) {
@@ -30,13 +25,14 @@ const OrderSummaryPage = ({ history }) => {
   const subTotal = Number(
     cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
-  const tax = 100;
+  const tax = 0;
   const shippingCharges = 100;
   const totalPrice = Number(subTotal + tax + shippingCharges).toFixed(2);
 
   const dispatch = useDispatch();
 
   const handlePlaceOrder = () => {
+    console.log("placed order");
     dispatch(
       createOrder({
         user_id: user._id,
@@ -52,113 +48,93 @@ const OrderSummaryPage = ({ history }) => {
   };
 
   return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={8} className="mx-auto">
-            {loading && <Loader />}
-            {error && <Message variant="danger">{error}</Message>}
-            <Row>
-              <Col md={8}>
-                <h2>Order summary</h2>
-                <hr />
-                <section>
-                  <h4>Shipping</h4>
-                  <hr />
-                  <p className="lead">
-                    {shippingAddress.fullName}, {shippingAddress.city},{" "}
-                    {shippingAddress.state}, {shippingAddress.pincode}
-                  </p>
-                  <p className="lead">{shippingAddress.mobileNumber}</p>
-                </section>
-                <section>
-                  <h4>Payment</h4>
-                  <hr />
-                  <p className="lead">{paymentMethod}</p>
-                </section>
-                <section>
-                  <h4>Order Items</h4>
-                  <hr />
-                  {cartItems.length > 0 ? (
-                    <ListGroup variant="flush">
-                      {cartItems.map((item) => {
-                        return (
-                          <ListGroup.Item>
-                            <Row>
-                              <Col>
-                                <Image
-                                  className="rounded"
-                                  fluid
-                                  style={{ height: 50 }}
-                                  src={item.image}
-                                  alt={item.name}
-                                />
-                              </Col>
-                              <Col>{item.name}</Col>
-                              <Col>
-                                {item.qty} * {item.price}/-
-                              </Col>
-                              <Col>₹ {item.price * item.qty}/-</Col>
-                            </Row>
-                          </ListGroup.Item>
-                        );
-                      })}
-                    </ListGroup>
-                  ) : (
-                    <Message>Your cart is empty</Message>
-                  )}
-                </section>
-              </Col>
-              <Col md={4}>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <h6>
-                      Sub Total of{" "}
-                      {cartItems.reduce((acc, item) => acc + item.qty, 0)} items
-                    </h6>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Sub Total</Col>
-                      <Col>
-                        <p>₹ {subTotal}</p>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Shipping Charges</Col>
-                      <Col>
-                        <p>₹ {shippingCharges}</p>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Tax</Col>
-                      <Col>
-                        <p>₹ {tax}</p>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <h4 className="text-center">₹ {totalPrice}/-</h4>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Button
-                      onClick={handlePlaceOrder}
-                      disabled={cartItems.length === 0}
-                      className="w-100"
-                    >
-                      Place Order
-                    </Button>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
+    <main>
+      <section>
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="m-10 px-10">
+            <h1 className="text-4xl font-semibold mb-3">Order summary</h1>
+            <hr className="mb-3" />
+            <section>
+              <h2 className="text-2xl font-semibold mb-3">Shipping</h2>
+              <hr className="mb-3" />
+              <p className="text-lg mb-3">
+                {shippingAddress.fullName}, {shippingAddress.city},{" "}
+                {shippingAddress.state}, {shippingAddress.pincode}
+              </p>
+              <p className="text-lg mb-3">{shippingAddress.mobileNumber}</p>
+            </section>
+            <section>
+              <h2 className="text-2xl font-semibold mb-3">Payment</h2>
+              <hr className="mb-3" />
+              <p className="text-lg mb-3">{paymentMethod}</p>
+            </section>
+            <hr className="mb-3" />
+            <div>
+              <button
+                onClick={handlePlaceOrder}
+                disabled={cartItems.length === 0}
+                className="text-lg px-3 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
+              >
+                Place Order
+              </button>
+            </div>
+          </div>
+          <div className="py-10 px-20 bg-indigo-50 h-screen border-t-2 md:border-l-2 border-indigo-300">
+            <section>
+              <h4 className="text-indigo-500 text-center text-4xl font-bold mb-10">
+                Local Shoppers
+              </h4>
+              {cartItems.length > 0 && (
+                <div>
+                  {cartItems.map((item) => {
+                    return (
+                      <div key={item._id} className="mb-3">
+                        <div>
+                          <div className="grid grid-cols-12 items-center">
+                            <img
+                              className="col-span-2 h-12 rounded-lg"
+                              src={item.image}
+                              alt={item.name}
+                            />
+                            <div className="col-span-10 flex justify-between">
+                              <h3>{item.name}</h3>
+                              <h3>₹ {item.qty * item.price}/-</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <hr className="mb-3" />
+                  <div>
+                    <div className="flex justify-between mb-3">
+                      <p>Total items</p>
+                      <p>
+                        {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between mb-3">
+                      <p>Subtotal</p>
+                      <p>₹ {subTotal}/-</p>
+                    </div>
+
+                    <div className="flex justify-between mb-3">
+                      <p>Shipping Charges</p>
+                      <p>₹ {shippingCharges}/-</p>
+                    </div>
+                    <hr className="mb-3" />
+                    <div className="flex justify-between">
+                      <p className="text-3xl font-semibold">Total</p>
+                      <p className="text-3xl font-semibold">₹ {totalPrice}/-</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
