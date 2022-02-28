@@ -38,15 +38,9 @@ const BusinessPage = ({ match }) => {
                   return (
                     <div
                       key={index}
-                      className="grid grid-cols-12 bg-gray-50  rounded-lg gap-3 mb-3 overflow-hidden shadow-md"
+                      className="grid grid-cols-1 bg-gray-50  rounded-lg gap-3 mb-3 overflow-hidden shadow-md"
                     >
-                      <div className="col-span-4">
-                        <div className="h-full md:h-48 w-full bg-gray-300"></div>
-                      </div>
-                      <div className="col-span-8 flex items-center justify-between p-5">
-                        <div className="h-8 md:h-12 w-4/12 bg-gray-300 rounded-lg"></div>
-                        <div className="h-8 md:h-12 w-4/12 md:w-2/12 bg-gray-300 rounded-lg"></div>
-                      </div>
+                      <div className="h-64 md:h-48 w-full bg-gray-300"></div>
                     </div>
                   );
                 })}
@@ -82,33 +76,25 @@ const BusinessPage = ({ match }) => {
                       <section>
                         {business.categories.map((category) => {
                           return (
-                            <div
+                            <Link
                               key={category._id}
-                              className="grid grid-cols-12 bg-gray-50  rounded-lg gap-3 mb-3 overflow-hidden shadow-md"
+                              to={`/business/${business._id}/categories/${category._id}`}
                             >
-                              <div className="col-span-4">
-                                <img
-                                  className="md:h-48 w-full object-cover"
-                                  src={category.image}
-                                  alt={category.name}
-                                />
-                              </div>
-                              <div className="col-span-8 flex items-center justify-between p-5">
-                                <div>
-                                  <h3 className="text-2xl sm:text-4xl md:text-6xl font-semibold">
+                              <div
+                                className="grid h-64 grid-cols-1 rounded-lg mb-3 overflow-hidden shadow-md hover:opacity-80"
+                                style={{
+                                  backgroundImage: `url(${category.image})`,
+                                  backgroundSize: "cover",
+                                  backgroundPosition: "center",
+                                }}
+                              >
+                                <div className="flex justify-center items-center">
+                                  <h3 className="text-indigo-500 px-3 py-2 bg-white  rounded-lg text-2xl sm:text-4xl md:text-6xl font-semibold">
                                     {category.name}
                                   </h3>
                                 </div>
-                                <div>
-                                  <Link
-                                    className="sm:text:xl md:text-2xl px-3 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
-                                    to={`/business/${business._id}/categories/${category._id}`}
-                                  >
-                                    Explore
-                                  </Link>
-                                </div>
                               </div>
-                            </div>
+                            </Link>
                           );
                         })}
                       </section>
