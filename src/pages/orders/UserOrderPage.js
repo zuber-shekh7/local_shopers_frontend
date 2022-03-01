@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 import { getUserOrder } from "../../actions/orderActions";
-import routes from "../../utils/routes";
 
 const UserOrderPage = ({ match }) => {
   const { loading, order, error } = useSelector((state) => state.getUserOrder);
@@ -19,16 +17,24 @@ const UserOrderPage = ({ match }) => {
   return (
     <main>
       <section className="m-10 px-10 max-w-6xl mx-auto">
-        <div>
-          <Link
-            className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-            to={routes.getOrder}
-          >
-            <span>
-              <HiOutlineArrowSmLeft className="h-6 w-6" />
-            </span>
-          </Link>
-        </div>
+        {order && (
+          <Breadcrumb
+            links={[
+              {
+                name: "your account",
+                to: "/users/account",
+              },
+              {
+                name: "your orders",
+                to: "/users/orders",
+              },
+              {
+                name: "order summary",
+                to: `/users/orders/${order._id}`,
+              },
+            ]}
+          />
+        )}
         <div className="pb-5">
           {order && (
             <>
