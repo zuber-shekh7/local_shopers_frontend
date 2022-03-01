@@ -19,7 +19,7 @@ const UserDashboardPage = ({ history }) => {
   }, [user, history]);
 
   return (
-    <main className="mt-10">
+    <main className="mt-10 z-10">
       <section className="max-w-6xl mx-auto px-10">
         <h1 className="text-4xl font-semibold mb-3">Your Account</h1>
         {user && (
