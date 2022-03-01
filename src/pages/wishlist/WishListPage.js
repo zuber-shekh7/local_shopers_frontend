@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 import {
   addToWishList,
   getWishList,
@@ -35,6 +36,18 @@ const WishListPage = ({ match }) => {
   return (
     <main>
       <section className="m-10 max-w-6xl mx-auto px-10">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your wishlist",
+              to: "/users/wishlist",
+            },
+          ]}
+        />
         <h1 className="text-4xl font-semibold mb-4">Your Wish List</h1>
         {loading && !wishList && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

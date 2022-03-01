@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiOutlineArrowSmLeft, HiOutlinePencil } from "react-icons/hi";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 import { getUser } from "../../actions/userActions";
 import routes from "../../utils/routes";
 
@@ -17,6 +18,18 @@ const UserProfilePage = () => {
   return (
     <main>
       <section className="m-10 max-w-xl mx-auto grid grid-cols-1 px-10">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your profile",
+              to: "/users/profile",
+            },
+          ]}
+        />
         {user && (
           <div>
             <h1 className="text-4xl font-semibold mb-4">Your Profile</h1>

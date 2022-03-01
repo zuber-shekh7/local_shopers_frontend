@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAddresses } from "../../actions/addressActions";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 import routes from "../../utils/routes";
 
 const AddressesPage = () => {
@@ -19,6 +20,18 @@ const AddressesPage = () => {
   return (
     <main>
       <section className="m-10 max-w-6xl mx-auto px-10">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your addresses",
+              to: "/users/addresses",
+            },
+          ]}
+        />
         <div className="grid grid-cols-1">
           <div className="flex justify-between items-center mb-3">
             <h1 className="text-4xl font-bold mb-4">Your Addresses</h1>
