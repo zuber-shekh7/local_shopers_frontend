@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserOrders } from "../../actions/orderActions";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 import routes from "../../utils/routes";
 
 const UserOrdersPage = () => {
@@ -20,6 +21,18 @@ const UserOrdersPage = () => {
   return (
     <main>
       <section className="m-10 max-w-6xl mx-auto px-10">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your orders",
+              to: "/users/orders",
+            },
+          ]}
+        />
         <h1 className="text-4xl font-semibold mb-4">Your Orders</h1>
         {!orders && loading && (
           <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
