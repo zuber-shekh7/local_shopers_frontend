@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { HiOutlinePlus, HiPlusCircle } from "react-icons/hi";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAddresses } from "../../actions/addressActions";
@@ -33,15 +34,8 @@ const AddressesPage = () => {
           ]}
         />
         <div className="grid grid-cols-1">
-          <div className="flex justify-between items-center mb-3">
-            <h1 className="text-4xl font-bold mb-4">Your Addresses</h1>
-            <Link
-              className="bg-indigo-500 text-white rounded-lg px-3 py-2"
-              to={routes.addAddress}
-            >
-              Add address
-            </Link>
-          </div>
+          <h1 className="text-4xl font-bold mb-4">Your Addresses</h1>
+
           {!addresses && loading && (
             <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
               {[...Array(6).fill(1, 6)].map((value, index) => {
@@ -68,43 +62,48 @@ const AddressesPage = () => {
               })}
             </div>
           )}
-          {addresses && (
-            <>
-              {addresses.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {addresses.map((address) => {
-                    return (
-                      <div
-                        key={address._id}
-                        className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg"
-                      >
-                        <h2 className="text-2xl font-medium">
-                          {address.fullName}
-                        </h2>
-                        <p>
-                          {address.flatNo} {address.street} {address.landmark}
-                        </p>
-                        <p>
-                          {address.city}, {address.state}, {address.pincode}
-                        </p>
-                        <p>Phone Number: {address.mobileNumber}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <Link
+              to={routes.addAddress}
+              className="py-6 flex flex-col space-y-2 justify-center items-center bg-gray-50 border-2 rounded-lg sm:px-4 sm:py-4 shadow-lg"
+            >
+              <HiOutlinePlus className="h-10 w-10" />
+              <h2 className="text-2xl font-semibold">Add address</h2>
+            </Link>
+            {addresses && (
+              <>
+                {addresses.length > 0 && (
+                  <>
+                    {addresses.map((address) => {
+                      return (
+                        <div
+                          key={address._id}
+                          className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg"
+                        >
+                          <h2 className="text-2xl font-medium">
+                            {address.fullName}
+                          </h2>
+                          <p>
+                            {address.flatNo} {address.street} {address.landmark}
+                          </p>
+                          <p>
+                            {address.city}, {address.state}, {address.pincode}
+                          </p>
+                          <p>Phone Number: {address.mobileNumber}</p>
 
-                        <div className="inline-block py-2 px-4 bg-indigo-500 rounded-lg text-white mt-3">
-                          <Link to={`/users/addresses/${address._id}`}>
-                            View
-                          </Link>
+                          <div className="inline-block py-2 px-4 bg-indigo-500 rounded-lg text-white mt-3">
+                            <Link to={`/users/addresses/${address._id}`}>
+                              View
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="flex justify-center">
-                  <h3 className="text-2xl text-center">No address available</h3>
-                </div>
-              )}
-            </>
-          )}
+                      );
+                    })}
+                  </>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </section>
     </main>
