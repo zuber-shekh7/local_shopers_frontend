@@ -4,6 +4,7 @@ import { HiOutlineArrowSmLeft, HiOutlineX } from "react-icons/hi";
 import { Link, Redirect } from "react-router-dom";
 import { editAddress, getAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 
 const EditAddressPage = ({ match, history }) => {
   const [fullName, setFullName] = useState("");
@@ -80,6 +81,24 @@ const EditAddressPage = ({ match, history }) => {
   return (
     <main>
       <section className="m-10 px-10 max-w-xl mx-auto">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your addresses",
+              to: "/users/addresses",
+            },
+            {
+              name: "edit address",
+              to: address
+                ? `/users/addresses/${address._id}`
+                : "/users/addresses",
+            },
+          ]}
+        />
         <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
           <div>
             <h2 className="text-center text-4xl font-semibold mb-4">

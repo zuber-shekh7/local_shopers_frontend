@@ -9,6 +9,7 @@ import { Link, Redirect } from "react-router-dom";
 import { deleteAddress, getAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
 import Modal from "../../components/shared/Modal";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 
 const AddressPage = ({ match }) => {
   const [open, setOpen] = useState(false);
@@ -35,6 +36,24 @@ const AddressPage = ({ match }) => {
   return (
     <main>
       <section className="m-10 px-10 max-w-xl mx-auto">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your addresses",
+              to: "/users/addresses",
+            },
+            {
+              name: "address details",
+              to: address
+                ? `/users/addresses/${address._id}`
+                : "/users/addresses",
+            },
+          ]}
+        />
         {address && (
           <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
             <Modal

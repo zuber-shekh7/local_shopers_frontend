@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { createAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 
 const AddAddressPage = () => {
   const [fullName, setFullName] = useState("");
@@ -59,6 +60,22 @@ const AddAddressPage = () => {
   return (
     <main>
       <section className="m-10 px-10 max-w-xl mx-auto">
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: "/users/account",
+            },
+            {
+              name: "your addresses",
+              to: "/users/addresses",
+            },
+            {
+              name: "new address",
+              to: "/users/addresses/new",
+            },
+          ]}
+        />
         <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
           <div>
             <h2 className="text-center text-4xl font-semibold mb-4">
