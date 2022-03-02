@@ -1,8 +1,18 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import routes from "../../utils/routes";
 
-const HomePage = () => {
+const HomePage = ({ history }) => {
+  const { user } = useSelector((state) => state.userLogin);
+
+  useEffect(() => {
+    if (user) {
+      history.push(routes.dashboard);
+    }
+  }, [user, history]);
+
   return (
     <main>
       {/* hero section */}
