@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCategory } from "../../../actions/categoryActions";
 
-const UserCategoryPage = ({ match }) => {
+const UserCategoryPage = ({ match, history }) => {
   const { category_id } = match.params;
 
   const dispatch = useDispatch();
@@ -22,10 +22,6 @@ const UserCategoryPage = ({ match }) => {
         {loading && !category && (
           <section className="flex justify-center ">
             <div className="animate-pulse flex-1 space-y-5">
-              <div className="h-96 w-full bg-gray-300 rounded-lg"></div>
-              <div className="flex justify-center">
-                <div className="h-10 w-4/12 bg-gray-300 rounded-lg"></div>
-              </div>
               <div>
                 <div className="h-10 w-3/12 mb-3 bg-gray-300 rounded-lg"></div>
                 <hr className="mb-3" />
@@ -53,21 +49,33 @@ const UserCategoryPage = ({ match }) => {
         )}
         {category && (
           <section className="flex justify-center ">
-            <div className="flex-1 space-y-5">
-              <img
-                className="h-96 w-full object-top object-cover rounded-lg"
-                src={category.image}
-                alt={category.name}
-              />
-              <div className="text-center">
-                <h1 className="text-center text-4xl font-bold mb-3">
-                  {category.name}
-                </h1>
+            <div>
+              <h1 className="text-4xl font-bold mb-3">{category.name}</h1>
+              <hr />
+              <div className="flex">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                  }}
+                  className="flex-1"
+                >
+                  <div className="grid grid-cols-12 gap-x-2 mb-3">
+                    <input
+                      className="col-span-8 md:col-span-10 w-full py-2 rounded-lg"
+                      type="search"
+                      placeholder="Search product"
+                    />
+                    <button
+                      className=" col-span-4 md:col-span-2 py-2 px-3 bg-indigo-500 rounded-lg text-white text-lg hover:bg-indigo-600"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </form>
               </div>
-
+              <hr />
               <div>
-                <h2 className="text-3xl font-semibold mb-3">Products</h2>
-                <hr className="mb-3" />
                 {category.products && (
                   <>
                     {category.products.length > 0 ? (

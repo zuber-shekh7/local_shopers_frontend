@@ -57,6 +57,7 @@ const UserProductPage = ({ match, history }) => {
                   src={product.image}
                   alt={product.name}
                 />
+                <h2>h1h1</h2>
               </div>
             </div>
             <div className="col-span-6 p-10">
