@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -25,7 +25,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white border-b-4 border-indigo-500 p-4">
+    <nav className="bg-indigo-600 text-white shadow-md sticky top-0 p-4">
       <section className="relative max-w-6xl mx-auto flex justify-between items-center h-16">
         {/* logo and brand name */}
         <div className="hidden sm:flex items-center justify-between">
@@ -61,20 +61,20 @@ const Navigation = () => {
           {user ? (
             <>
               <Link
-                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+                className="py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
                 to={routes.dashboard}
               >
                 <HiOutlineUserCircle className="h-6 w-6" />
                 <p>Account</p>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+                className="py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
               </Link>
               <button
-                className="py-2 px-3 font-bold text-lg bg-indigo-500 rounded-lg text-white hover:bg-indigo-600 transition duration-30"
+                className="py-2 px-4 bg-white  text-indigo-600 rounded-lg font-bold text-lg hover:text-indigo-00 transition duration-300"
                 onClick={handleUserLogout}
               >
                 Log Out
@@ -83,28 +83,28 @@ const Navigation = () => {
           ) : (
             <>
               <Link
-                className="flex items-center space-x-1 font-bold text-lg hover:text-indigo-600 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
                 to={routes.home}
               >
                 <HiOutlineHome className="h-6 w-6" />
                 <span>Home</span>
               </Link>
               <Link
-                className="flex items-center space-x-1   font-bold text-lg hover:text-indigo-600 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
                 to={routes.login}
               >
                 <HiOutlineLogin className="h-6 w-6" />
                 <span>Login</span>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-2 px-4 bg-indigo-500 text-white rounded-lg font-bold text-lg hover:bg-indigo-600 transition duration-300"
+                className="flex items-center space-x-1 py-2 px-4 bg-white  text-indigo-600 rounded-lg font-bold text-lg hover:text-indigo-00 transition duration-300"
                 to={routes.signup}
               >
                 <HiOutlineUserCircle className="h-6 w-6" />
-                <span>Register</span>
+                <span>Signup</span>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-500 transition duration-30"
+                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
