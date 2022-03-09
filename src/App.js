@@ -3,19 +3,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/core/HomePage";
 import Navigation from "./components/shared/Navigation";
+import LoginPage from "./pages/users/LoginPage";
 import Footer from "./components/shared/Footer";
-
 import routes from "./utils/routes";
+import LoginContainer from "./components/containers/LoginContainer";
+import DefaultContainer from "./components/containers/DefaultContainer";
 
 const App = () => {
   return (
     <>
       <Router>
-        <Navigation />
         <Routes>
-          <Route exact path={routes.home} element={<HomePage />} />
+          <Route element={<DefaultContainer />}>
+            <Route exact path={routes.home} element={<HomePage />} />
+          </Route>
+          <Route element={<LoginContainer />}>
+            <Route exact path={routes.login} element={<LoginPage />} />
+          </Route>
         </Routes>
-        <Footer />
       </Router>
     </>
   );
