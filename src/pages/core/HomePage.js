@@ -1,17 +1,18 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import routes from "../../utils/routes";
 
-const HomePage = ({ history }) => {
+const HomePage = () => {
   const { user } = useSelector((state) => state.userLogin);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      history.push(routes.dashboard);
+      navigate(routes.dashboard);
     }
-  }, [user, history]);
+  }, [user, navigate]);
 
   return (
     <main>
