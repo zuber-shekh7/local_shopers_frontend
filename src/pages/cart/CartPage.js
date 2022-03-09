@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { HiOutlineShoppingCart, HiOutlineXCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
+import { useLocation } from "react-router-dom";
 
-const CartPage = ({ match, location, history }) => {
-  const { product_id } = match.params;
+const CartPage = () => {
+  const { product_id } = useParams;
 
+  const location = useLocation();
   const quantity = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -25,20 +27,20 @@ const CartPage = ({ match, location, history }) => {
   };
 
   const checkoutHandler = () => {
-    history.push("/checkout/shipping");
+    navigate("/checkout/shipping");
   };
 
   return (
-    <main>
-      <section className="m-10 px-10 max-w-6xl mx-auto">
-        <h1 className="flex items-center space-x-2 text-4xl font-semibold mb-3">
+    <main className="container">
+      <section>
+        <h1 className="flex items-center space-x-2 text-darkBlue">
           <HiOutlineShoppingCart className="h-10 w-10" /> <span>Your Cart</span>
         </h1>
-        <hr className="my-5 border-2 border-indigo-500 w-3/12" />
+        <hr className="my-5 border-2 border-indigo-600 w-3/12" />
         <section className="mt-10">
           <div className="grid grid-cols-1">
             {cartItems.length === 0 ? (
-              <h3 className="text-3xl font-semibold text-center">
+              <h3 className="text-darkBlue text-center">
                 There are no items in your cart.
               </h3>
             ) : (

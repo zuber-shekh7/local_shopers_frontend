@@ -10,6 +10,7 @@ import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import CartPage from "./pages/cart/CartPage";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
                 </PrivateRoute>
               }
             />
+            <Route exact path={routes.cart} element={<CartPage />} />
             <Route exact path={routes.notFound} element={<NotFoundPage />} />
           </Route>
         </Routes>
