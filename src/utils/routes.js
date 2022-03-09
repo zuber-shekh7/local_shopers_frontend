@@ -12,6 +12,7 @@ const routes = {
   addAddress: "/users/addresses/new",
   getOrders: "/users/orders/",
   getOrder: "/users/orders/:orderId",
+  wishList: "/users/wishlist",
 };
 
 export default routes;

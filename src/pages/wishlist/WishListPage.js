@@ -1,21 +1,23 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { HiOutlineTrash } from "react-icons/hi";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import {
   addToWishList,
   getWishList,
   removeFromWishList,
 } from "../../actions/wishListActions";
+import routes from "../../utils/routes";
 
-const WishListPage = ({ match }) => {
-  const loading = true;
+const WishListPage = () => {
+  const [loading] = [true, null];
   const { wishList, error } = useSelector((state) => state.wishList);
 
   const { user } = useSelector((state) => state.userLogin);
 
-  const { product_id } = match.params;
+  const { product_id } = useParams();
 
   const dispatch = useDispatch();
 
@@ -34,34 +36,36 @@ const WishListPage = ({ match }) => {
   };
 
   return (
-    <main>
-      <section className="m-10 max-w-6xl mx-auto px-10">
+    <main className="container">
+      <section>
         <Breadcrumb
           links={[
             {
               name: "your account",
-              to: "/users/account",
+              to: routes.dashboard,
             },
             {
               name: "your wishlist",
-              to: "/users/wishlist",
+              to: routes.wishList,
             },
           ]}
         />
         <h1 className="text-4xl font-semibold mb-4">Your Wish List</h1>
+        <hr />
         {loading && !wishList && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {[...Array(6).fill(1, 6)].map((value, index) => {
               return (
                 <div
                   key={index}
-                  className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg"
+                  s
+                  className="bg-gray-50  rounded-lg shadow-lg overflow-hidden"
                 >
-                  <div className="h-8 w-8/12 bg-gray-300 rounded-lg mb-3"></div>
-                  <div className="h-4 w-8/12 bg-gray-300 rounded-lg mb-3"></div>
-                  <div className="flex space-x-2">
-                    <div className="h-8 w-4/12 bg-gray-300 rounded-lg "></div>
-                    <div className="h-8 w-4/12 bg-gray-300 rounded-lg "></div>
+                  <div className="w-full h-64 bg-gray-300  mb-3"></div>
+                  <div className="flex flex-col items-center gap-x-2 py-4">
+                    <div className="h-8 w-8/12 bg-gray-300 rounded-lg mb-3"></div>
+                    <div className="h-4 w-8/12 bg-gray-300 rounded-lg mb-3"></div>
+                    <div className="h-10 w-4/12 bg-gray-300 rounded-lg"></div>
                   </div>
                 </div>
               );
@@ -78,28 +82,31 @@ const WishListPage = ({ match }) => {
                     return (
                       <div
                         key={product._id}
-                        className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg"
+                        className="w-full bg-gray-50 rounded-lg shadow-lg "
                       >
-                        <h2 className="text-2xl font-semibold mb-3">
-                          {product.name}
-                        </h2>
-                        <p className="mb-3">{product.description}</p>
-                        <div className="flex space-x-2">
-                          <Link
-                            className="bg-indigo-500 px-3 py-2 text-white rounded-lg"
-                            to={`/business/products/${product._id}`}
-                          >
-                            View More
-                          </Link>
-
-                          <button
-                            className="bg-red-500 px-3 py-2 text-white rounded-lg"
-                            onClick={() =>
-                              handleRemoveFromList(wishList._id, product._id)
-                            }
-                          >
-                            Remove
-                          </button>
+                        <Link to={`/business/products/${product._id}`}>
+                          <img
+                            className="rounded-t-lg object-cover"
+                            src={product.image}
+                            alt=""
+                          />
+                        </Link>
+                        <div className="flex flex-col items-center gap-x-2 py-4">
+                          <h2 className="text-2xl font-semibold mb-3">
+                            {product.name}
+                          </h2>
+                          <p className="mb-3">{product.description}</p>
+                          <div className="flex space-x-2">
+                            <button
+                              className="flex justify-center items-center space-x-1 bg-red-500 px-3 py-2 text-white rounded-lg"
+                              onClick={() =>
+                                handleRemoveFromList(wishList._id, product._id)
+                              }
+                            >
+                              <HiOutlineTrash className="h-6 w-6" />
+                              <span>Remove</span>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     );
