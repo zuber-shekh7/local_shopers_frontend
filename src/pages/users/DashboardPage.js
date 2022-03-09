@@ -21,14 +21,15 @@ const UserDashboardPage = () => {
   }, [user, navigate]);
 
   return (
-    <main className="mt-10 z-10">
-      <section className="max-w-6xl mx-auto px-10">
+    <main className="container text-darkBlue">
+      <section>
         <h1 className="text-4xl font-semibold mb-3">Your Account</h1>
+        <hr />
         {user && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-2">
             <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
               <Link className="flex space-x-2" to="/users/orders">
-                <div className="hidden md:block">
+                <div>
                   <HiOutlineFolderOpen className="h-8 w-8" />
                 </div>
                 <div>
@@ -39,7 +40,7 @@ const UserDashboardPage = () => {
             </div>
             <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
               <Link className="flex space-x-2" to="/users/profile/">
-                <div className="hidden md:block">
+                <div>
                   <HiOutlineUserCircle className="h-8 w-8" />
                 </div>
                 <div>
@@ -51,7 +52,7 @@ const UserDashboardPage = () => {
 
             <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
               <Link className="flex space-x-2" to="/users/addresses">
-                <div className="hidden md:block">
+                <div>
                   <HiOutlineLocationMarker className="h-8 w-8" />
                 </div>
                 <div>
@@ -63,7 +64,7 @@ const UserDashboardPage = () => {
 
             <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
               <Link className="flex space-x-2" to="/users/wishlist">
-                <div className="hidden md:block">
+                <div>
                   <HiOutlineStar className="h-8 w-8" />
                 </div>
                 <div>
