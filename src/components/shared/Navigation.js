@@ -26,7 +26,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-white text-bg-indigo-600  border-b border-gray-100 sticky top-0 p-4">
+    <nav className="bg-white text-darkBlue text-bg-indigo-600  border-b border-gray-100 sticky top-0 p-4">
       <section className="relative max-w-6xl mx-auto flex justify-between items-center h-16">
         {/* logo and brand name */}
         <div className="hidden sm:flex items-center justify-between">
@@ -66,7 +66,7 @@ const Navigation = () => {
                 to={routes.dashboard}
               >
                 <HiOutlineUserCircle className="h-6 w-6" />
-                <p>Account</p>
+                <span>Account</span>
               </Link>
               <Link
                 className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
