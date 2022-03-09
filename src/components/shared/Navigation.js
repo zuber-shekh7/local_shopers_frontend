@@ -9,6 +9,7 @@ import {
   HiOutlineLogout,
   HiMenu,
   HiX,
+  HiArrowRight,
 } from "react-icons/hi";
 import { userLogout } from "../../actions/userActions";
 import routes from "../../utils/routes";
@@ -25,7 +26,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-indigo-600 text-white shadow-md sticky top-0 p-4">
+    <nav className="bg-white text-bg-indigo-600  border-b border-gray-100 sticky top-0 p-4">
       <section className="relative max-w-6xl mx-auto flex justify-between items-center h-16">
         {/* logo and brand name */}
         <div className="hidden sm:flex items-center justify-between">
@@ -61,50 +62,51 @@ const Navigation = () => {
           {user ? (
             <>
               <Link
-                className="py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.dashboard}
               >
                 <HiOutlineUserCircle className="h-6 w-6" />
                 <p>Account</p>
               </Link>
               <Link
-                className="py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
               </Link>
               <button
-                className="py-2 px-4 bg-white  text-indigo-600 rounded-lg font-bold text-lg hover:text-indigo-00 transition duration-300"
+                className="flex items-center space-x-1 py-2 px-5 text-white  bg-indigo-600 rounded-full  text-lg hover:bg-indigo-700 transition duration-300"
                 onClick={handleUserLogout}
               >
-                Log Out
+                <HiOutlineLogout className="h-6 w-6" />
+                <span>Logout</span>
               </button>
             </>
           ) : (
             <>
               <Link
-                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.home}
               >
                 <HiOutlineHome className="h-6 w-6" />
                 <span>Home</span>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.login}
               >
                 <HiOutlineLogin className="h-6 w-6" />
                 <span>Login</span>
               </Link>
               <Link
-                className="flex items-center space-x-1 py-2 px-4 bg-white  text-indigo-600 rounded-lg font-bold text-lg hover:text-indigo-00 transition duration-300"
+                className="flex items-center space-x-1 py-2 px-5 text-white  bg-indigo-600 rounded-full  text-lg hover:bg-indigo-700 transition duration-300"
                 to={routes.signup}
               >
-                <HiOutlineUserCircle className="h-6 w-6" />
                 <span>Signup</span>
+                <HiArrowRight className="h-6 w-6" />
               </Link>
               <Link
-                className="flex items-center space-x-1 py-4 px-2 font-bold text-lg hover:text-indigo-100 transition duration-300"
+                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
