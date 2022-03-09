@@ -8,6 +8,7 @@ import DashboardPage from "./pages/users/DashboardPage";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 const App = () => {
   return (
@@ -20,7 +21,15 @@ const App = () => {
           </Route>
           <Route element={<DefaultContainer />}>
             <Route exact path={routes.home} element={<HomePage />} />
-            <Route exact path={routes.dashboard} element={<DashboardPage />} />
+            <Route
+              exact
+              path={routes.dashboard}
+              element={
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </Router>
