@@ -27,7 +27,7 @@ const Navigation = () => {
 
   return (
     <nav className="bg-white text-darkBlue text-bg-indigo-600  border-b border-gray-100 sticky top-0 p-4">
-      <section className="relative max-w-6xl mx-auto flex justify-between items-center h-16">
+      <section className="relative max-w-7xl mx-auto flex justify-between items-center h-16">
         {/* logo and brand name */}
         <div className="hidden sm:flex items-center justify-between">
           <Link
