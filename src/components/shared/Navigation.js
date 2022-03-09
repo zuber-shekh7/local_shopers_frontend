@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   HiOutlineShoppingCart,
@@ -61,19 +61,25 @@ const Navigation = () => {
         <div className="hidden sm:flex space-x-3 items-center">
           {user ? (
             <>
-              <Link
-                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
                 to={routes.dashboard}
               >
                 <HiOutlineUserCircle className="h-6 w-6" />
                 <span>Account</span>
-              </Link>
-              <Link
-                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
+              </NavLink>
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
-              </Link>
+              </NavLink>
               <button
                 className="flex items-center space-x-1 py-2 px-5 text-white  bg-indigo-600 rounded-full  text-lg hover:bg-indigo-700 transition duration-300"
                 onClick={handleUserLogout}
@@ -84,13 +90,16 @@ const Navigation = () => {
             </>
           ) : (
             <>
-              <Link
-                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
                 to={routes.home}
               >
                 <HiOutlineHome className="h-6 w-6" />
                 <span>Home</span>
-              </Link>
+              </NavLink>
               <Link
                 className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
                 to={routes.login}
@@ -105,12 +114,15 @@ const Navigation = () => {
                 <span>Signup</span>
                 <HiArrowRight className="h-6 w-6" />
               </Link>
-              <Link
-                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
-              </Link>
+              </NavLink>
             </>
           )}
         </div>
@@ -121,22 +133,28 @@ const Navigation = () => {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {user ? (
               <>
-                <Link
-                  className="flex items-center space-x-2 font-bold text-lg hover:text-indigo-500 transition duration-30 rounded py-2 px-3"
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
                   to={routes.dashboard}
                 >
                   <HiOutlineUserCircle className="h-6 w-6" />
-                  <p>Account</p>
-                </Link>
-                <Link
-                  className="flex items-center space-x-2 font-bold text-lg hover:text-indigo-500 transition duration-30 rounded py-2 px-3"
+                  <span>Account</span>
+                </NavLink>
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
                   to={routes.cart}
                 >
                   <HiOutlineShoppingCart className="h-6 w-6" />
-                  <p>Cart</p>
-                </Link>
+                  <span>Cart</span>
+                </NavLink>
                 <button
-                  className="flex items-center space-x-2 font-bold text-lg hover:text-indigo-500 transition duration-30 rounded py-2 px-3"
+                  className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
                   onClick={handleUserLogout}
                 >
                   <HiOutlineLogout className="h-6 w-6" />
@@ -145,34 +163,40 @@ const Navigation = () => {
               </>
             ) : (
               <>
-                <Link
-                  className="flex items-center space-x-1 font-bold text-lg hover:text-indigo-600 transition duration-300 py-2 px-3"
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
                   to={routes.home}
                 >
                   <HiOutlineHome className="h-6 w-6" />
                   <span>Home</span>
-                </Link>
+                </NavLink>
                 <Link
-                  className="flex items-center space-x-1   font-bold text-lg hover:text-indigo-600 transition duration-300 py-2 px-3"
+                  className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
                   to={routes.login}
                 >
                   <HiOutlineLogin className="h-6 w-6" />
                   <span>Login</span>
                 </Link>
                 <Link
-                  className="flex items-center space-x-1   font-bold text-lg hover:text-indigo-600 transition duration-300 py-2 px-3"
+                  className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
                   to={routes.signup}
                 >
                   <HiOutlineUserCircle className="h-6 w-6" />
                   <span>Register</span>
                 </Link>
-                <Link
-                  className="flex items-center space-x-1   font-bold text-lg hover:text-indigo-600 transition duration-300 py-2 px-3"
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
                   to={routes.cart}
                 >
                   <HiOutlineShoppingCart className="h-6 w-6" />
-                  <p>Cart</p>
-                </Link>
+                  <span>Cart</span>
+                </NavLink>
               </>
             )}
           </div>
