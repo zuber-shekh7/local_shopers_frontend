@@ -1,9 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import HomePage from "./pages/core/HomePage";
+import { HomePage, NotFoundPage } from "./pages/core";
 import { LoginPage, SignupPage, DashboardPage } from "./pages/users";
-import NotFoundPage from "./pages/core/NotFoundPage";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
