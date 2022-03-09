@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import routes from "../../utils/routes";
 import {
   HiOutlineFolderOpen,
@@ -9,14 +9,16 @@ import {
   HiOutlineStar,
 } from "react-icons/hi";
 
-const UserDashboardPage = ({ history }) => {
+const UserDashboardPage = () => {
   const { user } = useSelector((state) => state.userLogin);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      history.push(routes.login);
+      navigate(routes.login);
     }
-  }, [user, history]);
+  }, [user, navigate]);
 
   return (
     <main className="mt-10 z-10">
