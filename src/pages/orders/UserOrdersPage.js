@@ -19,21 +19,23 @@ const UserOrdersPage = () => {
   }, [user, dispatch]);
 
   return (
-    <main>
-      <section className="m-10 max-w-6xl mx-auto px-10">
+    <main className="container">
+      <section>
         <Breadcrumb
           links={[
             {
               name: "your account",
-              to: "/users/account",
+              to: routes.dashboard,
             },
             {
               name: "your orders",
-              to: "/users/orders",
+              to: routes.getOrder,
             },
           ]}
         />
-        <h1 className="text-4xl font-semibold mb-4">Your Orders</h1>
+        <h1>Your Orders</h1>
+        <hr />
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
         {!orders && loading && (
           <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
             {[...Array(6).fill(1, 6)].map((value, index) => {
@@ -44,14 +46,13 @@ const UserOrdersPage = () => {
                 >
                   <div className="animate-pulse flex space-x-4">
                     <div className="flex-1 space-y-3 py-1">
-                      <div className="h-2 bg-gray-500 rounded"></div>
+                      <div className="h-2 bg-gray-300 rounded"></div>
                       <div className="space-y-3">
                         <div className="grid grid-cols-1 gap-3">
-                          <div className="h-3 w-6/12 bg-gray-500 rounded col-span-1"></div>
-                          <div className="h-3 w-5/12 bg-gray-500 rounded col-span-1"></div>
-                          <div className="h-3 w-4/12 bg-gray-500 rounded col-span-1"></div>
+                          <div className="h-3 w-6/12 bg-gray-300 rounded col-span-1"></div>
+                          <div className="h-4 w-5/12 bg-gray-300 rounded col-span-1"></div>
+                          <div className="h-5 w-4/12 bg-gray-300 rounded col-span-1"></div>
                         </div>
-                        <div className="h-8 w-3/12 bg-gray-500 rounded-lg"></div>
                       </div>
                     </div>
                   </div>
@@ -66,9 +67,10 @@ const UserOrdersPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
                 {orders.map((order) => {
                   return (
-                    <div
+                    <Link
+                      to={`${routes.getOrder}${order._id}`}
                       key={order._id}
-                      className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg"
+                      className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-md"
                     >
                       <div className="mb-3">
                         <p className="text-xs uppercase mb-1">
@@ -82,13 +84,7 @@ const UserOrdersPage = () => {
                         <h4 className="font-bold">₹ {order.totalPrice}/-</h4>
                         <p className="">{order.status}</p>
                       </div>
-                      <Link
-                        className="bg-indigo-500 px-3 py-2 text-white rounded-lg"
-                        to={`${routes.getOrder}${order._id}`}
-                      >
-                        View
-                      </Link>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

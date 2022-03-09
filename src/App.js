@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage, NotFoundPage } from "./pages/core";
 import { LoginPage, SignupPage, DashboardPage } from "./pages/users";
+import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
@@ -25,6 +26,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <DashboardPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.getOrder}
+              element={
+                <PrivateRoute>
+                  <UserOrdersPage />
                 </PrivateRoute>
               }
             />
