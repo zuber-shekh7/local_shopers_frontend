@@ -29,7 +29,7 @@ const UserOrdersPage = () => {
             },
             {
               name: "your orders",
-              to: routes.getOrder,
+              to: routes.getOrders,
             },
           ]}
         />
@@ -68,7 +68,7 @@ const UserOrdersPage = () => {
                 {orders.map((order) => {
                   return (
                     <Link
-                      to={`${routes.getOrder}${order._id}`}
+                      to={`${routes.getOrders}${order._id}`}
                       key={order._id}
                       className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-md"
                     >

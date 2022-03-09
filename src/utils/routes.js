@@ -10,7 +10,8 @@ const routes = {
   editUserProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
   addAddress: "/users/addresses/new",
-  getOrder: "/users/orders/",
+  getOrders: "/users/orders/",
+  getOrder: "/users/orders/:orderId",
 };
 
 export default routes;

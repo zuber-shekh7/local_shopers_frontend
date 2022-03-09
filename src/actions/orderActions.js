@@ -71,7 +71,7 @@ const getUserOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_ORDER_REQUEST });
 
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
     const { data } = await backendAPI.get(`/orders/${id}`, {
       headers: {

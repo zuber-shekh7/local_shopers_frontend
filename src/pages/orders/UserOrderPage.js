@@ -2,106 +2,162 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import { getUserOrder } from "../../actions/orderActions";
+import { useParams } from "react-router-dom";
+import routes from "../../utils/routes";
 
-const UserOrderPage = ({ match }) => {
+const UserOrderPage = () => {
   const { loading, order, error } = useSelector((state) => state.getUserOrder);
 
-  const { order_id } = match.params;
+  const { orderId } = useParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserOrder(order_id));
-  }, [order_id, dispatch]);
+    dispatch(getUserOrder(orderId));
+  }, [orderId, dispatch]);
 
   return (
-    <main>
-      <section className="m-10 px-10 max-w-6xl mx-auto">
-        {order && (
-          <Breadcrumb
-            links={[
-              {
-                name: "your account",
-                to: "/users/account",
-              },
-              {
-                name: "your orders",
-                to: "/users/orders",
-              },
-              {
-                name: "order summary",
-                to: `/users/orders/${order._id}`,
-              },
-            ]}
-          />
-        )}
-        <div className="pb-5">
-          {order && (
-            <>
-              <p className="text-lg font-bold uppercase mb-3">
-                Order | {order._id} | {order.createdAt}
-              </p>
-              <section className="mb-3">
-                <h2 className="text-3xl font-semibold mb-3">Shipping</h2>
+    <main className="container">
+      <section>
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: routes.dashboard,
+            },
+            {
+              name: "your orders",
+              to: routes.getOrders,
+            },
+            {
+              name: "order summary",
+              to: `${routes.getOrders}${orderId}`,
+            },
+          ]}
+        />
+        <h1>Order Summary</h1>
+        <hr />
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
+        {loading && !order && (
+          <div className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg hover:bg-gray-100">
+            <div className="animate-pulse grid grid-cols-12">
+              <div className="col-span-12 md:col-span-6 sm:px-2">
+                <div className="h-4 sm:h-12 bg-gray-300 rounded-lg mb-3"></div>
                 <hr />
-                <p className="text-lg mb-3">
+                <div className="h-8 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+                <div className="h-4 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+                <div className="h-4 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+                <hr />
+                <div className="h-8 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+                <div className="h-4 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+              </div>
+              <div className="col-span-12 md:col-span-6 border-l sm:px-2">
+                <div className="h-8 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+                <hr />
+                <div className="flex justify-between mb-3">
+                  <div className="h-4 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+                  <div className="h-4 w-1/12 bg-gray-300 rounded-lg mb-3"></div>
+                </div>
+                <div>
+                  {[...Array(3).fill(1)].map((orderItem, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="grid grid-cols-12 items-center mb-3 gap-x-2"
+                      >
+                        <div
+                          className="col-span-2 bg-gray-300 h-12 rounded-lg"
+                          src={orderItem.image}
+                          alt={orderItem.name}
+                        ></div>
+                        <div className="col-span-10 flex justify-between">
+                          <div className="h-6 w-4/12 bg-gray-300 rounded-lg mb-3"></div>
+                          <div className="h-6 w-4/12 bg-gray-300 rounded-lg mb-3"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <hr className="mb-3" />
+                <div className="flex justify-between mb-3">
+                  <div className="h-4 w-4/12 bg-gray-300 rounded-lg mb-3"></div>
+                  <div className="h-4 w-1/12 bg-gray-300 rounded-lg mb-3"></div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <div className="h-8 w-2/12 bg-gray-300 rounded-lg mb-3"></div>
+                    <div className="h-8 w-4/12 bg-gray-300 rounded-lg mb-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {order && (
+          <div className="bg-gray-50 border rounded-xl px-4 py-3 shadow-md">
+            <div className="grid grid-cols-12">
+              <div className="col-span-12 md:col-span-6 sm:px-2">
+                <h2 className="uppercase">order | {order._id} </h2>
+                <hr />
+                <h3>Shipping</h3>
+                <p>
                   {order.shippingAddress.fullName}, {order.shippingAddress.city}
                   , {order.shippingAddress.state},{" "}
                   {order.shippingAddress.pincode}
                 </p>
-                <p className="text-lg">{order.shippingAddress.mobileNumber}</p>
-              </section>
-              <section className="mb-3">
-                <h2 className="text-3xl font-semibold mb-3">Payment</h2>
+                <p>Mobile: {order.shippingAddress.mobileNumber}</p>
                 <hr />
-                <p className="text-lg">{order.paymentMethod}</p>
-              </section>
-              <section>
-                <h2 className="text-3xl font-semibold mb-3">Order Items</h2>
+                <h3>Payment</h3>
+                <p>{order.paymentMethod}</p>
+              </div>
+              <div className="col-span-12 md:col-span-6 sm:border-l sm:px-2">
+                <h2>Order Items</h2>
                 <hr />
-                {order.orderItems.length > 0 && (
-                  <ul>
-                    {order.orderItems.map((item, index) => {
-                      return (
-                        <li key={index}>
-                          <div className="flex items-center space-x-4 my-3">
-                            <div>
-                              {item.image ? (
-                                <img
-                                  className="h-15 w-20 rounded-lg"
-                                  src={item.image}
-                                  alt={item.name}
-                                />
-                              ) : (
-                                <div className="h-50 w-50 p-4 bg-gray-500 rounded-lg">
-                                  <p className="text-white text-center">
-                                    Photo
-                                  </p>
-                                </div>
-                              )}
-                            </div>
-                            <h3 className="text-lg">{item.name}</h3>
-                            <h3 className="text-lg">
-                              {item.qty} * {item.price}/-
-                            </h3>
-                            <h3 className="text-lg font-bold">
-                              ₹ {item.price * item.qty}/-
-                            </h3>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </section>
-              <section className="mb-3">
-                <h2 className="text-3xl font-semibold mb-3">Order Status</h2>
-                <hr />
-                <p className="text-lg uppercase">{order.status}</p>
-              </section>
-            </>
-          )}
-        </div>
+                <div className="flex justify-between mb-3">
+                  <p className="font-semibold">Total items</p>
+                  <p>
+                    {order.orderItems.reduce((acc, item) => acc + item.qty, 0)}
+                  </p>
+                </div>
+                <div>
+                  {order.orderItems.map((orderItem) => {
+                    return (
+                      <div
+                        key={orderItem._id}
+                        className="grid grid-cols-12 gap-x-2 items-center mb-2 sm:mb-5"
+                      >
+                        <img
+                          className="col-span-2 object-cover rounded-lg"
+                          src={orderItem.image}
+                          alt={orderItem.name}
+                        />
+
+                        <div className="col-span-10 flex justify-between">
+                          <h3>{orderItem.name}</h3>
+                          <h3>₹ {orderItem.qty * orderItem.price}/-</h3>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <hr className="mb-3" />
+                <div className="flex justify-between mb-3">
+                  <p className="font-semibold">Shipping Charges</p>
+                  <p>₹ {order.shippingCharges}/-</p>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <p className="text-3xl font-semibold">Total</p>
+                    <p className="text-3xl font-semibold">
+                      ₹ {order.totalPrice}/-
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </main>
   );

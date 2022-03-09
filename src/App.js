@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage, NotFoundPage } from "./pages/core";
 import { LoginPage, SignupPage, DashboardPage } from "./pages/users";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
+import UserOrderPage from "./pages/orders/UserOrderPage";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
@@ -31,10 +32,18 @@ const App = () => {
             />
             <Route
               exact
-              path={routes.getOrder}
+              path={routes.getOrders}
               element={
                 <PrivateRoute>
                   <UserOrdersPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.getOrder}
+              element={
+                <PrivateRoute>
+                  <UserOrderPage />
                 </PrivateRoute>
               }
             />
