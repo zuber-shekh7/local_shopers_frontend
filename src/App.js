@@ -5,6 +5,7 @@ import HomePage from "./pages/core/HomePage";
 import SignupPage from "./pages/users/SignupPage";
 import LoginPage from "./pages/users/LoginPage";
 import DashboardPage from "./pages/users/DashboardPage";
+import NotFoundPage from "./pages/core/NotFoundPage";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
@@ -30,6 +31,7 @@ const App = () => {
                 </PrivateRoute>
               }
             />
+            <Route exact path={routes.notFound} element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Router>
