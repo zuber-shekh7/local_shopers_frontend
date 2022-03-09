@@ -15,28 +15,21 @@ const HomePage = () => {
   }, [user, navigate]);
 
   return (
-    <main>
-      {/* hero section */}
-      <section className="grid grid-cols-1">
-        <div className="grid-span-1 p-20 space-y-4 mx-auto text-center">
-          <h1 className="text-indigo-500 text-5xl md:text-7xl lg:text-9xl font-extrabold">
+    <main className="container">
+      <section className="flex justify-center">
+        <div className="mt-10 text-center">
+          <h1 className="display-1 text-darkBlue font-extrabold">
             Local Shoppers
           </h1>
-          <h4 className="text-xl md:text-3xl lg:text-5xl text-gray-600 mt-5">
+          <h4 className="text-xl text-darkBlue md:text-3xl lg:text-5xl mt-5 font-bold">
             Online Store For Locals, By Locals
           </h4>
-          <div className="flex space-x-2 justify-center">
-            <Link
-              to={routes.login}
-              className="inline-block py-3 px-4 text-xl hover:bg-indigo-400 bg-indigo-500 rounded-lg text-white shadow-lg"
-            >
-              Log In
-            </Link>
+          <div className="flex space-x-2 justify-center mt-5">
             <Link
               to={routes.signup}
-              className="inline-block py-3 px-4 text-xl hover:bg-indigo-400 bg-indigo-500 rounded-lg text-white shadow-lg"
+              className="btn bg-indigo-600 py-3 px-7 text-xl rounded-full hover:bg-indigo-700"
             >
-              Sign Up
+              Get Started
             </Link>
           </div>
         </div>
