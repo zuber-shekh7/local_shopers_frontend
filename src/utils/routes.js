@@ -6,6 +6,7 @@ const routes = {
   cart: "/cart",
   business: "/business/:businessId",
   categories: "/business/:businessId/categories/:categoryId",
+  getProduct: "/business/products/:productId",
   notFound: "*",
   dashboard: "/users/account",
   profile: "/users/profile",

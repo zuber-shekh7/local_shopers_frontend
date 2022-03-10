@@ -1,33 +1,75 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { HiChevronRight } from "react-icons/hi";
 import { getProduct } from "../../../actions/productActions";
+
 import routes from "../../../utils/routes";
 
-const UserProductPage = ({ match, history }) => {
+const UserProductPage = () => {
   const [quantity, setQuantity] = useState(1);
 
-  const { product_id } = match.params;
+  const { productId } = useParams();
 
   const { loading, product, error } = useSelector((state) => state.getProduct);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getProduct(product_id));
-  }, [product_id, dispatch]);
+    dispatch(getProduct(productId));
+  }, [productId, dispatch]);
 
   const addToCartHandler = () => {
-    history.push(`${routes.cart}/${product_id}?quantity=${quantity}`);
+    navigate(`${routes.cart}/${productId}?quantity=${quantity}`);
   };
 
   const addToWishListHandler = (id) => {
-    history.push(`/users/wishlist/${id}`);
+    navigate(`/users/wishlist/${id}`);
   };
 
   return (
-    <main>
-      <section className="m-10 px-10 max-w-6xl mx-auto">
+    <main className="container">
+      <section>
+        <div className="flex mb-3">
+          <div>
+            <button
+              onClick={() => navigate(-2)}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold capitalize">Business</span>
+              <span>
+                <HiChevronRight />
+              </span>
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold capitalize">Category</span>
+              <span>
+                <HiChevronRight />
+              </span>
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => {}}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1 text-indigo-600 hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold">
+                {product ? product.name : "Product"}
+              </span>
+            </button>
+          </div>
+        </div>
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !product && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10">
             <div className="animate-pulse col-span-6 p-10 ">
@@ -47,26 +89,23 @@ const UserProductPage = ({ match, history }) => {
         )}
       </section>
 
-      <section className="m-10 px-10 max-w-6xl mx-auto">
+      <section>
         {product && (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10">
-            <div className="col-span-6 p-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-5">
+            <div className="col-span-6">
               <div className="flex justify-center items-center">
                 <img
                   className="flex-1 h-max w-max  rounded-lg"
                   src={product.image}
                   alt={product.name}
                 />
-                <h2>h1h1</h2>
               </div>
             </div>
-            <div className="col-span-6 p-10">
+            <div className="col-span-6">
               <div>
-                <h2 className="text-4xl font-semibold mb-3">{product.name}</h2>
-                <h2 className="text-2xl text-indigo-500 mb-3">
-                  ₹ {product.price}/-
-                </h2>
-                <p className="text-lg mb-3">{product.description}</p>
+                <h2>{product.name}</h2>
+                <h2 className="text-indigo-600">₹ {product.price}/-</h2>
+                <p>{product.description}</p>
 
                 <div className="mb-3">
                   {product.quantity > 0 && (
@@ -89,7 +128,7 @@ const UserProductPage = ({ match, history }) => {
                   <div className="mb-3">
                     <button
                       onClick={() => addToWishListHandler(product._id)}
-                      className="block my-3 px-3 py-2 border text-indigo-500 border-indigo-500 rounded-lg w-full hover:bg-indigo-100"
+                      className="block my-3 px-3 py-2 border text-indigo-600 border-indigo-600 rounded-lg w-full hover:bg-indigo-100"
                       variant="warning"
                     >
                       Add to Wishlist
@@ -97,7 +136,7 @@ const UserProductPage = ({ match, history }) => {
 
                     {product.quantity > 0 ? (
                       <button
-                        className="px-3 py-2 bg-indigo-500 rounded-lg text-white w-full hover:bg-indigo-600"
+                        className="px-3 py-2 bg-indigo-600 rounded-lg text-white w-full hover:bg-indigo-700"
                         onClick={addToCartHandler}
                       >
                         Add to Cart
