@@ -88,13 +88,14 @@ const getAddress = (address_id) => async (dispatch) => {
   try {
     dispatch({ type: GET_ADDRESS_REQUEST });
 
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
     const { data } = await backendAPI.get(`/addresses/${address_id}`, {
       headers: {
         Authorization: token,
       },
     });
+
     const { address } = data;
 
     dispatch({ type: GET_ADDRESS_SUCCESS, payload: address });

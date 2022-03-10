@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  HiOutlineArrowSmLeft,
-  HiOutlinePencil,
-  HiOutlineTrash,
-} from "react-icons/hi";
-import { Link, Redirect } from "react-router-dom";
+import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { deleteAddress, getAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
 import Modal from "../../components/shared/Modal";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 
-const AddressPage = ({ match }) => {
+const AddressPage = () => {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -19,11 +15,11 @@ const AddressPage = ({ match }) => {
   const { loading, address, error } = useSelector((state) => state.getAddress);
   const { success } = useSelector((state) => state.deleteAddress);
 
-  const { address_id } = match.params;
+  const { addressId } = useParams();
 
   useEffect(() => {
-    dispatch(getAddress(address_id));
-  }, []);
+    dispatch(getAddress(addressId));
+  }, [addressId, dispatch]);
 
   const onDelete = (id) => {
     dispatch(deleteAddress(id));
@@ -31,29 +27,53 @@ const AddressPage = ({ match }) => {
   };
 
   if (success) {
-    return <Redirect to="/users/addresses" />;
+    return <Navigate to={routes.getAddresses} />;
   }
+
   return (
-    <main>
-      <section className="m-10 px-10 max-w-xl mx-auto">
+    <main className="container max-w-xl">
+      <section>
         <Breadcrumb
           links={[
             {
               name: "your account",
-              to: "/users/account",
+              to: routes.dashboard,
             },
             {
               name: "your addresses",
-              to: "/users/addresses",
+              to: routes.getAddresses,
             },
             {
               name: "address details",
-              to: address
-                ? `/users/addresses/${address._id}`
-                : "/users/addresses",
+              to: `${routes.getAddresses}/${addressId}`,
             },
           ]}
         />
+        <h1>Address Details</h1>
+        <hr />
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
+        {loading && !address && (
+          <div className="flex justify-center bg-gray-50 border border-gray-50 py-5 rounded-lg shadow-lg px-10">
+            <div className="animate-pulse flex-1">
+              <div className="flex justify-end mb-5">
+                <div className="flex items-center space-x-2">
+                  <div className="h-12 w-12 bg-gray-300 rounded-full"></div>
+                  <div className="h-12 w-12 bg-gray-300 rounded-full"></div>
+                </div>
+              </div>
+              <div>
+                {[...Array(8).fill(1)].map((value, index) => {
+                  return (
+                    <div key={index} className="flex justify-between mb-5">
+                      <div className="h-8 w-3/12 bg-gray-300 rounded-lg"></div>
+                      <div className="h-8 w-4/12 bg-gray-300 rounded-lg"></div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
         {address && (
           <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
             <Modal
@@ -65,17 +85,7 @@ const AddressPage = ({ match }) => {
               cta="Confirm Delete"
             />
             <div className="flex-1">
-              <div className="flex justify-between">
-                <div>
-                  <Link
-                    className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                    to={routes.getAddresses}
-                  >
-                    <span>
-                      <HiOutlineArrowSmLeft className="h-6 w-6" />
-                    </span>
-                  </Link>
-                </div>
+              <div className="flex justify-end">
                 <div className="flex items-center space-x-2">
                   <Link
                     className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"

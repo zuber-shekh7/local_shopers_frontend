@@ -9,6 +9,7 @@ const routes = {
   userProfile: "/users/profile",
   editUserProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
+  getAddress: "/users/addresses/:addressId",
   addAddress: "/users/addresses/new",
   getOrders: "/users/orders/",
   getOrder: "/users/orders/:orderId",
