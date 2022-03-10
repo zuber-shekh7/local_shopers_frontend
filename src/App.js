@@ -23,6 +23,7 @@ import {
 } from "./pages/addresses";
 import EditUserProfilePage from "./pages/users/EditProfilePage";
 import { BusinessPage } from "./pages/business";
+import UserCategoryPage from "./pages/categories/users/CategoryPage";
 
 const App = () => {
   return (
@@ -36,6 +37,11 @@ const App = () => {
           <Route element={<DefaultContainer />}>
             <Route exact path={routes.home} element={<HomePage />} />
             <Route exact path={routes.business} element={<BusinessPage />} />
+            <Route
+              exact
+              path={routes.categories}
+              element={<UserCategoryPage />}
+            />
             <Route
               exact
               path={routes.dashboard}

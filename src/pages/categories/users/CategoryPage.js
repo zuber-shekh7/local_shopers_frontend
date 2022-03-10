@@ -1,24 +1,52 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { HiChevronRight } from "react-icons/hi";
 import { getCategory } from "../../../actions/categoryActions";
 
 const UserCategoryPage = ({ match, history }) => {
-  const { category_id } = match.params;
+  const { categoryId } = useParams();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, category, error } = useSelector(
     (state) => state.getCategoryDetails
   );
-
+  console.log(error);
   useEffect(() => {
-    dispatch(getCategory(category_id));
-  }, [category_id, dispatch]);
+    dispatch(getCategory(categoryId));
+  }, [categoryId, dispatch]);
 
   return (
-    <main>
-      <section className="m-10 px-10 max-w-6xl mx-auto">
+    <main className="container">
+      <section>
+        <div className="flex mb-3">
+          <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold capitalize">Business</span>
+              <span>
+                <HiChevronRight />
+              </span>
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => {}}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1 text-indigo-600 hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold">
+                {category ? category.name : "Category"}
+              </span>
+            </button>
+          </div>
+        </div>
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !category && (
           <section className="flex justify-center ">
             <div className="animate-pulse flex-1 space-y-5">
@@ -48,9 +76,9 @@ const UserCategoryPage = ({ match, history }) => {
           </section>
         )}
         {category && (
-          <section className="flex justify-center ">
+          <section className="flex justify-center">
             <div>
-              <h1 className="text-4xl font-bold mb-3">{category.name}</h1>
+              <h1>{category.name}</h1>
               <hr />
               <div className="flex">
                 <form
@@ -66,7 +94,7 @@ const UserCategoryPage = ({ match, history }) => {
                       placeholder="Search product"
                     />
                     <button
-                      className=" col-span-4 md:col-span-2 py-2 px-3 bg-indigo-500 rounded-lg text-white text-lg hover:bg-indigo-600"
+                      className=" col-span-4 md:col-span-2 py-2 px-3 bg-indigo-600 rounded-lg text-white text-lg hover:bg-indigo-700"
                       type="submit"
                     >
                       Search
@@ -95,14 +123,12 @@ const UserCategoryPage = ({ match, history }) => {
                                   />
                                 </Link>
                               </div>
-                              <div className="flex justify-center items-center flex-col mt-5 pb-5  space-y-3">
-                                <h3 className="text-4xl font-semibold">
-                                  {product.name}
-                                </h3>
-                                <p className="text-lg">{product.description}</p>
-                                <div className="mt-">
+                              <div className="flex justify-center items-center flex-col p-5">
+                                <h2>{product.name}</h2>
+                                <p className="mb-5">{product.description}</p>
+                                <div>
                                   <Link
-                                    className="text-center w-4/12 px-3 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
+                                    className="text-center px-3 py-3 text-lg bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
                                     to={`/business/products/${product._id}`}
                                   >
                                     Shop Now
