@@ -193,7 +193,7 @@ const AddAddressPage = () => {
               />
             </div>
             <div className="mb-5">
-              <button className="w-full bg-indigo-500 text-white rounded-lg py-2 text-lg hover:bg-indigo-400">
+              <button className="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg hover:bg-indigo-700">
                 Save
               </button>
             </div>

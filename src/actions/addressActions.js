@@ -155,7 +155,7 @@ const deleteAddress = (address_id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ADDRESS_REQUEST });
 
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
     await backendAPI.delete(`/addresses/${address_id}`, {
       headers: {
