@@ -10,7 +10,7 @@ import DefaultContainer from "./components/containers/DefaultContainer";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import CartPage from "./pages/cart/CartPage";
 import WishListPage from "./pages/wishlist/WishListPage";
-import { AddressesPage, AddressPage } from "./pages/addresses";
+import { AddressesPage, AddressPage, AddAddressPage } from "./pages/addresses";
 
 const App = () => {
   return (
@@ -72,6 +72,14 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <AddressPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.addAddress}
+              element={
+                <PrivateRoute>
+                  <AddAddressPage />
                 </PrivateRoute>
               }
             />
