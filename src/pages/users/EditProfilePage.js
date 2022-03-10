@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { Navigate, useNavigate } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
 import routes from "../../utils/routes";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 
-const EditUserProfilePage = ({ history }) => {
+const EditUserProfilePage = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.getUser);
 
   const {
     loading,
-    error,
     user: updatedUser,
+    error,
   } = useSelector((state) => state.updateUser);
 
   const handleSubmit = (e) => {
@@ -31,13 +31,10 @@ const EditUserProfilePage = ({ history }) => {
       user.lastName === lastName &&
       user.mobile === mobile
     ) {
-      history.goBack();
-      return;
+      navigate(-1);
     }
 
     dispatch(updateUser(email, mobile, firstName, lastName, user._id));
-
-    setMessage("");
   };
 
   useEffect(() => {
@@ -52,26 +49,33 @@ const EditUserProfilePage = ({ history }) => {
   }, [user, dispatch]);
 
   if (updatedUser) {
-    return <Redirect to="/users/profile" />;
+    return <Navigate to={routes.profile} />;
   }
 
   return (
-    <main>
-      <section className="m-10 max-w-xl mx-auto px-10">
-        <h1 className="text-4xl font-semibold mb-4">Edit your profile</h1>
-        <div className="flex  justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
-          <form className="flex-1" onSubmit={handleSubmit}>
-            <div className="flex justify-between">
-              <Link
-                className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                to={routes.userProfile}
-              >
-                <span>
-                  <HiOutlineArrowSmLeft className="h-6 w-6" />
-                </span>
-              </Link>
-            </div>
-            <div className="mb-3">
+    <main className="container max-w-lg">
+      <section>
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: routes.dashboard,
+            },
+            {
+              name: "your profile",
+              to: routes.profile,
+            },
+            {
+              name: "edit profile",
+              to: routes.editProfile,
+            },
+          ]}
+        />
+        <h1>Edit your profile</h1>
+        <hr />
+        <div className="flex justify-center bg-gray-50 border rounded-lg shadow-lg">
+          <form className="flex-1 p-5" onSubmit={handleSubmit}>
+            <div className="mb-5">
               <label className="block" htmlFor="firstName">
                 First Name
               </label>
@@ -85,7 +89,7 @@ const EditUserProfilePage = ({ history }) => {
                 required
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-5">
               <label className="block" htmlFor="lastName">
                 Last Name
               </label>
@@ -99,7 +103,7 @@ const EditUserProfilePage = ({ history }) => {
                 required
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-5">
               <label className="block" htmlFor="email">
                 Email
               </label>
@@ -113,7 +117,7 @@ const EditUserProfilePage = ({ history }) => {
                 required
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-5">
               <label className="block" htmlFor="mobile">
                 Mobile
               </label>
@@ -127,10 +131,14 @@ const EditUserProfilePage = ({ history }) => {
                 required
               />
             </div>
-            <div className="mb-3">
-              <button className="w-full bg-indigo-500 text-white rounded-lg py-2 text-lg hover:bg-indigo-400">
+            <div className="mb-5">
+              <button className="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg hover:bg-indigo-700">
                 Save
               </button>
+            </div>
+            <div className="text-center">
+              {loading && <p>Updating profile...</p>}
+              {error && !loading && <p className="text-red-500">{error}</p>}
             </div>
           </form>
         </div>

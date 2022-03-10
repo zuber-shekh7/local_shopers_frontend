@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { HiOutlineArrowSmLeft, HiOutlinePencil } from "react-icons/hi";
+import { HiOutlinePencil } from "react-icons/hi";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import { getUser } from "../../actions/userActions";
 import routes from "../../utils/routes";
@@ -58,7 +58,7 @@ const UserProfilePage = () => {
               <div className="flex justify-end">
                 <Link
                   className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                  to={routes.editUserProfile}
+                  to={routes.editProfile}
                 >
                   <span>
                     <HiOutlinePencil className="h-6 w-6" />

@@ -7,7 +7,7 @@ const routes = {
   notFound: "*",
   dashboard: "/users/account",
   profile: "/users/profile",
-  editUserProfile: "/users/profile/edit",
+  editProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
   getAddress: "/users/addresses/:addressId",
   addAddress: "/users/addresses/new",

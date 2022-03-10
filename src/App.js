@@ -21,6 +21,7 @@ import {
   AddAddressPage,
   EditAddressPage,
 } from "./pages/addresses";
+import EditUserProfilePage from "./pages/users/EditProfilePage";
 
 const App = () => {
   return (
@@ -48,6 +49,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <ProfilePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.editProfile}
+              element={
+                <PrivateRoute>
+                  <EditUserProfilePage />
                 </PrivateRoute>
               }
             />
