@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply text-darkBlue;
+  }
   h1 {
     @apply text-2xl md:text-3xl lg:text-4xl font-semibold mb-3;
   }

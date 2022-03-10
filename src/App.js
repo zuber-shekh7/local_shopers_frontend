@@ -10,6 +10,7 @@ import DefaultContainer from "./components/containers/DefaultContainer";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import CartPage from "./pages/cart/CartPage";
 import WishListPage from "./pages/wishlist/WishListPage";
+import { AddressesPage } from "./pages/addresses";
 
 const App = () => {
   return (
@@ -54,6 +55,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <WishListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.getAddresses}
+              element={
+                <PrivateRoute>
+                  <AddressesPage />
                 </PrivateRoute>
               }
             />
