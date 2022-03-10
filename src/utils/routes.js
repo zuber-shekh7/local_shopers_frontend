@@ -11,6 +11,7 @@ const routes = {
   getAddresses: "/users/addresses",
   getAddress: "/users/addresses/:addressId",
   addAddress: "/users/addresses/new",
+  editAddress: "/users/addresses/:addressId/edit",
   getOrders: "/users/orders/",
   getOrder: "/users/orders/:orderId",
   wishList: "/users/wishlist",

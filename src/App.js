@@ -10,7 +10,12 @@ import DefaultContainer from "./components/containers/DefaultContainer";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import CartPage from "./pages/cart/CartPage";
 import WishListPage from "./pages/wishlist/WishListPage";
-import { AddressesPage, AddressPage, AddAddressPage } from "./pages/addresses";
+import {
+  AddressesPage,
+  AddressPage,
+  AddAddressPage,
+  EditAddressPage,
+} from "./pages/addresses";
 
 const App = () => {
   return (
@@ -76,10 +81,19 @@ const App = () => {
               }
             />
             <Route
+              exact
               path={routes.addAddress}
               element={
                 <PrivateRoute>
                   <AddAddressPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.editAddress}
+              element={
+                <PrivateRoute>
+                  <EditAddressPage />
                 </PrivateRoute>
               }
             />
