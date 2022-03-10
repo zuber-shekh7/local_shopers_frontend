@@ -135,7 +135,8 @@ const App = () => {
                 </PrivateRoute>
               }
             />
-            <Route exact path={routes.cart} element={<CartPage />} />
+            <Route path={routes.cart} element={<CartPage />} />
+            <Route path={`${routes.cart}/:productId`} element={<CartPage />} />
             <Route exact path={routes.notFound} element={<NotFoundPage />} />
           </Route>
         </Routes>
