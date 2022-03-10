@@ -1,26 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getBusiness } from "../../actions/businessActions";
 import { saveBusiness } from "../../actions/cartActions";
 
-const BusinessPage = ({ match }) => {
+const BusinessPage = () => {
   const dispatch = useDispatch();
 
   const { loading, business, error } = useSelector(
     (state) => state.getBusiness
   );
 
-  const { business_id } = match.params;
+  const { businessId } = useParams();
 
   useEffect(() => {
-    dispatch(getBusiness(business_id));
-    dispatch(saveBusiness(business_id));
-  }, [business_id, dispatch]);
+    dispatch(getBusiness(businessId));
+    dispatch(saveBusiness(businessId));
+  }, [businessId, dispatch]);
 
   return (
-    <main>
-      <section className="m-10 px-10 max-w-6xl mx-auto">
+    <main className="container">
+      <section>
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !business && (
           <section className="flex justify-center ">
             <div className="animate-pulse flex-1 space-y-5">
@@ -58,18 +59,14 @@ const BusinessPage = ({ match }) => {
                 alt={business.name}
               />
               <div className="text-center">
-                <h1 className="text-center text-4xl font-bold mb-3">
-                  {business.name}
-                </h1>
-                <p className="text-lg mb-3">{business.description}</p>
-                <p className="text-lg font-semibold">
-                  &bull; {business.category.name} &bull;
-                </p>
+                <h1>{business.name}</h1>
+                <p>{business.description}</p>
+                <p>&bull; {business.category.name} &bull;</p>
               </div>
 
               <div>
-                <h2 className="text-3xl font-semibold mb-3">Categories</h2>
-                <hr className="mb-3" />
+                <h2>Categories</h2>
+                <hr />
                 {business.categories && (
                   <>
                     {business.categories.length > 0 ? (
@@ -81,7 +78,7 @@ const BusinessPage = ({ match }) => {
                               to={`/business/${business._id}/categories/${category._id}`}
                             >
                               <div
-                                className="grid h-64 grid-cols-1 rounded-lg mb-3 overflow-hidden shadow-md hover:opacity-80"
+                                className="grid h-64 grid-cols-1 rounded-lg mb-3 overflow-hidden shadow-md hover:opacity-90 hover:text-indigo-700 transition duration-500"
                                 style={{
                                   backgroundImage: `url(${category.image})`,
                                   backgroundSize: "cover",
@@ -89,7 +86,7 @@ const BusinessPage = ({ match }) => {
                                 }}
                               >
                                 <div className="flex justify-center items-center">
-                                  <h3 className="text-indigo-500 px-3 py-2 bg-white  rounded-lg text-2xl sm:text-4xl md:text-6xl font-semibold">
+                                  <h3 className="text-indigo-600 px-3 py-2 bg-white  rounded-lg text-2xl sm:text-4xl md:text-6xl font-semibold">
                                     {category.name}
                                   </h3>
                                 </div>

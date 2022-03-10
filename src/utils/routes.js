@@ -4,6 +4,7 @@ const routes = {
   login: "/login",
   signup: "/signup",
   cart: "/cart",
+  business: "/business/:businessId",
   notFound: "*",
   dashboard: "/users/account",
   profile: "/users/profile",
