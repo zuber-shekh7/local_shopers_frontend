@@ -16,34 +16,46 @@ const UserProfilePage = () => {
   }, [dispatch]);
 
   return (
-    <main>
-      <section className="m-10 max-w-xl mx-auto grid grid-cols-1 px-10">
+    <main className="container max-w-lg">
+      <section>
         <Breadcrumb
           links={[
             {
               name: "your account",
-              to: "/users/account",
+              to: routes.dashboard,
             },
             {
               name: "your profile",
-              to: "/users/profile",
+              to: routes.profile,
             },
           ]}
         />
+        <h1>Your Profile</h1>
+        <hr />
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
+        {loading && !user && (
+          <div className="flex justify-center">
+            <div className="animate-pulse flex-1 bg-gray-50 border  px-10 py-5 rounded-lg shadow-lg ">
+              <div className="flex justify-end">
+                <div className="h-12 w-12 bg-gray-300 rounded-full mb-5"></div>
+              </div>
+              <div>
+                {[...Array(5).fill(1)].map((value, index) => {
+                  return (
+                    <div key={index} className="flex justify-between mb-5">
+                      <div className="h-8 w-3/12 bg-gray-300 rounded-lg"></div>
+                      <div className="h-8 w-4/12 bg-gray-300 rounded-lg"></div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
         {user && (
-          <div>
-            <h1 className="text-4xl font-semibold mb-4">Your Profile</h1>
-
-            <div className="bg-gray-50 border-2 border-gray-50 px-10 py-5 rounded-lg shadow-lg">
-              <div className="flex justify-between">
-                <Link
-                  className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                  to={routes.dashboard}
-                >
-                  <span>
-                    <HiOutlineArrowSmLeft className="h-6 w-6" />
-                  </span>
-                </Link>
+          <div className="flex justify-center">
+            <div className="flex-1 bg-gray-50 border  px-10 py-5 rounded-lg shadow-lg">
+              <div className="flex justify-end">
                 <Link
                   className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
                   to={routes.editUserProfile}

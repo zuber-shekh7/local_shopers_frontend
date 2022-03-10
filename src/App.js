@@ -1,7 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage, NotFoundPage } from "./pages/core";
-import { LoginPage, SignupPage, DashboardPage } from "./pages/users";
+import {
+  LoginPage,
+  SignupPage,
+  DashboardPage,
+  ProfilePage,
+} from "./pages/users";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
 import routes from "./utils/routes";
@@ -34,6 +39,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <DashboardPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.profile}
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
                 </PrivateRoute>
               }
             />

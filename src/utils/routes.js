@@ -6,7 +6,7 @@ const routes = {
   cart: "/cart",
   notFound: "*",
   dashboard: "/users/account",
-  userProfile: "/users/profile",
+  profile: "/users/profile",
   editUserProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
   getAddress: "/users/addresses/:addressId",
