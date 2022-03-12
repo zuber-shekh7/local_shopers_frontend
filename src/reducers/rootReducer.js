@@ -61,7 +61,11 @@ import {
   userLoginReducer,
   userSignupReducer,
 } from "./userReducers";
-import { wishListReducer } from "./wishListReducers";
+import {
+  addToWishlistReducer,
+  getWishlistReducer,
+  removeFromWishlistReducer,
+} from "./wishListReducers";
 
 const initialState = {
   userLogin: {
@@ -103,7 +107,9 @@ const initialState = {
   createBusiness: { success: null },
   getBusiness: { business: null },
   editBusiness: { business: null },
-  wishList: { wishList: null },
+  getWishlist: { wishlist: null },
+  addToWishlist: { wishlist: null },
+  removeFromWishlist: { wishlist: null },
   getAddresses: { addresses: null },
   getAddress: { address: null },
   createAddress: { address: null },
@@ -164,7 +170,9 @@ const rootReducer = combineReducers({
   createBusiness: createBusinessReducer,
   getBusiness: getBusinessReducer,
   editBusiness: editBusinessReducer,
-  wishList: wishListReducer,
+  getWishlist: getWishlistReducer,
+  addToWishlist: addToWishlistReducer,
+  removeFromWishlist: removeFromWishlistReducer,
   getAddresses: getAddressesReducer,
   getAddress: getAddressReducer,
   createAddress: createAddressReducer,

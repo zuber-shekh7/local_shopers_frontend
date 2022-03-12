@@ -11,13 +11,13 @@ import {
   REMOVE_FROM_WISHLIST_SUCCESS,
 } from "../constants/wishListConstants";
 
-const getWishList = (user_id) => async (dispatch) => {
+const getWishList = (userId) => async (dispatch) => {
   try {
     dispatch({ type: GET_WISHLIST_REQUEST });
 
     const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
-    const { data } = await backendAPI.get(`/wishlists/?user_id=${user_id}`, {
+    const { data } = await backendAPI.get(`/wishlists/?userId=${userId}`, {
       headers: {
         Authorization: token,
       },
@@ -31,17 +31,17 @@ const getWishList = (user_id) => async (dispatch) => {
   }
 };
 
-const addToWishList = (wish_list_id, product_id) => async (dispatch) => {
+const addToWishList = (wishlistId, productId) => async (dispatch) => {
   try {
     dispatch({ type: ADD_TO_WISHLIST_REQUEST });
 
-    const { user, token } = JSON.parse(localStorage.getItem("userInfo"));
+    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
     await backendAPI.post(
       `/wishlists/`,
       {
-        wish_list_id,
-        product_id,
+        wishlistId,
+        productId,
       },
       {
         headers: {
@@ -51,31 +51,31 @@ const addToWishList = (wish_list_id, product_id) => async (dispatch) => {
     );
 
     dispatch({ type: ADD_TO_WISHLIST_SUCCESS, payload: true });
-    dispatch(getWishList(user._id));
+    dispatch({ type: ADD_TO_WISHLIST_SUCCESS, payload: null });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: ADD_TO_WISHLIST_FAIL, payload: error });
   }
 };
 
-const removeFromWishList = (wish_list_id, product_id) => async (dispatch) => {
+const removeFromWishList = (wishlistId, productId) => async (dispatch) => {
   try {
     dispatch({ type: REMOVE_FROM_WISHLIST_REQUEST });
 
-    const { user, token } = JSON.parse(localStorage.getItem("userInfo"));
+    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
     await backendAPI.delete(`/wishlists/`, {
       headers: {
         Authorization: token,
       },
       data: {
-        wish_list_id,
-        product_id,
+        wishlistId,
+        productId,
       },
     });
 
     dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, payload: true });
-    dispatch(getWishList(user._id));
+    dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, payload: null });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: REMOVE_FROM_WISHLIST_FAIL, payload: error });

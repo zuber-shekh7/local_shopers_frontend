@@ -102,6 +102,14 @@ const App = () => {
               }
             />
             <Route
+              path={`${routes.wishList}/:productId`}
+              element={
+                <PrivateRoute>
+                  <WishListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
               exact
               path={routes.getAddresses}
               element={
