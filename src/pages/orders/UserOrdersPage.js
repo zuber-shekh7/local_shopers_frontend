@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -37,24 +38,16 @@ const UserOrdersPage = () => {
         <hr />
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {!orders && loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-y-5">
             {[...Array(6).fill(1, 6)].map((value, index) => {
               return (
                 <div
                   key={index + 1}
-                  className="border border-gray-300 shadow-lg rounded-lg p-4 md:max-w-sm w-full mx-auto"
+                  className="border rounded-lg w-full mx-auto overflow-hidden"
                 >
-                  <div className="animate-pulse flex space-x-4">
-                    <div className="flex-1 space-y-3 py-1">
-                      <div className="h-2 bg-gray-300 rounded"></div>
-                      <div className="space-y-3">
-                        <div className="grid grid-cols-1 gap-3">
-                          <div className="h-3 w-6/12 bg-gray-300 rounded col-span-1"></div>
-                          <div className="h-4 w-5/12 bg-gray-300 rounded col-span-1"></div>
-                          <div className="h-5 w-4/12 bg-gray-300 rounded col-span-1"></div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="animate-pulse flex flex-col">
+                    <div className="h-24 bg-gray-300"></div>
+                    <div className="h-32"></div>
                   </div>
                 </div>
               );
@@ -64,27 +57,70 @@ const UserOrdersPage = () => {
         {orders && (
           <>
             {orders.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 gap-y-5">
                 {orders.map((order) => {
                   return (
-                    <Link
-                      to={`${routes.getOrders}${order._id}`}
+                    <div
                       key={order._id}
-                      className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-md"
+                      className="flex flex-col border rounded-lg overflow-hidden"
                     >
-                      <div className="mb-3">
-                        <p className="text-xs uppercase mb-1">
-                          ORDER | {order._id}
-                        </p>
-                        {order.orderItems && (
-                          <h5 className="text-lg font-bold">
-                            Total {order.orderItems.length} items
-                          </h5>
-                        )}
-                        <h4 className="font-bold">₹ {order.totalPrice}/-</h4>
-                        <p className="">{order.status}</p>
+                      <div className="bg-lightBlue px-5 py-3">
+                        <div className="flex justify-between">
+                          <div>
+                            <p className="uppercase">order placed</p>
+                            <p>
+                              {moment(order.createdAt).format("Do MMMM YYYY")}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="uppercase">total</p>
+                            <p>&#8377; {order.totalPrice}</p>
+                          </div>
+                          <div>
+                            <p className="uppercase">ship to</p>
+                            <p>{order.shippingAddress.fullName}</p>
+                          </div>
+
+                          <div className="flex flex-col gap-y-3">
+                            <p className="uppercase mb-1">
+                              ORDER # {order._id}
+                            </p>
+                            <Link
+                              className="text-darkBlue hover:text-indigo-600 hover:underline"
+                              to={`${routes.getOrders}${order._id}`}
+                            >
+                              View order details
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                    </Link>
+                      <div className="px-5 py-3">
+                        <div className="flex justify-between">
+                          <Link to="" className="flex gap-x-5">
+                            <img
+                              className="h-24 rounded-lg"
+                              src={order.orderItems[0].image}
+                              alt={order.orderItems[0].name}
+                            />
+                            <h4>{order.orderItems[0].name}</h4>
+                          </Link>
+                          <div className="flex flex-col gap-y-3">
+                            <Link
+                              className="text-center px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                              to=""
+                            >
+                              Track package
+                            </Link>
+                            <Link
+                              className="text-center px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                              to=""
+                            >
+                              Write a product review
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   );
                 })}
               </div>

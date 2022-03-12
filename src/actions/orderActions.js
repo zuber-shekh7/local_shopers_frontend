@@ -45,7 +45,7 @@ const createOrder = (orderData) => async (dispatch) => {
   }
 };
 
-const getUserOrders = (user_id) => async (dispatch) => {
+const getUserOrders = (userId) => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_ORDERS_REQUEST });
 
@@ -55,7 +55,7 @@ const getUserOrders = (user_id) => async (dispatch) => {
       headers: {
         Authorization: token,
       },
-      params: { user_id },
+      params: { userId },
     });
 
     const { orders } = data;
