@@ -30,7 +30,7 @@ const Footer = () => {
             <Link className="block" to={routes.home}>
               Terms of Service
             </Link>
-            <Link className="block" to={routes.home}>
+            <Link className="block" to={routes.contact}>
               Contact Us
             </Link>
             <Link className="block" to={routes.home}>

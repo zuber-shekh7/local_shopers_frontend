@@ -3,6 +3,7 @@ const routes = {
   about: "/about",
   login: "/login",
   signup: "/signup",
+  contact: "/contact-us",
   cart: "/cart",
   business: "/business/:businessId",
   categories: "/business/:businessId/categories/:categoryId",

@@ -1,6 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { HomePage, NotFoundPage } from "./pages/core";
+import {
+  AboutUsPage,
+  ContactUsPage,
+  HomePage,
+  NotFoundPage,
+} from "./pages/core";
 import {
   LoginPage,
   SignupPage,
@@ -38,6 +43,8 @@ const App = () => {
           <Route element={<DefaultContainer />}>
             <Route exact path={routes.home} element={<HomePage />} />
             <Route exact path={routes.business} element={<BusinessPage />} />
+            <Route exact path={routes.contact} element={<ContactUsPage />} />
+            <Route exact path={routes.about} element={<AboutUsPage />} />
             <Route
               exact
               path={routes.getProduct}
