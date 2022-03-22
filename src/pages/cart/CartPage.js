@@ -10,7 +10,7 @@ const CartPage = () => {
 
   const location = useLocation();
   const quantity = location.search ? Number(location.search.split("=")[1]) : 1;
-  console.log(location, quantity, productId);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

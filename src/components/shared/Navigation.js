@@ -21,6 +21,10 @@ const Navigation = () => {
 
   const { user } = useSelector((state) => state.userLogin);
 
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const noCartItems = cartItems.length;
+
   const handleUserLogout = () => {
     dispatch(userLogout());
   };
@@ -79,6 +83,13 @@ const Navigation = () => {
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
+                {noCartItems > 0 && (
+                  <span>
+                    <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                      {noCartItems}
+                    </sup>
+                  </span>
+                )}
               </NavLink>
               <button
                 className="flex items-center space-x-1 py-2 px-5 text-white  bg-indigo-600 rounded-full  text-lg hover:bg-indigo-700 transition duration-300"
@@ -122,6 +133,13 @@ const Navigation = () => {
                 to={routes.cart}
               >
                 <HiOutlineShoppingCart className="h-6 w-6" />
+                {noCartItems > 0 && (
+                  <span>
+                    <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                      {noCartItems}
+                    </sup>
+                  </span>
+                )}
               </NavLink>
             </>
           )}
@@ -152,6 +170,13 @@ const Navigation = () => {
                 >
                   <HiOutlineShoppingCart className="h-6 w-6" />
                   <span>Cart</span>
+                  {noCartItems > 0 && (
+                    <span>
+                      <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                        {noCartItems}
+                      </sup>
+                    </span>
+                  )}
                 </NavLink>
                 <button
                   className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
@@ -196,6 +221,13 @@ const Navigation = () => {
                 >
                   <HiOutlineShoppingCart className="h-6 w-6" />
                   <span>Cart</span>
+                  {noCartItems > 0 && (
+                    <span>
+                      <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                        {noCartItems}
+                      </sup>
+                    </span>
+                  )}
                 </NavLink>
               </>
             )}
