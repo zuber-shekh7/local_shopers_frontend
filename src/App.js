@@ -30,6 +30,9 @@ import EditUserProfilePage from "./pages/users/EditProfilePage";
 import { BusinessPage } from "./pages/business";
 import UserCategoryPage from "./pages/categories/users/CategoryPage";
 import UserProductPage from "./pages/products/users/ProductPage";
+import PrivacyPolicyPage from "./pages/core/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/core/TermsOfServicePage";
+import FAQPage from "./pages/core/FAQPage";
 
 const App = () => {
   return (
@@ -45,6 +48,17 @@ const App = () => {
             <Route exact path={routes.business} element={<BusinessPage />} />
             <Route exact path={routes.contact} element={<ContactUsPage />} />
             <Route exact path={routes.about} element={<AboutUsPage />} />
+            <Route exact path={routes.faq} element={<FAQPage />} />
+            <Route
+              exact
+              path={routes.termsOfService}
+              element={<TermsOfServicePage />}
+            />
+            <Route
+              exact
+              path={routes.privacyPolicy}
+              element={<PrivacyPolicyPage />}
+            />
             <Route
               exact
               path={routes.getProduct}
