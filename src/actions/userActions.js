@@ -52,9 +52,11 @@ const userSignup = (user) => async (dispatch) => {
   }
 };
 
-const userLogout = () => (dispatch) => {
+const userLogout = () => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGOUT_REQUEST });
+
+    await backendAPI.get("/users/logout");
 
     localStorage.clear();
 
