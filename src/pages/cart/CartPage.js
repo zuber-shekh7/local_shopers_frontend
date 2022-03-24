@@ -18,7 +18,6 @@ const CartPage = () => {
 
   useEffect(() => {
     if (productId) {
-      console.log(productId, quantity);
       dispatch(addToCart(productId, quantity));
     }
   }, [productId, quantity, dispatch]);

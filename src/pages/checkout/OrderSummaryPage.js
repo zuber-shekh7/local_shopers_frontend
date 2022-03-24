@@ -32,7 +32,6 @@ const OrderSummaryPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const handlePlaceOrder = () => {
-    console.log("placed order");
     dispatch(
       createOrder({
         user_id: user._id,

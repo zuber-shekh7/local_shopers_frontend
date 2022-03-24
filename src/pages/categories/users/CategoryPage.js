@@ -13,7 +13,7 @@ const UserCategoryPage = ({ match, history }) => {
   const { loading, category, error } = useSelector(
     (state) => state.getCategoryDetails
   );
-  console.log(error);
+
   useEffect(() => {
     dispatch(getCategory(categoryId));
   }, [categoryId, dispatch]);
