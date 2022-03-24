@@ -11,6 +11,7 @@ import {
   SignupPage,
   DashboardPage,
   ProfilePage,
+  ChangePasswordPage,
 } from "./pages/users";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
@@ -75,6 +76,15 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <DashboardPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.changePassword}
+              element={
+                <PrivateRoute>
+                  <ChangePasswordPage />
                 </PrivateRoute>
               }
             />

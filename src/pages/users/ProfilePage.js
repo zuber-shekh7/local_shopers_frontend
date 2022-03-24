@@ -90,6 +90,17 @@ const UserProfilePage = () => {
                     <p className="">{user.mobile ? user.mobile : "N/A"}</p>
                   </div>
                 </li>
+                <li>
+                  <Link
+                    to={routes.changePassword}
+                    className="flex items-center justify-between mb-3 text-indigo-600 hover:underline hover:underline-offset-1"
+                  >
+                    <h4 className="font-semibold">Change Password</h4>
+                    <span>
+                      <HiOutlinePencil className="h-4 w-4" />
+                    </span>
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

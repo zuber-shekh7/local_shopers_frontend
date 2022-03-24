@@ -18,6 +18,9 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
+  USER_CHANGE_PASSWORD_REQUEST,
+  USER_CHANGE_PASSWORD_SUCCESS,
+  USER_CHANGE_PASSWORD_FAIL,
 } from "../constants/userConstants";
 
 const userLogin = (email, password) => async (dispatch) => {
@@ -128,6 +131,25 @@ const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
   }
 };
 
+const changePassword = (oldPassword, newPassword) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_CHANGE_PASSWORD_REQUEST });
+
+    await backendAPI.post("/users/change-password", {
+      oldPassword,
+      newPassword,
+    });
+
+    dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: true });
+    setTimeout(() => {
+      dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: null });
+    }, 5000);
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: USER_CHANGE_PASSWORD_FAIL, payload: error });
+  }
+};
+
 export {
   userLogin,
   userSignup,
@@ -135,4 +157,5 @@ export {
   getUser,
   updateUser,
   userLoginWithGoogle,
+  changePassword,
 };

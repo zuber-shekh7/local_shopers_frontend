@@ -22,6 +22,7 @@ const routes = {
   getOrders: "/users/orders/",
   getOrder: "/users/orders/:orderId",
   wishList: "/users/wishlist",
+  changePassword: "/users/change-password",
 };
 
 export default routes;
