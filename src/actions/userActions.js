@@ -1,5 +1,4 @@
 import backendAPI from "../apis/backendAPI";
-import userAPI from "../apis/userAPI";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_SUCCESS,
@@ -25,7 +24,7 @@ const userLogin = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
-    const { data } = await userAPI.post("/login", { email, password });
+    const { data } = await backendAPI.post("/users/login", { email, password });
     const { token, user } = data;
 
     localStorage.setItem("user", JSON.stringify(user));
@@ -42,7 +41,7 @@ const userSignup = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_SIGNUP_REQUEST });
 
-    await userAPI.post("/signup", { ...user });
+    await backendAPI.post("/users/signup", { ...user });
 
     dispatch(userLogin(user.email, user.password));
 
@@ -91,8 +90,8 @@ const updateUser =
 
       const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
-      const { data } = await userAPI.put(
-        `/${user_id}`,
+      const { data } = await backendAPI.put(
+        `/users/${user_id}`,
         { email, mobile, firstName, lastName },
         {
           headers: { Authorization: token },
@@ -112,7 +111,7 @@ const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_WITH_GOOGLE_REQUEST });
 
-    const { data } = await userAPI.post("/login/google", {
+    const { data } = await backendAPI.post("/users/login/google", {
       token: googleAuthToken,
     });
     const { token, user } = data;
