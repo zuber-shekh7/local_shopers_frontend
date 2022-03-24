@@ -86,14 +86,14 @@ const getUser = () => async (dispatch) => {
 };
 
 const updateUser =
-  (email, mobile, firstName, lastName, user_id) => async (dispatch) => {
+  (email, mobile, firstName, lastName, userId) => async (dispatch) => {
     try {
       dispatch({ type: UPDATE_USER_REQUEST });
 
       const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
       const { data } = await backendAPI.put(
-        `/users/${user_id}`,
+        `/users/${userId}`,
         { email, mobile, firstName, lastName },
         {
           headers: { Authorization: token },

@@ -27,8 +27,8 @@ const EditUserProfilePage = () => {
 
     if (
       user.email === email &&
-      user.firstName === firstName &&
-      user.lastName === lastName &&
+      user.profile.firstName === firstName &&
+      user.profile.lastName === lastName &&
       user.mobile === mobile
     ) {
       navigate(-1);
@@ -41,8 +41,8 @@ const EditUserProfilePage = () => {
     if (!user) {
       dispatch(getUser());
     } else {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
+      setFirstName(user.profile.firstName);
+      setLastName(user.profile.lastName);
       setEmail(user.email);
       setMobile(user.mobile);
     }
@@ -81,7 +81,7 @@ const EditUserProfilePage = () => {
               </label>
               <input
                 id="firstName"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
                 type="text"
                 value={firstName}
                 placeholder="Steve"
@@ -95,7 +95,7 @@ const EditUserProfilePage = () => {
               </label>
               <input
                 id="lastName"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
                 type="text"
                 value={lastName}
                 placeholder="Jobs"
@@ -109,7 +109,7 @@ const EditUserProfilePage = () => {
               </label>
               <input
                 id="email"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
                 type="email"
                 value={email}
                 placeholder="stevejobs@example.com"
@@ -123,12 +123,11 @@ const EditUserProfilePage = () => {
               </label>
               <input
                 id="mobile"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
                 type="text"
                 value={mobile}
                 placeholder="9876543210"
                 onChange={(e) => setMobile(e.target.value)}
-                required
               />
             </div>
             <div className="mb-5">
