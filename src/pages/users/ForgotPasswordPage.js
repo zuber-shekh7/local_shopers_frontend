@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { sentPasswordResetEmail } from "../../actions/userActions";
 import routes from "../../utils/routes";
 
-const ResetPasswordPage = () => {
+const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
 
   const { user } = useSelector((state) => state.userLogin);
@@ -94,4 +94,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default ForgotPasswordPage;
