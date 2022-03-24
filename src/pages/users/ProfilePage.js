@@ -69,13 +69,13 @@ const UserProfilePage = () => {
                 <li>
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold">First Name</h4>
-                    <p className="">{user.firstName}</p>
+                    <p className="">{user.profile.firstName}</p>
                   </div>
                 </li>
                 <li>
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold">Last Name</h4>
-                    <p className="">{user.lastName}</p>
+                    <p className="">{user.profile.lastName}</p>
                   </div>
                 </li>
                 <li>
@@ -88,12 +88,6 @@ const UserProfilePage = () => {
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold">Mobile</h4>
                     <p className="">{user.mobile ? user.mobile : "N/A"}</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold">Password</h4>
-                    <p className="">***********</p>
                   </div>
                 </li>
               </ul>
