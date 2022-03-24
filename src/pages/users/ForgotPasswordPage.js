@@ -1,17 +1,27 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sentPasswordResetEmail } from "../../actions/userActions";
 import routes from "../../utils/routes";
 
 const ResetPasswordPage = () => {
   const [email, setEmail] = useState("");
 
+  const { user } = useSelector((state) => state.userLogin);
+
   const { loading, success, error } = useSelector(
     (state) => state.sentPasswordResetEmail
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(routes.dashboard);
+    }
+  }, [user, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
