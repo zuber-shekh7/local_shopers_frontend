@@ -61,6 +61,7 @@ import {
   userLoginReducer,
   userSignupReducer,
   changePasswordReducer,
+  sentPasswordResetEmailReducer,
 } from "./userReducers";
 import {
   addToWishlistReducer,
@@ -149,6 +150,7 @@ const initialState = {
   getSellerOrder: { order: null },
   updateOrderStatus: { order: null },
   changePassword: { success: null },
+  sentPasswordResetEmail: { success: null },
 };
 
 const rootReducer = combineReducers({
@@ -200,6 +202,7 @@ const rootReducer = combineReducers({
   getSellerOrder: getSellerOrderReducer,
   updateOrderStatus: updateOrderStatusReducer,
   changePassword: changePasswordReducer,
+  sentPasswordResetEmail: sentPasswordResetEmailReducer,
 });
 
 export { initialState };

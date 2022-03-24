@@ -106,6 +106,11 @@ const LoginPage = () => {
               Signup
             </Link>
           </p>
+          <p className="text-center text-white text-xl">
+            <Link className="underline" to={routes.forgotPassword}>
+              Forgot Password?
+            </Link>
+          </p>
         </div>
       </section>
     </main>

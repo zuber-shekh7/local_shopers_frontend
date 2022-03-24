@@ -20,6 +20,9 @@ import {
   USER_CHANGE_PASSWORD_REQUEST,
   USER_CHANGE_PASSWORD_SUCCESS,
   USER_CHANGE_PASSWORD_FAIL,
+  SENT_PASSWORD_RESET_EMAIL_REQUEST,
+  SENT_PASSWORD_RESET_EMAIL_SUCCESS,
+  SENT_PASSWORD_RESET_EMAIL_FAIL,
 } from "../constants/userConstants";
 
 const userLoginReducer = (state = {}, action) => {
@@ -112,10 +115,29 @@ const changePasswordReducer = (state = {}, action) => {
   }
 };
 
+const sentPasswordResetEmailReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SENT_PASSWORD_RESET_EMAIL_REQUEST:
+      return { ...state, loading: true, success: null, error: null };
+    case SENT_PASSWORD_RESET_EMAIL_SUCCESS:
+      return { ...state, loading: false, success: action.payload, error: null };
+    case SENT_PASSWORD_RESET_EMAIL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export {
   userLoginReducer,
   userSignupReducer,
   getUserReducer,
   updateUserReducer,
   changePasswordReducer,
+  sentPasswordResetEmailReducer,
 };

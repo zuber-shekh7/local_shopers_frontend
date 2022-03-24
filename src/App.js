@@ -12,6 +12,7 @@ import {
   DashboardPage,
   ProfilePage,
   ChangePasswordPage,
+  ForgotPasswordPage,
 } from "./pages/users";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
@@ -59,6 +60,11 @@ const App = () => {
               exact
               path={routes.privacyPolicy}
               element={<PrivacyPolicyPage />}
+            />
+            <Route
+              exact
+              path={routes.forgotPassword}
+              element={<ForgotPasswordPage />}
             />
             <Route
               exact
