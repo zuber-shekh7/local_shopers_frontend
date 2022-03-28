@@ -24,6 +24,7 @@ const routes = {
   wishList: "/users/wishlist",
   changePassword: "/users/change-password",
   forgotPassword: "/users/forgot-password",
+  resetPassword: "/users/reset-password/:token",
 };
 
 export default routes;

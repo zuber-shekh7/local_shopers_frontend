@@ -13,6 +13,7 @@ import {
   ProfilePage,
   ChangePasswordPage,
   ForgotPasswordPage,
+  ResetPasswordPage,
 } from "./pages/users";
 import UserOrdersPage from "./pages/orders/UserOrdersPage";
 import UserOrderPage from "./pages/orders/UserOrderPage";
@@ -65,6 +66,11 @@ const App = () => {
               exact
               path={routes.forgotPassword}
               element={<ForgotPasswordPage />}
+            />
+            <Route
+              exact
+              path={routes.resetPassword}
+              element={<ResetPasswordPage />}
             />
             <Route
               exact

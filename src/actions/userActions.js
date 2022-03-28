@@ -24,6 +24,9 @@ import {
   SENT_PASSWORD_RESET_EMAIL_REQUEST,
   SENT_PASSWORD_RESET_EMAIL_SUCCESS,
   SENT_PASSWORD_RESET_EMAIL_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from "../constants/userConstants";
 
 const userLogin = (email, password) => async (dispatch) => {
@@ -171,6 +174,24 @@ const sentPasswordResetEmail = (email) => async (dispatch) => {
   }
 };
 
+const resetPassword = (password, token) => async (dispatch) => {
+  try {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+
+    await backendAPI.post(`/users/reset-password/${token}`, {
+      password,
+    });
+
+    dispatch({ type: RESET_PASSWORD_SUCCESS, payload: true });
+    setTimeout(() => {
+      dispatch({ type: RESET_PASSWORD_SUCCESS, payload: null });
+    }, 5000);
+  } catch (err) {
+    const error = err.response ? err.response.data.message : err.message;
+    dispatch({ type: RESET_PASSWORD_FAIL, payload: error });
+  }
+};
+
 export {
   userLogin,
   userSignup,
@@ -180,4 +201,5 @@ export {
   userLoginWithGoogle,
   changePassword,
   sentPasswordResetEmail,
+  resetPassword,
 };
