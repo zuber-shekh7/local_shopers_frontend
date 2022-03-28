@@ -17,13 +17,13 @@ import {
   GET_ADDRESS_SUCCESS,
 } from "../constants/addressConstants";
 
-const getAddresses = (user_id) => async (dispatch) => {
+const getAddresses = (userId) => async (dispatch) => {
   try {
     dispatch({ type: GET_ADDRESSES_REQUEST });
 
     const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
-    const { data } = await backendAPI.get(`/addresses/?user_id=${user_id}`, {
+    const { data } = await backendAPI.get(`/addresses/?userId=${userId}`, {
       headers: {
         Authorization: token,
       },
