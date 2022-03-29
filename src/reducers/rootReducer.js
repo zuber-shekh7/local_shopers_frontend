@@ -21,12 +21,7 @@ import {
   getUserOrdersReducer,
   updateOrderStatusReducer,
 } from "./orderReducers";
-import {
-  createProductReducer,
-  deleteProductReducer,
-  editProductReducer,
-  getProductReducer,
-} from "./productReducers";
+import { getProductReducer } from "./productReducers";
 import {
   updateUserReducer,
   getUserReducer,
@@ -133,10 +128,7 @@ const rootReducer = combineReducers({
   getUser: getUserReducer,
   updateUser: updateUserReducer,
   getCategoryDetails: getCategoryDetailsReducer,
-  createProduct: createProductReducer,
   getProduct: getProductReducer,
-  editProduct: editProductReducer,
-  deleteProduct: deleteProductReducer,
   createBusiness: createBusinessReducer,
   getBusiness: getBusinessReducer,
   editBusiness: editBusinessReducer,
