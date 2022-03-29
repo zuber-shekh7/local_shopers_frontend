@@ -12,13 +12,7 @@ import {
   getBusinessReducer,
 } from "./businessReducers";
 import { cartReducer } from "./cartReducers";
-import {
-  createCategoryReducer,
-  deleteCategoryReducer,
-  editCategoryReducer,
-  getCategoriesReducer,
-  getCategoryDetailsReducer,
-} from "./categoryReducers";
+import { getCategoryDetailsReducer } from "./categoryReducers";
 import {
   createOrderReducer,
   getSellerOrderReducer,
@@ -138,11 +132,7 @@ const rootReducer = combineReducers({
   userSignup: userSignupReducer,
   getUser: getUserReducer,
   updateUser: updateUserReducer,
-  getCategories: getCategoriesReducer,
   getCategoryDetails: getCategoryDetailsReducer,
-  createCategory: createCategoryReducer,
-  editCategory: editCategoryReducer,
-  deleteCategory: deleteCategoryReducer,
   createProduct: createProductReducer,
   getProduct: getProductReducer,
   editProduct: editProductReducer,
