@@ -41,11 +41,6 @@ import {
   getProductReducer,
 } from "./productReducers";
 import {
-  getSellerReducer,
-  sellerLoginReducer,
-  sellerSignupReducer,
-} from "./sellerReducers";
-import {
   updateUserReducer,
   getUserReducer,
   userLoginReducer,
@@ -148,9 +143,6 @@ const initialState = {
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userSignup: userSignupReducer,
-  sellerLogin: sellerLoginReducer,
-  sellerSignup: sellerSignupReducer,
-  getSeller: getSellerReducer,
   getUser: getUserReducer,
   updateUser: updateUserReducer,
   getCategories: getCategoriesReducer,
