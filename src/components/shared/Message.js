@@ -1,8 +1,30 @@
 import React from "react";
-import { Alert } from "react-bootstrap";
 
 const Message = ({ variant, children }) => {
-  return <Alert variant={variant}>{children}</Alert>;
+  let bgColor;
+
+  switch (variant) {
+    case "danger":
+      bgColor = "bg-red-400";
+      break;
+    case "info":
+      bgColor = "bg-indigo-400";
+      break;
+    case "warning":
+      bgColor = "bg-yellow-400";
+      break;
+    default:
+      bgColor = "bg-indigo-400";
+      break;
+  }
+
+  return (
+    <div
+      className={`mx-auto max-w-md px-4 py-3 ${bgColor} text-white rounded-lg font-medium shadow`}
+    >
+      {children}
+    </div>
+  );
 };
 
 Message.defaultTypes = {

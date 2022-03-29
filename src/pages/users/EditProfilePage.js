@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
+import routes from "../../utils/routes";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 
-const EditUserProfilePage = ({ history }) => {
+const EditUserProfilePage = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.getUser);
 
   const {
     loading,
-    error,
     user: updatedUser,
+    error,
   } = useSelector((state) => state.updateUser);
 
   const handleSubmit = (e) => {
@@ -28,95 +27,121 @@ const EditUserProfilePage = ({ history }) => {
 
     if (
       user.email === email &&
-      user.firstName === firstName &&
-      user.lastName === lastName &&
+      user.profile.firstName === firstName &&
+      user.profile.lastName === lastName &&
       user.mobile === mobile
     ) {
-      history.goBack();
-      return;
+      navigate(-1);
     }
 
     dispatch(updateUser(email, mobile, firstName, lastName, user._id));
-
-    setMessage("");
   };
 
   useEffect(() => {
     if (!user) {
       dispatch(getUser());
     } else {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
+      setFirstName(user.profile.firstName);
+      setLastName(user.profile.lastName);
       setEmail(user.email);
       setMobile(user.mobile);
     }
   }, [user, dispatch]);
 
   if (updatedUser) {
-    return <Redirect to="/users/profile" />;
+    return <Navigate to={routes.profile} />;
   }
 
   return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={6} className="mx-auto">
-            {loading && <Loader />}
-            {error && <Message variant="danger">{error}</Message>}
-            {message && <Message variant="info">{message}</Message>}
-            <h1 className="mb-3">Edit Your Profile</h1>
-            <section>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={firstName}
-                    placeholder="Steve"
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={lastName}
-                    placeholder="Jobs"
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={email}
-                    placeholder="stevejobs@example.com"
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Mobile Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={mobile}
-                    placeholder="9876543210"
-                    onChange={(e) => setMobile(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Button type="submit" className="w-100" variant="primary">
-                    Save
-                  </Button>
-                </Form.Group>
-              </Form>
-            </section>
-          </Col>
-        </Row>
-      </Container>
+    <main className="container max-w-lg">
+      <section>
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: routes.dashboard,
+            },
+            {
+              name: "your profile",
+              to: routes.profile,
+            },
+            {
+              name: "edit profile",
+              to: routes.editProfile,
+            },
+          ]}
+        />
+        <h1>Edit your profile</h1>
+        <hr />
+        <div className="flex justify-center bg-gray-50 border rounded-lg shadow-lg">
+          <form className="flex-1 p-5" onSubmit={handleSubmit}>
+            <div className="mb-5">
+              <label className="block" htmlFor="firstName">
+                First Name
+              </label>
+              <input
+                id="firstName"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
+                type="text"
+                value={firstName}
+                placeholder="Steve"
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label className="block" htmlFor="lastName">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
+                type="text"
+                value={lastName}
+                placeholder="Jobs"
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label className="block" htmlFor="email">
+                Email
+              </label>
+              <input
+                id="email"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
+                type="email"
+                value={email}
+                placeholder="stevejobs@example.com"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label className="block" htmlFor="mobile">
+                Mobile
+              </label>
+              <input
+                id="mobile"
+                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
+                type="text"
+                value={mobile}
+                placeholder="9876543210"
+                onChange={(e) => setMobile(e.target.value)}
+              />
+            </div>
+            <div className="mb-5">
+              <button className="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg hover:bg-indigo-700">
+                Save
+              </button>
+            </div>
+            <div className="text-center">
+              {loading && <p>Updating profile...</p>}
+              {error && !loading && <p className="text-red-500">{error}</p>}
+            </div>
+          </form>
+        </div>
+      </section>
     </main>
   );
 };

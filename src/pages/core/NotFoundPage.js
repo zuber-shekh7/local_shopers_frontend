@@ -1,13 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import NotFound from "../../assets/images/404.png";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
   return (
-    <main className="mt-4 text-center">
-      <h1>Look like you are lost, let me help to go home</h1>
-      <Link className="btn btn-primary" to="/">
-        Way To Home
-      </Link>
+    <main className="container flex flex-col items-center mt-10 h-screen">
+      <img className="w-64 sm:w-80 mb-5" src={NotFound} alt="Page not found" />
+      <h1 className="text-darkBlue text-xl sm:text-2xl lg:text-4xl mt-5">
+        Looks like you are lost, <br className="block sm:hidden" />
+        let me help to go home
+      </h1>
+      <div className="mt-5">
+        <button
+          className="py-3 px-3 bg-indigo-600 text-white rounded-lg text-bold text-lg hover:bg-indigo-700 transition duration-300"
+          onClick={() => navigate(-1)}
+        >
+          Way to Home
+        </button>
+      </div>
     </main>
   );
 };

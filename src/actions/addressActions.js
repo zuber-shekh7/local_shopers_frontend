@@ -17,17 +17,11 @@ import {
   GET_ADDRESS_SUCCESS,
 } from "../constants/addressConstants";
 
-const getAddresses = (user_id) => async (dispatch) => {
+export const getAddresses = (userId) => async (dispatch) => {
   try {
     dispatch({ type: GET_ADDRESSES_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("userInfo"));
-
-    const { data } = await backendAPI.get(`/addresses/?user_id=${user_id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await backendAPI.get(`/addresses/?userId=${userId}`);
     const { addresses } = data;
 
     dispatch({ type: GET_ADDRESSES_SUCCESS, payload: addresses });
@@ -37,7 +31,7 @@ const getAddresses = (user_id) => async (dispatch) => {
   }
 };
 
-const createAddress =
+export const createAddress =
   (
     fullName,
     mobileNumber,
@@ -47,33 +41,23 @@ const createAddress =
     flatNo,
     landmark,
     street,
-    user_id
+    userId
   ) =>
   async (dispatch) => {
     try {
       dispatch({ type: CREATE_ADDRESS_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("userInfo"));
-
-      const { data } = await backendAPI.post(
-        `/addresses/`,
-        {
-          fullName,
-          mobileNumber,
-          pincode,
-          city,
-          state,
-          flatNo,
-          street,
-          landmark,
-          user_id,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const { data } = await backendAPI.post(`/addresses/`, {
+        fullName,
+        mobileNumber,
+        pincode,
+        city,
+        state,
+        flatNo,
+        street,
+        landmark,
+        userId,
+      });
       const { address } = data;
 
       dispatch({ type: CREATE_ADDRESS_SUCCESS, payload: address });
@@ -84,17 +68,12 @@ const createAddress =
     }
   };
 
-const getAddress = (address_id) => async (dispatch) => {
+export const getAddress = (addressId) => async (dispatch) => {
   try {
     dispatch({ type: GET_ADDRESS_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("userInfo"));
+    const { data } = await backendAPI.get(`/addresses/${addressId}`);
 
-    const { data } = await backendAPI.get(`/addresses/${address_id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
     const { address } = data;
 
     dispatch({ type: GET_ADDRESS_SUCCESS, payload: address });
@@ -104,7 +83,7 @@ const getAddress = (address_id) => async (dispatch) => {
   }
 };
 
-const editAddress =
+export const editAddress =
   (
     fullName,
     mobileNumber,
@@ -114,32 +93,22 @@ const editAddress =
     flatNo,
     landmark,
     street,
-    address_id
+    addressId
   ) =>
   async (dispatch) => {
     try {
       dispatch({ type: EDIT_ADDRESS_REQUEST });
 
-      const { token } = JSON.parse(localStorage.getItem("userInfo"));
-
-      const { data } = await backendAPI.put(
-        `/addresses/${address_id}`,
-        {
-          fullName,
-          mobileNumber,
-          pincode,
-          city,
-          state,
-          flatNo,
-          street,
-          landmark,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const { data } = await backendAPI.put(`/addresses/${addressId}`, {
+        fullName,
+        mobileNumber,
+        pincode,
+        city,
+        state,
+        flatNo,
+        street,
+        landmark,
+      });
       const { address } = data;
 
       dispatch({ type: EDIT_ADDRESS_SUCCESS, payload: address });
@@ -150,17 +119,11 @@ const editAddress =
     }
   };
 
-const deleteAddress = (address_id) => async (dispatch) => {
+export const deleteAddress = (addressId) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ADDRESS_REQUEST });
 
-    const { token } = JSON.parse(localStorage.getItem("userInfo"));
-
-    await backendAPI.delete(`/addresses/${address_id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    await backendAPI.delete(`/addresses/${addressId}`);
 
     dispatch({ type: DELETE_ADDRESS_SUCCESS, payload: true });
     dispatch({ type: DELETE_ADDRESS_SUCCESS, payload: null });
@@ -169,5 +132,3 @@ const deleteAddress = (address_id) => async (dispatch) => {
     dispatch({ type: DELETE_ADDRESS_FAIL, payload: error });
   }
 };
-
-export { getAddresses, createAddress, getAddress, editAddress, deleteAddress };

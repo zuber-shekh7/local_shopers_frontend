@@ -1,62 +1,81 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
-import LinkCard from "../../components/shared/LinkCard";
+import { Link, useNavigate } from "react-router-dom";
+import routes from "../../utils/routes";
+import {
+  HiOutlineFolderOpen,
+  HiOutlineUserCircle,
+  HiOutlineLocationMarker,
+  HiOutlineStar,
+} from "react-icons/hi";
 
-const UserDashboardPage = ({ history }) => {
-  const { userInfo } = useSelector((state) => state.userLogin);
+const UserDashboardPage = () => {
+  const { user } = useSelector((state) => state.userLogin);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userInfo) {
-      history.push("/users/login");
+    if (!user) {
+      navigate(routes.login);
     }
-  }, [userInfo, history]);
+  }, [user, navigate]);
 
   return (
-    <main className="mt-4">
-      <Container>
-        {userInfo && (
-          <Row>
-            <Col md={8} className="mx-auto">
-              <h1>Your Account</h1>
-              <section className="mt-3">
-                <Row>
-                  <Col md={6}>
-                    <LinkCard
-                      title="Your Orders"
-                      text="Track or buy things again"
-                      link="/users/orders"
-                    />
-                  </Col>
-                  <Col md={6}>
-                    <LinkCard
-                      title="Your Profile"
-                      text="Edit name, email or mobile number"
-                      link="/users/profile/"
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={6}>
-                    <LinkCard
-                      title="Your Addresses"
-                      text="Edit addresses for orders"
-                      link="/users/addresses"
-                    />
-                  </Col>
-                  <Col md={6}>
-                    <LinkCard
-                      title="Your Wishlist"
-                      text="Explore wishlist or buy things"
-                      link="/users/wishlist"
-                    />
-                  </Col>
-                </Row>
-              </section>
-            </Col>
-          </Row>
+    <main className="container text-darkBlue">
+      <section>
+        <h1 className="text-4xl font-semibold mb-3">Your Account</h1>
+        <hr />
+        {user && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-2">
+            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+              <Link className="flex space-x-2" to="/users/orders">
+                <div>
+                  <HiOutlineFolderOpen className="h-8 w-8" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-medium">Your Orders</h4>
+                  <h6>Track or buy things again</h6>
+                </div>
+              </Link>
+            </div>
+            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+              <Link className="flex space-x-2" to="/users/profile/">
+                <div>
+                  <HiOutlineUserCircle className="h-8 w-8" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-medium">Your Profile</h4>
+                  <h6>Edit name, email or mobile number</h6>
+                </div>
+              </Link>
+            </div>
+
+            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+              <Link className="flex space-x-2" to="/users/addresses">
+                <div>
+                  <HiOutlineLocationMarker className="h-8 w-8" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-medium">Your Addresses</h4>
+                  <h6>Edit addresses for orders</h6>
+                </div>
+              </Link>
+            </div>
+
+            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+              <Link className="flex space-x-2" to="/users/wishlist">
+                <div>
+                  <HiOutlineStar className="h-8 w-8" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-medium">Your Wishlist</h4>
+                  <h6>Explore wishlist or buy things</h6>
+                </div>
+              </Link>
+            </div>
+          </div>
         )}
-      </Container>
+      </section>
     </main>
   );
 };

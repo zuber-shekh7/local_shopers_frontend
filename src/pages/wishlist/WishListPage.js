@@ -1,106 +1,145 @@
 import React from "react";
 import { useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  ListGroup,
-  Card,
-  Image,
-} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { getWishList, removeFromWishList } from "../../actions/wishListActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { HiOutlineTrash } from "react-icons/hi";
+import Breadcrumb from "../../components/shared/Breadcrumb";
+import {
+  addToWishList,
+  getWishList,
+  removeFromWishList,
+} from "../../actions/wishListActions";
+import routes from "../../utils/routes";
 
 const WishListPage = () => {
-  const { loading, error, wishList } = useSelector(
-    (state) => state.getWishList
+  const {
+    loading: addLoading,
+    success: addSuccess,
+    error: addError,
+  } = useSelector((state) => state.addToWishlist);
+  const {
+    loading: removeLoading,
+    success: removeSuccess,
+    error: removeError,
+  } = useSelector((state) => state.removeFromWishlist);
+  const { loading, wishlist, error } = useSelector(
+    (state) => state.getWishlist
   );
 
-  const { removeLoading, removeError, success } = useSelector(
-    (state) => state.removeFromWishList
-  );
+  const { user } = useSelector((state) => state.userLogin);
 
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const { user } = userInfo;
+  const { productId } = useParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWishList(user._id));
-  }, [success]);
+  }, [user, addSuccess, removeSuccess, dispatch]);
 
-  const handleRemoveFromList = (wish_list_id, product_id) => {
-    dispatch(removeFromWishList(wish_list_id, product_id));
+  useEffect(() => {
+    if (productId && wishlist) {
+      dispatch(addToWishList(wishlist._id, productId));
+    }
+  }, [productId, wishlist, dispatch]);
+
+  const handleRemoveFromList = (wishlistId, productId) => {
+    dispatch(removeFromWishList(wishlistId, productId));
   };
 
-  return (
-    <main className="mt-4">
-      <Container>
-        <Row>
-          <Col md={8} className="mx-auto">
-            <section>
-              <h2>Your Wishlist</h2>
-              <hr />
-              {removeLoading || (loading && <Loader />)}
-              {removeError ||
-                (error && (
-                  <Message variant="danger">{removeError || error}</Message>
-                ))}
-              {wishList && wishList.products && wishList.products.length > 0 ? (
-                <ListGroup>
-                  {wishList.products.map((product) => {
-                    return (
-                      <Card key={product._id} className="my-3">
-                        <Card.Body>
-                          <Row>
-                            <Col md={3}>
-                              <Image
-                                rounded
-                                fluid
-                                src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
-                              />
-                            </Col>
-                            <Col className="my-auto">
-                              <Card.Title as="h3">{product.name}</Card.Title>
-                            </Col>
-                            <Col className="my-auto" md={2}>
-                              <LinkContainer
-                                to={`/sellers/manage/products/${product._id}`}
-                              >
-                                <Button className="w-100">View more</Button>
-                              </LinkContainer>
+  if (addSuccess || removeSuccess) {
+    return <Navigate to={routes.wishList} />;
+  }
 
-                              <Button
-                                onClick={() =>
-                                  handleRemoveFromList(
-                                    wishList._id,
-                                    product._id
-                                  )
-                                }
-                                variant="danger my-3 w-100"
-                              >
-                                Remove
-                              </Button>
-                            </Col>
-                          </Row>
-                        </Card.Body>
-                      </Card>
+  return (
+    <main className="container">
+      <section>
+        <Breadcrumb
+          links={[
+            {
+              name: "your account",
+              to: routes.dashboard,
+            },
+            {
+              name: "your wishlist",
+              to: routes.wishList,
+            },
+          ]}
+        />
+        <h1 className="text-4xl font-semibold mb-4">Your Wish List</h1>
+        <hr />
+        {(error || addError || removeError) && (
+          <h5 className="text-center text-red-500">
+            {error || addError || removeError}
+          </h5>
+        )}
+        {(loading || addLoading || removeLoading) && !wishlist && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[...Array(6).fill(1, 6)].map((value, index) => {
+              return (
+                <div
+                  key={index}
+                  className="bg-gray-50  rounded-lg shadow-lg overflow-hidden"
+                >
+                  <div className="w-full h-64 bg-gray-300  mb-3"></div>
+                  <div className="flex flex-col items-center gap-x-2 py-4">
+                    <div className="h-8 w-8/12 bg-gray-300 rounded-lg mb-3"></div>
+                    <div className="h-4 w-8/12 bg-gray-300 rounded-lg mb-3"></div>
+                    <div className="h-10 w-4/12 bg-gray-300 rounded-lg"></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div>
+          {wishlist && (
+            <>
+              {wishlist.products.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {wishlist.products.map((product) => {
+                    return (
+                      <div
+                        key={product._id}
+                        className="w-full bg-gray-50 rounded-lg shadow-lg "
+                      >
+                        <Link to={`/business/products/${product._id}`}>
+                          <img
+                            className="rounded-t-lg object-cover"
+                            src={product.image}
+                            alt=""
+                          />
+                        </Link>
+                        <div className="flex flex-col items-center gap-x-2 py-4">
+                          <h2 className="text-2xl font-semibold mb-3">
+                            {product.name}
+                          </h2>
+                          <p className="mb-3">{product.description}</p>
+                          <div className="flex space-x-2">
+                            <button
+                              className="flex justify-center items-center space-x-1 bg-red-500 px-3 py-2 text-white rounded-lg"
+                              onClick={() =>
+                                handleRemoveFromList(wishlist._id, product._id)
+                              }
+                            >
+                              <HiOutlineTrash className="h-6 w-6" />
+                              <span>Remove</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     );
                   })}
-                </ListGroup>
+                </div>
               ) : (
-                <h3 className="text-center text-muted">
-                  No products added to wishlist
-                </h3>
+                <div className="flex justify-center mt-5">
+                  <h3>There are no items in your wislist.</h3>
+                </div>
               )}
-            </section>
-          </Col>
-        </Row>
-      </Container>
+            </>
+          )}
+        </div>
+      </section>
     </main>
   );
 };

@@ -6,134 +6,98 @@ import {
   getAddressesReducer,
   getAddressReducer,
 } from "./addressReducers";
-import { adminLoginReducer } from "./adminReducers";
+import { getBusinessReducer } from "./businessReducers";
+import { cartReducer } from "./cartReducers";
+import { getCategoryReducer } from "./categoryReducers";
 import {
-  createBusinessCategoryReducer,
-  deleteBusinessCategoryReducer,
-  editBusinessCategoryReducer,
-  getBusinessCategoriesReducer,
-  getBusinessCategoryReducer,
-} from "./businessCategoryReducers";
-import {
-  createBusinessReducer,
-  editBusinessReducer,
-  getBusinessReducer,
-} from "./businessReducers";
-import {
-  createCategoryReducer,
-  deleteCategoryReducer,
-  editCategoryReducer,
-  getCategoriesReducer,
-  getCategoryDetailsReducer,
-} from "./categoryReducers";
-import {
-  createProductReducer,
-  deleteProductReducer,
-  editProductReducer,
-  getProductReducer,
-} from "./productReducers";
-import {
-  getSellerReducer,
-  sellerLoginReducer,
-  sellerSignupReducer,
-} from "./sellerReducers";
+  createOrderReducer,
+  getOrdersReducer,
+  getOrderReducer,
+} from "./orderReducers";
+import { getProductReducer } from "./productReducers";
 import {
   updateUserReducer,
   getUserReducer,
   userLoginReducer,
   userSignupReducer,
+  changePasswordReducer,
+  sendPasswordResetEmailReducer,
+  resetPasswordReducer,
 } from "./userReducers";
 import {
-  getWishListReducer,
-  removeFromWishListReducer,
+  addToWishlistReducer,
+  getWishlistReducer,
+  removeFromWishlistReducer,
 } from "./wishListReducers";
 
 const initialState = {
   userLogin: {
-    userInfo: localStorage.getItem("userInfo")
-      ? JSON.parse(localStorage.getItem("userInfo", null))
+    user: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user", null))
+      : null,
+    token: localStorage.getItem("token")
+      ? JSON.parse(localStorage.getItem("token", null))
       : null,
   },
-  userSignup: {
-    success: null,
-  },
-  sellerLogin: {
-    sellerInfo: localStorage.getItem("sellerInfo")
-      ? JSON.parse(localStorage.getItem("sellerInfo", null))
-      : null,
-  },
-  sellerSignup: {},
-  getSeller: {
-    seller: localStorage.getItem("seller")
-      ? JSON.parse(localStorage.getItem("seller", null))
-      : null,
-  },
+  userSignup: {},
   getUser: { user: null },
   updateUser: { user: null },
-  adminLogin: {
-    adminInfo: localStorage.getItem("adminInfo")
-      ? JSON.parse(localStorage.getItem("adminInfo", null))
-      : null,
-  },
-  getCategories: { categories: null },
-  getCategoryDetails: { category: null },
-  createCategory: { category: null },
-  editCategory: { category: null },
-  deleteCategory: { success: null },
-  createProduct: { product: null },
+  getCategory: { category: null },
   getProduct: { product: null },
-  editProduct: { product: null },
-  deleteProduct: { success: null },
-  createBusiness: { success: null },
   getBusiness: { business: null },
-  editBusiness: { business: null },
-  getWishList: { wishList: null },
-  removeFromWishList: { success: null },
+  getWishlist: { wishlist: null },
+  addToWishlist: { wishlist: null },
+  removeFromWishlist: { wishlist: null },
   getAddresses: { addresses: null },
   getAddress: { address: null },
   createAddress: { address: null },
   editAddress: { address: null },
   deleteAddress: { success: null },
-  getBusinessCategories: { businessCategories: null },
-  createBusinessCategory: { businessCategory: null },
-  getBusinessCategory: { businessCategory: null },
-  editBusinessCategory: { businessCategory: null },
-  deleteBusinessCategory: { success: null },
+  cart: {
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems", []))
+      : [],
+    shippingAddress: localStorage.getItem("shippingAddress")
+      ? JSON.parse(localStorage.getItem("shippingAddress", null))
+      : null,
+    paymentMethod: localStorage.getItem("paymentMethod")
+      ? localStorage.getItem("paymentMethod")
+      : null,
+    business: localStorage.getItem("business")
+      ? localStorage.getItem("business")
+      : null,
+  },
+  createOrder: { order: null },
+  getOrder: { order: null },
+  getOrders: { orders: null },
+  changePassword: { success: null },
+  sendPasswordResetEmail: { success: null },
+  resetPassword: { success: null },
 };
 
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userSignup: userSignupReducer,
-  sellerLogin: sellerLoginReducer,
-  sellerSignup: sellerSignupReducer,
-  getSeller: getSellerReducer,
   getUser: getUserReducer,
   updateUser: updateUserReducer,
-  adminLogin: adminLoginReducer,
-  getCategories: getCategoriesReducer,
-  getCategoryDetails: getCategoryDetailsReducer,
-  createCategory: createCategoryReducer,
-  editCategory: editCategoryReducer,
-  deleteCategory: deleteCategoryReducer,
-  createProduct: createProductReducer,
+  getCategory: getCategoryReducer,
   getProduct: getProductReducer,
-  editProduct: editProductReducer,
-  deleteProduct: deleteProductReducer,
-  createBusiness: createBusinessReducer,
   getBusiness: getBusinessReducer,
-  editBusiness: editBusinessReducer,
-  getWishList: getWishListReducer,
-  removeFromWishList: removeFromWishListReducer,
+  getWishlist: getWishlistReducer,
+  addToWishlist: addToWishlistReducer,
+  removeFromWishlist: removeFromWishlistReducer,
   getAddresses: getAddressesReducer,
   getAddress: getAddressReducer,
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
-  getBusinessCategories: getBusinessCategoriesReducer,
-  createBusinessCategory: createBusinessCategoryReducer,
-  getBusinessCategory: getBusinessCategoryReducer,
-  editBusinessCategory: editBusinessCategoryReducer,
-  deleteBusinessCategory: deleteBusinessCategoryReducer,
+  cart: cartReducer,
+  createOrder: createOrderReducer,
+  getOrder: getOrderReducer,
+  getOrders: getOrdersReducer,
+  changePassword: changePasswordReducer,
+  sendPasswordResetEmail: sendPasswordResetEmailReducer,
+  resetPassword: resetPasswordReducer,
 });
 
 export { initialState };

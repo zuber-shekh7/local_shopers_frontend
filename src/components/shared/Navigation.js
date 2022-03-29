@@ -1,94 +1,240 @@
-import React from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { adminLogout } from "../../actions/adminActions";
-import { sellerLogout } from "../../actions/sellerActions";
+import {
+  HiOutlineShoppingCart,
+  HiOutlineUserCircle,
+  HiOutlineLogin,
+  HiOutlineHome,
+  HiOutlineLogout,
+  HiMenu,
+  HiX,
+  HiArrowRight,
+} from "react-icons/hi";
 import { userLogout } from "../../actions/userActions";
+import routes from "../../utils/routes";
 
 const Navigation = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
 
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const { sellerInfo } = useSelector((state) => state.sellerLogin);
-  const { adminInfo } = useSelector((state) => state.adminLogin);
+  const { user } = useSelector((state) => state.userLogin);
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const noCartItems = cartItems.length;
 
   const handleUserLogout = () => {
     dispatch(userLogout());
   };
 
-  const handleSellerLogout = () => {
-    dispatch(sellerLogout());
-  };
-
-  const handleAdminLogout = () => {
-    dispatch(adminLogout());
-  };
-
-  const renderNavigationLinks = () => {
-    if (userInfo) {
-      return (
-        <>
-          <LinkContainer to="/users/account">
-            <Nav.Link>Your Account</Nav.Link>
-          </LinkContainer>
-
-          <Nav.Link onClick={handleUserLogout}>Log Out</Nav.Link>
-        </>
-      );
-    } else if (sellerInfo) {
-      return (
-        <>
-          <LinkContainer to="/sellers/dashboard">
-            <Nav.Link>Your Account</Nav.Link>
-          </LinkContainer>
-
-          <Nav.Link onClick={handleSellerLogout}>Log Out</Nav.Link>
-        </>
-      );
-    } else if (adminInfo) {
-      return (
-        <>
-          <LinkContainer to="/admin/account">
-            <Nav.Link>Your Account</Nav.Link>
-          </LinkContainer>
-
-          <Nav.Link onClick={handleAdminLogout}>Log Out</Nav.Link>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <LinkContainer to="/sellers">
-            <Nav.Link>Sell Online</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users/login">
-            <Nav.Link>Log In</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/users/signup">
-            <Nav.Link>Sign Up</Nav.Link>
-          </LinkContainer>
-        </>
-      );
-    }
-  };
   return (
-    <Navbar className="py-4 shadow sticky-top" bg="light" expand="lg">
-      <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand>Local Shoppers</Navbar.Brand>
-        </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            {renderNavigationLinks()}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <nav className="bg-white text-darkBlue text-bg-indigo-600  border-b border-gray-100 sticky top-0 p-4">
+      <section className="relative max-w-7xl mx-auto flex justify-between items-center h-16">
+        {/* logo and brand name */}
+        <div className="hidden sm:flex items-center justify-between">
+          <Link
+            to={user ? "/users/account" : "/"}
+            className="flex items-center space-x-1"
+          >
+            <HiOutlineShoppingCart className="h-8 w-8" />
+
+            <span className="text-2xl font-bold ">Local Shoppers</span>
+          </Link>
+        </div>
+        {/* mobile menu button */}
+        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden space-x-3">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? (
+              <HiX className="inline md:hidden h-8 w-8" />
+            ) : (
+              <HiMenu className="inline md:hidden h-8 w-8" />
+            )}
+          </button>
+          <Link
+            to={user ? "/users/account" : "/"}
+            className="flex items-center space-x-1"
+          >
+            <HiOutlineShoppingCart className="h-8 w-8" />
+
+            <span className="text-2xl font-bold ">Local Shoppers</span>
+          </Link>
+        </div>
+        {/* desktop menu */}
+        <div className="hidden sm:flex space-x-3 items-center">
+          {user ? (
+            <>
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
+                to={routes.dashboard}
+              >
+                <HiOutlineUserCircle className="h-6 w-6" />
+                <span>Account</span>
+              </NavLink>
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
+                to={routes.cart}
+              >
+                <HiOutlineShoppingCart className="h-6 w-6" />
+                {noCartItems > 0 && (
+                  <span>
+                    <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                      {noCartItems}
+                    </sup>
+                  </span>
+                )}
+              </NavLink>
+              <button
+                className="flex items-center space-x-1 py-2 px-5 text-white  bg-indigo-600 rounded-full  text-lg hover:bg-indigo-700 transition duration-300"
+                onClick={handleUserLogout}
+              >
+                <HiOutlineLogout className="h-6 w-6" />
+                <span>Logout</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
+                to={routes.home}
+              >
+                <HiOutlineHome className="h-6 w-6" />
+                <span>Home</span>
+              </NavLink>
+              <Link
+                className="flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300"
+                to={routes.login}
+              >
+                <HiOutlineLogin className="h-6 w-6" />
+                <span>Login</span>
+              </Link>
+              <Link
+                className="flex items-center space-x-1 py-2 px-5 text-white  bg-indigo-600 rounded-full  text-lg hover:bg-indigo-700 transition duration-300"
+                to={routes.signup}
+              >
+                <span>Signup</span>
+                <HiArrowRight className="h-6 w-6" />
+              </Link>
+              <NavLink
+                className={(isActive) =>
+                  "flex items-center space-x-1 py-4 px-2 text-lg hover:text-indigo-600 transition duration-300" +
+                  (isActive.isActive ? " text-indigo-600" : "")
+                }
+                to={routes.cart}
+              >
+                <HiOutlineShoppingCart className="h-6 w-6" />
+                {noCartItems > 0 && (
+                  <span>
+                    <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                      {noCartItems}
+                    </sup>
+                  </span>
+                )}
+              </NavLink>
+            </>
+          )}
+        </div>
+      </section>
+      {/* mobile menu */}
+      {isOpen && (
+        <div className="sm:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {user ? (
+              <>
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
+                  to={routes.dashboard}
+                >
+                  <HiOutlineUserCircle className="h-6 w-6" />
+                  <span>Account</span>
+                </NavLink>
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
+                  to={routes.cart}
+                >
+                  <HiOutlineShoppingCart className="h-6 w-6" />
+                  <span>Cart</span>
+                  {noCartItems > 0 && (
+                    <span>
+                      <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                        {noCartItems}
+                      </sup>
+                    </span>
+                  )}
+                </NavLink>
+                <button
+                  className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
+                  onClick={handleUserLogout}
+                >
+                  <HiOutlineLogout className="h-6 w-6" />
+                  <span>Log Out</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
+                  to={routes.home}
+                >
+                  <HiOutlineHome className="h-6 w-6" />
+                  <span>Home</span>
+                </NavLink>
+                <Link
+                  className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
+                  to={routes.login}
+                >
+                  <HiOutlineLogin className="h-6 w-6" />
+                  <span>Login</span>
+                </Link>
+                <Link
+                  className="flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300"
+                  to={routes.signup}
+                >
+                  <HiOutlineUserCircle className="h-6 w-6" />
+                  <span>Register</span>
+                </Link>
+                <NavLink
+                  className={(isActive) =>
+                    "flex items-center space-x-1 rounded py-2 px-3 text-lg hover:text-indigo-600 transition duration-300" +
+                    (isActive.isActive ? " text-indigo-600" : "")
+                  }
+                  to={routes.cart}
+                >
+                  <HiOutlineShoppingCart className="h-6 w-6" />
+                  <span>Cart</span>
+                  {noCartItems > 0 && (
+                    <span>
+                      <sup className="text-xs px-1 bg-indigo-600 text-white rounded-full">
+                        {noCartItems}
+                      </sup>
+                    </span>
+                  )}
+                </NavLink>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 

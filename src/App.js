@@ -1,187 +1,187 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import HomePage from "./pages/core/HomePage";
-import AboutUsPage from "./pages/core/AboutUsPage";
-import NotFoundPage from "./pages/core/NotFoundPage";
-import Navigation from "./components/shared/Navigation";
-import Footer from "./components/shared/Footer";
-import LoginPage from "./pages/users/LoginPage";
-import SignupPage from "./pages/users/SignupPage";
-import UserDashboardPage from "./pages/users/DashboardPage";
-import SellerHomePage from "./pages/sellers/HomePage";
-import UserProtectedRoute from "./components/routes/UserProtectedRoute";
-import SellerLoginPage from "./pages/sellers/LoginPage";
-import SellerSignupPage from "./pages/sellers/SignupPage";
-import AdminLoginPage from "./pages/admin/LoginPage";
-import SellerDashboardPage from "./pages/sellers/DashboardPage";
-import UserProfilePage from "./pages/users/ProfilePage";
-import EditUserProfilePage from "./pages/users/EditProfilePage";
-import AdminDashboardPage from "./pages/admin/DashboardPage";
-import SellerProtectedRoute from "./components/routes/SellerProtectedRoute";
-import AdminProtectedRoute from "./components/routes/AdminProtectedRoute";
-import CreateBusinessPage from "./pages/sellers/CreateBusinessPage";
-import BusinessDetailPage from "./pages/sellers/BusinessDetailPage";
-import CategoryListPage from "./pages/categories/CategoryListPage";
-import CategoryDetailPage from "./pages/categories/CategoryDetailPage";
-import AddCategoryPage from "./pages/categories/AddCategoryPage";
-import EditCategoryPage from "./pages/categories/EditCategoryPage";
-import AddProductPage from "./pages/products/AddProductPage";
-import ProductDetailPage from "./pages/products/ProductDetailPage";
-import EditProductPage from "./pages/products/EditProductPage";
-import EditBusinessPage from "./pages/business/EditBusinessPage";
-import BusinessPage from "./pages/business/BusinessPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  AboutUsPage,
+  ContactUsPage,
+  HomePage,
+  NotFoundPage,
+  PrivacyPolicyPage,
+  TermsOfServicePage,
+  FAQPage,
+} from "./pages/core";
+import {
+  LoginPage,
+  SignupPage,
+  DashboardPage,
+  ProfilePage,
+  ChangePasswordPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+} from "./pages/users";
+import routes from "./utils/routes";
+import LoginContainer from "./components/containers/LoginContainer";
+import DefaultContainer from "./components/containers/DefaultContainer";
+import PrivateRoute from "./components/routes/PrivateRoute";
+import CartPage from "./pages/cart/CartPage";
 import WishListPage from "./pages/wishlist/WishListPage";
-import AddressesPage from "./pages/addresses/AddressesPage";
-import AddAddressPage from "./pages/addresses/AddAddressPage";
-import EditAddressPage from "./pages/addresses/EditAddressPage";
-import AddressPage from "./pages/addresses/AddressPage";
-import BusinessCategoriesPage from "./pages/businessCategories/BusinessCategoriesPage";
-import BusinessCategoryPage from "./pages/businessCategories/BusinessCategoryPage";
-import EditBusinessCategoryPage from "./pages/businessCategories/EditBusinessCategoryPage";
-import AddBusinessCategoryPage from "./pages/businessCategories/AddBusinessCategoryPage";
+import {
+  AddressesPage,
+  AddressPage,
+  AddAddressPage,
+  EditAddressPage,
+} from "./pages/addresses";
+import EditUserProfilePage from "./pages/users/EditProfilePage";
+import { BusinessPage } from "./pages/business";
+import { CategoryPage } from "./pages/categories";
+import { OrderPage, OrdersPage } from "./pages/orders";
+import ProductPage from "./pages/products/ProductPage";
 
 const App = () => {
   return (
     <>
       <Router>
-        <Navigation />
-        <Switch>
-          {/* core */}
-          <Route path="/" component={HomePage} exact />
-          <Route path="/about" component={AboutUsPage} exact />
-          <Route path="/business/:business_id" component={BusinessPage} />
-
-          {/* users */}
-          <Route path="/users/login" component={LoginPage} exact />
-          <Route path="/users/signup" component={SignupPage} exact />
-          <UserProtectedRoute
-            path="/users/account"
-            component={UserDashboardPage}
-            exact
-          />
-          <UserProtectedRoute
-            path="/users/profile"
-            component={UserProfilePage}
-            exact
-          />
-          <UserProtectedRoute
-            path="/users/profile/edit"
-            component={EditUserProfilePage}
-            exact
-          />
-          <UserProtectedRoute
-            path="/users/wishlist"
-            component={WishListPage}
-            exact
-          />
-          <UserProtectedRoute
-            path="/users/addresses"
-            component={AddressesPage}
-            exact
-          />
-          <UserProtectedRoute
-            path="/users/addresses/new"
-            component={AddAddressPage}
-            exact
-          />
-          <UserProtectedRoute
-            path="/users/addresses/:address_id/edit"
-            component={EditAddressPage}
-          />
-          <UserProtectedRoute
-            path="/users/addresses/:address_id"
-            component={AddressPage}
-          />
-
-          {/* sellers */}
-          <Route path="/sellers/" component={SellerHomePage} exact />
-          <Route path="/sellers/login" component={SellerLoginPage} exact />
-          <Route path="/sellers/signup" component={SellerSignupPage} exact />
-          <SellerProtectedRoute
-            path="/sellers/dashboard"
-            component={SellerDashboardPage}
-            exact
-          />
-          <SellerProtectedRoute
-            path="/sellers/business/new"
-            component={CreateBusinessPage}
-            exact
-          />
-          <SellerProtectedRoute
-            path="/sellers/business"
-            component={BusinessDetailPage}
-            exact
-          />
-
-          <SellerProtectedRoute
-            path="/sellers/manage/business/:business_id/edit"
-            component={EditBusinessPage}
-          />
-
-          <SellerProtectedRoute
-            path="/sellers/manage/categories"
-            component={CategoryListPage}
-            exact
-          />
-          <SellerProtectedRoute
-            path="/sellers/manage/categories/new"
-            component={AddCategoryPage}
-            exact
-          />
-          <SellerProtectedRoute
-            path="/sellers/manage/categories/:category_id/edit"
-            component={EditCategoryPage}
-            exact
-          />
-          <SellerProtectedRoute
-            path="/sellers/manage/categories/:category_id/products/new"
-            component={AddProductPage}
-            exact
-          />
-          <SellerProtectedRoute
-            path="/sellers/manage/categories/:category_id"
-            component={CategoryDetailPage}
-          />
-          <SellerProtectedRoute
-            path="/sellers/manage/products/:product_id/edit"
-            component={EditProductPage}
-          />
-          <SellerProtectedRoute
-            path="/sellers/manage/products/:product_id"
-            component={ProductDetailPage}
-          />
-
-          {/* admin */}
-          <Route path="/admin/login" component={AdminLoginPage} exact />
-          <AdminProtectedRoute
-            path="/admin/account"
-            component={AdminDashboardPage}
-            exact
-          />
-          <AdminProtectedRoute
-            path="/admin/manage/categories"
-            component={BusinessCategoriesPage}
-            exact
-          />
-          <AdminProtectedRoute
-            path="/admin/manage/categories/new"
-            component={AddBusinessCategoryPage}
-            exact
-          />
-          <AdminProtectedRoute
-            path="/admin/manage/categories/:category_id/edit"
-            component={EditBusinessCategoryPage}
-          />
-          <AdminProtectedRoute
-            path="/admin/manage/categories/:category_id/"
-            component={BusinessCategoryPage}
-          />
-
-          {/* 404 */}
-          <Route path="*" component={NotFoundPage} />
-        </Switch>
-        <Footer />
+        <Routes>
+          <Route element={<LoginContainer />}>
+            <Route exact path={routes.login} element={<LoginPage />} />
+            <Route exact path={routes.signup} element={<SignupPage />} />
+          </Route>
+          <Route element={<DefaultContainer />}>
+            <Route exact path={routes.home} element={<HomePage />} />
+            <Route exact path={routes.business} element={<BusinessPage />} />
+            <Route exact path={routes.contact} element={<ContactUsPage />} />
+            <Route exact path={routes.about} element={<AboutUsPage />} />
+            <Route exact path={routes.faq} element={<FAQPage />} />
+            <Route
+              exact
+              path={routes.termsOfService}
+              element={<TermsOfServicePage />}
+            />
+            <Route
+              exact
+              path={routes.privacyPolicy}
+              element={<PrivacyPolicyPage />}
+            />
+            <Route
+              exact
+              path={routes.forgotPassword}
+              element={<ForgotPasswordPage />}
+            />
+            <Route
+              exact
+              path={routes.resetPassword}
+              element={<ResetPasswordPage />}
+            />
+            <Route exact path={routes.getProduct} element={<ProductPage />} />
+            <Route exact path={routes.categories} element={<CategoryPage />} />
+            <Route
+              exact
+              path={routes.dashboard}
+              element={
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.changePassword}
+              element={
+                <PrivateRoute>
+                  <ChangePasswordPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.profile}
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.editProfile}
+              element={
+                <PrivateRoute>
+                  <EditUserProfilePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.getOrders}
+              element={
+                <PrivateRoute>
+                  <OrdersPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.getOrder}
+              element={
+                <PrivateRoute>
+                  <OrderPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.wishList}
+              element={
+                <PrivateRoute>
+                  <WishListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={`${routes.wishList}/:productId`}
+              element={
+                <PrivateRoute>
+                  <WishListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.getAddresses}
+              element={
+                <PrivateRoute>
+                  <AddressesPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.getAddress}
+              element={
+                <PrivateRoute>
+                  <AddressPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              exact
+              path={routes.addAddress}
+              element={
+                <PrivateRoute>
+                  <AddAddressPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={routes.editAddress}
+              element={
+                <PrivateRoute>
+                  <EditAddressPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path={routes.cart} element={<CartPage />} />
+            <Route path={`${routes.cart}/:productId`} element={<CartPage />} />
+            <Route exact path={routes.notFound} element={<NotFoundPage />} />
+          </Route>
+        </Routes>
       </Router>
     </>
   );
