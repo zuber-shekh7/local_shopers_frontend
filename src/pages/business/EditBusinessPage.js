@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Redirect } from "react-router-dom";
 import { editBusiness, getBusiness } from "../../actions/businessActions";
-import AdminSharedLayout from "../../components/shared/AdminSharedLayout";
 import FormContainer from "../../components/shared/FormContainer";
 import Loader from "../../components/shared/Loader";
 import Message from "../../components/shared/Message";

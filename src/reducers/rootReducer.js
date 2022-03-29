@@ -7,16 +7,6 @@ import {
   getAddressReducer,
 } from "./addressReducers";
 import {
-  adminLoginReducer,
-  adminManageCategoryStatisticsReducer,
-  adminManageProductStatisticsReducer,
-  adminGetSellerListReducer,
-  adminGetUsersListReducer,
-  adminGetAdminListReducer,
-  adminGetBusinessCategoryListReducer,
-  adminCummulativeStatisticsReducer,
-} from "./adminReducers";
-import {
   createBusinessCategoryReducer,
   deleteBusinessCategoryReducer,
   editBusinessCategoryReducer,
@@ -163,7 +153,6 @@ const rootReducer = combineReducers({
   getSeller: getSellerReducer,
   getUser: getUserReducer,
   updateUser: updateUserReducer,
-  adminLogin: adminLoginReducer,
   getCategories: getCategoriesReducer,
   getCategoryDetails: getCategoryDetailsReducer,
   createCategory: createCategoryReducer,
@@ -189,13 +178,6 @@ const rootReducer = combineReducers({
   getBusinessCategory: getBusinessCategoryReducer,
   editBusinessCategory: editBusinessCategoryReducer,
   deleteBusinessCategory: deleteBusinessCategoryReducer,
-  getCummulativeStats: adminCummulativeStatisticsReducer,
-  getManageCategory: adminManageCategoryStatisticsReducer,
-  getAdminProductList: adminManageProductStatisticsReducer,
-  getSellerDetails: adminGetSellerListReducer,
-  getUsersDetails: adminGetUsersListReducer,
-  getAdminList: adminGetAdminListReducer,
-  getBusinessCategoryList: adminGetBusinessCategoryListReducer,
   cart: cartReducer,
   createOrder: createOrderReducer,
   getUserOrder: getUserOrderReducer,
