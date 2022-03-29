@@ -1,136 +1,158 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-
-import { Container, Row, Col, Button, Image, ListGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { Redirect } from "react-router-dom";
-import { deleteProduct, getProduct } from "../../actions/productActions";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
-import ModalForm from "../../components/shared/ModalForm";
+import { useNavigate, useParams } from "react-router-dom";
+import { HiChevronRight } from "react-icons/hi";
+import { getProduct } from "../../actions/productActions";
 
-const ProductPage = ({ match, history }) => {
-  const [modalShow, setModalShow] = useState(false);
+import routes from "../../utils/routes";
 
-  const { product_id } = match.params;
+const ProductPage = () => {
+  const [quantity, setQuantity] = useState(1);
 
-  const {
-    error: productError,
-    loading: productLoading,
-    product,
-  } = useSelector((state) => state.getProduct);
-  const { error, loading, success } = useSelector(
-    (state) => state.deleteProduct
-  );
+  const { productId } = useParams();
+
+  const { loading, product, error } = useSelector((state) => state.getProduct);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getProduct(product_id));
-  }, []);
+    dispatch(getProduct(productId));
+  }, [productId, dispatch]);
 
-  const onDelete = (id) => {
-    dispatch(deleteProduct(id));
-    setModalShow(false);
+  const addToCartHandler = () => {
+    navigate(`${routes.cart}/${productId}?quantity=${quantity}`);
   };
 
-  if (success) {
-    return <Redirect to="/sellers/manage/categories/" />;
-  }
+  const addToWishListHandler = (id) => {
+    navigate(`/users/wishlist/${id}`);
+  };
 
   return (
-    <main>
-      <Container>
-        <Row>
-          <Col className="mx-auto" md={8}>
-            {(loading || productLoading) && <Loader />}
-            {(error || productError) && <Message>{error}</Message>}
-            {product && (
-              <section className="my-3">
-                <ModalForm
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  title={"Are you sure?"}
-                  subject={`Do you really want to delete ${product.name} ???`}
-                  message={"Once you delete you won't be able to access it."}
-                  onAccept={() => onDelete(product._id)}
+    <main className="container">
+      <section>
+        <div className="flex mb-3">
+          <div>
+            <button
+              onClick={() => navigate(-2)}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold capitalize">Business</span>
+              <span>
+                <HiChevronRight />
+              </span>
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold capitalize">Category</span>
+              <span>
+                <HiChevronRight />
+              </span>
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => {}}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1 text-indigo-600 hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold">
+                {product ? product.name : "Product"}
+              </span>
+            </button>
+          </div>
+        </div>
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
+        {loading && !product && (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10">
+            <div className="animate-pulse col-span-6 p-10 ">
+              <div className="flex justify-center items-center">
+                <div className="block h-72 w-full bg-gray-300 rounded-lg"></div>
+              </div>
+            </div>
+            <div className="animate-pulse col-span-6 p-10 ">
+              <div className="h-12 w-4/12 bg-gray-300 rounded-lg mb-3"></div>
+              <div className="h-8 w-4/12 bg-gray-300 rounded-lg mb-3"></div>
+              <div className="h-4 w-5/12 bg-gray-300 rounded-lg mb-3"></div>
+              <div className="h-10 w-full bg-gray-300 rounded-lg mb-3"></div>
+              <div className="h-10 w-full bg-gray-300 rounded-lg mb-3"></div>
+              <div className="h-10 w-full bg-gray-300 rounded-lg mb-3"></div>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section>
+        {product && (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-5">
+            <div className="col-span-6">
+              <div className="flex justify-center items-center">
+                <img
+                  className="flex-1 h-max w-max  rounded-lg"
+                  src={product.image}
+                  alt={product.name}
                 />
+              </div>
+            </div>
+            <div className="col-span-6">
+              <div>
+                <h2>{product.name}</h2>
+                <h2 className="text-indigo-600">₹ {product.price}/-</h2>
+                <p>{product.description}</p>
 
-                <Button onClick={() => history.goBack()} className="mb-3">
-                  Back
-                </Button>
+                <div className="mb-3">
+                  {product.quantity > 0 && (
+                    <div>
+                      <select
+                        className="w-full px-3 py-2 rounded-lg"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                      >
+                        {[...Array(product.quantity).keys()].map((i) => {
+                          return (
+                            <option key={i} value={i + 1}>
+                              {i + 1}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  )}
+                  <div className="mb-3">
+                    <button
+                      onClick={() => addToWishListHandler(product._id)}
+                      className="block my-3 px-3 py-2 border text-indigo-600 border-indigo-600 rounded-lg w-full hover:bg-indigo-100"
+                      variant="warning"
+                    >
+                      Add to Wishlist
+                    </button>
 
-                <Row>
-                  <Col className="text-center">
-                    <Image src={product.image} fluid rounded />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="mt-4">
-                    <h2 className="text-center">{product.name}</h2>
-                    <hr />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={8} className="mb-3 mx-auto">
-                    <ListGroup>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Name</Col>
-                          <Col className="text-end">{product.name}</Col>
-                        </Row>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Description</Col>
-                          <Col className="text-end">{product.description}</Col>
-                        </Row>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Price</Col>
-                          <Col className="text-end">₹ {product.price}/-</Col>
-                        </Row>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Quantity</Col>
-                          <Col className="text-end">{product.quantity}</Col>
-                        </Row>
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <Row>
-                          <Col>Last Modified</Col>
-                          <Col className="text-end">{product.updatedAt}</Col>
-                        </Row>
-                      </ListGroup.Item>
-                    </ListGroup>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="mx-auto">
-                    <LinkContainer
-                      to={`/sellers/manage/products/${product._id}/edit`}
-                    >
-                      <Button className="w-100">Edit</Button>
-                    </LinkContainer>
-                  </Col>
-                  <Col className="mx-auto">
-                    <Button
-                      variant="danger"
-                      className="w-100"
-                      onClick={() => setModalShow(true)}
-                    >
-                      Delete
-                    </Button>
-                  </Col>
-                </Row>
-              </section>
-            )}
-          </Col>
-        </Row>
-      </Container>
+                    {product.quantity > 0 ? (
+                      <button
+                        className="px-3 py-2 bg-indigo-600 rounded-lg text-white w-full hover:bg-indigo-700"
+                        onClick={addToCartHandler}
+                      >
+                        Add to Cart
+                      </button>
+                    ) : (
+                      <button className="mt-5 px-3 py-2 bg-indigo-500 rounded-lg text-white w-full">
+                        Out of Stock
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
     </main>
   );
 };

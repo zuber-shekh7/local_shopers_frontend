@@ -21,15 +21,15 @@ import {
   USER_CHANGE_PASSWORD_REQUEST,
   USER_CHANGE_PASSWORD_SUCCESS,
   USER_CHANGE_PASSWORD_FAIL,
-  SENT_PASSWORD_RESET_EMAIL_REQUEST,
-  SENT_PASSWORD_RESET_EMAIL_SUCCESS,
-  SENT_PASSWORD_RESET_EMAIL_FAIL,
+  SEND_PASSWORD_RESET_EMAIL_REQUEST,
+  SEND_PASSWORD_RESET_EMAIL_SUCCESS,
+  SEND_PASSWORD_RESET_EMAIL_FAIL,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
 } from "../constants/userConstants";
 
-const userLogin = (email, password) => async (dispatch) => {
+export const userLogin = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
@@ -46,7 +46,7 @@ const userLogin = (email, password) => async (dispatch) => {
   }
 };
 
-const userSignup = (user) => async (dispatch) => {
+export const userSignup = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_SIGNUP_REQUEST });
 
@@ -61,7 +61,7 @@ const userSignup = (user) => async (dispatch) => {
   }
 };
 
-const userLogout = () => async (dispatch) => {
+export const userLogout = () => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGOUT_REQUEST });
 
@@ -76,16 +76,13 @@ const userLogout = () => async (dispatch) => {
   }
 };
 
-const getUser = () => async (dispatch) => {
+export const getUser = () => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_REQUEST });
 
     const user = JSON.parse(localStorage.getItem("user"));
-    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
 
-    const { data } = await backendAPI.get(`/users/${user._id}`, {
-      headers: { Authorization: token },
-    });
+    const { data } = await backendAPI.get(`/users/${user._id}`);
 
     dispatch({ type: GET_USER_SUCCESS, payload: data.user });
   } catch (err) {
@@ -94,20 +91,17 @@ const getUser = () => async (dispatch) => {
   }
 };
 
-const updateUser =
+export const updateUser =
   (email, mobile, firstName, lastName, userId) => async (dispatch) => {
     try {
       dispatch({ type: UPDATE_USER_REQUEST });
 
-      const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
-
-      const { data } = await backendAPI.put(
-        `/users/${userId}`,
-        { email, mobile, firstName, lastName },
-        {
-          headers: { Authorization: token },
-        }
-      );
+      const { data } = await backendAPI.put(`/users/${userId}`, {
+        email,
+        mobile,
+        firstName,
+        lastName,
+      });
 
       dispatch({ type: UPDATE_USER_SUCCESS, payload: data });
 
@@ -118,7 +112,7 @@ const updateUser =
     }
   };
 
-const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
+export const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_WITH_GOOGLE_REQUEST });
 
@@ -137,44 +131,45 @@ const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
   }
 };
 
-const changePassword = (oldPassword, newPassword) => async (dispatch) => {
+export const changePassword =
+  (oldPassword, newPassword) => async (dispatch) => {
+    try {
+      dispatch({ type: USER_CHANGE_PASSWORD_REQUEST });
+
+      await backendAPI.post("/users/change-password", {
+        oldPassword,
+        newPassword,
+      });
+
+      dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: true });
+      setTimeout(() => {
+        dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: null });
+      }, 5000);
+    } catch (err) {
+      const error = err.response ? err.response.data.message : err.message;
+      dispatch({ type: USER_CHANGE_PASSWORD_FAIL, payload: error });
+    }
+  };
+
+export const sentPasswordResetEmail = (email) => async (dispatch) => {
   try {
-    dispatch({ type: USER_CHANGE_PASSWORD_REQUEST });
-
-    await backendAPI.post("/users/change-password", {
-      oldPassword,
-      newPassword,
-    });
-
-    dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: true });
-    setTimeout(() => {
-      dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: null });
-    }, 5000);
-  } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: USER_CHANGE_PASSWORD_FAIL, payload: error });
-  }
-};
-
-const sentPasswordResetEmail = (email) => async (dispatch) => {
-  try {
-    dispatch({ type: SENT_PASSWORD_RESET_EMAIL_REQUEST });
+    dispatch({ type: SEND_PASSWORD_RESET_EMAIL_REQUEST });
 
     await backendAPI.post("/users/forgot-password", {
       email,
     });
 
-    dispatch({ type: SENT_PASSWORD_RESET_EMAIL_SUCCESS, payload: true });
+    dispatch({ type: SEND_PASSWORD_RESET_EMAIL_SUCCESS, payload: true });
     setTimeout(() => {
-      dispatch({ type: SENT_PASSWORD_RESET_EMAIL_SUCCESS, payload: null });
+      dispatch({ type: SEND_PASSWORD_RESET_EMAIL_SUCCESS, payload: null });
     }, 5000);
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: SENT_PASSWORD_RESET_EMAIL_FAIL, payload: error });
+    dispatch({ type: SEND_PASSWORD_RESET_EMAIL_FAIL, payload: error });
   }
 };
 
-const resetPassword = (password, token) => async (dispatch) => {
+export const resetPassword = (password, token) => async (dispatch) => {
   try {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
@@ -190,16 +185,4 @@ const resetPassword = (password, token) => async (dispatch) => {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: RESET_PASSWORD_FAIL, payload: error });
   }
-};
-
-export {
-  userLogin,
-  userSignup,
-  userLogout,
-  getUser,
-  updateUser,
-  userLoginWithGoogle,
-  changePassword,
-  sentPasswordResetEmail,
-  resetPassword,
 };

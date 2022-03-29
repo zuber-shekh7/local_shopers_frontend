@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getBusiness } from "../../actions/businessActions";
-import { saveBusiness } from "../../actions/cartActions";
 
 const BusinessPage = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,6 @@ const BusinessPage = () => {
 
   useEffect(() => {
     dispatch(getBusiness(businessId));
-    dispatch(saveBusiness(businessId));
   }, [businessId, dispatch]);
 
   return (

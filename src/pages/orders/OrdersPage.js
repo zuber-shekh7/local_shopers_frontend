@@ -2,21 +2,19 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUserOrders } from "../../actions/orderActions";
+import { getOrders } from "../../actions/orderActions";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import routes from "../../utils/routes";
 
-const UserOrdersPage = () => {
+const OrdersPage = () => {
   const { user } = useSelector((state) => state.userLogin);
 
-  const { loading, orders, error } = useSelector(
-    (state) => state.getUserOrders
-  );
+  const { loading, orders, error } = useSelector((state) => state.getOrders);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserOrders(user._id));
+    dispatch(getOrders(user._id));
   }, [user, dispatch]);
 
   return (
@@ -136,4 +134,4 @@ const UserOrdersPage = () => {
   );
 };
 
-export default UserOrdersPage;
+export default OrdersPage;

@@ -1,113 +1,158 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { Redirect } from "react-router-dom";
-import { deleteCategory, getCategory } from "../../actions/categoryActions";
-import ProductList from "../../components/products/ProductList";
-import Loader from "../../components/shared/Loader";
-import Message from "../../components/shared/Message";
-import ModalForm from "../../components/shared/ModalForm";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { HiChevronRight } from "react-icons/hi";
+import { getCategory } from "../../actions/categoryActions";
 
-const CategoryPage = ({ match }) => {
-  const [modalShow, setModalShow] = useState(false);
-
-  const { category_id } = match.params;
+const CategoryPage = ({ match, history }) => {
+  const { categoryId } = useParams();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { category } = useSelector((state) => state.getCategoryDetails);
-
-  const { error, loading, success } = useSelector(
-    (state) => state.deleteCategory
+  const { loading, category, error } = useSelector(
+    (state) => state.getCategory
   );
 
   useEffect(() => {
-    dispatch(getCategory(category_id));
-  }, []);
-
-  const onDelete = (id) => {
-    dispatch(deleteCategory(id));
-    setModalShow(false);
-  };
-
-  if (success) {
-    return <Redirect to="/sellers/manage/categories" />;
-  }
+    dispatch(getCategory(categoryId));
+  }, [categoryId, dispatch]);
 
   return (
-    <main>
-      <Container>
-        <Row>
-          <Col className="mx-auto" md={8}>
-            {loading && <Loader />}
-            {error && <Message>{error}</Message>}
-            {category && (
-              <section className="my-3">
-                <ModalForm
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  title={"Are you sure?"}
-                  subject={`Do you really want to delete ${category.name} ???`}
-                  message={"Once you delete you won't be able to access it."}
-                  onAccept={() => onDelete(category._id)}
-                />
-                <LinkContainer to="/sellers/manage/categories">
-                  <Button className="mb-3">Back</Button>
-                </LinkContainer>
-                <Row>
-                  <Col className="text-center">
-                    <Image src={category.image} fluid rounded />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="my-4">
-                    <h2 className="text-center">{category.name}</h2>
-                    <hr />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <section className="d-flex justify-content-between">
-                      <h3>Products</h3>
-                      <LinkContainer
-                        to={`/sellers/manage/categories/${category._id}/products/new`}
+    <main className="container">
+      <section>
+        <div className="flex mb-3">
+          <div>
+            <button
+              onClick={() => navigate(-1)}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold capitalize">Business</span>
+              <span>
+                <HiChevronRight />
+              </span>
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => {}}
+              className="text-base sm:text-lg flex justify-center items-center space-x-1 text-indigo-600 hover:text-indigo-700"
+              to={"/"}
+            >
+              <span className="font-bold">
+                {category ? category.name : "Category"}
+              </span>
+            </button>
+          </div>
+        </div>
+        {error && <h5 className="text-center text-red-500">{error}</h5>}
+        {loading && !category && (
+          <section className="flex justify-center ">
+            <div className="animate-pulse flex-1 space-y-5">
+              <div>
+                <div className="h-10 w-3/12 mb-3 bg-gray-300 rounded-lg"></div>
+                <hr className="mb-3" />
+                <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[...Array(6).fill(1)].map((value, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="bg-gray-50 rounded-lg shadow-md overflow-hidden"
                       >
-                        <Button>Add product</Button>
-                      </LinkContainer>
-                    </section>
+                        <div className="h-48 bg-gray-300"></div>
 
-                    {category.products && (
-                      <ProductList
-                        category={category._id}
-                        products={category.products}
-                      />
+                        <div className="flex justify-center items-center flex-col mt-5 pb-5  space-y-3">
+                          <div className="h-10 w-8/12 bg-gray-300 rounded-lg"></div>
+                          <div className="h-6 w-8/12 bg-gray-300 rounded-lg"></div>
+                          <div className="h-8 w-4/12 bg-gray-300 rounded-lg"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </section>
+              </div>
+            </div>
+          </section>
+        )}
+        {category && (
+          <section className="flex justify-center">
+            <div>
+              <h1>{category.name}</h1>
+              <hr />
+              <div className="flex">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                  }}
+                  className="flex-1"
+                >
+                  <div className="grid grid-cols-12 gap-x-2 mb-3">
+                    <input
+                      className="col-span-8 md:col-span-10 w-full py-2 rounded-lg"
+                      type="search"
+                      placeholder="Search product"
+                    />
+                    <button
+                      className=" col-span-4 md:col-span-2 py-2 px-3 bg-indigo-600 rounded-lg text-white text-lg hover:bg-indigo-700"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <hr />
+              <div>
+                {category.products && (
+                  <>
+                    {category.products.length > 0 ? (
+                      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {category.products.map((product) => {
+                          return (
+                            <div
+                              key={product._id}
+                              className="bg-gray-50 rounded-lg shadow-md overflow-hidden"
+                            >
+                              <div>
+                                <Link to={`/business/products/${product._id}`}>
+                                  <img
+                                    className="object-cover"
+                                    src={product.image}
+                                    alt={product.name}
+                                  />
+                                </Link>
+                              </div>
+                              <div className="flex justify-center items-center flex-col p-5">
+                                <h2>{product.name}</h2>
+                                <p className="mb-5">{product.description}</p>
+                                <div>
+                                  <Link
+                                    className="text-center px-3 py-3 text-lg bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                                    to={`/business/products/${product._id}`}
+                                  >
+                                    Shop Now
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </section>
+                    ) : (
+                      <section className="text-center">
+                        <h2 className="text-muted my-4">
+                          No products available
+                        </h2>
+                      </section>
                     )}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="mx-auto">
-                    <LinkContainer
-                      to={`/sellers/manage/categories/${category._id}/edit`}
-                    >
-                      <Button className="w-100">Edit</Button>
-                    </LinkContainer>
-                  </Col>
-                  <Col className="mx-auto">
-                    <Button
-                      variant="danger"
-                      className="w-100"
-                      onClick={() => setModalShow(true)}
-                    >
-                      Delete
-                    </Button>
-                  </Col>
-                </Row>
-              </section>
-            )}
-          </Col>
-        </Row>
-      </Container>
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+      </section>
     </main>
   );
 };

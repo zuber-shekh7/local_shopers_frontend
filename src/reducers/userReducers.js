@@ -20,9 +20,9 @@ import {
   USER_CHANGE_PASSWORD_REQUEST,
   USER_CHANGE_PASSWORD_SUCCESS,
   USER_CHANGE_PASSWORD_FAIL,
-  SENT_PASSWORD_RESET_EMAIL_REQUEST,
-  SENT_PASSWORD_RESET_EMAIL_SUCCESS,
-  SENT_PASSWORD_RESET_EMAIL_FAIL,
+  SEND_PASSWORD_RESET_EMAIL_REQUEST,
+  SEND_PASSWORD_RESET_EMAIL_SUCCESS,
+  SEND_PASSWORD_RESET_EMAIL_FAIL,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
@@ -118,13 +118,13 @@ const changePasswordReducer = (state = {}, action) => {
   }
 };
 
-const sentPasswordResetEmailReducer = (state = {}, action) => {
+const sendPasswordResetEmailReducer = (state = {}, action) => {
   switch (action.type) {
-    case SENT_PASSWORD_RESET_EMAIL_REQUEST:
+    case SEND_PASSWORD_RESET_EMAIL_REQUEST:
       return { ...state, loading: true, success: null, error: null };
-    case SENT_PASSWORD_RESET_EMAIL_SUCCESS:
+    case SEND_PASSWORD_RESET_EMAIL_SUCCESS:
       return { ...state, loading: false, success: action.payload, error: null };
-    case SENT_PASSWORD_RESET_EMAIL_FAIL:
+    case SEND_PASSWORD_RESET_EMAIL_FAIL:
       return {
         ...state,
         loading: false,
@@ -160,6 +160,6 @@ export {
   getUserReducer,
   updateUserReducer,
   changePasswordReducer,
-  sentPasswordResetEmailReducer,
+  sendPasswordResetEmailReducer,
   resetPasswordReducer,
 };

@@ -5,6 +5,9 @@ import {
   ContactUsPage,
   HomePage,
   NotFoundPage,
+  PrivacyPolicyPage,
+  TermsOfServicePage,
+  FAQPage,
 } from "./pages/core";
 import {
   LoginPage,
@@ -15,8 +18,6 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
 } from "./pages/users";
-import UserOrdersPage from "./pages/orders/UserOrdersPage";
-import UserOrderPage from "./pages/orders/UserOrderPage";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
 import DefaultContainer from "./components/containers/DefaultContainer";
@@ -31,11 +32,9 @@ import {
 } from "./pages/addresses";
 import EditUserProfilePage from "./pages/users/EditProfilePage";
 import { BusinessPage } from "./pages/business";
-import UserCategoryPage from "./pages/categories/users/CategoryPage";
-import UserProductPage from "./pages/products/users/ProductPage";
-import PrivacyPolicyPage from "./pages/core/PrivacyPolicyPage";
-import TermsOfServicePage from "./pages/core/TermsOfServicePage";
-import FAQPage from "./pages/core/FAQPage";
+import { CategoryPage } from "./pages/categories";
+import { OrderPage, OrdersPage } from "./pages/orders";
+import ProductPage from "./pages/products/ProductPage";
 
 const App = () => {
   return (
@@ -72,16 +71,8 @@ const App = () => {
               path={routes.resetPassword}
               element={<ResetPasswordPage />}
             />
-            <Route
-              exact
-              path={routes.getProduct}
-              element={<UserProductPage />}
-            />
-            <Route
-              exact
-              path={routes.categories}
-              element={<UserCategoryPage />}
-            />
+            <Route exact path={routes.getProduct} element={<ProductPage />} />
+            <Route exact path={routes.categories} element={<CategoryPage />} />
             <Route
               exact
               path={routes.dashboard}
@@ -123,7 +114,7 @@ const App = () => {
               path={routes.getOrders}
               element={
                 <PrivateRoute>
-                  <UserOrdersPage />
+                  <OrdersPage />
                 </PrivateRoute>
               }
             />
@@ -131,7 +122,7 @@ const App = () => {
               path={routes.getOrder}
               element={
                 <PrivateRoute>
-                  <UserOrderPage />
+                  <OrderPage />
                 </PrivateRoute>
               }
             />
