@@ -7,13 +7,6 @@ import {
   getAddressReducer,
 } from "./addressReducers";
 import {
-  createBusinessCategoryReducer,
-  deleteBusinessCategoryReducer,
-  editBusinessCategoryReducer,
-  getBusinessCategoriesReducer,
-  getBusinessCategoryReducer,
-} from "./businessCategoryReducers";
-import {
   createBusinessReducer,
   editBusinessReducer,
   getBusinessReducer,
@@ -165,11 +158,6 @@ const rootReducer = combineReducers({
   createAddress: createAddressReducer,
   editAddress: editAddressReducer,
   deleteAddress: deleteAddressReducer,
-  getBusinessCategories: getBusinessCategoriesReducer,
-  createBusinessCategory: createBusinessCategoryReducer,
-  getBusinessCategory: getBusinessCategoryReducer,
-  editBusinessCategory: editBusinessCategoryReducer,
-  deleteBusinessCategory: deleteBusinessCategoryReducer,
   cart: cartReducer,
   createOrder: createOrderReducer,
   getUserOrder: getUserOrderReducer,
