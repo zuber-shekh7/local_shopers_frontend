@@ -6,11 +6,7 @@ import {
   getAddressesReducer,
   getAddressReducer,
 } from "./addressReducers";
-import {
-  createBusinessReducer,
-  editBusinessReducer,
-  getBusinessReducer,
-} from "./businessReducers";
+import { getBusinessReducer } from "./businessReducers";
 import { cartReducer } from "./cartReducers";
 import { getCategoryDetailsReducer } from "./categoryReducers";
 import {
@@ -129,9 +125,7 @@ const rootReducer = combineReducers({
   updateUser: updateUserReducer,
   getCategoryDetails: getCategoryDetailsReducer,
   getProduct: getProductReducer,
-  createBusiness: createBusinessReducer,
   getBusiness: getBusinessReducer,
-  editBusiness: editBusinessReducer,
   getWishlist: getWishlistReducer,
   addToWishlist: addToWishlistReducer,
   removeFromWishlist: removeFromWishlistReducer,
