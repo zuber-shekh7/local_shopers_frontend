@@ -5,7 +5,7 @@ import { getUserOrder } from "../../actions/orderActions";
 import { useParams } from "react-router-dom";
 import routes from "../../utils/routes";
 
-const UserOrderPage = () => {
+const OrderPage = () => {
   const { loading, order, error } = useSelector((state) => state.getUserOrder);
 
   const { orderId } = useParams();
@@ -163,4 +163,4 @@ const UserOrderPage = () => {
   );
 };
 
-export default UserOrderPage;
+export default OrderPage;

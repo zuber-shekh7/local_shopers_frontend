@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { HiChevronRight } from "react-icons/hi";
-import { getProduct } from "../../../actions/productActions";
+import { getProduct } from "../../actions/productActions";
 
-import routes from "../../../utils/routes";
+import routes from "../../utils/routes";
 
-const UserProductPage = () => {
+const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
 
   const { productId } = useParams();
@@ -157,4 +157,4 @@ const UserProductPage = () => {
   );
 };
 
-export default UserProductPage;
+export default ProductPage;

@@ -6,7 +6,7 @@ import { getUserOrders } from "../../actions/orderActions";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import routes from "../../utils/routes";
 
-const UserOrdersPage = () => {
+const OrdersPage = () => {
   const { user } = useSelector((state) => state.userLogin);
 
   const { loading, orders, error } = useSelector(
@@ -136,4 +136,4 @@ const UserOrdersPage = () => {
   );
 };
 
-export default UserOrdersPage;
+export default OrdersPage;

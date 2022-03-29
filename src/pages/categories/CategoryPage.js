@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { HiChevronRight } from "react-icons/hi";
-import { getCategory } from "../../../actions/categoryActions";
+import { getCategory } from "../../actions/categoryActions";
 
-const UserCategoryPage = ({ match, history }) => {
+const CategoryPage = ({ match, history }) => {
   const { categoryId } = useParams();
 
   const dispatch = useDispatch();
@@ -157,4 +157,4 @@ const UserCategoryPage = ({ match, history }) => {
   );
 };
 
-export default UserCategoryPage;
+export default CategoryPage;
