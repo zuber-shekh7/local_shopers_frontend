@@ -40,36 +40,11 @@ const initialState = {
       : null,
   },
   userSignup: {},
-  sellerLogin: {
-    sellerInfo: localStorage.getItem("sellerInfo")
-      ? JSON.parse(localStorage.getItem("sellerInfo", null))
-      : null,
-  },
-  sellerSignup: {},
-  getSeller: {
-    seller: localStorage.getItem("seller")
-      ? JSON.parse(localStorage.getItem("seller", null))
-      : null,
-  },
   getUser: { user: null },
   updateUser: { user: null },
-  adminLogin: {
-    adminInfo: localStorage.getItem("adminInfo")
-      ? JSON.parse(localStorage.getItem("adminInfo", null))
-      : null,
-  },
-  getCategories: { categories: null },
   getCategory: { category: null },
-  createCategory: { category: null },
-  editCategory: { category: null },
-  deleteCategory: { success: null },
-  createProduct: { product: null },
   getProduct: { product: null },
-  editProduct: { product: null },
-  deleteProduct: { success: null },
-  createBusiness: { success: null },
   getBusiness: { business: null },
-  editBusiness: { business: null },
   getWishlist: { wishlist: null },
   addToWishlist: { wishlist: null },
   removeFromWishlist: { wishlist: null },
@@ -78,18 +53,6 @@ const initialState = {
   createAddress: { address: null },
   editAddress: { address: null },
   deleteAddress: { success: null },
-  getBusinessCategories: { businessCategories: null },
-  createBusinessCategory: { businessCategory: null },
-  getBusinessCategory: { businessCategory: null },
-  editBusinessCategory: { businessCategory: null },
-  deleteBusinessCategory: { success: null },
-  getCummulativeStats: { stats: null },
-  getManageCategory: { categoryDetails: null },
-  getAdminProductList: { productList: null },
-  getSellerDetails: { sellersList: null },
-  getUsersDetails: { usersList: null },
-  getAdminList: { adminList: null },
-  getBusinessCategoryList: { businessCategoryList: null },
   cart: {
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems", []))
@@ -105,13 +68,10 @@ const initialState = {
       : null,
   },
   createOrder: { order: null },
-  getUserOrder: { order: null },
-  getUserOrders: { orders: null },
-  getSellerOrders: { orders: null },
-  getSellerOrder: { order: null },
-  updateOrderStatus: { order: null },
+  getOrder: { order: null },
+  getOrders: { orders: null },
   changePassword: { success: null },
-  sentPasswordResetEmail: { success: null },
+  sendPasswordResetEmail: { success: null },
   resetPassword: { success: null },
 };
 
