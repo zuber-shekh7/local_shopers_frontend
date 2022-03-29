@@ -2,6 +2,10 @@ import React from "react";
 import { HiStatusOffline } from "react-icons/hi";
 
 const OfflineContainer = () => {
+  const refreshPage = () => {
+    window.location.reload(false);
+  };
+
   return (
     <main className="container">
       <section>
@@ -12,7 +16,10 @@ const OfflineContainer = () => {
             </div>
             <h1>Connect to the Internet</h1>
             <h6>You're offline. Check your connection.</h6>
-            <button className="px-3 py-2 bg-indigo-600 rounded-lg text-white uppercase hover:bg-indigo-700">
+            <button
+              onClick={refreshPage}
+              className="px-3 py-2 bg-indigo-600 rounded-lg text-white uppercase hover:bg-indigo-700"
+            >
               retry
             </button>
           </div>
