@@ -11,7 +11,7 @@ const CategoryPage = ({ match, history }) => {
   const navigate = useNavigate();
 
   const { loading, category, error } = useSelector(
-    (state) => state.getCategoryDetails
+    (state) => state.getCategory
   );
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import {
   GET_CATEGORY_SUCCESS,
 } from "../constants/categoryConstants";
 
-export const getCategoryDetailsReducer = (state = {}, action) => {
+export const getCategoryReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_CATEGORY_REQUEST:
       return { loading: true };
