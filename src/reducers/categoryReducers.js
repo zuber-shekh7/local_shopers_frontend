@@ -1,16 +1,16 @@
 import {
-  FETCH_CATEGORY_DETAILS_FAIL,
-  FETCH_CATEGORY_DETAILS_REQUEST,
-  FETCH_CATEGORY_DETAILS_SUCCESS,
+  GET_CATEGORY_FAIL,
+  GET_CATEGORY_REQUEST,
+  GET_CATEGORY_SUCCESS,
 } from "../constants/categoryConstants";
 
 export const getCategoryDetailsReducer = (state = {}, action) => {
   switch (action.type) {
-    case FETCH_CATEGORY_DETAILS_REQUEST:
+    case GET_CATEGORY_REQUEST:
       return { loading: true };
-    case FETCH_CATEGORY_DETAILS_SUCCESS:
+    case GET_CATEGORY_SUCCESS:
       return { ...state, loading: false, category: action.payload };
-    case FETCH_CATEGORY_DETAILS_FAIL:
+    case GET_CATEGORY_FAIL:
       return {
         ...state,
         loading: false,

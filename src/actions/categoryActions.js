@@ -1,20 +1,20 @@
 import backendAPI from "../apis/backendAPI";
 import {
-  FETCH_CATEGORY_DETAILS_FAIL,
-  FETCH_CATEGORY_DETAILS_REQUEST,
-  FETCH_CATEGORY_DETAILS_SUCCESS,
+  GET_CATEGORY_REQUEST,
+  GET_CATEGORY_SUCCESS,
+  GET_CATEGORY_FAIL,
 } from "../constants/categoryConstants";
 
 export const getCategory = (id) => async (dispatch) => {
   try {
-    dispatch({ type: FETCH_CATEGORY_DETAILS_REQUEST });
+    dispatch({ type: GET_CATEGORY_REQUEST });
 
     const { data } = await backendAPI.get(`/categories/${id}`, {});
     const { category } = data;
 
-    dispatch({ type: FETCH_CATEGORY_DETAILS_SUCCESS, payload: category });
+    dispatch({ type: GET_CATEGORY_SUCCESS, payload: category });
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: FETCH_CATEGORY_DETAILS_FAIL, payload: error });
+    dispatch({ type: GET_CATEGORY_FAIL, payload: error });
   }
 };
