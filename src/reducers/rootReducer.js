@@ -11,11 +11,8 @@ import { cartReducer } from "./cartReducers";
 import { getCategoryDetailsReducer } from "./categoryReducers";
 import {
   createOrderReducer,
-  getSellerOrderReducer,
-  getSellerOrdersReducer,
-  getUserOrderReducer,
-  getUserOrdersReducer,
-  updateOrderStatusReducer,
+  getOrdersReducer,
+  getOrderReducer,
 } from "./orderReducers";
 import { getProductReducer } from "./productReducers";
 import {
@@ -136,11 +133,8 @@ const rootReducer = combineReducers({
   deleteAddress: deleteAddressReducer,
   cart: cartReducer,
   createOrder: createOrderReducer,
-  getUserOrder: getUserOrderReducer,
-  getUserOrders: getUserOrdersReducer,
-  getSellerOrders: getSellerOrdersReducer,
-  getSellerOrder: getSellerOrderReducer,
-  updateOrderStatus: updateOrderStatusReducer,
+  getOrder: getOrderReducer,
+  getOrders: getOrdersReducer,
   changePassword: changePasswordReducer,
   sentPasswordResetEmail: sentPasswordResetEmailReducer,
   resetPassword: resetPasswordReducer,
