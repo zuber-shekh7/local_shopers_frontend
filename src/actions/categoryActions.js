@@ -9,7 +9,7 @@ export const getCategory = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_CATEGORY_REQUEST });
 
-    const { data } = await backendAPI.get(`/categories/${id}`, {});
+    const { data } = await backendAPI.get(`/categories/${id}`);
     const { category } = data;
 
     dispatch({ type: GET_CATEGORY_SUCCESS, payload: category });

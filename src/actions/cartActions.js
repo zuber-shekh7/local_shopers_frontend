@@ -37,7 +37,7 @@ const removeFromCart = (id) => async (dispatch, getState) => {
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-const saveShippingAddress = (address) => async (dispatch, getState) => {
+const saveShippingAddress = (address) => async (dispatch) => {
   dispatch({
     type: SAVE_SHIPPING_ADDRESS,
     payload: {
@@ -48,7 +48,7 @@ const saveShippingAddress = (address) => async (dispatch, getState) => {
   localStorage.setItem("shippingAddress", address);
 };
 
-const savePaymentMethod = (paymentMethod) => async (dispatch, getState) => {
+const savePaymentMethod = (paymentMethod) => async (dispatch) => {
   dispatch({
     type: SAVE_PAYMENT_METHOD,
     payload: {
