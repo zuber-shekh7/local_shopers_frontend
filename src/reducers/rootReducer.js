@@ -21,7 +21,7 @@ import {
   userLoginReducer,
   userSignupReducer,
   changePasswordReducer,
-  sentPasswordResetEmailReducer,
+  sendPasswordResetEmailReducer,
   resetPasswordReducer,
 } from "./userReducers";
 import {
@@ -136,7 +136,7 @@ const rootReducer = combineReducers({
   getOrder: getOrderReducer,
   getOrders: getOrdersReducer,
   changePassword: changePasswordReducer,
-  sentPasswordResetEmail: sentPasswordResetEmailReducer,
+  sendPasswordResetEmail: sendPasswordResetEmailReducer,
   resetPassword: resetPasswordReducer,
 });
 

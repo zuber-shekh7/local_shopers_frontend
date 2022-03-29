@@ -21,9 +21,9 @@ import {
   USER_CHANGE_PASSWORD_REQUEST,
   USER_CHANGE_PASSWORD_SUCCESS,
   USER_CHANGE_PASSWORD_FAIL,
-  SENT_PASSWORD_RESET_EMAIL_REQUEST,
-  SENT_PASSWORD_RESET_EMAIL_SUCCESS,
-  SENT_PASSWORD_RESET_EMAIL_FAIL,
+  SEND_PASSWORD_RESET_EMAIL_REQUEST,
+  SEND_PASSWORD_RESET_EMAIL_SUCCESS,
+  SEND_PASSWORD_RESET_EMAIL_FAIL,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
@@ -158,19 +158,19 @@ const changePassword = (oldPassword, newPassword) => async (dispatch) => {
 
 const sentPasswordResetEmail = (email) => async (dispatch) => {
   try {
-    dispatch({ type: SENT_PASSWORD_RESET_EMAIL_REQUEST });
+    dispatch({ type: SEND_PASSWORD_RESET_EMAIL_REQUEST });
 
     await backendAPI.post("/users/forgot-password", {
       email,
     });
 
-    dispatch({ type: SENT_PASSWORD_RESET_EMAIL_SUCCESS, payload: true });
+    dispatch({ type: SEND_PASSWORD_RESET_EMAIL_SUCCESS, payload: true });
     setTimeout(() => {
-      dispatch({ type: SENT_PASSWORD_RESET_EMAIL_SUCCESS, payload: null });
+      dispatch({ type: SEND_PASSWORD_RESET_EMAIL_SUCCESS, payload: null });
     }, 5000);
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: SENT_PASSWORD_RESET_EMAIL_FAIL, payload: error });
+    dispatch({ type: SEND_PASSWORD_RESET_EMAIL_FAIL, payload: error });
   }
 };
 
