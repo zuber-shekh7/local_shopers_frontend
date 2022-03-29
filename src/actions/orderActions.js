@@ -15,13 +15,7 @@ export const createOrder = (orderData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
 
-    const token = JSON.parse(localStorage.getItem("token"));
-
-    const { data } = await backendAPI.post(`/orders/`, orderData, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await backendAPI.post(`/orders/`, orderData);
 
     const { order } = data;
 
@@ -39,12 +33,7 @@ export const getOrders = (userId) => async (dispatch) => {
   try {
     dispatch({ type: GET_ORDERS_REQUEST });
 
-    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
-
     const { data } = await backendAPI.get(`/orders/`, {
-      headers: {
-        Authorization: token,
-      },
       params: { userId },
     });
 
@@ -61,13 +50,7 @@ export const getOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_ORDER_REQUEST });
 
-    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
-
-    const { data } = await backendAPI.get(`/orders/${id}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await backendAPI.get(`/orders/${id}`);
 
     const { order } = data;
 

@@ -6,7 +6,7 @@ import {
   SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants";
 
-const addToCart = (id, quantity) => async (dispatch, getState) => {
+export const addToCart = (id, quantity) => async (dispatch, getState) => {
   const { data } = await backendAPI.get(`/products/${id}`);
 
   const { product } = data;
@@ -26,7 +26,7 @@ const addToCart = (id, quantity) => async (dispatch, getState) => {
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-const removeFromCart = (id) => async (dispatch, getState) => {
+export const removeFromCart = (id) => async (dispatch, getState) => {
   dispatch({
     type: REMOVE_FROM_CART,
     payload: {
@@ -37,7 +37,7 @@ const removeFromCart = (id) => async (dispatch, getState) => {
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-const saveShippingAddress = (address) => async (dispatch) => {
+export const saveShippingAddress = (address) => async (dispatch) => {
   dispatch({
     type: SAVE_SHIPPING_ADDRESS,
     payload: {
@@ -48,7 +48,7 @@ const saveShippingAddress = (address) => async (dispatch) => {
   localStorage.setItem("shippingAddress", address);
 };
 
-const savePaymentMethod = (paymentMethod) => async (dispatch) => {
+export const savePaymentMethod = (paymentMethod) => async (dispatch) => {
   dispatch({
     type: SAVE_PAYMENT_METHOD,
     payload: {
@@ -58,5 +58,3 @@ const savePaymentMethod = (paymentMethod) => async (dispatch) => {
 
   localStorage.setItem("paymentMethod", paymentMethod);
 };
-
-export { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod };

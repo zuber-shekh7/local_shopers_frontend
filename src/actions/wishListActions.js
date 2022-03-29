@@ -11,17 +11,11 @@ import {
   REMOVE_FROM_WISHLIST_SUCCESS,
 } from "../constants/wishListConstants";
 
-const getWishList = (userId) => async (dispatch) => {
+export const getWishList = (userId) => async (dispatch) => {
   try {
     dispatch({ type: GET_WISHLIST_REQUEST });
 
-    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
-
-    const { data } = await backendAPI.get(`/wishlists/?userId=${userId}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { data } = await backendAPI.get(`/wishlists/?userId=${userId}`);
     const { wishList } = data;
 
     dispatch({ type: GET_WISHLIST_SUCCESS, payload: wishList });
@@ -31,24 +25,14 @@ const getWishList = (userId) => async (dispatch) => {
   }
 };
 
-const addToWishList = (wishlistId, productId) => async (dispatch) => {
+export const addToWishList = (wishlistId, productId) => async (dispatch) => {
   try {
     dispatch({ type: ADD_TO_WISHLIST_REQUEST });
 
-    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
-
-    await backendAPI.post(
-      `/wishlists/`,
-      {
-        wishlistId,
-        productId,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    await backendAPI.post(`/wishlists/`, {
+      wishlistId,
+      productId,
+    });
 
     dispatch({ type: ADD_TO_WISHLIST_SUCCESS, payload: true });
     dispatch({ type: ADD_TO_WISHLIST_SUCCESS, payload: null });
@@ -58,28 +42,22 @@ const addToWishList = (wishlistId, productId) => async (dispatch) => {
   }
 };
 
-const removeFromWishList = (wishlistId, productId) => async (dispatch) => {
-  try {
-    dispatch({ type: REMOVE_FROM_WISHLIST_REQUEST });
+export const removeFromWishList =
+  (wishlistId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: REMOVE_FROM_WISHLIST_REQUEST });
 
-    const token = `Bearer ${JSON.parse(localStorage.getItem("token"))}`;
+      await backendAPI.delete(`/wishlists/`, {
+        data: {
+          wishlistId,
+          productId,
+        },
+      });
 
-    await backendAPI.delete(`/wishlists/`, {
-      headers: {
-        Authorization: token,
-      },
-      data: {
-        wishlistId,
-        productId,
-      },
-    });
-
-    dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, payload: true });
-    dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, payload: null });
-  } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
-    dispatch({ type: REMOVE_FROM_WISHLIST_FAIL, payload: error });
-  }
-};
-
-export { getWishList, addToWishList, removeFromWishList };
+      dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, payload: true });
+      dispatch({ type: REMOVE_FROM_WISHLIST_SUCCESS, payload: null });
+    } catch (err) {
+      const error = err.response ? err.response.data.message : err.message;
+      dispatch({ type: REMOVE_FROM_WISHLIST_FAIL, payload: error });
+    }
+  };
