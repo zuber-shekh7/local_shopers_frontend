@@ -87,11 +87,11 @@ const SignupPage = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Label htmlFor="password">Confirm Password*</Label>
+              <Label htmlFor="confirmPassword">Confirm Password*</Label>
               <Input
                 className="w-full"
                 type="password"
-                id="password"
+                id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
