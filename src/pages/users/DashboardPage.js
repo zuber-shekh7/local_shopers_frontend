@@ -8,8 +8,9 @@ import {
   HiOutlineLocationMarker,
   HiOutlineStar,
 } from "react-icons/hi";
+import { Card } from "../../components/cards";
 
-const UserDashboardPage = () => {
+const DashboardPage = () => {
   const { user } = useSelector((state) => state.userLogin);
 
   const navigate = useNavigate();
@@ -21,13 +22,19 @@ const UserDashboardPage = () => {
   }, [user, navigate]);
 
   return (
-    <main className="container text-darkBlue">
-      <section>
-        <h1 className="text-4xl font-semibold mb-3">Your Account</h1>
-        <hr />
+    <main className="text-darkBlue">
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h6>
+            Hi {user.profile.firstName} {user.profile.lastName},
+          </h6>
+          <h1 className="">Welcome to Local Shoppers</h1>
+        </div>
+      </section>
+      <section className="container">
         {user && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-2">
-            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-5">
+            <Card className="hover:bg-indigo-100 transition duration-500">
               <Link className="flex space-x-2" to="/users/orders">
                 <div>
                   <HiOutlineFolderOpen className="h-8 w-8" />
@@ -37,8 +44,8 @@ const UserDashboardPage = () => {
                   <h6>Track or buy things again</h6>
                 </div>
               </Link>
-            </div>
-            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+            </Card>
+            <Card className="hover:bg-indigo-100 transition duration-500">
               <Link className="flex space-x-2" to="/users/profile/">
                 <div>
                   <HiOutlineUserCircle className="h-8 w-8" />
@@ -48,9 +55,8 @@ const UserDashboardPage = () => {
                   <h6>Edit name, email or mobile number</h6>
                 </div>
               </Link>
-            </div>
-
-            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+            </Card>
+            <Card className="hover:bg-indigo-100 transition duration-500">
               <Link className="flex space-x-2" to="/users/addresses">
                 <div>
                   <HiOutlineLocationMarker className="h-8 w-8" />
@@ -60,19 +66,18 @@ const UserDashboardPage = () => {
                   <h6>Edit addresses for orders</h6>
                 </div>
               </Link>
-            </div>
-
-            <div className="px-3 py-4 border-2 rounded-lg span-col-1 mb-3 hover:bg-gray-100">
+            </Card>
+            <Card className="hover:bg-indigo-100 transition duration-500">
               <Link className="flex space-x-2" to="/users/wishlist">
                 <div>
                   <HiOutlineStar className="h-8 w-8" />
                 </div>
                 <div>
-                  <h4 className="text-2xl font-medium">Your Wishlist</h4>
+                  <h4 className="text-2xl font-medium">Your Wish List</h4>
                   <h6>Explore wishlist or buy things</h6>
                 </div>
               </Link>
-            </div>
+            </Card>
           </div>
         )}
       </section>
@@ -80,4 +85,4 @@ const UserDashboardPage = () => {
   );
 };
 
-export default UserDashboardPage;
+export default DashboardPage;
