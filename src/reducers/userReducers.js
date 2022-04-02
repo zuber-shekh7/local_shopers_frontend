@@ -56,9 +56,9 @@ const userLoginReducer = (state = {}, action) => {
 const userSignupReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_SIGNUP_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null };
     case USER_SIGNUP_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, loading: false, error: null };
     case USER_SIGNUP_FAIL:
       return {
         ...state,
