@@ -31,11 +31,11 @@ import {
 const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true, error: null, user: null };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { ...state, loading: false, user: action.payload, error: null };
     case USER_LOGIN_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload, user: null };
     case USER_LOGIN_WITH_GOOGLE_REQUEST:
       return { ...state, loading: true };
     case USER_LOGIN_WITH_GOOGLE_SUCCESS:
