@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { HiOutlinePencil } from "react-icons/hi";
+import { Link, NavLink } from "react-router-dom";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import { getUser } from "../../actions/userActions";
 import routes from "../../utils/routes";
+import { HiOutlineUser, HiOutlinePencil, HiOutlineCog } from "react-icons/hi";
 
 const UserProfilePage = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,13 @@ const UserProfilePage = () => {
   }, [dispatch]);
 
   return (
-    <main className="container max-w-lg">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>Your Account</h1>
+        </div>
+      </section>
+      <section className="container">
         <Breadcrumb
           links={[
             {
@@ -30,8 +35,107 @@ const UserProfilePage = () => {
             },
           ]}
         />
-        <h1>Your Profile</h1>
-        <hr />
+
+        <div className="grid grid-cols-12">
+          <div className="col-span-4 border-r">
+            <div className="mr-5">
+              <NavLink
+                className={(isActive) =>
+                  "flex justify-start items-center space-x-2 text-indigo-600 p-4 rounded-lg text-lg hover:bg-indigo-50" +
+                  (isActive.isActive ? " bg-indigo-100" : "")
+                }
+                to={routes.profile}
+              >
+                <span>
+                  <HiOutlineUser className="h-6 w-6" />
+                </span>
+                <span>Profile</span>
+              </NavLink>
+              <NavLink
+                className={(isActive) =>
+                  "flex justify-start items-center space-x-2 text-indigo-600 p-4 rounded-lg text-lg hover:bg-indigo-50" +
+                  (isActive.isActive ? " bg-indigo-100" : "")
+                }
+                to={routes.editProfile}
+              >
+                <span>
+                  <HiOutlineCog className="h-6 w-6" />
+                </span>
+                <span>Settings</span>
+              </NavLink>
+            </div>
+          </div>
+          <div className="col-span-8 ml-5">
+            <div>
+              {user && (
+                <div className="flex justify-center">
+                  <div className="flex-1 border p-5 rounded-lg shadow-lg">
+                    <ul>
+                      <li className="border-b mb-5">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex space-x-5">
+                            <h4 className="font-light">First Name</h4>
+                            <h4 className="font-normal">
+                              {user.profile.firstName}
+                            </h4>
+                          </div>
+                          <div>
+                            <Link to={routes.editProfile}>
+                              <HiOutlinePencil className="text-indigo-600 hover:bg-none" />
+                            </Link>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="border-b mb-5">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex space-x-5">
+                            <h4 className="font-light">Last Name</h4>
+                            <h4 className="font-normal">
+                              {user.profile.lastName}
+                            </h4>
+                          </div>
+                          <div>
+                            <Link to={routes.editProfile}>
+                              <HiOutlinePencil className="text-indigo-600 hover:bg-none" />
+                            </Link>
+                          </div>
+                        </div>
+                      </li>
+                      <li className="border-b mb-5">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex space-x-5">
+                            <h4 className="font-light">Email</h4>
+                            <h4 className="font-normal lowercase">
+                              {user.email}
+                            </h4>
+                          </div>
+                          <div>
+                            <Link to={routes.editProfile}>
+                              <HiOutlinePencil className="text-indigo-600 hover:bg-none" />
+                            </Link>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="flex items-center justify-between">
+                          <div className="flex space-x-5">
+                            <h4 className="font-light">Mobile</h4>
+                            <h4 className="font-normal">{user.mobile}</h4>
+                          </div>
+                          <div>
+                            <Link to={routes.editProfile}>
+                              <HiOutlinePencil className="text-indigo-600 hover:bg-none" />
+                            </Link>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !user && (
           <div className="flex justify-center">
@@ -49,59 +153,6 @@ const UserProfilePage = () => {
                   );
                 })}
               </div>
-            </div>
-          </div>
-        )}
-        {user && (
-          <div className="flex justify-center">
-            <div className="flex-1 bg-gray-50 border  px-10 py-5 rounded-lg shadow-lg">
-              <div className="flex justify-end">
-                <Link
-                  className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                  to={routes.editProfile}
-                >
-                  <span>
-                    <HiOutlinePencil className="h-6 w-6" />
-                  </span>
-                </Link>
-              </div>
-              <ul>
-                <li>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold">First Name</h4>
-                    <p className="">{user.profile.firstName}</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold">Last Name</h4>
-                    <p className="">{user.profile.lastName}</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold">Email</h4>
-                    <p className="">{user.email}</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-semibold">Mobile</h4>
-                    <p className="">{user.mobile ? user.mobile : "N/A"}</p>
-                  </div>
-                </li>
-                <li>
-                  <Link
-                    to={routes.changePassword}
-                    className="flex items-center justify-between mb-3 text-indigo-600 hover:underline hover:underline-offset-1"
-                  >
-                    <h4 className="font-semibold">Change Password</h4>
-                    <span>
-                      <HiOutlinePencil className="h-4 w-4" />
-                    </span>
-                  </Link>
-                </li>
-              </ul>
             </div>
           </div>
         )}
