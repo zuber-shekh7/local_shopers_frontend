@@ -18,8 +18,13 @@ const OrdersPage = () => {
   }, [user, dispatch]);
 
   return (
-    <main className="container">
-      <section>
+    <main>
+      <section className="bg-indigo-600 p-5 text-white">
+        <div className="container">
+          <h1>Your Orders</h1>
+        </div>
+      </section>
+      <section className="container">
         <Breadcrumb
           links={[
             {
@@ -32,8 +37,7 @@ const OrdersPage = () => {
             },
           ]}
         />
-        <h1>Your Orders</h1>
-        <hr />
+
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {!orders && loading && (
           <div className="grid grid-cols-1 gap-y-5">
@@ -60,9 +64,9 @@ const OrdersPage = () => {
                   return (
                     <div
                       key={order._id}
-                      className="flex flex-col border rounded-lg overflow-hidden"
+                      className="flex flex-col border rounded-lg overflow-hidden shadow-md"
                     >
-                      <div className="bg-lightBlue px-5 py-3">
+                      <div className="bg-indigo-50 px-5 py-3">
                         <div className="flex justify-between">
                           <div>
                             <p className="uppercase">order placed</p>
@@ -84,7 +88,7 @@ const OrdersPage = () => {
                               ORDER # {order._id}
                             </p>
                             <Link
-                              className="text-darkBlue hover:text-indigo-600 hover:underline"
+                              className="text-darkBlue hover:text-indigo-700 hover:underline uppercase"
                               to={`${routes.getOrders}${order._id}`}
                             >
                               View order details
