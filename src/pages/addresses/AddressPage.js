@@ -6,6 +6,7 @@ import { deleteAddress, getAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
 import Modal from "../../components/shared/Modal";
 import Breadcrumb from "../../components/shared/Breadcrumb";
+import { LinkButton } from "../../components/buttons";
 
 const AddressPage = () => {
   const [open, setOpen] = useState(false);
@@ -31,8 +32,13 @@ const AddressPage = () => {
   }
 
   return (
-    <main className="container max-w-xl">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>Address details</h1>
+        </div>
+      </section>
+      <section className="container max-w-xl">
         <Breadcrumb
           links={[
             {
@@ -49,8 +55,7 @@ const AddressPage = () => {
             },
           ]}
         />
-        <h1>Address Details</h1>
-        <hr />
+
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !address && (
           <div className="flex justify-center bg-gray-50 border border-gray-50 py-5 rounded-lg shadow-lg px-10">
@@ -75,7 +80,7 @@ const AddressPage = () => {
           </div>
         )}
         {address && (
-          <div className="flex justify-center bg-gray-50 border-2 border-gray-50 py-5 rounded-lg shadow-lg px-10">
+          <div className="flex justify-center border py-5 rounded-lg shadow-lg px-10">
             <Modal
               show={open}
               onClick={() => setOpen(false)}
@@ -86,21 +91,21 @@ const AddressPage = () => {
             />
             <div className="flex-1">
               <div className="flex justify-end">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 mb-5">
                   <Link
-                    className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
-                    to={`${routes.getAddresses}/${address._id}/edit`}
+                    className="text-indigo-600"
+                    to={`${routes.getAddresses}/${addressId}/edit`}
                   >
                     <span>
-                      <HiOutlinePencil className="h-6 w-6" />
+                      <HiOutlinePencil />
                     </span>
                   </Link>
                   <button
-                    className="inline-block p-2 bg-white-100 border-2 border-gray-500 rounded-full text-gray-500 mb-5"
+                    className="text-red-500"
                     onClick={() => setOpen(true)}
                   >
                     <span>
-                      <HiOutlineTrash className="h-6 w-6" />
+                      <HiOutlineTrash />
                     </span>
                   </button>
                 </div>
