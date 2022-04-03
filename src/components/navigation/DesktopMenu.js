@@ -17,6 +17,10 @@ const DesktopMenu = ({ user, handleUserLogout, noCartItems }) => {
       {user ? (
         <>
           <MenuItem to={routes.dashboard}>
+            <HiOutlineHome className="h-6 w-6" />
+            <span>Home</span>
+          </MenuItem>
+          <MenuItem to={routes.profile}>
             <HiOutlineUserCircle className="h-6 w-6" />
             <span>Account</span>
           </MenuItem>

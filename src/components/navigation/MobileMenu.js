@@ -16,6 +16,10 @@ const MobileMenu = ({ user, handleUserLogout, noCartItems }) => {
         {user ? (
           <>
             <MobileMenuItem to={routes.dashboard}>
+              <HiOutlineHome className="h-6 w-6" />
+              <span>Home</span>
+            </MobileMenuItem>
+            <MobileMenuItem to={routes.profile}>
               <HiOutlineUserCircle className="h-6 w-6" />
               <span>Account</span>
             </MobileMenuItem>
