@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAddresses } from "../../actions/addressActions";
 import Breadcrumb from "../../components/shared/Breadcrumb";
+import { Card } from "../../components/cards";
 import routes from "../../utils/routes";
 
 const AddressesPage = () => {
@@ -19,8 +20,13 @@ const AddressesPage = () => {
   }, [dispatch, user]);
 
   return (
-    <main className="container">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>Your Addresses</h1>
+        </div>
+      </section>
+      <section className="container">
         <Breadcrumb
           links={[
             {
@@ -34,8 +40,6 @@ const AddressesPage = () => {
           ]}
         />
         <div className="grid grid-cols-1">
-          <h1 className="text-4xl font-bold mb-4">Your Addresses</h1>
-          <hr />
           {error && <h5 className="text-center text-red-500">{error}</h5>}
           {!addresses && loading && (
             <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
@@ -62,15 +66,17 @@ const AddressesPage = () => {
               })}
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-5">
             {!loading && !error && (
-              <Link
-                to={routes.addAddress}
-                className="py-6 flex flex-col space-y-2 justify-center items-center bg-gray-50 border rounded-lg sm:px-4 sm:py-4 shadow-lg"
-              >
-                <HiOutlinePlus className="h-10 w-10" />
-                <h2 className="text-2xl font-semibold">Add address</h2>
-              </Link>
+              <Card className="hover:bg-indigo-50">
+                <Link
+                  to={routes.addAddress}
+                  className="py-6 flex flex-1 flex-col space-y-2 justify-center items-center"
+                >
+                  <HiOutlinePlus className="h-10 w-10" />
+                  <h2 className="text-2xl font-semibold">Add address</h2>
+                </Link>
+              </Card>
             )}
             {addresses && (
               <>
@@ -78,22 +84,24 @@ const AddressesPage = () => {
                   <>
                     {addresses.map((address) => {
                       return (
-                        <Link
-                          to={`${routes.getAddresses}/${address._id}`}
-                          key={address._id}
-                          className="bg-gray-50 border rounded-lg px-4 py-4 shadow-lg"
-                        >
-                          <h2 className="text-2xl font-medium">
-                            {address.fullName}
-                          </h2>
-                          <p>
-                            {address.flatNo} {address.street} {address.landmark}
-                          </p>
-                          <p>
-                            {address.city}, {address.state}, {address.pincode}
-                          </p>
-                          <p>Phone Number: {address.mobileNumber}</p>
-                        </Link>
+                        <Card className="hover:bg-indigo-50">
+                          <Link
+                            to={`${routes.getAddresses}/${address._id}`}
+                            key={address._id}
+                          >
+                            <h2 className="text-2xl font-medium">
+                              {address.fullName}
+                            </h2>
+                            <p>
+                              {address.flatNo} {address.street}{" "}
+                              {address.landmark}
+                            </p>
+                            <p>
+                              {address.city}, {address.state}, {address.pincode}
+                            </p>
+                            <p>Phone Number: {address.mobileNumber}</p>
+                          </Link>
+                        </Card>
                       );
                     })}
                   </>
