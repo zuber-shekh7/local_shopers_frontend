@@ -86,14 +86,15 @@ const getUserReducer = (state = {}, action) => {
 const updateUserReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_USER_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null, user: null };
     case UPDATE_USER_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { ...state, loading: false, user: action.payload, error: null };
     case UPDATE_USER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
+        user: null,
       };
     default:
       return state;
