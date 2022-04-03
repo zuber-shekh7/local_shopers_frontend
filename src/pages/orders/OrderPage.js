@@ -4,6 +4,7 @@ import Breadcrumb from "../../components/shared/Breadcrumb";
 import { getOrder } from "../../actions/orderActions";
 import { useParams } from "react-router-dom";
 import routes from "../../utils/routes";
+import { Card } from "../../components/cards";
 
 const OrderPage = () => {
   const { loading, order, error } = useSelector((state) => state.getOrder);
@@ -17,8 +18,13 @@ const OrderPage = () => {
   }, [orderId, dispatch]);
 
   return (
-    <main className="container">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>Order Summary</h1>
+        </div>
+      </section>
+      <section className="container">
         <Breadcrumb
           links={[
             {
@@ -35,8 +41,6 @@ const OrderPage = () => {
             },
           ]}
         />
-        <h1>Order Summary</h1>
-        <hr />
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !order && (
           <div className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg hover:bg-gray-100">
@@ -95,7 +99,7 @@ const OrderPage = () => {
         )}
 
         {order && (
-          <div className="bg-gray-50 border rounded-xl px-4 py-3 shadow-md">
+          <Card className="shadow-lg">
             <div className="grid grid-cols-12">
               <div className="col-span-12 md:col-span-6 sm:px-2">
                 <h2 className="uppercase">order | {order._id} </h2>
@@ -156,7 +160,7 @@ const OrderPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
         )}
       </section>
     </main>
