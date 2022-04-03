@@ -4,6 +4,12 @@ import { Navigate } from "react-router-dom";
 import { createAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
 import Breadcrumb from "../../components/shared/Breadcrumb";
+import { Input, Label } from "../../components/forms/inputs";
+import { FormGroup } from "../../components/forms/containers";
+import { Loader } from "../../components/loaders";
+import { Error } from "../../components/messages";
+import { Form } from "react-bootstrap";
+import { Button } from "../../components/buttons";
 
 const AddAddressPage = () => {
   const [fullName, setFullName] = useState("");
@@ -57,8 +63,15 @@ const AddAddressPage = () => {
   }
 
   return (
-    <main className="container max-w-lg">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>
+            Add new address<address></address>
+          </h1>
+        </div>
+      </section>
+      <section className="container max-w-lg">
         <Breadcrumb
           links={[
             {
@@ -75,31 +88,30 @@ const AddAddressPage = () => {
             },
           ]}
         />
-        <h1>Add new address</h1>
-        <hr />
-        <div className="flex justify-center bg-gray-50 border rounded-lg shadow-lg">
+
+        <div className="card border shadow-lg rounded-lg">
           <form className="flex-1 px-5 py-5" onSubmit={handleSubmit}>
-            <div className="mb-5">
-              <label className="block" htmlFor="fullName">
+            <FormGroup>
+              <Label className="block" htmlFor="fullName">
                 Full Name
-              </label>
-              <input
+              </Label>
+              <Input
                 id="fullName"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Steve Jobs"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="mobile">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="mobile">
                 Mobile Number
-              </label>
-              <input
+              </Label>
+              <Input
                 id="mobile"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 pattern={"[0-9]{10}"}
                 type="text"
                 value={mobileNumber}
@@ -107,14 +119,14 @@ const AddAddressPage = () => {
                 placeholder="9876543210"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="pincode">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="pincode">
                 Pincode
-              </label>
-              <input
+              </Label>
+              <Input
                 id="pincode"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 pattern={"[0-9]{6}"}
                 type="text"
                 value={pincode}
@@ -122,85 +134,83 @@ const AddAddressPage = () => {
                 placeholder="123456"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="flatNo">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="flatNo">
                 Flat, House no., Building, Company, Apartment
-              </label>
-              <input
+              </Label>
+              <Input
                 id="flatNo"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 type="text"
                 value={flatNo}
                 onChange={(e) => setFlatNo(e.target.value)}
                 placeholder="123, Gokuldham"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="street">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="street">
                 Landmark
-              </label>
-              <input
+              </Label>
+              <Input
                 id="street"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 type="text"
                 value={landmark}
                 onChange={(e) => setLandmark(e.target.value)}
                 placeholder="Landmark"
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="street">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="street">
                 Area, Colony, Street, Sector, Village
-              </label>
-              <input
+              </Label>
+              <Input
                 id="street"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 type="text"
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
                 placeholder="Area"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="city">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="city">
                 Town/City
-              </label>
-              <input
+              </Label>
+              <Input
                 id="city"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Valsad"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="city">
+            </FormGroup>
+            <FormGroup>
+              <Label className="block" htmlFor="city">
                 State / Province / Region
-              </label>
-              <input
+              </Label>
+              <Input
                 id="city"
-                className="text-lg w-full py-2 px-2 border-2 rounded-lg border-gray"
+                className="w-full"
                 type="text"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 placeholder="Gujarat"
                 required
               />
-            </div>
-            <div className="mb-5">
-              <button className="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg hover:bg-indigo-700">
-                Save
-              </button>
-            </div>
-            <div className="text-center">
-              {loading && <p>Creating address...</p>}
-              {!loading && error && <p className="text-red-500">{error}</p>}
-            </div>
+            </FormGroup>
+            <FormGroup>
+              <Button className="w-full">Save</Button>
+            </FormGroup>
+            <FormGroup className="flex justify-center mb-0">
+              {loading && <Loader />}
+              {error && <Error />}
+            </FormGroup>
           </form>
         </div>
       </section>
