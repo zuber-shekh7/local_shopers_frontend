@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { deleteAddress, getAddress } from "../../actions/addressActions";
 import routes from "../../utils/routes";
 import Modal from "../../components/shared/Modal";
 import Breadcrumb from "../../components/shared/Breadcrumb";
-import { LinkButton } from "../../components/buttons";
+import { Button, LinkButton } from "../../components/buttons";
 
 const AddressPage = () => {
   const [open, setOpen] = useState(false);
@@ -38,7 +38,7 @@ const AddressPage = () => {
           <h1>Address details</h1>
         </div>
       </section>
-      <section className="container max-w-xl">
+      <section className="container max-w-lg">
         <Breadcrumb
           links={[
             {
@@ -80,7 +80,7 @@ const AddressPage = () => {
           </div>
         )}
         {address && (
-          <div className="flex justify-center border py-5 rounded-lg shadow-lg px-10">
+          <div className="flex justify-center border rounded-lg shadow-lg p-5">
             <Modal
               show={open}
               onClick={() => setOpen(false)}
@@ -90,80 +90,79 @@ const AddressPage = () => {
               cta="Confirm Delete"
             />
             <div className="flex-1">
-              <div className="flex justify-end">
-                <div className="flex items-center space-x-2 mb-5">
-                  <Link
-                    className="text-indigo-600"
-                    to={`${routes.getAddresses}/${addressId}/edit`}
-                  >
-                    <span>
-                      <HiOutlinePencil />
-                    </span>
-                  </Link>
-                  <button
-                    className="text-red-500"
-                    onClick={() => setOpen(true)}
-                  >
-                    <span>
-                      <HiOutlineTrash />
-                    </span>
-                  </button>
-                </div>
-              </div>
-
               <div>
                 <ul>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">Full Name</h4>
                       <p className="">{address.fullName}</p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">Flat No</h4>
                       <p className="">{address.flatNo}</p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">Street</h4>
                       <p className="">{address.street}</p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">Landmark</h4>
                       <p className="">
                         {address.landmark ? address.landmark : "N/A"}
                       </p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">City</h4>
                       <p className="">{address.city}</p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">State</h4>
                       <p className="">{address.state}</p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">Pincode</h4>
                       <p className="">{address.pincode}</p>
                     </div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-between mb-3">
+                  <li className="border-b mb-5">
+                    <div className="flex items-center justify-between">
                       <h4 className="font-semibold">Mobile Number</h4>
                       <p className="">{address.mobileNumber}</p>
                     </div>
                   </li>
                 </ul>
+              </div>
+              <div className="grid grid-cols-12 gap-x-2">
+                <LinkButton
+                  className="col-span-6 flex flex-1 justify-center items-center space-x-2"
+                  to={`${routes.getAddresses}/${addressId}/edit`}
+                >
+                  <span>
+                    <HiOutlinePencil />
+                  </span>
+                  <span>Edit</span>
+                </LinkButton>
+                <Button
+                  className="col-span-6 flex flex-1 justify-center items-center space-x-2 bg-red-500"
+                  onClick={() => setOpen(true)}
+                >
+                  <span>
+                    <HiOutlineTrash />
+                  </span>
+                  <span>Delete</span>
+                </Button>
               </div>
             </div>
           </div>
