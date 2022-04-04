@@ -7,7 +7,7 @@ const routes = {
   privacyPolicy: "/privacy-policy",
   faq: "/FAQ",
   termsOfService: "/terms-of-service",
-  cart: "/cart",
+  cart: "/users/cart",
   business: "/business/:businessId",
   categories: "/business/:businessId/categories/:categoryId",
   getProduct: "/business/products/:productId",
