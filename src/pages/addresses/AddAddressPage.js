@@ -8,7 +8,6 @@ import { Input, Label } from "../../components/forms/inputs";
 import { FormGroup } from "../../components/forms/containers";
 import { Loader } from "../../components/loaders";
 import { Error } from "../../components/messages";
-import { Form } from "react-bootstrap";
 import { Button } from "../../components/buttons";
 
 const AddAddressPage = () => {

@@ -35,6 +35,8 @@ import { BusinessPage } from "./pages/business";
 import { CategoryPage } from "./pages/categories";
 import { OrderPage, OrdersPage } from "./pages/orders";
 import ProductPage from "./pages/products/ProductPage";
+import AccountContainer from "./components/containers/AccountContainer";
+import SettingsPage from "./pages/users/SettingsPage";
 
 const App = () => {
   return (
@@ -86,15 +88,28 @@ const App = () => {
                 path={routes.resetPassword}
                 element={<ResetPasswordPage />}
               />
-              <Route
-                exact
-                path={routes.profile}
-                element={
-                  <PrivateRoute>
-                    <ProfilePage />
-                  </PrivateRoute>
-                }
-              />
+              <Route element={<AccountContainer />}>
+                <Route
+                  exact
+                  path={routes.profile}
+                  element={
+                    <PrivateRoute>
+                      <ProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
+              <Route element={<AccountContainer />}>
+                <Route
+                  exact
+                  path={routes.settings}
+                  element={
+                    <PrivateRoute>
+                      <SettingsPage />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
               <Route
                 exact
                 path={routes.editProfile}

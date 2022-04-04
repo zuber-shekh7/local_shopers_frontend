@@ -14,6 +14,7 @@ const routes = {
   notFound: "*",
   dashboard: "/users/account",
   profile: "/users/profile",
+  settings: "/users/settings",
   editProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
   getAddress: "/users/addresses/:addressId",
