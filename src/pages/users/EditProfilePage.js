@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
 import routes from "../../utils/routes";
-import Breadcrumb from "../../components/shared/Breadcrumb";
 import { Input, Label } from "../../components/forms/inputs";
 import { FormGroup } from "../../components/forms/containers";
 import { Button } from "../../components/buttons";
@@ -58,99 +57,75 @@ const EditUserProfilePage = () => {
   }
 
   return (
-    <main>
-      <section className="bg-indigo-600 text-white p-5">
-        <div className="container">
-          <h1>Edit your profile</h1>
-        </div>
-      </section>
-      <section className="container max-w-xl">
-        <Breadcrumb
-          links={[
-            {
-              name: "your account",
-              to: routes.dashboard,
-            },
-            {
-              name: "your profile",
-              to: routes.profile,
-            },
-            {
-              name: "edit profile",
-              to: routes.editProfile,
-            },
-          ]}
-        />
-
-        <hr />
-        <div className="card border rounded-lg shadow-lg">
-          <form className="flex-1 p-5" onSubmit={handleSubmit}>
-            <FormGroup className="mb-5">
-              <Label className="block" htmlFor="firstName">
-                First Name
-              </Label>
-              <Input
-                id="firstName"
-                className="w-full"
-                type="text"
-                value={firstName}
-                placeholder="Steve"
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </FormGroup>
-            <FormGroup className="mb-5">
-              <Label className="block" htmlFor="lastName">
-                Last Name
-              </Label>
-              <Input
-                id="lastName"
-                className="w-full"
-                type="text"
-                value={lastName}
-                placeholder="Jobs"
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </FormGroup>
-            <FormGroup className="mb-5">
-              <Label className="block" htmlFor="email">
-                Email
-              </Label>
-              <Input
-                id="email"
-                className="w-full"
-                type="email"
-                value={email}
-                placeholder="stevejobs@example.com"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </FormGroup>
-            <FormGroup className="mb-5">
-              <Label className="block" htmlFor="mobile">
-                Mobile
-              </Label>
-              <Input
-                id="mobile"
-                className="w-full"
-                type="text"
-                value={mobile}
-                placeholder="9876543210"
-                onChange={(e) => setMobile(e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup className="mb-5">
-              <Button className="w-full ">Save</Button>
-            </FormGroup>
-            <FormGroup className="flex justify-center mb-0">
-              {loading && <Loader />}
-              {error && <Error />}
-            </FormGroup>
-          </form>
-        </div>
-      </section>
-    </main>
+    <div>
+      <h1>Edit Profile</h1>
+      <div className="card border rounded-lg shadow-lg">
+        <form className="flex-1 p-5" onSubmit={handleSubmit}>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="firstName">
+              First Name
+            </Label>
+            <Input
+              id="firstName"
+              className="w-full"
+              type="text"
+              value={firstName}
+              placeholder="Steve"
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="lastName">
+              Last Name
+            </Label>
+            <Input
+              id="lastName"
+              className="w-full"
+              type="text"
+              value={lastName}
+              placeholder="Jobs"
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="email">
+              Email
+            </Label>
+            <Input
+              id="email"
+              className="w-full"
+              type="email"
+              value={email}
+              placeholder="stevejobs@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="mobile">
+              Mobile
+            </Label>
+            <Input
+              id="mobile"
+              className="w-full"
+              type="text"
+              value={mobile}
+              placeholder="9876543210"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Button className="w-full ">Save</Button>
+          </FormGroup>
+          <FormGroup className="flex justify-center mb-0">
+            {loading && <Loader />}
+            {error && <Error />}
+          </FormGroup>
+        </form>
+      </div>
+    </div>
   );
 };
 

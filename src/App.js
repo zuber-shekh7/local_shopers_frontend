@@ -17,6 +17,7 @@ import {
   ChangePasswordPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  EditProfilePage,
 } from "./pages/users";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
@@ -30,7 +31,6 @@ import {
   AddAddressPage,
   EditAddressPage,
 } from "./pages/addresses";
-import EditUserProfilePage from "./pages/users/EditProfilePage";
 import { BusinessPage } from "./pages/business";
 import { CategoryPage } from "./pages/categories";
 import { OrderPage, OrdersPage } from "./pages/orders";
@@ -108,17 +108,16 @@ const App = () => {
                     </PrivateRoute>
                   }
                 />
+                <Route
+                  exact
+                  path={routes.editProfile}
+                  element={
+                    <PrivateRoute>
+                      <EditProfilePage />
+                    </PrivateRoute>
+                  }
+                />
               </Route>
-              <Route
-                exact
-                path={routes.editProfile}
-                element={
-                  <PrivateRoute>
-                    <EditUserProfilePage />
-                  </PrivateRoute>
-                }
-              />
-
               <Route
                 exact
                 path={routes.getOrders}
