@@ -23,7 +23,7 @@ const routes = {
   getOrders: "/users/orders/",
   getOrder: "/users/orders/:orderId",
   wishList: "/users/wishlist",
-  changePassword: "/users/change-password",
+  changePassword: "/users/settings/change-password",
   forgotPassword: "/users/forgot-password",
   resetPassword: "/users/reset-password/:token",
 };

@@ -75,16 +75,6 @@ const App = () => {
               />
               <Route
                 exact
-                path={routes.changePassword}
-                element={
-                  <PrivateRoute>
-                    <ChangePasswordPage />
-                  </PrivateRoute>
-                }
-              />
-
-              <Route
-                exact
                 path={routes.resetPassword}
                 element={<ResetPasswordPage />}
               />
@@ -109,6 +99,15 @@ const App = () => {
                     </PrivateRoute>
                   }
                 />
+                <Route
+                  exact
+                  path={routes.changePassword}
+                  element={
+                    <PrivateRoute>
+                      <ChangePasswordPage />
+                    </PrivateRoute>
+                  }
+                />
               </Route>
               <Route
                 exact
@@ -119,6 +118,7 @@ const App = () => {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 exact
                 path={routes.getOrders}
