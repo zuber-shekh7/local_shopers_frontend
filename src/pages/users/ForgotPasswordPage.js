@@ -11,7 +11,7 @@ const ForgotPasswordPage = () => {
   const { user } = useSelector((state) => state.userLogin);
 
   const { loading, success, error } = useSelector(
-    (state) => state.sentPasswordResetEmail
+    (state) => state.sendPasswordResetEmail
   );
 
   const dispatch = useDispatch();
