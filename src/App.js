@@ -34,9 +34,9 @@ import {
 import { BusinessPage } from "./pages/business";
 import { CategoriesPage, CategoryPage } from "./pages/categories";
 import { OrderPage, OrdersPage } from "./pages/orders";
-import ProductPage from "./pages/products/ProductPage";
 import AccountContainer from "./components/containers/AccountContainer";
 import SettingsPage from "./pages/users/SettingsPage";
+import { ProductsPage, ProductPage } from "./pages/products";
 
 const App = () => {
   return (
@@ -206,7 +206,6 @@ const App = () => {
           <Route path="/business">
             <Route element={<DefaultContainer />}>
               <Route exact path={routes.business} element={<BusinessPage />} />
-              <Route exact path={routes.getProduct} element={<ProductPage />} />
               <Route
                 exact
                 path=":businessId/categories"
@@ -217,6 +216,12 @@ const App = () => {
                 path={routes.categories}
                 element={<CategoryPage />}
               />
+              <Route
+                exact
+                path={`:businessId/categories/:categoryId/products`}
+                element={<ProductsPage />}
+              />
+              <Route exact path={routes.getProduct} element={<ProductPage />} />
             </Route>
           </Route>
         </Routes>

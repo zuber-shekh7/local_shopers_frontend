@@ -14,7 +14,7 @@ import {
   getOrdersReducer,
   getOrderReducer,
 } from "./orderReducers";
-import { getProductReducer } from "./productReducers";
+import { getProductReducer, getProductsReducer } from "./productReducers";
 import {
   updateUserReducer,
   getUserReducer,
@@ -44,6 +44,7 @@ const initialState = {
   updateUser: { user: null },
   getCategory: { category: null },
   getCategories: { categories: null },
+  getProducts: { products: null },
   getProduct: { product: null },
   getBusiness: { business: null },
   getWishlist: { wishlist: null },
@@ -83,6 +84,7 @@ const rootReducer = combineReducers({
   updateUser: updateUserReducer,
   getCategories: getCategoriesReducer,
   getCategory: getCategoryReducer,
+  getProducts: getProductsReducer,
   getProduct: getProductReducer,
   getBusiness: getBusinessReducer,
   getWishlist: getWishlistReducer,
