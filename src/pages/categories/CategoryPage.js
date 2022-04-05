@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { HiChevronRight } from "react-icons/hi";
+import { Link, useParams } from "react-router-dom";
 import { getCategory } from "../../actions/categoryActions";
+import { LinkButton } from "../../components/buttons";
+import Breadcrumb from "../../components/shared/Breadcrumb";
 
-const CategoryPage = ({ match, history }) => {
-  const { categoryId } = useParams();
+const CategoryPage = () => {
+  const { businessId, categoryId } = useParams();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { loading, category, error } = useSelector(
     (state) => state.getCategory
@@ -19,33 +19,29 @@ const CategoryPage = ({ match, history }) => {
   }, [categoryId, dispatch]);
 
   return (
-    <main className="container">
-      <section>
-        <div className="flex mb-3">
-          <div>
-            <button
-              onClick={() => navigate(-1)}
-              className="text-base sm:text-lg flex justify-center items-center space-x-1  hover:text-indigo-700"
-              to={"/"}
-            >
-              <span className="font-bold capitalize">Business</span>
-              <span>
-                <HiChevronRight />
-              </span>
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => {}}
-              className="text-base sm:text-lg flex justify-center items-center space-x-1 text-indigo-600 hover:text-indigo-700"
-              to={"/"}
-            >
-              <span className="font-bold">
-                {category ? category.name : "Category"}
-              </span>
-            </button>
-          </div>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>{category ? category.name : "Category"}</h1>
         </div>
+      </section>
+      <section className="container">
+        <Breadcrumb
+          links={[
+            {
+              name: "home",
+              to: `/business/${businessId}`,
+            },
+            {
+              name: "categories",
+              to: `/business/${businessId}/categories`,
+            },
+            {
+              name: category ? category.name : "category",
+              to: "",
+            },
+          ]}
+        />
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && !category && (
           <section className="flex justify-center ">
@@ -78,29 +74,13 @@ const CategoryPage = ({ match, history }) => {
         {category && (
           <section className="flex justify-center">
             <div>
-              <h1>{category.name}</h1>
-              <hr />
-              <div className="flex">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                  }}
-                  className="flex-1"
+              <div className="flex justify-between items-center mb-2">
+                <h2>Best Sellers</h2>
+                <LinkButton
+                  to={`/business/${businessId}/categories/${categoryId}/products`}
                 >
-                  <div className="grid grid-cols-12 gap-x-2 mb-3">
-                    <input
-                      className="col-span-8 md:col-span-10 w-full py-2 rounded-lg"
-                      type="search"
-                      placeholder="Search product"
-                    />
-                    <button
-                      className=" col-span-4 md:col-span-2 py-2 px-3 bg-indigo-600 rounded-lg text-white text-lg hover:bg-indigo-700"
-                      type="submit"
-                    >
-                      Search
-                    </button>
-                  </div>
-                </form>
+                  Explore
+                </LinkButton>
               </div>
               <hr />
               <div>
