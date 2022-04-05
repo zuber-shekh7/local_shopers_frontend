@@ -19,8 +19,14 @@ const BusinessPage = () => {
   }, [businessId, dispatch]);
 
   return (
-    <main className="container">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1>{business ? business.name : "Business"}</h1>
+          <h5>{business ? business.category.name : "Category"}</h5>
+        </div>
+      </section>
+      <section className="container">
         {error && <Error />}
         {loading && <BusinessLoader />}
         <Business business={business} />
