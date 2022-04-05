@@ -8,7 +8,7 @@ import {
 } from "./addressReducers";
 import { getBusinessReducer } from "./businessReducers";
 import { cartReducer } from "./cartReducers";
-import { getCategoryReducer } from "./categoryReducers";
+import { getCategoriesReducer, getCategoryReducer } from "./categoryReducers";
 import {
   createOrderReducer,
   getOrdersReducer,
@@ -43,6 +43,7 @@ const initialState = {
   getUser: { user: null },
   updateUser: { user: null },
   getCategory: { category: null },
+  getCategories: { categories: null },
   getProduct: { product: null },
   getBusiness: { business: null },
   getWishlist: { wishlist: null },
@@ -80,6 +81,7 @@ const rootReducer = combineReducers({
   userSignup: userSignupReducer,
   getUser: getUserReducer,
   updateUser: updateUserReducer,
+  getCategories: getCategoriesReducer,
   getCategory: getCategoryReducer,
   getProduct: getProductReducer,
   getBusiness: getBusinessReducer,

@@ -1,4 +1,5 @@
 import React from "react";
+import { LinkButton } from "../../buttons";
 import CategoryList from "./CategoryList";
 
 const Business = (props) => {
@@ -21,8 +22,12 @@ const Business = (props) => {
             </div>
 
             <div>
-              <h2>Categories</h2>
-              <hr />
+              <div className="flex justify-between items-center mb-5">
+                <h2>Categories</h2>
+                <LinkButton to={`/business/${business._id}/categories`}>
+                  Explore
+                </LinkButton>
+              </div>
               <CategoryList
                 categories={business.categories}
                 business={business}

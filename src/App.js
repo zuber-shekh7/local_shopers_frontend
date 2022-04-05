@@ -32,7 +32,7 @@ import {
   EditAddressPage,
 } from "./pages/addresses";
 import { BusinessPage } from "./pages/business";
-import { CategoryPage } from "./pages/categories";
+import { CategoriesPage, CategoryPage } from "./pages/categories";
 import { OrderPage, OrdersPage } from "./pages/orders";
 import ProductPage from "./pages/products/ProductPage";
 import AccountContainer from "./components/containers/AccountContainer";
@@ -207,6 +207,11 @@ const App = () => {
             <Route element={<DefaultContainer />}>
               <Route exact path={routes.business} element={<BusinessPage />} />
               <Route exact path={routes.getProduct} element={<ProductPage />} />
+              <Route
+                exact
+                path=":businessId/categories"
+                element={<CategoriesPage />}
+              />
               <Route
                 exact
                 path={routes.categories}

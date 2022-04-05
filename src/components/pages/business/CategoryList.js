@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import CategoryListItem from "./CategoryListItem";
 
 const CategoryList = (props) => {
@@ -13,14 +12,17 @@ const CategoryList = (props) => {
             <div>
               {categories.map((category) => {
                 return (
-                  <CategoryListItem business={business} category={category} />
+                  <CategoryListItem
+                    key={category._id}
+                    business={business}
+                    category={category}
+                  />
                 );
               })}
             </div>
           ) : (
-            <section className="text-center">
-              <h2 className="text-muted my-3">No Categories added Yet</h2>
-              <Link to="categories/new">Add new category</Link>
+            <section className="flex justify-center">
+              <h4>Categories not available</h4>
             </section>
           )}
         </div>
