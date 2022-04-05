@@ -19,7 +19,7 @@ import {
 const getAddressesReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ADDRESSES_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case GET_ADDRESSES_SUCCESS:
       return { ...state, loading: false, addresses: action.payload };
     case GET_ADDRESSES_FAIL:
