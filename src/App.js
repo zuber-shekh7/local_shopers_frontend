@@ -221,7 +221,11 @@ const App = () => {
                 path={`:businessId/categories/:categoryId/products`}
                 element={<ProductsPage />}
               />
-              <Route exact path={routes.getProduct} element={<ProductPage />} />
+              <Route
+                exact
+                path={`:businessId/categories/:categoryId/products/:productId`}
+                element={<ProductPage />}
+              />
             </Route>
           </Route>
         </Routes>

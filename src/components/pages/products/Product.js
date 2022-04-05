@@ -1,0 +1,92 @@
+import React from "react";
+import { HiOutlineShoppingCart, HiOutlineStar } from "react-icons/hi";
+import { Button } from "../../buttons";
+
+const Product = (props) => {
+  const {
+    product,
+    addToCartHandler,
+    addToWishListHandler,
+    quantity,
+    setQuantity,
+  } = props;
+
+  return (
+    <div>
+      {product ? (
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 gap-y-5">
+          <div className="col-span-6">
+            <div className="flex justify-center items-center">
+              <img
+                className="flex-1 h-max w-max  rounded-lg"
+                src={product.image}
+                alt={product.name}
+              />
+            </div>
+          </div>
+          <div className="col-span-6">
+            <div>
+              <h2>{product.name}</h2>
+              <h2 className="text-indigo-600">₹ {product.price}/-</h2>
+              <p>{product.description}</p>
+
+              <div className="mb-3">
+                {product.quantity > 0 && (
+                  <div>
+                    <select
+                      className="w-full px-3 py-2 rounded-lg"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    >
+                      {[...Array(product.quantity).keys()].map((i) => {
+                        return (
+                          <option key={i} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                )}
+                <div className="mb-3">
+                  <Button
+                    onClick={() => addToWishListHandler(product._id)}
+                    className="flex justify-center items-center space-x-1 w-full bg-indigo-50 border border-indigo-600 text-indigo-600 my-3 hover:bg-indigo-100"
+                    variant="warning"
+                  >
+                    <span>
+                      <HiOutlineStar />
+                    </span>
+                    <span>Add to Wishlist</span>
+                  </Button>
+
+                  {product.quantity > 0 ? (
+                    <Button
+                      className="w-full flex justify-center items-center space-x-1"
+                      onClick={addToCartHandler}
+                    >
+                      <span>
+                        <HiOutlineShoppingCart />
+                      </span>
+                      <span>Add to Cart</span>
+                    </Button>
+                  ) : (
+                    <Button className="bg-red-500 text-white hover:bg-red-600">
+                      Out of Stock
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <h3>Product not available</h3>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Product;

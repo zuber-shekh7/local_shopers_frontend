@@ -95,7 +95,9 @@ const CategoryPage = () => {
                               className="bg-gray-50 rounded-lg shadow-md overflow-hidden"
                             >
                               <div>
-                                <Link to={`/business/products/${product._id}`}>
+                                <Link
+                                  to={`/business/${businessId}/categories/${categoryId}/products/${product._id}`}
+                                >
                                   <img
                                     className="object-cover"
                                     src={product.image}
