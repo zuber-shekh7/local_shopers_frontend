@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { LinkButton } from "../../components/buttons";
 import routes from "../../utils/routes";
 
 const HomePage = () => {
@@ -25,12 +26,12 @@ const HomePage = () => {
             Online Store For Locals, By Locals
           </h4>
           <div className="flex space-x-2 justify-center mt-5">
-            <Link
+            <LinkButton
               to={routes.signup}
-              className="btn bg-indigo-600 py-3 px-7 text-xl rounded-full hover:bg-indigo-700"
+              className="py-3 px-7 text-2xl font-bold"
             >
               Get Started
-            </Link>
+            </LinkButton>
           </div>
         </div>
       </section>

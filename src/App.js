@@ -17,6 +17,7 @@ import {
   ChangePasswordPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  EditProfilePage,
 } from "./pages/users";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
@@ -30,156 +31,188 @@ import {
   AddAddressPage,
   EditAddressPage,
 } from "./pages/addresses";
-import EditUserProfilePage from "./pages/users/EditProfilePage";
 import { BusinessPage } from "./pages/business";
 import { CategoryPage } from "./pages/categories";
 import { OrderPage, OrdersPage } from "./pages/orders";
 import ProductPage from "./pages/products/ProductPage";
+import AccountContainer from "./components/containers/AccountContainer";
+import SettingsPage from "./pages/users/SettingsPage";
 
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
-          <Route element={<LoginContainer />}>
-            <Route exact path={routes.login} element={<LoginPage />} />
-            <Route exact path={routes.signup} element={<SignupPage />} />
+          <Route path="">
+            <Route element={<LoginContainer />}>
+              <Route exact path={routes.login} element={<LoginPage />} />
+              <Route exact path={routes.signup} element={<SignupPage />} />
+            </Route>
+            <Route element={<DefaultContainer />}>
+              <Route exact path={routes.home} element={<HomePage />} />
+              <Route exact path={routes.contact} element={<ContactUsPage />} />
+              <Route exact path={routes.about} element={<AboutUsPage />} />
+              <Route exact path={routes.faq} element={<FAQPage />} />
+              <Route
+                exact
+                path={routes.termsOfService}
+                element={<TermsOfServicePage />}
+              />
+              <Route
+                exact
+                path={routes.privacyPolicy}
+                element={<PrivacyPolicyPage />}
+              />
+              <Route exact path={routes.notFound} element={<NotFoundPage />} />
+            </Route>
           </Route>
-          <Route element={<DefaultContainer />}>
-            <Route exact path={routes.home} element={<HomePage />} />
-            <Route exact path={routes.business} element={<BusinessPage />} />
-            <Route exact path={routes.contact} element={<ContactUsPage />} />
-            <Route exact path={routes.about} element={<AboutUsPage />} />
-            <Route exact path={routes.faq} element={<FAQPage />} />
-            <Route
-              exact
-              path={routes.termsOfService}
-              element={<TermsOfServicePage />}
-            />
-            <Route
-              exact
-              path={routes.privacyPolicy}
-              element={<PrivacyPolicyPage />}
-            />
-            <Route
-              exact
-              path={routes.forgotPassword}
-              element={<ForgotPasswordPage />}
-            />
-            <Route
-              exact
-              path={routes.resetPassword}
-              element={<ResetPasswordPage />}
-            />
-            <Route exact path={routes.getProduct} element={<ProductPage />} />
-            <Route exact path={routes.categories} element={<CategoryPage />} />
-            <Route
-              exact
-              path={routes.dashboard}
-              element={
-                <PrivateRoute>
-                  <DashboardPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.changePassword}
-              element={
-                <PrivateRoute>
-                  <ChangePasswordPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.profile}
-              element={
-                <PrivateRoute>
-                  <ProfilePage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.editProfile}
-              element={
-                <PrivateRoute>
-                  <EditUserProfilePage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.getOrders}
-              element={
-                <PrivateRoute>
-                  <OrdersPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={routes.getOrder}
-              element={
-                <PrivateRoute>
-                  <OrderPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.wishList}
-              element={
-                <PrivateRoute>
-                  <WishListPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={`${routes.wishList}/:productId`}
-              element={
-                <PrivateRoute>
-                  <WishListPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.getAddresses}
-              element={
-                <PrivateRoute>
-                  <AddressesPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={routes.getAddress}
-              element={
-                <PrivateRoute>
-                  <AddressPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              exact
-              path={routes.addAddress}
-              element={
-                <PrivateRoute>
-                  <AddAddressPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path={routes.editAddress}
-              element={
-                <PrivateRoute>
-                  <EditAddressPage />
-                </PrivateRoute>
-              }
-            />
-            <Route path={routes.cart} element={<CartPage />} />
-            <Route path={`${routes.cart}/:productId`} element={<CartPage />} />
-            <Route exact path={routes.notFound} element={<NotFoundPage />} />
+          <Route path="/users">
+            <Route element={<DefaultContainer />}>
+              <Route
+                exact
+                path={routes.forgotPassword}
+                element={<ForgotPasswordPage />}
+              />
+              <Route
+                exact
+                path={routes.resetPassword}
+                element={<ResetPasswordPage />}
+              />
+              <Route element={<AccountContainer />}>
+                <Route
+                  exact
+                  path={routes.profile}
+                  element={
+                    <PrivateRoute>
+                      <ProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
+              <Route element={<AccountContainer />}>
+                <Route
+                  exact
+                  path={routes.settings}
+                  element={
+                    <PrivateRoute>
+                      <SettingsPage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path={routes.changePassword}
+                  element={
+                    <PrivateRoute>
+                      <ChangePasswordPage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path={routes.editProfile}
+                  element={
+                    <PrivateRoute>
+                      <EditProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
+              <Route
+                exact
+                path={routes.getOrders}
+                element={
+                  <PrivateRoute>
+                    <OrdersPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={routes.getOrder}
+                element={
+                  <PrivateRoute>
+                    <OrderPage />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route
+                exact
+                path={routes.wishList}
+                element={
+                  <PrivateRoute>
+                    <WishListPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={`${routes.wishList}/:productId`}
+                element={
+                  <PrivateRoute>
+                    <WishListPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path={routes.getAddresses}
+                element={
+                  <PrivateRoute>
+                    <AddressesPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={routes.getAddress}
+                element={
+                  <PrivateRoute>
+                    <AddressPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path={routes.addAddress}
+                element={
+                  <PrivateRoute>
+                    <AddAddressPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={routes.editAddress}
+                element={
+                  <PrivateRoute>
+                    <EditAddressPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route path={routes.cart} element={<CartPage />} />
+              <Route
+                path={`${routes.cart}/:productId`}
+                element={<CartPage />}
+              />
+              <Route
+                exact
+                path={routes.dashboard}
+                element={
+                  <PrivateRoute>
+                    <DashboardPage />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+          </Route>
+          <Route path="/business">
+            <Route element={<DefaultContainer />}>
+              <Route exact path={routes.business} element={<BusinessPage />} />
+              <Route exact path={routes.getProduct} element={<ProductPage />} />
+              <Route
+                exact
+                path={routes.categories}
+                element={<CategoryPage />}
+              />
+            </Route>
           </Route>
         </Routes>
       </Router>

@@ -31,12 +31,15 @@ const CartPage = () => {
   };
 
   return (
-    <main className="container">
-      <section>
-        <h1 className="flex items-center space-x-2">
-          <HiOutlineShoppingCart className="h-8 w-8" /> <span>Your Cart</span>
-        </h1>
-        <hr />
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1 className="flex items-center space-x-2">
+            <HiOutlineShoppingCart className="h-8 w-8" /> <span>Your Cart</span>
+          </h1>
+        </div>
+      </section>
+      <section className="container">
         <section>
           <div className="grid grid-cols-1">
             {cartItems.length === 0 ? (

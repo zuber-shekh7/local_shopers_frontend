@@ -1,16 +1,17 @@
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
+import { Button } from "../buttons";
 
 const GoogleAuthButton = (props) => {
   return (
-    <button
+    <Button
       onClick={props.onClick}
       disabled={props.disabled}
-      className="flex justify-center items-center space-x-2 px-3 py-2 bg-indigo-600 w-full rounded-lg text-white hover:bg-indigo-700"
+      className="flex justify-center items-center space-x-2 w-full"
     >
       <FaGoogle className="h-5 w-5" />
       <span>Continue with Google</span>
-    </button>
+    </Button>
   );
 };
 

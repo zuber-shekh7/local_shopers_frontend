@@ -51,8 +51,13 @@ const WishListPage = () => {
   }
 
   return (
-    <main className="container">
-      <section>
+    <main>
+      <section className="bg-indigo-600 text-white p-5">
+        <div className="container">
+          <h1 className="text-4xl font-semibold mb-4">Your Wish List</h1>
+        </div>
+      </section>
+      <section className="container">
         <Breadcrumb
           links={[
             {
@@ -65,8 +70,7 @@ const WishListPage = () => {
             },
           ]}
         />
-        <h1 className="text-4xl font-semibold mb-4">Your Wish List</h1>
-        <hr />
+
         {(error || addError || removeError) && (
           <h5 className="text-center text-red-500">
             {error || addError || removeError}

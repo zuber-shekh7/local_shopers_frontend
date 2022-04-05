@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
 import routes from "../../utils/routes";
-import Breadcrumb from "../../components/shared/Breadcrumb";
+import { Input, Label } from "../../components/forms/inputs";
+import { FormGroup } from "../../components/forms/containers";
+import { Button } from "../../components/buttons";
+import { Loader } from "../../components/loaders";
+import { Error } from "../../components/messages";
 
 const EditUserProfilePage = () => {
   const [email, setEmail] = useState("");
@@ -53,96 +57,75 @@ const EditUserProfilePage = () => {
   }
 
   return (
-    <main className="container max-w-lg">
-      <section>
-        <Breadcrumb
-          links={[
-            {
-              name: "your account",
-              to: routes.dashboard,
-            },
-            {
-              name: "your profile",
-              to: routes.profile,
-            },
-            {
-              name: "edit profile",
-              to: routes.editProfile,
-            },
-          ]}
-        />
-        <h1>Edit your profile</h1>
-        <hr />
-        <div className="flex justify-center bg-gray-50 border rounded-lg shadow-lg">
-          <form className="flex-1 p-5" onSubmit={handleSubmit}>
-            <div className="mb-5">
-              <label className="block" htmlFor="firstName">
-                First Name
-              </label>
-              <input
-                id="firstName"
-                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
-                type="text"
-                value={firstName}
-                placeholder="Steve"
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="lastName">
-                Last Name
-              </label>
-              <input
-                id="lastName"
-                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
-                type="text"
-                value={lastName}
-                placeholder="Jobs"
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="email">
-                Email
-              </label>
-              <input
-                id="email"
-                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
-                type="email"
-                value={email}
-                placeholder="stevejobs@example.com"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-5">
-              <label className="block" htmlFor="mobile">
-                Mobile
-              </label>
-              <input
-                id="mobile"
-                className="w-full text-lg py-2 px-2 rounded-lg border-2 border-indigo-600  focus:ring-indigo-600"
-                type="text"
-                value={mobile}
-                placeholder="9876543210"
-                onChange={(e) => setMobile(e.target.value)}
-              />
-            </div>
-            <div className="mb-5">
-              <button className="w-full bg-indigo-600 text-white rounded-lg py-2 text-lg hover:bg-indigo-700">
-                Save
-              </button>
-            </div>
-            <div className="text-center">
-              {loading && <p>Updating profile...</p>}
-              {error && !loading && <p className="text-red-500">{error}</p>}
-            </div>
-          </form>
-        </div>
-      </section>
-    </main>
+    <div>
+      <h1>Edit Profile</h1>
+      <div className="card border rounded-lg shadow-lg">
+        <form className="flex-1 p-5" onSubmit={handleSubmit}>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="firstName">
+              First Name
+            </Label>
+            <Input
+              id="firstName"
+              className="w-full"
+              type="text"
+              value={firstName}
+              placeholder="Steve"
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="lastName">
+              Last Name
+            </Label>
+            <Input
+              id="lastName"
+              className="w-full"
+              type="text"
+              value={lastName}
+              placeholder="Jobs"
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="email">
+              Email
+            </Label>
+            <Input
+              id="email"
+              className="w-full"
+              type="email"
+              value={email}
+              placeholder="stevejobs@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Label className="block" htmlFor="mobile">
+              Mobile
+            </Label>
+            <Input
+              id="mobile"
+              className="w-full"
+              type="text"
+              value={mobile}
+              placeholder="9876543210"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup className="mb-5">
+            <Button className="w-full ">Save</Button>
+          </FormGroup>
+          <FormGroup className="flex justify-center mb-0">
+            {loading && <Loader />}
+            {error && <Error />}
+          </FormGroup>
+        </form>
+      </div>
+    </div>
   );
 };
 

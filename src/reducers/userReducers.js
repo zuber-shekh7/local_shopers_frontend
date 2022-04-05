@@ -31,11 +31,11 @@ import {
 const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true, error: null, user: null };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { ...state, loading: false, user: action.payload, error: null };
     case USER_LOGIN_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload, user: null };
     case USER_LOGIN_WITH_GOOGLE_REQUEST:
       return { ...state, loading: true };
     case USER_LOGIN_WITH_GOOGLE_SUCCESS:
@@ -56,9 +56,9 @@ const userLoginReducer = (state = {}, action) => {
 const userSignupReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_SIGNUP_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null };
     case USER_SIGNUP_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, loading: false, error: null };
     case USER_SIGNUP_FAIL:
       return {
         ...state,
@@ -86,14 +86,15 @@ const getUserReducer = (state = {}, action) => {
 const updateUserReducer = (state = {}, action) => {
   switch (action.type) {
     case UPDATE_USER_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: null, user: null };
     case UPDATE_USER_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { ...state, loading: false, user: action.payload, error: null };
     case UPDATE_USER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
+        user: null,
       };
     default:
       return state;
