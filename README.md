@@ -45,7 +45,9 @@ REACT_APP_GOOGLE_OAUTH_CLIENT_ID=<br/>
 5. Open http://localhost:3000 to view it in the browser
 
 6. Run Test cases
-   `sh yarn test `
+   ```sh
+   yarn test
+   ```
    <br/>
 
 <br/>
