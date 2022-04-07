@@ -42,6 +42,13 @@ const LoginPage = () => {
     dispatch(userLoginWithGoogle(token));
   };
 
+  const handleGuestLogin = () => {
+    const email = process.env.REACT_APP_GUEST_USER_EMAIL;
+    const password = process.env.REACT_APP_GUEST_USER_PASSWORD;
+
+    dispatch(userLogin(email, password));
+  };
+
   return (
     <main className="bg-indigo-600">
       <section className="flex flex-col justify-center items-center h-screen">
@@ -100,6 +107,16 @@ const LoginPage = () => {
             <Link className="underline" to={routes.signup}>
               Signup
             </Link>
+          </p>
+          <p className="text-center text-white">
+            Login as{" "}
+            <button
+              onClick={handleGuestLogin}
+              className="underline"
+              to={routes.forgotPassword}
+            >
+              Guest User
+            </button>
           </p>
           <p className="text-center text-white">
             <Link className="underline" to={routes.forgotPassword}>
