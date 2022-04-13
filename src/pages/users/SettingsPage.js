@@ -19,7 +19,10 @@ const SettingsPage = () => {
           </Link>
         </li>
         <li className="">
-          <Link to="" className="flex justify-between items-center">
+          <Link
+            to={routes.deactivateAccount}
+            className="flex justify-between items-center"
+          >
             <h4 className="font-light text-red-500">Deactivate Account</h4>
             <span>
               <HiOutlineChevronRight className="text-red-500" />

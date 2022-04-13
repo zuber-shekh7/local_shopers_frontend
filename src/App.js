@@ -18,6 +18,7 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   EditProfilePage,
+  DeactivateAccount,
 } from "./pages/users";
 import routes from "./utils/routes";
 import LoginContainer from "./components/containers/LoginContainer";
@@ -114,6 +115,15 @@ const App = () => {
                   element={
                     <PrivateRoute>
                       <EditProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  exact
+                  path={routes.deactivateAccount}
+                  element={
+                    <PrivateRoute>
+                      <DeactivateAccount />
                     </PrivateRoute>
                   }
                 />

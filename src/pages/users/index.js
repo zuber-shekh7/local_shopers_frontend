@@ -6,3 +6,4 @@ export { default as EditProfilePage } from "./EditProfilePage";
 export { default as ChangePasswordPage } from "./ChangePasswordPage";
 export { default as ForgotPasswordPage } from "./ForgotPasswordPage";
 export { default as ResetPasswordPage } from "./ResetPasswordPage";
+export { default as DeactivateAccount } from "./DeactivateAccount";

@@ -26,6 +26,7 @@ const routes = {
   changePassword: "/users/settings/change-password",
   forgotPassword: "/users/forgot-password",
   resetPassword: "/users/reset-password/:token",
+  deactivateAccount: "/users/settings/deactivate-account",
 };
 
 export default routes;
