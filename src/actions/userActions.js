@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import backendAPI from "../apis/backendAPI";
 import {
   USER_LOGIN_FAIL,
@@ -105,6 +106,7 @@ export const updateUser =
       });
 
       dispatch({ type: UPDATE_USER_SUCCESS, payload: data });
+      toast.success("User profile updated successfully", {});
 
       dispatch({ type: UPDATE_USER_SUCCESS, payload: null });
     } catch (err) {
