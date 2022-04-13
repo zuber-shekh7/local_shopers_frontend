@@ -28,6 +28,7 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
 } from "../constants/userConstants";
+import { extractError } from "../utils/helper";
 
 export const userLogin = (email, password) => async (dispatch) => {
   try {
@@ -41,7 +42,7 @@ export const userLogin = (email, password) => async (dispatch) => {
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: user });
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: USER_LOGIN_FAIL, payload: error });
   }
 };
@@ -56,7 +57,7 @@ export const userSignup = (user) => async (dispatch) => {
 
     dispatch({ type: USER_SIGNUP_SUCCESS });
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: USER_SIGNUP_FAIL, payload: error });
   }
 };
@@ -71,7 +72,7 @@ export const userLogout = () => async (dispatch) => {
 
     dispatch({ type: USER_LOGOUT_SUCCESS, payload: null });
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: USER_LOGOUT_FAIL, payload: error });
   }
 };
@@ -86,7 +87,7 @@ export const getUser = () => async (dispatch) => {
 
     dispatch({ type: GET_USER_SUCCESS, payload: data.user });
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: GET_USER_FAIL, payload: error });
   }
 };
@@ -107,7 +108,7 @@ export const updateUser =
 
       dispatch({ type: UPDATE_USER_SUCCESS, payload: null });
     } catch (err) {
-      const error = err.response ? err.response.data.message : err.message;
+      const error = extractError(err);
       dispatch({ type: UPDATE_USER_FAIL, payload: error });
     }
   };
@@ -126,7 +127,7 @@ export const userLoginWithGoogle = (googleAuthToken) => async (dispatch) => {
 
     dispatch({ type: USER_LOGIN_WITH_GOOGLE_SUCCESS, payload: user });
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: USER_LOGIN_WITH_GOOGLE_FAIL, payload: error });
   }
 };
@@ -146,7 +147,7 @@ export const changePassword =
         dispatch({ type: USER_CHANGE_PASSWORD_SUCCESS, payload: null });
       }, 5000);
     } catch (err) {
-      const error = err.response ? err.response.data.message : err.message;
+      const error = extractError(err);
       dispatch({ type: USER_CHANGE_PASSWORD_FAIL, payload: error });
     }
   };
@@ -164,7 +165,7 @@ export const sentPasswordResetEmail = (email) => async (dispatch) => {
       dispatch({ type: SEND_PASSWORD_RESET_EMAIL_SUCCESS, payload: null });
     }, 5000);
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: SEND_PASSWORD_RESET_EMAIL_FAIL, payload: error });
   }
 };
@@ -182,7 +183,7 @@ export const resetPassword = (password, token) => async (dispatch) => {
       dispatch({ type: RESET_PASSWORD_SUCCESS, payload: null });
     }, 5000);
   } catch (err) {
-    const error = err.response ? err.response.data.message : err.message;
+    const error = extractError(err);
     dispatch({ type: RESET_PASSWORD_FAIL, payload: error });
   }
 };
