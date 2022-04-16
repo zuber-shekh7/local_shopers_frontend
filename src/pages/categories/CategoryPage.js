@@ -100,7 +100,7 @@ const CategoryPage = () => {
                                 >
                                   <img
                                     className="object-cover"
-                                    src={product.image}
+                                    src={product.photos[0].url}
                                     alt={product.name}
                                   />
                                 </Link>

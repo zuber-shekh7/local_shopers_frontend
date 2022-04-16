@@ -20,7 +20,7 @@ const ProductList = (props) => {
                       <Link to={`/business/products/${product._id}`}>
                         <img
                           className="object-cover"
-                          src={product.image}
+                          src={product.photo.url}
                           alt={product.name}
                         />
                       </Link>

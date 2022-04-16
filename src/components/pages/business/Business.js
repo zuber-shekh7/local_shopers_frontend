@@ -12,7 +12,7 @@ const Business = (props) => {
           <div className="flex-1 space-y-5">
             <img
               className="h-96 w-full object-top object-cover rounded-lg"
-              src={business.image}
+              src={business.photo.url}
               alt={business.name}
             />
             <div className="text-center">
