@@ -218,24 +218,16 @@ const App = () => {
               <Route exact path={routes.business} element={<BusinessPage />} />
               <Route
                 exact
-                path=":businessId/categories"
+                path={routes.getCategories}
                 element={<CategoriesPage />}
               />
+              <Route path={routes.getCategory} element={<CategoryPage />} />
               <Route
                 exact
-                path={routes.categories}
-                element={<CategoryPage />}
-              />
-              <Route
-                exact
-                path={`:businessId/categories/:categoryId/products`}
+                path={routes.getProducts}
                 element={<ProductsPage />}
               />
-              <Route
-                exact
-                path={`:businessId/categories/:categoryId/products/:productId`}
-                element={<ProductPage />}
-              />
+              <Route exact path={routes.getProduct} element={<ProductPage />} />
             </Route>
           </Route>
         </Routes>

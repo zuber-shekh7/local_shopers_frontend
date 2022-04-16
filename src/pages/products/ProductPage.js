@@ -7,7 +7,7 @@ import { ProductLoader } from "../../components/pages/products";
 import Product from "../../components/pages/products/Product";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 
-import routes from "../../utils/routes";
+import routes, { generateRoute } from "../../utils/routes";
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -43,19 +43,27 @@ const ProductPage = () => {
           links={[
             {
               name: "home",
-              to: `/business/${businessId}`,
+              to: generateRoute(routes.business, { ":businessId": businessId }),
             },
             {
               name: "categories",
-              to: `/business/${businessId}/categories`,
+              to: generateRoute(routes.getCategories, {
+                ":businessId": businessId,
+              }),
             },
             {
               name: "category",
-              to: `/business/${businessId}/categories/${categoryId}`,
+              to: generateRoute(routes.getCategories, {
+                ":businessId": businessId,
+                ":categoryId": categoryId,
+              }),
             },
             {
               name: "products",
-              to: `/business/${businessId}/categories/${categoryId}/products`,
+              to: generateRoute(routes.getProducts, {
+                ":businessId": businessId,
+                ":categoryId": categoryId,
+              }),
             },
             {
               name: product ? product.name : "product",
@@ -65,13 +73,15 @@ const ProductPage = () => {
         />
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && <ProductLoader />}
-        <Product
-          product={product}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          addToCartHandler={addToCartHandler}
-          addToWishListHandler={addToWishListHandler}
-        />
+        {product && (
+          <Product
+            product={product}
+            quantity={quantity}
+            setQuantity={setQuantity}
+            addToCartHandler={addToCartHandler}
+            addToWishListHandler={addToWishListHandler}
+          />
+        )}
       </section>
     </main>
   );

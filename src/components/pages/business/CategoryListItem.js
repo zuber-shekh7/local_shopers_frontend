@@ -1,13 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import routes, { generateRoute } from "../../../utils/routes";
 
 const CategoryListItem = (props) => {
-  const { category, business } = props;
+  const { category } = props;
+
+  const { businessId } = useParams();
 
   return (
     <Link
       key={category._id}
-      to={`/business/${business._id}/categories/${category._id}`}
+      to={generateRoute(routes.getCategory, {
+        ":businessId": businessId,
+        ":categoryId": category._id,
+      })}
     >
       <div
         className="grid h-64 grid-cols-1 rounded-lg mb-3 overflow-hidden shadow-md hover:opacity-90 hover:text-indigo-700 transition duration-500"

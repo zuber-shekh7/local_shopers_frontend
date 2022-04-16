@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import routes, { generateRoute } from "../../../utils/routes";
 
 const ProductList = (props) => {
+  const { businessId, categoryId } = useParams();
+
   const { products } = props;
 
   return (
@@ -17,10 +20,16 @@ const ProductList = (props) => {
                     className="bg-gray-50 rounded-lg shadow-md overflow-hidden"
                   >
                     <div>
-                      <Link to={`/business/products/${product._id}`}>
+                      <Link
+                        to={generateRoute(routes.getProduct, {
+                          ":businessId": businessId,
+                          ":categoryId": categoryId,
+                          ":productId": product._id,
+                        })}
+                      >
                         <img
                           className="object-cover"
-                          src={product.photo.url}
+                          src={product.photos[0].url}
                           alt={product.name}
                         />
                       </Link>

@@ -19,7 +19,7 @@ const Product = (props) => {
             <div className="flex justify-center items-center">
               <img
                 className="flex-1 h-max w-max  rounded-lg"
-                src={product.image}
+                src={product.photos[0].url}
                 alt={product.name}
               />
             </div>
@@ -60,7 +60,7 @@ const Product = (props) => {
                     <span>Add to Wishlist</span>
                   </Button>
 
-                  {product.quantity > 0 ? (
+                  {product.stock > 0 ? (
                     <Button
                       className="w-full flex justify-center items-center space-x-1"
                       onClick={addToCartHandler}
@@ -71,7 +71,7 @@ const Product = (props) => {
                       <span>Add to Cart</span>
                     </Button>
                   ) : (
-                    <Button className="bg-red-500 text-white hover:bg-red-600">
+                    <Button className="bg-red-500 text-white hover:bg-red-600 w-full">
                       Out of Stock
                     </Button>
                   )}
