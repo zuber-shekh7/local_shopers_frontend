@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { HiOutlineShoppingCart, HiOutlineXCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
-import { useLocation } from "react-router-dom";
 
 const CartPage = () => {
   const { productId } = useParams();
+  const [searchParams] = useSearchParams();
 
-  const location = useLocation();
-  const quantity = location.search ? Number(location.search.split("=")[1]) : 1;
+  const quantity = searchParams.get("quantity", 1);
+  const link = searchParams.get("link", "");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,9 +23,9 @@ const CartPage = () => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, quantity));
+      dispatch(addToCart(productId, link, quantity));
     }
-  }, [productId, quantity, dispatch]);
+  }, [productId, link, quantity, dispatch]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -65,12 +70,10 @@ const CartPage = () => {
                             <div className="flex items-center py-5 space-x-5 md:space-x-10">
                               <img
                                 className="h:8 w-8 md:h-24 md:w-24 rounded-lg object-cover"
-                                src={item.image}
+                                src={item.photo}
                                 alt={item.name}
                               />
-                              <Link
-                                to={`/business/products/${item.product._id}`}
-                              >
+                              <Link to={item.link}>
                                 <h2 className="text-lg md:text-2xl text-indigo-600">
                                   {item.name}
                                 </h2>

@@ -24,7 +24,13 @@ const ProductPage = () => {
   }, [productId, dispatch]);
 
   const addToCartHandler = () => {
-    navigate(`${routes.cart}/${productId}?quantity=${quantity}`);
+    const link = generateRoute(routes.getProduct, {
+      ":businessId": businessId,
+      ":categoryId": categoryId,
+      ":productId": productId,
+    });
+
+    navigate(`${routes.cart}/${productId}?quantity=${quantity}&link=${link}`);
   };
 
   const addToWishListHandler = (id) => {
