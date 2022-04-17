@@ -52,10 +52,10 @@ const Product = (props) => {
               <p>{product.description}</p>
 
               <div className="mb-3">
-                {product.quantity > 0 && (
+                {product.stock > 0 && (
                   <div>
                     <select
-                      className="w-full px-3 py-2 rounded-lg"
+                      className="w-full px-3 py-2 rounded-lg text-center"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                     >
@@ -69,18 +69,7 @@ const Product = (props) => {
                     </select>
                   </div>
                 )}
-                <div className="mb-3">
-                  <Button
-                    onClick={() => addToWishListHandler(product._id)}
-                    className="flex justify-center items-center space-x-1 w-full bg-indigo-50 border border-indigo-600 text-indigo-600 my-3 hover:bg-indigo-100"
-                    variant="warning"
-                  >
-                    <span>
-                      <HiOutlineStar />
-                    </span>
-                    <span>Add to Wishlist</span>
-                  </Button>
-
+                <div className="my-3">
                   {product.stock > 0 ? (
                     <Button
                       className="w-full flex justify-center items-center space-x-1"
@@ -96,6 +85,16 @@ const Product = (props) => {
                       Out of Stock
                     </Button>
                   )}
+                  <Button
+                    onClick={() => addToWishListHandler(product._id)}
+                    className="flex justify-center items-center space-x-1 w-full bg-indigo-50 border border-indigo-600 text-indigo-600 my-3 hover:bg-indigo-100"
+                    variant="warning"
+                  >
+                    <span>
+                      <HiOutlineStar />
+                    </span>
+                    <span>Add to Wishlist</span>
+                  </Button>
                 </div>
               </div>
             </div>
