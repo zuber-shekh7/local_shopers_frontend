@@ -27,7 +27,28 @@ const Product = (props) => {
           <div className="col-span-6">
             <div>
               <h2>{product.name}</h2>
-              <h2 className="text-indigo-600">₹ {product.price}/-</h2>
+              <ul>
+                <li>
+                  <p>M.R.P.: ₹ {product.price}</p>
+                </li>
+                <li>
+                  <p>
+                    Price:{" "}
+                    <span className="text-indigo-600 text-xl font-medium">
+                      ₹ {product.discountPrice}
+                    </span>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    You Save:{" "}
+                    <span className="text-indigo-600 text-xl font-medium">
+                      ₹ {product.price - product.discountPrice} (
+                      {product.discount}%)
+                    </span>
+                  </p>
+                </li>
+              </ul>
               <p>{product.description}</p>
 
               <div className="mb-3">
