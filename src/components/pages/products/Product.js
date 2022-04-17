@@ -1,6 +1,10 @@
 import React from "react";
-import { HiOutlineShoppingCart, HiOutlineStar } from "react-icons/hi";
-import { Button } from "../../buttons";
+import {
+  HiOutlineShare,
+  HiOutlineShoppingCart,
+  HiOutlineStar,
+} from "react-icons/hi";
+import { Button, CircleButton } from "../../buttons";
 
 const Product = (props) => {
   const {
@@ -8,6 +12,7 @@ const Product = (props) => {
     addToCartHandler,
     addToWishListHandler,
     quantity,
+    shareLink,
     setQuantity,
   } = props;
 
@@ -26,7 +31,12 @@ const Product = (props) => {
           </div>
           <div className="col-span-6">
             <div>
-              <h2>{product.name}</h2>
+              <div className="flex justify-between items-center">
+                <h2>{product.name}</h2>
+                <CircleButton onClick={shareLink}>
+                  <HiOutlineShare className="h-6 w-6" />
+                </CircleButton>
+              </div>
               <ul>
                 <li>
                   <p>M.R.P.: ₹ {product.price}</p>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import clipboard from "clipboardy";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getProduct } from "../../actions/productActions";
 import { ProductLoader } from "../../components/pages/products";
 import Product from "../../components/pages/products/Product";
@@ -37,6 +38,18 @@ const ProductPage = () => {
 
   const addToWishListHandler = (id) => {
     navigate(`/users/wishlist/${id}`);
+  };
+
+  const shareLink = async () => {
+    console.log(window.location);
+    let link = generateRoute(routes.getProduct, {
+      ":businessId": businessId,
+      ":categoryId": categoryId,
+      ":productId": productId,
+    });
+
+    await clipboard.write(`${window.location.origin}${link}`);
+    toast.success("Product link copied successfully.");
   };
 
   return (
@@ -88,6 +101,7 @@ const ProductPage = () => {
             setQuantity={setQuantity}
             addToCartHandler={addToCartHandler}
             addToWishListHandler={addToWishListHandler}
+            shareLink={shareLink}
           />
         )}
       </section>
