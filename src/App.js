@@ -39,7 +39,11 @@ import AccountContainer from "./components/containers/AccountContainer";
 import SettingsPage from "./pages/users/SettingsPage";
 import { ProductsPage, ProductPage } from "./pages/products";
 import ShippingPage from "./pages/checkout/ShippingPage";
-import { OrderSummaryPage, PaymentsPage } from "./pages/checkout";
+import {
+  OrderSummaryPage,
+  PaymentsPage,
+  OrderSuccessPage,
+} from "./pages/checkout";
 
 const App = () => {
   return (
@@ -240,6 +244,10 @@ const App = () => {
                 exact
                 path={routes.orderSummary}
                 element={<OrderSummaryPage />}
+              />
+              <Route
+                path={routes.orderSuccess}
+                element={<OrderSuccessPage />}
               />
             </Route>
           </Route>

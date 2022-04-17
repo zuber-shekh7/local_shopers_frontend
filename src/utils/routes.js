@@ -33,6 +33,7 @@ const routes = {
   checkout: "/checkout/shipping",
   payments: "/checkout/payments",
   orderSummary: "/checkout/order-summary",
+  orderSuccess: "/checkout/order/success",
 };
 
 export const generateRoute = (str, values) => {

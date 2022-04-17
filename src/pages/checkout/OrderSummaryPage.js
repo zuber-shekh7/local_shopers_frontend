@@ -8,7 +8,7 @@ import { Loader } from "../../components/loaders";
 import { Error } from "../../components/messages";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import HeaderContainer from "../../components/shared/HeaderContainer";
-import routes, { generateRoute } from "../../utils/routes";
+import routes from "../../utils/routes";
 
 const OrderSummaryPage = () => {
   const { cartItems, shippingAddress, paymentMethod, businessId } = useSelector(
@@ -25,12 +25,6 @@ const OrderSummaryPage = () => {
       navigate.push(routes.payments);
     }
   }, [paymentMethod, navigate]);
-
-  useEffect(() => {
-    if (order) {
-      navigate(generateRoute(routes.getOrder, { ":orderId": order._id }));
-    }
-  }, [order, navigate]);
 
   const subTotal = Number(
     cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
@@ -55,6 +49,10 @@ const OrderSummaryPage = () => {
       })
     );
   };
+
+  if (order) {
+    navigate(`${routes.orderSuccess}?orderId=${order._id}`);
+  }
 
   return (
     <main>
