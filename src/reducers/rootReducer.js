@@ -65,8 +65,8 @@ const initialState = {
     paymentMethod: localStorage.getItem("paymentMethod")
       ? localStorage.getItem("paymentMethod")
       : null,
-    business: localStorage.getItem("business")
-      ? localStorage.getItem("business")
+    businessId: localStorage.getItem("businessId")
+      ? localStorage.getItem("businessId")
       : null,
   },
   createOrder: { order: null },

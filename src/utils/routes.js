@@ -30,6 +30,9 @@ const routes = {
   forgotPassword: "/users/forgot-password",
   resetPassword: "/users/reset-password/:token",
   deactivateAccount: "/users/settings/deactivate-account",
+  checkout: "/checkout/shipping",
+  payments: "/checkout/payments",
+  orderSummary: "/checkout/order-summary",
 };
 
 export const generateRoute = (str, values) => {

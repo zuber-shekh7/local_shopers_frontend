@@ -30,7 +30,9 @@ const ProductPage = () => {
       ":productId": productId,
     });
 
-    navigate(`${routes.cart}/${productId}?quantity=${quantity}&link=${link}`);
+    navigate(
+      `${routes.cart}/${productId}?quantity=${quantity}&link=${link}&businessId=${businessId}`
+    );
   };
 
   const addToWishListHandler = (id) => {

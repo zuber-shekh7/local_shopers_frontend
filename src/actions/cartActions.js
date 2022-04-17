@@ -2,6 +2,7 @@ import backendAPI from "../apis/backendAPI";
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
+  SAVE_BUSINESS,
   SAVE_PAYMENT_METHOD,
   SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants";
@@ -58,4 +59,15 @@ export const savePaymentMethod = (paymentMethod) => async (dispatch) => {
   });
 
   localStorage.setItem("paymentMethod", paymentMethod);
+};
+
+export const saveBusiness = (id) => async (dispatch) => {
+  dispatch({
+    type: SAVE_BUSINESS,
+    payload: {
+      businessId: id,
+    },
+  });
+
+  localStorage.setItem("businessId", id);
 };

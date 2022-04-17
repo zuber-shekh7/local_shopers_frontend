@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAddresses } from "../../actions/addressActions";
 import { saveShippingAddress } from "../../actions/cartActions";
+import { Card } from "../../components/cards";
+import { Error } from "../../components/messages";
+import Breadcrumb from "../../components/shared/Breadcrumb";
+import HeaderContainer from "../../components/shared/HeaderContainer";
 import routes from "../../utils/routes";
 
-const ShippingPage = ({ history }) => {
+const ShippingPage = () => {
   const [address, setAddresss] = useState(null);
 
   const { user } = useSelector((state) => state.userLogin);
@@ -15,6 +19,7 @@ const ShippingPage = ({ history }) => {
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAddresses(user._id));
@@ -28,16 +33,30 @@ const ShippingPage = ({ history }) => {
     }
 
     dispatch(saveShippingAddress(address));
-    history.push("/checkout/payment");
+    navigate(routes.payments);
   };
 
   return (
     <main>
-      <section className="m-10 px-10 max-w-6xl mx-auto">
-        <h2 className="text-4xl font-semibold mb-3">Select Shipping Address</h2>
-        <hr className="mb-3" />
+      <HeaderContainer>
+        <h1>Select Shipping Address</h1>
+      </HeaderContainer>
+      <section className="container">
+        <Breadcrumb
+          links={[
+            {
+              name: "Back to cart",
+              to: routes.cart,
+            },
+            {
+              name: "shipping",
+              to: routes.checkout,
+            },
+          ]}
+        />
         <div className="grid grid-cols-1">
-          {loading && !addresses && (
+          {error && <Error />}
+          {loading && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {[...Array(6).fill(1)].map((value, index) => {
                 return (
@@ -60,10 +79,10 @@ const ShippingPage = ({ history }) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {addresses.map((address) => {
                     return (
-                      <div
+                      <Card
                         onClick={() => handleOnClick(address)}
                         key={address._id}
-                        className="bg-gray-50 border-2 rounded-lg px-4 py-4 shadow-lg hover:cursor-pointer hover:bg-gray-100 space-y-3"
+                        className="border shadow-lg hover:bg-indigo-50 hover:cursor-pointer"
                       >
                         <h2 className="text-2xl font-medium">
                           {address.fullName}
@@ -75,7 +94,7 @@ const ShippingPage = ({ history }) => {
                           {address.city}, {address.state}, {address.pincode}
                         </p>
                         <p>Phone Number: {address.mobileNumber}</p>
-                      </div>
+                      </Card>
                     );
                   })}
                 </div>

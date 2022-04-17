@@ -1,26 +1,36 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { createOrder } from "../../actions/orderActions";
+import { Button } from "../../components/buttons";
+import { Card } from "../../components/cards";
+import { Loader } from "../../components/loaders";
+import { Error } from "../../components/messages";
+import Breadcrumb from "../../components/shared/Breadcrumb";
+import HeaderContainer from "../../components/shared/HeaderContainer";
+import routes, { generateRoute } from "../../utils/routes";
 
-const OrderSummaryPage = ({ history }) => {
-  const { cartItems, shippingAddress, paymentMethod, business } = useSelector(
+const OrderSummaryPage = () => {
+  const { cartItems, shippingAddress, paymentMethod, businessId } = useSelector(
     (state) => state.cart
   );
 
   const { user } = useSelector((state) => state.userLogin);
   const { loading, order, error } = useSelector((state) => state.createOrder);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!paymentMethod) {
-      history.push("/checkout/payment");
+      navigate.push(routes.payments);
     }
-  }, [paymentMethod, history]);
+  }, [paymentMethod, navigate]);
 
   useEffect(() => {
     if (order) {
-      history.push(`/users/orders/${order._id}`);
+      navigate(generateRoute(routes.getOrder, { ":orderId": order._id }));
     }
-  }, [order, history]);
+  }, [order, navigate]);
 
   const subTotal = Number(
     cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
@@ -34,8 +44,8 @@ const OrderSummaryPage = ({ history }) => {
   const handlePlaceOrder = () => {
     dispatch(
       createOrder({
-        user_id: user._id,
-        business_id: business,
+        userId: user._id,
+        businessId: businessId,
         orderItems: cartItems,
         paymentMethod,
         shippingAddress,
@@ -48,91 +58,117 @@ const OrderSummaryPage = ({ history }) => {
 
   return (
     <main>
-      <section>
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="m-10 px-10">
-            <h1 className="text-4xl font-semibold mb-3">Order summary</h1>
-            <hr className="mb-3" />
-            <section>
-              <h2 className="text-2xl font-semibold mb-3">Shipping</h2>
-              <hr className="mb-3" />
-              <p className="text-lg mb-3">
+      <HeaderContainer>
+        <h1>Order Summary</h1>
+      </HeaderContainer>
+      <section className="container">
+        <Breadcrumb
+          links={[
+            {
+              name: "Back to cart",
+              to: routes.cart,
+            },
+            {
+              name: "shipping",
+              to: routes.checkout,
+            },
+            {
+              name: "payments",
+              to: routes.payments,
+            },
+            {
+              name: "order summary",
+              to: routes.orderSummary,
+            },
+          ]}
+        />
+        <div className="flex justify-center">
+          {loading && <Loader />}
+          {error && <Error />}
+        </div>
+        <Card className="border shadow-lg">
+          <div className="grid grid-cols-12">
+            <div className="col-span-12 md:col-span-4">
+              <h2>
+                Shipping Address{" "}
+                <sub>
+                  <Link
+                    className="text-indigo-600 text-xs"
+                    to={routes.checkout}
+                  >
+                    <span>Change</span>
+                  </Link>
+                </sub>
+              </h2>
+              <hr />
+              <p>
                 {shippingAddress.fullName}, {shippingAddress.city},{" "}
                 {shippingAddress.state}, {shippingAddress.pincode}
               </p>
-              <p className="text-lg mb-3">{shippingAddress.mobileNumber}</p>
-            </section>
-            <section>
-              <h2 className="text-2xl font-semibold mb-3">Payment</h2>
-              <hr className="mb-3" />
-              <p className="text-lg mb-3">{paymentMethod}</p>
-            </section>
-            <hr className="mb-3" />
-            <div>
-              <button
-                onClick={handlePlaceOrder}
-                disabled={cartItems.length === 0}
-                className="text-lg px-3 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600"
-              >
-                Place Order
-              </button>
+              <p>{shippingAddress.mobileNumber}</p>
             </div>
-          </div>
-          <div className="py-10 px-20 bg-indigo-50 h-screen border-t-2 md:border-l-2 border-indigo-300">
-            <section>
-              <h4 className="text-indigo-500 text-center text-4xl font-bold mb-10">
-                Local Shoppers
-              </h4>
+            <div className="col-span-12 md:col-span-4">
+              <h2>
+                Payment Method{" "}
+                <sub>
+                  <Link
+                    className="text-indigo-600 text-xs"
+                    to={routes.payments}
+                  >
+                    <span>Change</span>
+                  </Link>
+                </sub>
+              </h2>
+              <hr />
+              <p>{paymentMethod}</p>
+            </div>
+
+            {/* <div>
+                
+              </div> */}
+
+            <div className="col-span-12 md:col-span-4">
+              <h2>Order Summary</h2>
+              <hr />
               {cartItems.length > 0 && (
                 <div>
-                  {cartItems.map((item) => {
-                    return (
-                      <div key={item._id} className="mb-3">
-                        <div>
-                          <div className="grid grid-cols-12 items-center">
-                            <img
-                              className="col-span-2 h-12 rounded-lg"
-                              src={item.image}
-                              alt={item.name}
-                            />
-                            <div className="col-span-10 flex justify-between">
-                              <h3>{item.name}</h3>
-                              <h3>₹ {item.qty * item.price}/-</h3>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  <hr className="mb-3" />
                   <div>
-                    <div className="flex justify-between mb-3">
-                      <p>Total items</p>
+                    <div className="flex justify-between">
+                      <strong>Total items</strong>
                       <p>
                         {cartItems.reduce((acc, item) => acc + item.qty, 0)}
                       </p>
                     </div>
 
-                    <div className="flex justify-between mb-3">
-                      <p>Subtotal</p>
+                    <div className="flex justify-between">
+                      <strong>Subtotal</strong>
                       <p>₹ {subTotal}/-</p>
                     </div>
 
-                    <div className="flex justify-between mb-3">
-                      <p>Shipping Charges</p>
+                    <div className="flex justify-between">
+                      <strong>Shipping Charges</strong>
                       <p>₹ {shippingCharges}/-</p>
                     </div>
-                    <hr className="mb-3" />
+                    <hr />
                     <div className="flex justify-between">
                       <p className="text-3xl font-semibold">Total</p>
-                      <p className="text-3xl font-semibold">₹ {totalPrice}/-</p>
+                      <p className="text-3xl font-semibold text-indigo-600">
+                        ₹ {totalPrice}/-
+                      </p>
                     </div>
+                    <Button
+                      onClick={handlePlaceOrder}
+                      disabled={cartItems.length === 0}
+                      className="w-full"
+                    >
+                      Place your order
+                    </Button>
                   </div>
                 </div>
               )}
-            </section>
+            </div>
           </div>
-        </div>
+        </Card>
       </section>
     </main>
   );

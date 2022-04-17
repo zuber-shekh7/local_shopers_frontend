@@ -36,7 +36,7 @@ const OrderItem = (props) => {
                 >
                   <img
                     className="col-span-2 object-cover rounded-lg"
-                    src={orderItem.image}
+                    src={orderItem.photo}
                     alt={orderItem.name}
                   />
 

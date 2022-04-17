@@ -38,6 +38,8 @@ import { OrderPage, OrdersPage } from "./pages/orders";
 import AccountContainer from "./components/containers/AccountContainer";
 import SettingsPage from "./pages/users/SettingsPage";
 import { ProductsPage, ProductPage } from "./pages/products";
+import ShippingPage from "./pages/checkout/ShippingPage";
+import { OrderSummaryPage, PaymentsPage } from "./pages/checkout";
 
 const App = () => {
   return (
@@ -228,6 +230,17 @@ const App = () => {
                 element={<ProductsPage />}
               />
               <Route exact path={routes.getProduct} element={<ProductPage />} />
+            </Route>
+          </Route>
+          <Route path="/checkout">
+            <Route element={<DefaultContainer />}>
+              <Route exact path={routes.checkout} element={<ShippingPage />} />
+              <Route exact path={routes.payments} element={<PaymentsPage />} />
+              <Route
+                exact
+                path={routes.orderSummary}
+                element={<OrderSummaryPage />}
+              />
             </Route>
           </Route>
         </Routes>

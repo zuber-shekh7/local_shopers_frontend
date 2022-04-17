@@ -7,7 +7,11 @@ import {
 } from "react-router-dom";
 import { HiOutlineShoppingCart, HiOutlineXCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../actions/cartActions";
+import {
+  addToCart,
+  removeFromCart,
+  saveBusiness,
+} from "../../actions/cartActions";
 
 const CartPage = () => {
   const { productId } = useParams();
@@ -15,6 +19,7 @@ const CartPage = () => {
 
   const quantity = searchParams.get("quantity", 1);
   const link = searchParams.get("link", "");
+  const businessId = searchParams.get("businessId", "");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,8 +29,9 @@ const CartPage = () => {
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, link, quantity));
+      dispatch(saveBusiness(businessId));
     }
-  }, [productId, link, quantity, dispatch]);
+  }, [productId, link, businessId, quantity, dispatch]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
