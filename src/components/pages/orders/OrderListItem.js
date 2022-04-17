@@ -42,7 +42,7 @@ const OrderListItem = (props) => {
           <Link to="" className="flex gap-x-5">
             <img
               className="h-24 rounded-lg"
-              src={order.orderItems[0].image}
+              src={order.orderItems[0].photo}
               alt={order.orderItems[0].name}
             />
             <h4>{order.orderItems[0].name}</h4>

@@ -1,24 +1,28 @@
 import React from "react";
 import { Card } from "../../cards";
+import OrderStatusButton from "./OrderStatusButton";
 
 const OrderItem = (props) => {
   const { order } = props;
 
   return (
-    <Card>
+    <Card className="shadow-lg">
       <div className="grid grid-cols-12">
         <div className="col-span-12 md:col-span-6 sm:px-2">
           <h2 className="uppercase">order | {order._id} </h2>
           <hr />
-          <h3>Shipping</h3>
+          <h2>Shipping</h2>
           <p>
             {order.shippingAddress.fullName}, {order.shippingAddress.city},{" "}
             {order.shippingAddress.state}, {order.shippingAddress.pincode}
           </p>
           <p>Mobile: {order.shippingAddress.mobileNumber}</p>
           <hr />
-          <h3>Payment</h3>
+          <h2>Payment</h2>
           <p>{order.paymentMethod}</p>
+          <hr />
+          <h2>Order Status</h2>
+          <OrderStatusButton status={order.status} />
         </div>
         <div className="col-span-12 md:col-span-6 sm:border-l sm:px-2">
           <h2>Order Items</h2>

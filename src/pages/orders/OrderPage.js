@@ -37,14 +37,14 @@ const OrderPage = () => {
               to: routes.getOrders,
             },
             {
-              name: "order summary",
+              name: "summary",
               to: `${routes.getOrders}${orderId}`,
             },
           ]}
         />
         {error && <Error />}
         {loading && <OrderLoader />}
-        <Order order={order} />
+        {order && <Order order={order} />}
       </section>
     </main>
   );
