@@ -41,7 +41,6 @@ const ProductPage = () => {
   };
 
   const shareLink = async () => {
-    console.log(window.location);
     let link = generateRoute(routes.getProduct, {
       ":businessId": businessId,
       ":categoryId": categoryId,

@@ -1,4 +1,6 @@
 import React from "react";
+import routes, { generateRoute } from "../../../utils/routes";
+import { LinkButton } from "../../buttons";
 import { Card } from "../../cards";
 import OrderStatusButton from "./OrderStatusButton";
 
@@ -13,13 +15,33 @@ const OrderItem = (props) => {
           <hr />
           <h2>Shipping</h2>
           <p>
-            {order.shippingAddress.fullName}, {order.shippingAddress.city},{" "}
-            {order.shippingAddress.state}, {order.shippingAddress.pincode}
+            {order.shippingInfo.fullName}, {order.shippingInfo.city},{" "}
+            {order.shippingInfo.state}, {order.shippingInfo.pincode}
           </p>
-          <p>Mobile: {order.shippingAddress.mobileNumber}</p>
+          <p>Mobile: {order.shippingInfo.mobileNumber}</p>
           <hr />
-          <h2>Payment</h2>
-          <p>{order.paymentMethod}</p>
+          <div className="flex  items-center gap-x-2 mb-2">
+            <h2 className="mb-0">Payment</h2>
+            <div>
+              <LinkButton
+                className="px-1 py-1 text-xs"
+                to={generateRoute(routes.orderPayment, {
+                  ":orderId": order._id,
+                })}
+              >
+                {order.paymentInfo.status === "Pending"
+                  ? "Pay Now"
+                  : "View Details"}
+              </LinkButton>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <p>Method: {order.paymentMethod}</p>
+              <p>Status: {order.paymentInfo.status}</p>
+            </div>
+          </div>
           <hr />
           <h2>Order Status</h2>
           <OrderStatusButton status={order.status} />
@@ -46,7 +68,7 @@ const OrderItem = (props) => {
 
                   <div className="col-span-10 flex justify-between">
                     <h3>{orderItem.name}</h3>
-                    <h3>₹ {orderItem.qty * orderItem.price}/-</h3>
+                    <h3>₹ {orderItem.qty * orderItem.discountPrice}/-</h3>
                   </div>
                 </div>
               );
@@ -55,12 +77,12 @@ const OrderItem = (props) => {
           <hr className="mb-3" />
           <div className="flex justify-between mb-3">
             <p className="font-semibold">Shipping Charges</p>
-            <p>₹ {order.shippingCharges}/-</p>
+            <p>₹ {order.shippingAmount}/-</p>
           </div>
           <div>
             <div className="flex justify-between">
               <p className="text-3xl font-semibold">Total</p>
-              <p className="text-3xl font-semibold">₹ {order.totalPrice}/-</p>
+              <p className="text-3xl font-semibold">₹ {order.totalAmount}/-</p>
             </div>
           </div>
         </div>

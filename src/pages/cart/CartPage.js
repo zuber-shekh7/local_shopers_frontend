@@ -88,7 +88,10 @@ const CartPage = () => {
                           </td>
 
                           <td className="text-lg md:text-xl text-indigo-600">
-                            ₹ {item.price}/-
+                            ₹ {item.discountPrice}{" "}
+                            <span className="text-gray-500 line-through">
+                              {item.price}
+                            </span>
                           </td>
                           <td>
                             <select
@@ -98,12 +101,13 @@ const CartPage = () => {
                                 dispatch(
                                   addToCart(
                                     item.product._id,
+                                    item.link,
                                     Number(e.target.value)
                                   )
                                 );
                               }}
                             >
-                              {[...Array(item.product.quantity).keys()].map(
+                              {[...Array(item.product.stock).keys()].map(
                                 (i, index) => {
                                   return (
                                     <option key={index} value={i + 1}>
@@ -116,7 +120,7 @@ const CartPage = () => {
                           </td>
                           <td className="text-xl">
                             <div className="flex justify-between">
-                              <span>₹ {item.price * item.qty}/-</span>
+                              <span>₹ {item.discountPrice * item.qty}/-</span>
                               <div className="flex items-center">
                                 <button
                                   onClick={() =>
@@ -137,12 +141,19 @@ const CartPage = () => {
                   <div>
                     <h6 className="text-lg md:text-2xl font-medium mb-3">
                       Sub Total of{" "}
-                      {cartItems.reduce((acc, item) => acc + item.qty, 0)} items
+                      {cartItems.reduce(
+                        (acc, item) => acc + Number(item.qty),
+                        0
+                      )}{" "}
+                      items
                     </h6>
                     <h4 className="text-lg md:text-xl font-semibold mb-3">
                       ₹{" "}
                       {cartItems
-                        .reduce((acc, item) => acc + item.price * item.qty, 0)
+                        .reduce(
+                          (acc, item) => acc + item.discountPrice * item.qty,
+                          0
+                        )
                         .toFixed(2)}{" "}
                       {"/-"}
                     </h4>

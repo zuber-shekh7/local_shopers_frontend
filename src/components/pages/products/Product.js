@@ -69,7 +69,7 @@ const Product = (props) => {
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                     >
-                      {[...Array(product.quantity).keys()].map((i) => {
+                      {[...Array(product.stock).keys()].map((i) => {
                         return (
                           <option key={i} value={i + 1}>
                             {i + 1}

@@ -34,15 +34,15 @@ import {
 } from "./pages/addresses";
 import { BusinessPage } from "./pages/business";
 import { CategoriesPage, CategoryPage } from "./pages/categories";
-import { OrderPage, OrdersPage } from "./pages/orders";
+import { OrderPage, OrdersPage, OrderPaymentPage } from "./pages/orders";
 import AccountContainer from "./components/containers/AccountContainer";
 import SettingsPage from "./pages/users/SettingsPage";
 import { ProductsPage, ProductPage } from "./pages/products";
 import ShippingPage from "./pages/checkout/ShippingPage";
 import {
   OrderSummaryPage,
-  PaymentsPage,
   OrderSuccessPage,
+  PaymentsPage,
 } from "./pages/checkout";
 
 const App = () => {
@@ -148,6 +148,14 @@ const App = () => {
                 element={
                   <PrivateRoute>
                     <OrderPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={routes.orderPayment}
+                element={
+                  <PrivateRoute>
+                    <OrderPaymentPage />
                   </PrivateRoute>
                 }
               />

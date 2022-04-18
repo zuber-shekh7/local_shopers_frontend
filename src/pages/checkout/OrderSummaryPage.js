@@ -8,7 +8,7 @@ import { Loader } from "../../components/loaders";
 import { Error } from "../../components/messages";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 import HeaderContainer from "../../components/shared/HeaderContainer";
-import routes from "../../utils/routes";
+import routes, { generateRoute } from "../../utils/routes";
 
 const OrderSummaryPage = () => {
   const { cartItems, shippingAddress, paymentMethod, businessId } = useSelector(
@@ -27,11 +27,11 @@ const OrderSummaryPage = () => {
   }, [paymentMethod, navigate]);
 
   const subTotal = Number(
-    cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    cartItems.reduce((acc, item) => acc + item.discountPrice * item.qty, 0)
   );
-  const tax = 0;
-  const shippingCharges = 100;
-  const totalPrice = Number(subTotal + tax + shippingCharges).toFixed(2);
+  const taxAmount = 0;
+  const shippingAmount = 100;
+  const totalAmount = Number(subTotal + taxAmount + shippingAmount).toFixed(2);
 
   const dispatch = useDispatch();
 
@@ -41,17 +41,20 @@ const OrderSummaryPage = () => {
         userId: user._id,
         businessId: businessId,
         orderItems: cartItems,
+        shippingInfo: shippingAddress,
         paymentMethod,
-        shippingAddress,
-        totalPrice,
-        tax,
-        shippingCharges,
+        paymentInfo: {
+          status: "Pending",
+        },
+        taxAmount,
+        shippingAmount,
+        totalAmount,
       })
     );
   };
 
   if (order) {
-    navigate(`${routes.orderSuccess}?orderId=${order._id}`);
+    navigate(generateRoute(routes.orderPayment, { ":orderId": order._id }));
   }
 
   return (
@@ -120,11 +123,6 @@ const OrderSummaryPage = () => {
               <hr />
               <p>{paymentMethod}</p>
             </div>
-
-            {/* <div>
-                
-              </div> */}
-
             <div className="col-span-12 md:col-span-4">
               <h2>Order Summary</h2>
               <hr />
@@ -134,7 +132,10 @@ const OrderSummaryPage = () => {
                     <div className="flex justify-between">
                       <strong>Total items</strong>
                       <p>
-                        {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                        {cartItems.reduce(
+                          (acc, item) => acc + Number(item.qty),
+                          0
+                        )}
                       </p>
                     </div>
 
@@ -145,13 +146,17 @@ const OrderSummaryPage = () => {
 
                     <div className="flex justify-between">
                       <strong>Shipping Charges</strong>
-                      <p>₹ {shippingCharges}/-</p>
+                      <p>₹ {shippingAmount}/-</p>
+                    </div>
+                    <div className="flex justify-between">
+                      <strong>Tax</strong>
+                      <p>₹ {taxAmount}/-</p>
                     </div>
                     <hr />
                     <div className="flex justify-between">
                       <p className="text-3xl font-semibold">Total</p>
                       <p className="text-3xl font-semibold text-indigo-600">
-                        ₹ {totalPrice}/-
+                        ₹ {totalAmount}/-
                       </p>
                     </div>
                     <Button

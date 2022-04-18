@@ -19,11 +19,11 @@ const OrderListItem = (props) => {
           </div>
           <div>
             <p className="uppercase">total</p>
-            <p>&#8377; {order.totalPrice}</p>
+            <p>&#8377; {order.totalAmount}</p>
           </div>
           <div>
             <p className="uppercase">ship to</p>
-            <p>{order.shippingAddress.fullName}</p>
+            <p>{order.shippingInfo.fullName}</p>
           </div>
 
           <div className="flex flex-col gap-y-3">

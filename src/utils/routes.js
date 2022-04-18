@@ -34,6 +34,7 @@ const routes = {
   payments: "/checkout/payments",
   orderSummary: "/checkout/order-summary",
   orderSuccess: "/checkout/order/success",
+  orderPayment: "/users/orders/:orderId/pay",
 };
 
 export const generateRoute = (str, values) => {

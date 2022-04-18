@@ -13,6 +13,7 @@ import {
   createOrderReducer,
   getOrdersReducer,
   getOrderReducer,
+  editOrderReducer,
 } from "./orderReducers";
 import { getProductReducer, getProductsReducer } from "./productReducers";
 import {
@@ -71,6 +72,7 @@ const initialState = {
   },
   createOrder: { order: null },
   getOrder: { order: null },
+  editOrder: { order: null },
   getOrders: { orders: null },
   changePassword: { success: null },
   sendPasswordResetEmail: { success: null },
@@ -98,6 +100,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   createOrder: createOrderReducer,
   getOrder: getOrderReducer,
+  editOrder: editOrderReducer,
   getOrders: getOrdersReducer,
   changePassword: changePasswordReducer,
   sendPasswordResetEmail: sendPasswordResetEmailReducer,
