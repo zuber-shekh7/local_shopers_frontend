@@ -15,7 +15,7 @@ import HeaderContainer from "../../components/shared/HeaderContainer";
 import routes from "../../utils/routes";
 
 const PaymentsPage = () => {
-  const { shippingAddress } = useSelector((state) => state.cart);
+  const { cartItems, shippingAddress } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,8 +23,10 @@ const PaymentsPage = () => {
   useEffect(() => {
     if (!shippingAddress) {
       navigate(routes.shipping);
+    } else if (cartItems.length === 0) {
+      return navigate(routes.cart);
     }
-  }, [navigate, shippingAddress]);
+  }, [navigate, cartItems, shippingAddress]);
 
   const handleClick = (paymentMethod) => {
     dispatch(savePaymentMethod(paymentMethod));

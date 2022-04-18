@@ -12,6 +12,7 @@ import routes from "../../utils/routes";
 const ShippingPage = () => {
   const [address, setAddresss] = useState(null);
 
+  const { cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.userLogin);
 
   const { loading, addresses, error } = useSelector(
@@ -22,8 +23,12 @@ const ShippingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getAddresses(user._id));
-  }, [user, dispatch]);
+    if (cartItems.length === 0) {
+      return navigate(routes.cart);
+    } else {
+      dispatch(getAddresses(user._id));
+    }
+  }, [user, cartItems.length, navigate, dispatch]);
 
   const handleOnClick = (selectedAddress) => {
     setAddresss(JSON.stringify(selectedAddress));

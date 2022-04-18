@@ -86,15 +86,17 @@ const CartPage = () => {
               },
             ]}
           />
-          <Button
-            onClick={handleClearCart}
-            className="bg-red-500 hover:bg-red-600"
-          >
-            <span className="flex justify-center items-center gap-x-2">
-              <HiOutlineTrash />
-              <span className="hidden md:block">Empty cart</span>
-            </span>
-          </Button>
+          {cartItems.length > 0 && (
+            <Button
+              onClick={handleClearCart}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              <span className="flex justify-center items-center gap-x-2">
+                <HiOutlineTrash />
+                <span className="hidden md:block">Empty cart</span>
+              </span>
+            </Button>
+          )}
         </div>
         <div className="flex justify-center">
           {loading && <Loader />}
