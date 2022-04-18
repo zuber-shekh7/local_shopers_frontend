@@ -14,6 +14,7 @@ import {
   EDIT_ORDER_FAIL,
 } from "../constants/orderConstants";
 import { extractError } from "../utils/helper";
+import { clearCart } from "./cartActions";
 
 export const createOrder = (orderData) => async (dispatch) => {
   try {
@@ -23,10 +24,9 @@ export const createOrder = (orderData) => async (dispatch) => {
 
     const { order } = data;
 
-    localStorage.setItem("cartItems", []);
-
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: order });
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: null });
+    dispatch(clearCart());
   } catch (err) {
     const error = err.response ? err.response.data.message : err.message;
     dispatch({ type: CREATE_ORDER_FAIL, payload: error });

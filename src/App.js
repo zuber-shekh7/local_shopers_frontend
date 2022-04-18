@@ -46,6 +46,9 @@ import {
 } from "./pages/checkout";
 
 const App = () => {
+  if (!localStorage.getItem("cartItems", null)) {
+    localStorage.setItem("cartItems", JSON.stringify([]));
+  }
   return (
     <>
       <Router>

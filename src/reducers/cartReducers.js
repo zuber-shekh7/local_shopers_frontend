@@ -1,5 +1,8 @@
 import {
   ADD_TO_CART,
+  GET_CART_ITEMS_FAIL,
+  GET_CART_ITEMS_REQUEST,
+  GET_CART_ITEMS_SUCCESS,
   REMOVE_FROM_CART,
   SAVE_BUSINESS,
   SAVE_PAYMENT_METHOD,
@@ -49,6 +52,25 @@ const cartReducer = (state = { cartItems: [] }, action) => {
       return {
         ...state,
         business: action.payload.business,
+      };
+    case GET_CART_ITEMS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        cartItems: null,
+      };
+    case GET_CART_ITEMS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        cartItems: action.payload,
+      };
+    case GET_CART_ITEMS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        cartItems: null,
       };
     default:
       return state;

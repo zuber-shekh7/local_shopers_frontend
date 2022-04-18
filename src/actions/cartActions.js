@@ -1,11 +1,15 @@
 import backendAPI from "../apis/backendAPI";
 import {
   ADD_TO_CART,
+  CLEAR_CART,
+  GET_CART_ITEMS_REQUEST,
+  GET_CART_ITEMS_SUCCESS,
   REMOVE_FROM_CART,
   SAVE_BUSINESS,
   SAVE_PAYMENT_METHOD,
   SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants";
+import { extractError } from "../utils/helper";
 
 export const addToCart = (id, link, quantity) => async (dispatch, getState) => {
   const { data } = await backendAPI.get(`/products/${id}`);
@@ -73,4 +77,31 @@ export const saveBusiness = (id) => async (dispatch) => {
   });
 
   localStorage.setItem("businessId", id);
+};
+
+export const getCartItems = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_CART_ITEMS_REQUEST,
+    });
+
+    dispatch({
+      type: GET_CART_ITEMS_SUCCESS,
+      payload: JSON.parse(localStorage.getItem("cartItems", [])),
+    });
+  } catch (err) {
+    const error = extractError(err);
+    dispatch({
+      type: GET_CART_ITEMS_SUCCESS,
+      payload: error,
+    });
+  }
+};
+
+export const clearCart = () => async (dispatch) => {
+  localStorage.setItem("cartItems", JSON.stringify([]));
+  dispatch({
+    type: CLEAR_CART,
+  });
+  dispatch(getCartItems());
 };
