@@ -39,7 +39,7 @@ const OrdersPage = () => {
         />
         <div className="flex justify-center">{error && <Error />}</div>
         {loading && <OrderListLoader />}
-        <OrderList orders={orders} />
+        {orders && <OrderList orders={orders} />}
       </section>
     </main>
   );

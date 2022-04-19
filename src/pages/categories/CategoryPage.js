@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { getCategory } from "../../actions/categoryActions";
 import { LinkButton } from "../../components/buttons";
 import Breadcrumb from "../../components/shared/Breadcrumb";
+import routes, { generateRoute } from "../../utils/routes";
 
 const CategoryPage = () => {
   const { businessId, categoryId } = useParams();
@@ -30,11 +31,13 @@ const CategoryPage = () => {
           links={[
             {
               name: "home",
-              to: `/business/${businessId}`,
+              to: generateRoute(routes.business, { ":businessId": businessId }),
             },
             {
               name: "categories",
-              to: `/business/${businessId}/categories`,
+              to: generateRoute(routes.getCategories, {
+                ":businessId": businessId,
+              }),
             },
             {
               name: category ? category.name : "category",
@@ -77,7 +80,10 @@ const CategoryPage = () => {
               <div className="flex justify-between items-center mb-2">
                 <h2>Best Sellers</h2>
                 <LinkButton
-                  to={`/business/${businessId}/categories/${categoryId}/products`}
+                  to={generateRoute(routes.getProducts, {
+                    ":businessId": businessId,
+                    ":categoryId": categoryId,
+                  })}
                 >
                   Explore
                 </LinkButton>
@@ -96,11 +102,15 @@ const CategoryPage = () => {
                             >
                               <div>
                                 <Link
-                                  to={`/business/${businessId}/categories/${categoryId}/products/${product._id}`}
+                                  to={generateRoute(routes.getProduct, {
+                                    ":businessId": businessId,
+                                    ":categoryId": categoryId,
+                                    ":productId": product._id,
+                                  })}
                                 >
                                   <img
                                     className="object-cover"
-                                    src={product.image}
+                                    src={product.photos[0].url}
                                     alt={product.name}
                                   />
                                 </Link>
@@ -111,7 +121,11 @@ const CategoryPage = () => {
                                 <div>
                                   <Link
                                     className="text-center px-3 py-3 text-lg bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-                                    to={`/business/products/${product._id}`}
+                                    to={generateRoute(routes.getProduct, {
+                                      ":businessId": businessId,
+                                      ":categoryId": categoryId,
+                                      ":productId": product._id,
+                                    })}
                                   >
                                     Shop Now
                                   </Link>

@@ -6,6 +6,7 @@ import { Error } from "../../components/messages";
 import CategoryList from "../../components/pages/business/CategoryList";
 import { CategoryListLoader } from "../../components/pages/categories";
 import Breadcrumb from "../../components/shared/Breadcrumb";
+import routes, { generateRoute } from "../../utils/routes";
 
 const CategoriesPage = () => {
   const { businessId } = useParams();
@@ -32,7 +33,7 @@ const CategoriesPage = () => {
           links={[
             {
               name: "home",
-              to: `/business/${businessId}`,
+              to: generateRoute(routes.business, { ":businessId": businessId }),
             },
             {
               name: "categories",

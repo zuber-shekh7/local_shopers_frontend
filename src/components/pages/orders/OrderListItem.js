@@ -19,11 +19,11 @@ const OrderListItem = (props) => {
           </div>
           <div>
             <p className="uppercase">total</p>
-            <p>&#8377; {order.totalPrice}</p>
+            <p>&#8377; {order.totalAmount}</p>
           </div>
           <div>
             <p className="uppercase">ship to</p>
-            <p>{order.shippingAddress.fullName}</p>
+            <p>{order.shippingInfo.fullName}</p>
           </div>
 
           <div className="flex flex-col gap-y-3">
@@ -42,7 +42,7 @@ const OrderListItem = (props) => {
           <Link to="" className="flex gap-x-5">
             <img
               className="h-24 rounded-lg"
-              src={order.orderItems[0].image}
+              src={order.orderItems[0].photo}
               alt={order.orderItems[0].name}
             />
             <h4>{order.orderItems[0].name}</h4>

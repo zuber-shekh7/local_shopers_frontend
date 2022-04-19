@@ -1,4 +1,5 @@
 import React from "react";
+import routes, { generateRoute } from "../../../utils/routes";
 import { LinkButton } from "../../buttons";
 import CategoryList from "./CategoryList";
 
@@ -12,7 +13,7 @@ const Business = (props) => {
           <div className="flex-1 space-y-5">
             <img
               className="h-96 w-full object-top object-cover rounded-lg"
-              src={business.image}
+              src={business.photo.url}
               alt={business.name}
             />
             <div className="text-center">
@@ -24,12 +25,16 @@ const Business = (props) => {
             <div>
               <div className="flex justify-between items-center mb-5">
                 <h2>Categories</h2>
-                <LinkButton to={`/business/${business._id}/categories`}>
+                <LinkButton
+                  to={generateRoute(routes.getCategories, {
+                    ":businessId": business._id,
+                  })}
+                >
                   Explore
                 </LinkButton>
               </div>
               <CategoryList
-                categories={business.categories}
+                categories={business.categories.slice(0, 3)}
                 business={business}
               />
             </div>

@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import clipboard from "clipboardy";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getProduct } from "../../actions/productActions";
 import { ProductLoader } from "../../components/pages/products";
 import Product from "../../components/pages/products/Product";
 import Breadcrumb from "../../components/shared/Breadcrumb";
 
-import routes from "../../utils/routes";
+import routes, { generateRoute } from "../../utils/routes";
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -24,11 +25,30 @@ const ProductPage = () => {
   }, [productId, dispatch]);
 
   const addToCartHandler = () => {
-    navigate(`${routes.cart}/${productId}?quantity=${quantity}`);
+    const link = generateRoute(routes.getProduct, {
+      ":businessId": businessId,
+      ":categoryId": categoryId,
+      ":productId": productId,
+    });
+
+    navigate(
+      `${routes.cart}/${productId}?quantity=${quantity}&link=${link}&businessId=${businessId}`
+    );
   };
 
   const addToWishListHandler = (id) => {
     navigate(`/users/wishlist/${id}`);
+  };
+
+  const shareLink = async () => {
+    let link = generateRoute(routes.getProduct, {
+      ":businessId": businessId,
+      ":categoryId": categoryId,
+      ":productId": productId,
+    });
+
+    await clipboard.write(`${window.location.origin}${link}`);
+    toast.success("Product link copied successfully.");
   };
 
   return (
@@ -43,19 +63,27 @@ const ProductPage = () => {
           links={[
             {
               name: "home",
-              to: `/business/${businessId}`,
+              to: generateRoute(routes.business, { ":businessId": businessId }),
             },
             {
               name: "categories",
-              to: `/business/${businessId}/categories`,
+              to: generateRoute(routes.getCategories, {
+                ":businessId": businessId,
+              }),
             },
             {
               name: "category",
-              to: `/business/${businessId}/categories/${categoryId}`,
+              to: generateRoute(routes.getCategories, {
+                ":businessId": businessId,
+                ":categoryId": categoryId,
+              }),
             },
             {
               name: "products",
-              to: `/business/${businessId}/categories/${categoryId}/products`,
+              to: generateRoute(routes.getProducts, {
+                ":businessId": businessId,
+                ":categoryId": categoryId,
+              }),
             },
             {
               name: product ? product.name : "product",
@@ -65,13 +93,16 @@ const ProductPage = () => {
         />
         {error && <h5 className="text-center text-red-500">{error}</h5>}
         {loading && <ProductLoader />}
-        <Product
-          product={product}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          addToCartHandler={addToCartHandler}
-          addToWishListHandler={addToWishListHandler}
-        />
+        {product && (
+          <Product
+            product={product}
+            quantity={quantity}
+            setQuantity={setQuantity}
+            addToCartHandler={addToCartHandler}
+            addToWishListHandler={addToWishListHandler}
+            shareLink={shareLink}
+          />
+        )}
       </section>
     </main>
   );

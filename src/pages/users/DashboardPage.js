@@ -35,7 +35,7 @@ const DashboardPage = () => {
         {user && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-5">
             <Card className="hover:bg-indigo-100 transition duration-500">
-              <Link className="flex space-x-2" to="/users/orders">
+              <Link className="flex space-x-2" to={routes.getOrders}>
                 <div>
                   <HiOutlineFolderOpen className="h-8 w-8" />
                 </div>
@@ -46,7 +46,7 @@ const DashboardPage = () => {
               </Link>
             </Card>
             <Card className="hover:bg-indigo-100 transition duration-500">
-              <Link className="flex space-x-2" to="/users/profile/">
+              <Link className="flex space-x-2" to={routes.profile}>
                 <div>
                   <HiOutlineUserCircle className="h-8 w-8" />
                 </div>
@@ -57,7 +57,7 @@ const DashboardPage = () => {
               </Link>
             </Card>
             <Card className="hover:bg-indigo-100 transition duration-500">
-              <Link className="flex space-x-2" to="/users/addresses">
+              <Link className="flex space-x-2" to={routes.getAddresses}>
                 <div>
                   <HiOutlineLocationMarker className="h-8 w-8" />
                 </div>
@@ -68,7 +68,7 @@ const DashboardPage = () => {
               </Link>
             </Card>
             <Card className="hover:bg-indigo-100 transition duration-500">
-              <Link className="flex space-x-2" to="/users/wishlist">
+              <Link className="flex space-x-2" to={routes.wishList}>
                 <div>
                   <HiOutlineStar className="h-8 w-8" />
                 </div>

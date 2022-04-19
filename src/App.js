@@ -34,12 +34,21 @@ import {
 } from "./pages/addresses";
 import { BusinessPage } from "./pages/business";
 import { CategoriesPage, CategoryPage } from "./pages/categories";
-import { OrderPage, OrdersPage } from "./pages/orders";
+import { OrderPage, OrdersPage, OrderPaymentPage } from "./pages/orders";
 import AccountContainer from "./components/containers/AccountContainer";
 import SettingsPage from "./pages/users/SettingsPage";
 import { ProductsPage, ProductPage } from "./pages/products";
+import ShippingPage from "./pages/checkout/ShippingPage";
+import {
+  OrderSummaryPage,
+  OrderSuccessPage,
+  PaymentsPage,
+} from "./pages/checkout";
 
 const App = () => {
+  if (!localStorage.getItem("cartItems", null)) {
+    localStorage.setItem("cartItems", JSON.stringify([]));
+  }
   return (
     <>
       <Router>
@@ -145,6 +154,14 @@ const App = () => {
                   </PrivateRoute>
                 }
               />
+              <Route
+                path={routes.orderPayment}
+                element={
+                  <PrivateRoute>
+                    <OrderPaymentPage />
+                  </PrivateRoute>
+                }
+              />
 
               <Route
                 exact
@@ -218,23 +235,30 @@ const App = () => {
               <Route exact path={routes.business} element={<BusinessPage />} />
               <Route
                 exact
-                path=":businessId/categories"
+                path={routes.getCategories}
                 element={<CategoriesPage />}
               />
+              <Route path={routes.getCategory} element={<CategoryPage />} />
               <Route
                 exact
-                path={routes.categories}
-                element={<CategoryPage />}
-              />
-              <Route
-                exact
-                path={`:businessId/categories/:categoryId/products`}
+                path={routes.getProducts}
                 element={<ProductsPage />}
               />
+              <Route exact path={routes.getProduct} element={<ProductPage />} />
+            </Route>
+          </Route>
+          <Route path="/checkout">
+            <Route element={<DefaultContainer />}>
+              <Route exact path={routes.checkout} element={<ShippingPage />} />
+              <Route exact path={routes.payments} element={<PaymentsPage />} />
               <Route
                 exact
-                path={`:businessId/categories/:categoryId/products/:productId`}
-                element={<ProductPage />}
+                path={routes.orderSummary}
+                element={<OrderSummaryPage />}
+              />
+              <Route
+                path={routes.orderSuccess}
+                element={<OrderSuccessPage />}
               />
             </Route>
           </Route>

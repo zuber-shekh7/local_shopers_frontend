@@ -9,7 +9,7 @@ import {
   getWishList,
   removeFromWishList,
 } from "../../actions/wishListActions";
-import routes from "../../utils/routes";
+import routes, { generateRoute } from "../../utils/routes";
 
 const WishListPage = () => {
   const {
@@ -107,10 +107,16 @@ const WishListPage = () => {
                         key={product._id}
                         className="w-full bg-gray-50 rounded-lg shadow-lg "
                       >
-                        <Link to={`/business/products/${product._id}`}>
+                        <Link
+                          to={generateRoute(routes.getProduct, {
+                            ":businessId": product.category.business,
+                            ":categoryId": product.category._id,
+                            ":productId": product._id,
+                          })}
+                        >
                           <img
                             className="rounded-t-lg object-cover"
-                            src={product.image}
+                            src={product.photos[0].url}
                             alt=""
                           />
                         </Link>

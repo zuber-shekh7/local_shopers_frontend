@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { HiMenu, HiMenuAlt1 } from "react-icons/hi";
 import { userLogout } from "../../actions/userActions";
 import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
 import { Logo } from "../logos";
+import { getCartItems } from "../../actions/cartActions";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,11 @@ const Navigation = () => {
 
   const { cartItems } = useSelector((state) => state.cart);
 
-  const noCartItems = cartItems.length;
+  let noCartItems = Array.isArray(cartItems) ? cartItems.length : 0;
+
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, [dispatch]);
 
   const handleUserLogout = () => {
     dispatch(userLogout());

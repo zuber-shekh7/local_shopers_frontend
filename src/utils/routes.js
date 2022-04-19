@@ -9,12 +9,15 @@ const routes = {
   termsOfService: "/terms-of-service",
   cart: "/users/cart",
   business: "/business/:businessId",
-  categories: "/business/:businessId/categories/:categoryId",
-  getProduct: "/business/products/:productId",
+  getCategories: "/business/:businessId/categories/",
+  getCategory: "/business/:businessId/categories/:categoryId",
+  getProducts: "/business/:businessId/categories/:categoryId/products/",
+  getProduct:
+    "/business/:businessId/categories/:categoryId/products/:productId",
   notFound: "*",
   dashboard: "/users/account",
-  profile: "/users/profile",
   settings: "/users/settings",
+  profile: "/users/profile",
   editProfile: "/users/profile/edit",
   getAddresses: "/users/addresses",
   getAddress: "/users/addresses/:addressId",
@@ -27,6 +30,19 @@ const routes = {
   forgotPassword: "/users/forgot-password",
   resetPassword: "/users/reset-password/:token",
   deactivateAccount: "/users/settings/deactivate-account",
+  checkout: "/checkout/shipping",
+  payments: "/checkout/payments",
+  orderSummary: "/checkout/order-summary",
+  orderSuccess: "/checkout/order/success",
+  orderPayment: "/users/orders/:orderId/pay",
+};
+
+export const generateRoute = (str, values) => {
+  let route = str;
+  for (let key in values) {
+    route = route.replace(key, values[key]);
+  }
+  return route;
 };
 
 export default routes;

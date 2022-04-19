@@ -9,6 +9,7 @@ import {
   ProductListLoader,
 } from "../../components/pages/products";
 import Breadcrumb from "../../components/shared/Breadcrumb";
+import routes, { generateRoute } from "../../utils/routes";
 
 const ProductsPage = () => {
   const { businessId, categoryId } = useParams();
@@ -37,15 +38,20 @@ const ProductsPage = () => {
           links={[
             {
               name: "home",
-              to: `/business/${businessId}`,
+              to: generateRoute(routes.business, { ":businessId": businessId }),
             },
             {
               name: "categories",
-              to: `/business/${businessId}/categories`,
+              to: generateRoute(routes.getCategories, {
+                ":businessId": businessId,
+              }),
             },
             {
               name: category ? category.name : "category",
-              to: `/business/${businessId}/categories/${categoryId}`,
+              to: generateRoute(routes.getCategory, {
+                ":businessId": businessId,
+                ":categoryId": categoryId,
+              }),
             },
             {
               name: "products",
@@ -55,7 +61,7 @@ const ProductsPage = () => {
         />
         {error && <Error />}
         {loading && <ProductListLoader />}
-        <ProductList products={products} />
+        {products && <ProductList products={products} />}
       </section>
     </main>
   );
