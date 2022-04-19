@@ -40,7 +40,11 @@ const ProductList = (props) => {
                       <div>
                         <Link
                           className="text-center px-3 py-3 text-lg bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-                          to={`/business/products/${product._id}`}
+                          to={generateRoute(routes.getProduct, {
+                            ":businessId": businessId,
+                            ":categoryId": categoryId,
+                            ":productId": product._id,
+                          })}
                         >
                           Shop Now
                         </Link>
